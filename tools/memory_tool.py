@@ -30,8 +30,9 @@ import re
 import tempfile
 from contextlib import contextmanager
 from pathlib import Path
+from datetime import datetime, timezone
 from hermes_constants import get_hermes_home
-from typing import Dict, Any, List, Optional
+from typing import Dict, Any, List, Optional, Tuple
 
 from utils import atomic_replace
 
@@ -104,6 +105,113 @@ def _scan_memory_content(content: str) -> Optional[str]:
     return None
 
 
+# ── Hermes 2.8: Memory metadata ────────────────────────────────────────────
+
+MEMORY_TYPES = ("user_preference", "project_context", "feedback_rule", "working_principle", "memory")
+MEMORY_SCOPES = ("global", "project", "session")
+MEMORY_CONFIDENCE_LEVELS = ("high", "medium", "low")
+MEMORY_SOURCES = ("user", "inferred", "feedback")
+
+DEFAULT_METADATA = {
+    "type": "memory",
+    "scope": "global",
+    "confidence": "medium",
+    "source": "inferred",
+    "last_verified_at": "",
+}
+
+SCOPE_INJECTION_LIMITS = {
+    "global": 20,
+    "project": 30,
+    "session": 20,
+}
+
+_FRONTMATTER_RE = re.compile(r'^---\s*\n(.*?)\n---\s*\n', re.DOTALL)
+
+
+def parse_entry(entry_text: str) -> Tuple[Dict[str, Any], str]:
+    """Parse an entry, extracting YAML frontmatter and returning (metadata, body).
+
+    Entries without frontmatter get DEFAULT_METADATA.
+    """
+    match = _FRONTMATTER_RE.match(entry_text)
+    if not match:
+        return dict(DEFAULT_METADATA), entry_text.strip()
+
+    yaml_str = match.group(1)
+    body = entry_text[match.end():].strip()
+    metadata = dict(DEFAULT_METADATA)
+
+    for line in yaml_str.strip().split("\n"):
+        if ":" in line:
+            key, _, value = line.partition(":")
+            key = key.strip()
+            value = value.strip().strip('"').strip("'")
+            if key in DEFAULT_METADATA:
+                if key == "last_verified_at" and not value:
+                    value = datetime.now(timezone.utc).isoformat()
+                metadata[key] = value
+
+    return metadata, body
+
+
+def format_entry(metadata: Dict[str, Any], body: str) -> str:
+    """Format an entry with YAML frontmatter.
+
+    If all metadata fields match defaults, omit frontmatter (compact).
+    """
+    has_custom = any(
+        metadata.get(k) != DEFAULT_METADATA.get(k)
+        for k in ("type", "scope", "confidence", "source")
+    )
+    if not has_custom and not metadata.get("last_verified_at"):
+        return body
+
+    fm_lines = ["---"]
+    for k in ("type", "scope", "confidence", "source", "last_verified_at"):
+        v = metadata.get(k)
+        if v and (k != "last_verified_at" or v != DEFAULT_METADATA.get(k)):
+            fm_lines.append(f"{k}: {v}")
+    fm_lines.append("---")
+
+    return "\n".join(fm_lines) + "\n" + body
+
+
+class MemoryEntry:
+    """A single memory entry with parsed metadata and body content."""
+    __slots__ = ("body", "type", "scope", "confidence", "source", "last_verified_at")
+
+    def __init__(self, entry_text: str):
+        meta, self.body = parse_entry(entry_text)
+        self.type = meta.get("type", "memory")
+        self.scope = meta.get("scope", "global")
+        self.confidence = meta.get("confidence", "medium")
+        self.source = meta.get("source", "inferred")
+        self.last_verified_at = meta.get("last_verified_at", "")
+
+    @property
+    def raw_text(self) -> str:
+        """Reconstruct the full entry text (frontmatter + body)."""
+        meta = {
+            "type": self.type,
+            "scope": self.scope,
+            "confidence": self.confidence,
+            "source": self.source,
+            "last_verified_at": self.last_verified_at,
+        }
+        return format_entry(meta, self.body)
+
+    def to_dict(self) -> Dict[str, Any]:
+        return {
+            "type": self.type,
+            "scope": self.scope,
+            "confidence": self.confidence,
+            "source": self.source,
+            "last_verified_at": self.last_verified_at,
+            "body": self.body[:100] + ("..." if len(self.body) > 100 else ""),
+        }
+
+
 class MemoryStore:
     """
     Bounded curated memory with file persistence. One instance per AIAgent.
@@ -140,6 +248,58 @@ class MemoryStore:
             "memory": self._render_block("memory", self.memory_entries),
             "user": self._render_block("user", self.user_entries),
         }
+
+    # ── Hermes 2.8: Scope-based filtering ──
+
+    def _parse_entries(self, target: str) -> List[MemoryEntry]:
+        entries = self._entries_for(target)
+        return [MemoryEntry(e) for e in entries]
+
+    def get_entries_for_scope(self, target: str, scope: str, limit: int = 0) -> List[MemoryEntry]:
+        """Return entries filtered by scope, sorted by last_verified_at desc."""
+        parsed = self._parse_entries(target)
+        filtered = [e for e in parsed if e.scope == scope]
+
+        # Sort by last_verified_at descending (non-empty timestamps first)
+        def _sort_key(e: MemoryEntry) -> str:
+            return e.last_verified_at or "0000"
+        filtered.sort(key=_sort_key, reverse=True)
+
+        if limit and limit > 0:
+            filtered = filtered[:limit]
+        return filtered
+
+    def _render_scope_blocks(self, target: str) -> str:
+        """Render scope-filtered memory blocks with injection limits."""
+        entries = self._parse_entries(target)
+        if not entries:
+            return ""
+
+        blocks: List[str] = []
+        for scope in ("project", "global", "session"):
+            scope_entries = [e for e in entries if e.scope == scope]
+            if not scope_entries:
+                continue
+            limit = SCOPE_INJECTION_LIMITS.get(scope, 20)
+            scope_entries.sort(
+                key=lambda e: e.last_verified_at or "0000", reverse=True
+            )
+            scope_entries = scope_entries[:limit]
+
+            limit_val = self._char_limit(target)
+            content = ENTRY_DELIMITER.join(e.body for e in scope_entries)
+            current = len(content)
+            pct = min(100, int((current / limit_val) * 100)) if limit_val > 0 else 0
+
+            if target == "user":
+                header = f"USER ({scope}) [{pct}% — {current:,}/{limit_val:,} chars]"
+            else:
+                header = f"MEMORY ({scope}) [{pct}% — {current:,}/{limit_val:,} chars]"
+
+            separator = "─" * 42
+            blocks.append(f"{separator}\n{header}\n{separator}\n{content}")
+
+        return "\n\n".join(blocks) if blocks else ""
 
     @staticmethod
     @contextmanager
@@ -221,13 +381,28 @@ class MemoryStore:
             return self.user_char_limit
         return self.memory_char_limit
 
-    def add(self, target: str, content: str) -> Dict[str, Any]:
-        """Append a new entry. Returns error if it would exceed the char limit."""
+    def add(self, target: str, content: str, metadata: Dict[str, Any] = None) -> Dict[str, Any]:
+        """Append a new entry. Returns error if it would exceed the char limit.
+
+        Hermes 2.8: accepts optional metadata dict (type, scope, confidence, source).
+        Entries with custom metadata are stored with YAML frontmatter.
+        """
         content = content.strip()
         if not content:
             return {"success": False, "error": "Content cannot be empty."}
 
-        # Scan for injection/exfiltration before accepting
+        # Build full entry text (with frontmatter if metadata provided)
+        if metadata:
+            meta = dict(DEFAULT_METADATA)
+            for k in ("type", "scope", "confidence", "source"):
+                if k in metadata and metadata[k]:
+                    meta[k] = metadata[k]
+            meta["last_verified_at"] = datetime.now(timezone.utc).isoformat()
+            full_entry = format_entry(meta, content)
+        else:
+            full_entry = content
+
+        # Scan for injection/exfiltration against body content
         scan_error = _scan_memory_content(content)
         if scan_error:
             return {"success": False, "error": scan_error}
@@ -240,11 +415,11 @@ class MemoryStore:
             limit = self._char_limit(target)
 
             # Reject exact duplicates
-            if content in entries:
+            if full_entry in entries or content in entries:
                 return self._success_response(target, "Entry already exists (no duplicate added).")
 
             # Calculate what the new total would be
-            new_entries = entries + [content]
+            new_entries = entries + [full_entry]
             new_total = len(ENTRY_DELIMITER.join(new_entries))
 
             if new_total > limit:
@@ -253,14 +428,14 @@ class MemoryStore:
                     "success": False,
                     "error": (
                         f"Memory at {current:,}/{limit:,} chars. "
-                        f"Adding this entry ({len(content)} chars) would exceed the limit. "
+                        f"Adding this entry ({len(full_entry)} chars) would exceed the limit. "
                         f"Replace or remove existing entries first."
                     ),
                     "current_entries": entries,
                     "usage": f"{current:,}/{limit:,}",
                 }
 
-            entries.append(content)
+            entries.append(full_entry)
             self._set_entries(target, entries)
             self.save_to_disk(target)
 
@@ -360,16 +535,17 @@ class MemoryStore:
 
     def format_for_system_prompt(self, target: str) -> Optional[str]:
         """
-        Return the frozen snapshot for system prompt injection.
+        Return scope-filtered memory snapshot for system prompt injection.
 
-        This returns the state captured at load_from_disk() time, NOT the live
-        state. Mid-session writes do not affect this. This keeps the system
-        prompt stable across all turns, preserving the prefix cache.
-
-        Returns None if the snapshot is empty (no entries at load time).
+        Uses scope-based limits: global ≤20, project ≤30, session ≤20.
+        Mid-session writes do not affect this snapshot (frozen at load time).
         """
         block = self._system_prompt_snapshot.get(target, "")
         return block if block else None
+
+    def format_for_system_prompt_scoped(self, target: str) -> Optional[str]:
+        """Return scope-filtered snapshot (Hermes 2.8 lightweight memory)."""
+        return self._render_scope_blocks(target) or None
 
     # -- Internal helpers --
 
@@ -379,10 +555,19 @@ class MemoryStore:
         limit = self._char_limit(target)
         pct = min(100, int((current / limit) * 100)) if limit > 0 else 0
 
+        # Hermes 2.8: include parsed metadata for each entry
+        entries_meta = []
+        for e in entries:
+            try:
+                entries_meta.append(MemoryEntry(e).to_dict())
+            except Exception:
+                entries_meta.append({"body": e[:100]})
+
         resp = {
             "success": True,
             "target": target,
             "entries": entries,
+            "entries_meta": entries_meta,
             "usage": f"{pct}% — {current:,}/{limit:,} chars",
             "entry_count": len(entries),
         }
@@ -468,10 +653,16 @@ def memory_tool(
     content: str = None,
     old_text: str = None,
     store: Optional[MemoryStore] = None,
+    # Hermes 2.8: metadata params
+    entry_type: str = None,
+    scope: str = None,
+    confidence: str = None,
+    source: str = None,
 ) -> str:
     """
     Single entry point for the memory tool. Dispatches to MemoryStore methods.
 
+    Hermes 2.8: Supports entry_type, scope, confidence, source for structured memory.
     Returns JSON string with results.
     """
     if store is None:
@@ -483,7 +674,16 @@ def memory_tool(
     if action == "add":
         if not content:
             return tool_error("Content is required for 'add' action.", success=False)
-        result = store.add(target, content)
+        metadata = {}
+        if entry_type and entry_type in MEMORY_TYPES:
+            metadata["type"] = entry_type
+        if scope and scope in MEMORY_SCOPES:
+            metadata["scope"] = scope
+        if confidence and confidence in MEMORY_CONFIDENCE_LEVELS:
+            metadata["confidence"] = confidence
+        if source and source in MEMORY_SOURCES:
+            metadata["source"] = source
+        result = store.add(target, content, metadata=metadata if metadata else None)
 
     elif action == "replace":
         if not old_text:
@@ -497,8 +697,24 @@ def memory_tool(
             return tool_error("old_text is required for 'remove' action.", success=False)
         result = store.remove(target, old_text)
 
+    elif action == "read":
+        entries = store._entries_for(target)
+        meta_entries = []
+        for e in entries:
+            try:
+                meta_entries.append(MemoryEntry(e).to_dict())
+            except Exception:
+                meta_entries.append({"body": e[:100]})
+        result = {
+            "success": True,
+            "target": target,
+            "entries": entries,
+            "entries_meta": meta_entries,
+            "entry_count": len(entries),
+        }
+
     else:
-        return tool_error(f"Unknown action '{action}'. Use: add, replace, remove", success=False)
+        return tool_error(f"Unknown action '{action}'. Use: add, replace, remove, read", success=False)
 
     return json.dumps(result, ensure_ascii=False)
 
@@ -524,25 +740,42 @@ MEMORY_SCHEMA = {
         "- You discover something about the environment (OS, installed tools, project structure)\n"
         "- You learn a convention, API quirk, or workflow specific to this user's setup\n"
         "- You identify a stable fact that will be useful again in future sessions\n\n"
+        "WRITE STRATEGY (Hermes 2.8):\n"
+        "- User explicitly says 'remember': direct write\n"
+        "- User expresses same preference 2 consecutive times: suggest, wait for confirmation\n"
+        "- User strongly negates an output: write session-scoped feedback_rule\n"
+        "  - Same feedback repeats 2x: suggest upgrade to project/global\n"
+        "  - User says 'never do this again': direct write project/global\n"
+        "- Long-term project principles: write project_context at project/global scope\n"
+        "- Temporary task info: do NOT write\n\n"
         "PRIORITY: User preferences and corrections > environment facts > procedural knowledge. "
         "The most valuable memory prevents the user from having to repeat themselves.\n\n"
         "Do NOT save task progress, session outcomes, completed-work logs, or temporary TODO "
-        "state to memory; use session_search to recall those from past transcripts.\n"
-        "If you've discovered a new way to do something, solved a problem that could be "
-        "necessary later, save it as a skill with the skill tool.\n\n"
+        "state to memory; use session_search to recall those from past transcripts.\n\n"
         "TWO TARGETS:\n"
         "- 'user': who the user is -- name, role, preferences, communication style, pet peeves\n"
         "- 'memory': your notes -- environment facts, project conventions, tool quirks, lessons learned\n\n"
+        "MEMORY TYPES (entry_type):\n"
+        "- user_preference: user's long-term preferences\n"
+        "- project_context: current project rules and conventions\n"
+        "- feedback_rule: negative feedback on certain output patterns\n"
+        "- working_principle: working principles\n"
+        "- memory: general note (default)\n\n"
+        "SCOPE (scope):\n"
+        "- global: cross-project, always effective\n"
+        "- project: current git repo only\n"
+        "- session: current session only\n\n"
+        "CONFIDENCE (confidence): high | medium | low\n"
+        "SOURCE (source): user | inferred | feedback\n\n"
         "ACTIONS: add (new entry), replace (update existing -- old_text identifies it), "
-        "remove (delete -- old_text identifies it).\n\n"
-        "SKIP: trivial/obvious info, things easily re-discovered, raw data dumps, and temporary task state."
+        "remove (delete -- old_text identifies it), read (view all entries with metadata)."
     ),
     "parameters": {
         "type": "object",
         "properties": {
             "action": {
                 "type": "string",
-                "enum": ["add", "replace", "remove"],
+                "enum": ["add", "replace", "remove", "read"],
                 "description": "The action to perform."
             },
             "target": {
@@ -557,6 +790,26 @@ MEMORY_SCHEMA = {
             "old_text": {
                 "type": "string",
                 "description": "Short unique substring identifying the entry to replace or remove."
+            },
+            "entry_type": {
+                "type": "string",
+                "enum": ["user_preference", "project_context", "feedback_rule", "working_principle", "memory"],
+                "description": "Memory type (Hermes 2.8). Default: memory."
+            },
+            "scope": {
+                "type": "string",
+                "enum": ["global", "project", "session"],
+                "description": "Memory scope (Hermes 2.8). Default: global."
+            },
+            "confidence": {
+                "type": "string",
+                "enum": ["high", "medium", "low"],
+                "description": "Confidence level (Hermes 2.8). Default: medium."
+            },
+            "source": {
+                "type": "string",
+                "enum": ["user", "inferred", "feedback"],
+                "description": "Source of this memory (Hermes 2.8). Default: inferred."
             },
         },
         "required": ["action", "target"],
@@ -576,7 +829,12 @@ registry.register(
         target=args.get("target", "memory"),
         content=args.get("content"),
         old_text=args.get("old_text"),
-        store=kw.get("store")),
+        store=kw.get("store"),
+        entry_type=args.get("entry_type"),
+        scope=args.get("scope"),
+        confidence=args.get("confidence"),
+        source=args.get("source"),
+    ),
     check_fn=check_memory_requirements,
     emoji="🧠",
 )

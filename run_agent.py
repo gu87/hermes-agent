@@ -13529,9 +13529,32 @@ class AIAgent:
         _review_risks = []
         if tc is not None and completed and final_response:
             try:
+                # Sprint 3: populate LLM checks from memory if available
+                llm_results = None
+                memory_store = getattr(self, "_memory_store", None)
+                if memory_store is not None:
+                    try:
+                        mem_entries = memory_store._parse_entries("user")
+                        if mem_entries:
+                            dummy_llm = {
+                                "matches_user_preferences": {"question": "", "pass": None},
+                                "matches_project_context": {"question": "", "pass": None},
+                            }
+                            llm_results = self._review_gate.populate_llm_checks_from_memory(
+                                dummy_llm, mem_entries
+                            )
+                            # Only keep results that were actually populated
+                            llm_results = {
+                                k: v for k, v in llm_results.items()
+                                if v.get("pass") is not None
+                            }
+                    except Exception:
+                        pass  # memory is optional for review
+
                 review_result = self._review_gate.check(
                     task_card=tc,
                     result_summary=(final_response or "")[:500],
+                    llm_check_results=llm_results,
                 )
                 tc.review_result = review_result.to_dict()
                 save_task_card(tc)
