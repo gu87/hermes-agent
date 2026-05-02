@@ -215,7 +215,7 @@ def _build_skill_message(
         from agent.skill_utils import parse_skill_manifest, get_skill_restrictions, check_skill_permission_risk
         manifest = parse_skill_manifest(frontmatter)
         trust = manifest.get("trust", "installed")
-        restrictions = get_skill_restrictions(trust)
+        restrictions = get_skill_restrictions(trust, manifest.get("permissions", {}))
         if restrictions:
             parts.append("")
             parts.append(f"[Skill trust: {trust}]")

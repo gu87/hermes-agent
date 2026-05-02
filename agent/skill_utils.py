@@ -527,15 +527,27 @@ def parse_skill_manifest(frontmatter: Dict[str, Any]) -> Dict[str, Any]:
     }
 
 
-def get_skill_restrictions(trust: str) -> List[str]:
-    """Return restriction descriptions for the given trust level."""
-    if trust == BUNDLED:
+def get_skill_restrictions(trust: str, permissions: Dict[str, Any] = None) -> List[str]:
+    """Return applicable restriction descriptions for the given trust level.
+
+    Filters restrictions to only those relevant to the skill's actual permissions.
+    """
+    if trust in (BUNDLED, INSTALLED):
         return []
-    if trust == INSTALLED:
-        return []
-    if trust == UNTRUSTED:
-        return list(UNTRUSTED_RESTRICTIONS.values())
-    return list(UNTRUSTED_RESTRICTIONS.values())  # unknown → treat as untrusted
+    if permissions is None:
+        permissions = {}
+
+    restrictions = []
+    tools = permissions.get("tools", [])
+    if isinstance(tools, list) and ("bash" in tools or "terminal" in tools):
+        restrictions.append(UNTRUSTED_RESTRICTIONS.get("file_write", ""))
+    if permissions.get("network"):
+        restrictions.append(UNTRUSTED_RESTRICTIONS.get("network", ""))
+    if permissions.get("env"):
+        restrictions.append(UNTRUSTED_RESTRICTIONS.get("env_passthrough", ""))
+    if permissions.get("hooks"):
+        restrictions.append(UNTRUSTED_RESTRICTIONS.get("no_transform_hook", ""))
+    return restrictions
 
 
 def check_skill_permission_risk(manifest: Dict[str, Any]) -> List[str]:
