@@ -11,6 +11,8 @@ Design:
 """
 
 import logging
+import re
+from dataclasses import dataclass, field, asdict
 from typing import Any, Dict, List, Optional
 
 logger = logging.getLogger(__name__)
@@ -84,37 +86,22 @@ AGENT_CAPABILITIES: Dict[str, Dict[str, Any]] = {
 }
 
 
+@dataclass
 class RoutingDecision:
     """Result of the routing decision process."""
 
-    def __init__(
-        self,
-        mode: str,
-        agents: List[str],
-        reason: str,
-        routing_basis: List[str],
-        overrides: List[str],
-        fallback_plan: Optional[str] = None,
-        risk_level: str = "low",
-    ):
-        self.mode = mode  # self_execute | single_agent | pipeline | review_only
-        self.agents = agents
-        self.reason = reason
-        self.routing_basis = routing_basis  # what drove this decision
-        self.overrides = overrides  # any overrides applied over the default
-        self.fallback_plan = fallback_plan
-        self.risk_level = risk_level
+    mode: str  # self_execute | single_agent | pipeline | review_only
+    agents: List[str] = field(default_factory=list)
+    reason: str = ""
+    routing_basis: List[str] = field(default_factory=list)
+    overrides: List[str] = field(default_factory=list)
+    fallback_plan: Optional[str] = None
+    risk_level: str = "low"
 
     def to_dict(self) -> Dict[str, Any]:
-        return {
-            "mode": self.mode,
-            "agents": self.agents,
-            "delegation_reason": self.reason,
-            "routing_basis": self.routing_basis,
-            "overrides": self.overrides or [],
-            "fallback_plan": self.fallback_plan,
-            "risk_level": self.risk_level,
-        }
+        d = asdict(self)
+        d["delegation_reason"] = d.get("reason", "")
+        return d
 
 
 class AgentRouter:
@@ -167,16 +154,23 @@ class AgentRouter:
                 default_caps.update(caps)
             missing = set(required_capabilities) - default_caps
             if missing and mode != "self_execute":
-                # Check if another agent covers the missing caps
+                matched = False
                 for name, info in AGENT_CAPABILITIES.items():
                     if name in agents:
                         continue
-                    if set(required_capabilities).issubset(set(info.get("capabilities", []))):
+                    agent_caps = set(info.get("capabilities", []))
+                    if missing.issubset(agent_caps):
                         agents.append(name)
                         reason += f"; 需要 {missing} 能力，增加 {name}"
                         routing_basis.append("required_capability")
                         overrides.append("capability_expansion")
+                        matched = True
                         break
+                if not matched:
+                    logger.warning(
+                        "No single agent covers all required capabilities: %s (available: %s)",
+                        missing, list(AGENT_CAPABILITIES.keys()),
+                    )
 
         # Override 3: high risk → force pipeline + review gate
         if risk_level == "high" and mode == "self_execute":
@@ -222,13 +216,21 @@ class AgentRouter:
         """
         issues = []
         if agent_name == "claude_code":
-            # Claude Code must receive specific instructions, not vague requests
-            vague_patterns = ["优化一下", "改善性能", "改得好一点", "看着改"]
-            for pattern in vague_patterns:
-                if pattern in prompt:
-                    issues.append(f"Claude Code prompt 包含模糊指令 '{pattern}'，必须是明确修改")
-            if len(prompt) < 30:
-                issues.append("Claude Code prompt 太短，需要具体的修改描述")
+            # Claude Code must receive specific instructions, not vague requests.
+            # Check for specific indicators (file path, line number, parameter, etc.)
+            has_specific = bool(
+                re.search(r'\.(py|js|ts|json|yaml|yml|md|toml|cfg)\b', prompt)
+                or re.search(r'第?\s*\d+\s*[行列个条]', prompt)
+                or re.search(r'\b\w+\.\w+\b', prompt)
+                or re.search(r'(改为|改成|修改为|设置为|从.*改为)\s*\S', prompt)
+            )
+            if not has_specific:
+                if len(prompt) < 30:
+                    issues.append("Claude Code prompt 太短，需要具体的文件/函数/行号修改描述")
+                else:
+                    issues.append(
+                        "Claude Code prompt 缺少具体修改信息（文件路径、行号、函数名、参数修改等）"
+                    )
         return issues
 
     # ── Static helpers ──
