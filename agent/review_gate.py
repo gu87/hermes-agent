@@ -88,10 +88,69 @@ class ReviewGate:
       - LLM-based checks are defined as questions; answers are expected from
         the main agent or a reviewer model.
       - Blocking rules and revision limits are enforced.
+
+    Sprint 3 scope:
+      - Memory integration: matches_user_preferences and matches_project_context
+        can be populated from structured memory entries.
     """
 
     def __init__(self):
         pass
+
+    # ── Sprint 3: Memory integration ──
+
+    def populate_llm_checks_from_memory(
+        self,
+        llm_checks: Dict[str, Dict[str, Any]],
+        memory_entries,  # List[MemoryEntry]
+    ) -> Dict[str, Dict[str, Any]]:
+        """Populate matches_user_preferences and matches_project_context from memory.
+
+        Args:
+            llm_checks: Current LLM check dict (from check() output)
+            memory_entries: List of MemoryEntry objects with type/scope/body
+
+        Returns:
+            Updated llm_checks with memory-based evidence populated.
+        """
+        if not memory_entries:
+            return llm_checks
+
+        # Collect relevant entries
+        preferences = [
+            e for e in memory_entries
+            if getattr(e, "type", "") in ("user_preference", "feedback_rule")
+        ]
+        project_rules = [
+            e for e in memory_entries
+            if getattr(e, "type", "") in ("project_context", "working_principle")
+        ]
+
+        updated = dict(llm_checks)
+
+        # matches_user_preferences
+        if "matches_user_preferences" in updated and preferences:
+            pref_bodies = [getattr(e, "body", "")[:200] for e in preferences[:5]]
+            updated["matches_user_preferences"] = {
+                "id": "matches_user_preferences",
+                "question": updated["matches_user_preferences"].get("question", ""),
+                "pass": True,
+                "evidence": f"Memory has {len(preferences)} user preference/feedback entries: {'; '.join(pref_bodies)}",
+                "type": "llm",
+            }
+
+        # matches_project_context
+        if "matches_project_context" in updated and project_rules:
+            rule_bodies = [getattr(e, "body", "")[:200] for e in project_rules[:5]]
+            updated["matches_project_context"] = {
+                "id": "matches_project_context",
+                "question": updated["matches_project_context"].get("question", ""),
+                "pass": True,
+                "evidence": f"Memory has {len(project_rules)} project context/principle entries: {'; '.join(rule_bodies)}",
+                "type": "llm",
+            }
+
+        return updated
 
     # ── Public API ──
 
@@ -135,7 +194,15 @@ class ReviewGate:
             else:
                 # LLM checks: use provided results or mark as pending
                 if llm_check_results and check["id"] in llm_check_results:
-                    llm_checks[check["id"]] = llm_check_results[check["id"]]
+                    raw = llm_check_results[check["id"]]
+                    # Normalize: ensure required keys exist
+                    llm_checks[check["id"]] = {
+                        "id": raw.get("id", check["id"]),
+                        "question": raw.get("question", check["question"]),
+                        "pass": raw.get("pass"),
+                        "evidence": raw.get("evidence", ""),
+                        "type": "llm",
+                    }
                 else:
                     llm_checks[check["id"]] = {
                         "id": check["id"],

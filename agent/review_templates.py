@@ -94,6 +94,16 @@ REVIEW_TEMPLATES = {
                 "type": "llm",
             },
             {
+                "id": "matches_user_preferences",
+                "question": "是否符合用户（Gu）的已知偏好？",
+                "type": "llm",
+            },
+            {
+                "id": "matches_project_context",
+                "question": "是否符合当前项目（Hermes）的上下文和规则？",
+                "type": "llm",
+            },
+            {
                 "id": "has_result_summary",
                 "question": "是否有 result_summary？",
                 "type": "rule",
