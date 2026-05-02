@@ -345,13 +345,7 @@ class ReviewGate:
         if failed_blocking:
             reasons.append(f"结构性检查未通过: {failed_blocking}")
 
-        # Any other rule check fails (non-blocking rules)
-        failed_other = [
-            c["id"] for c in rule_checks.values()
-            if c.get("pass") is False and c["id"] not in BLOCKING_RULE_IDS
-        ]
-        if failed_other:
-            reasons.append(f"Rule checks 未通过: {failed_other}")
+        # Non-blocking rule failures go to risks, not reasons (don't block delivery)
 
         # Quality score < threshold and no revision yet
         if quality_score < QUALITY_THRESHOLD and revision_count < 1:
