@@ -58,6 +58,8 @@ from datetime import datetime
 from pathlib import Path
 
 from hermes_constants import get_hermes_home
+from agent.task_card import TaskCard, save_task_card
+from agent.session_event_log import EventLog
 
 
 _OPENAI_CLS_CACHE: Optional[type] = None
@@ -1709,6 +1711,9 @@ class AIAgent:
         # In-memory todo list for task planning (one per agent/session)
         from tools.todo_tool import TodoStore
         self._todo_store = TodoStore()
+
+        # Hermes 2.8: Event Log for task lifecycle traceability
+        self._event_log = EventLog()
         
         # Load config once for memory, skills, and compression sections
         try:
@@ -10843,7 +10848,37 @@ class AIAgent:
         # state registry.  Set BEFORE any tool dispatch so snapshots taken at
         # child-launch time see the parent's real id, not None.
         self._current_task_id = effective_task_id
-        
+
+        # ── Hermes 2.8: Build Task Card + Event Log ──
+        try:
+            task_card = TaskCard.create(
+                user_request=persist_user_message or user_message,
+                session_id=self.session_id,
+            )
+            save_task_card(task_card)
+            self._current_task_card = task_card
+            self._event_log.log_task_created(
+                task_id=task_card.task_id,
+                session_id=self.session_id,
+                task_category=task_card.compiled_intent.task_category,
+                execution_mode=task_card.execution_plan.mode,
+                raw_user_request_preview=(persist_user_message or user_message)[:200],
+            )
+            self._event_log.log_status_changed(
+                task_id=task_card.task_id,
+                session_id=self.session_id,
+                from_status="pending",
+                to_status="running",
+                reason="Task execution started",
+            )
+            self._event_log.log_execution_started(
+                task_id=task_card.task_id,
+                session_id=self.session_id,
+            )
+        except Exception:
+            logger.warning("Failed to create TaskCard / EventLog entry", exc_info=True)
+            self._current_task_card = None
+
         # Reset retry counters and iteration budget at the start of each turn
         # so subagent usage from a previous turn doesn't eat into the next one.
         self._invalid_tool_retries = 0
@@ -14435,6 +14470,48 @@ class AIAgent:
             )
         except Exception as exc:
             logger.warning("on_session_end hook failed: %s", exc)
+
+        # ── Hermes 2.8: Final event log entries ──
+        tc = getattr(self, "_current_task_card", None)
+        if tc is not None:
+            try:
+                if completed and not interrupted:
+                    self._event_log.log_execution_completed(
+                        task_id=tc.task_id,
+                        session_id=self.session_id,
+                        turn_count=api_call_count,
+                    )
+                    self._event_log.log_status_changed(
+                        task_id=tc.task_id,
+                        session_id=self.session_id,
+                        from_status="running",
+                        to_status="completed",
+                        reason="Task completed successfully",
+                    )
+                    tc.status = "completed"
+                    tc.result_summary = (final_response or "")[:500]
+                    save_task_card(tc)
+                elif not completed or interrupted:
+                    to_status = "partial" if interrupted else "failed"
+                    self._event_log.log_execution_failed(
+                        task_id=tc.task_id,
+                        session_id=self.session_id,
+                        error_type="interrupt" if interrupted else "incomplete",
+                        error_message=result.get("error", "Task did not complete"),
+                        retryable=True,
+                    )
+                    self._event_log.log_status_changed(
+                        task_id=tc.task_id,
+                        session_id=self.session_id,
+                        from_status="running",
+                        to_status=to_status,
+                        reason=result.get("error", "Task interrupted" if interrupted else "Task incomplete"),
+                    )
+                    tc.status = to_status
+                    tc.result_summary = (final_response or "")[:500]
+                    save_task_card(tc)
+            except Exception:
+                logger.warning("Failed to write completion events", exc_info=True)
 
         return result
 
