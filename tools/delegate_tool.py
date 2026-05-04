@@ -1265,6 +1265,9 @@ def _build_child_agent(
     child._subagent_effective_toolsets = child_toolsets
     child._subagent_effective_blocked = effective_blocked
     child._subagent_warnings = warnings
+    child._subagent_isolation = (
+        (profile or {}).get("isolation", "shared") if agent_id else "shared"
+    )
 
     # Share a credential pool with the child when possible so subagents can
     # rotate credentials on rate limits instead of getting pinned to one key.
@@ -1669,21 +1672,34 @@ def _run_single_child(
     # ── Phase A: subagent lifecycle event ─────────────────────────────
     _child_agent_id = getattr(child, "_subagent_agent_id", None)
     _child_role = getattr(child, "_delegate_role", "leaf")
-    _child_toolsets = getattr(child, "_subagent_effective_toolsets", [])
-    _child_blocked = getattr(child, "_subagent_effective_blocked", set())
+    _child_parent_sid = getattr(child, "_parent_subagent_id", None)
     _parent_task_id = getattr(parent_agent, "_current_task_id", None)
     _parent_session_id = getattr(parent_agent, "session_id", None)
+    # Sanitize values for JSON serialization (safe with MagicMock test doubles)
+    _safe_subagent_id = _subagent_id if isinstance(_subagent_id, str) else None
+    _safe_agent_id = _child_agent_id if isinstance(_child_agent_id, str) else None
+    _safe_role = _child_role if isinstance(_child_role, str) else "leaf"
+    _raw_toolsets = getattr(child, "_subagent_effective_toolsets", None)
+    _safe_toolsets = list(_raw_toolsets) if isinstance(_raw_toolsets, list) else []
+    _raw_blocked = getattr(child, "_subagent_effective_blocked", None)
+    _safe_blocked = sorted(_raw_blocked) if isinstance(_raw_blocked, (set, list)) else []
+    _raw_warnings = getattr(child, "_subagent_warnings", None)
+    _child_warnings = list(_raw_warnings) if isinstance(_raw_warnings, list) else []
+    _raw_isolation = getattr(child, "_subagent_isolation", None)
+    _child_isolation = (
+        _raw_isolation if isinstance(_raw_isolation, str) and _raw_isolation else "shared"
+    )
     _try_log_subagent_event(
         "started",
-        subagent_id=_subagent_id,
-        parent_id=_parent_sid if isinstance(_parent_sid, str) else None,
-        agent_id=_child_agent_id,
-        role=_child_role,
+        subagent_id=_safe_subagent_id,
+        parent_id=_child_parent_sid if isinstance(_child_parent_sid, str) else None,
+        agent_id=_safe_agent_id,
+        role=_safe_role,
         task_id=_parent_task_id,
         session_id=_parent_session_id,
         goal_preview=goal,
-        effective_toolsets=_child_toolsets,
-        blocked_tools=_child_blocked,
+        effective_toolsets=_safe_toolsets,
+        blocked_tools=_safe_blocked,
     )
 
     try:
@@ -1815,7 +1831,7 @@ def _run_single_child(
             _try_log_subagent_event(
                 "failed",
                 subagent_id=_subagent_id,
-                parent_id=_parent_sid if isinstance(_parent_sid, str) else None,
+                parent_id=_child_parent_sid if isinstance(_child_parent_sid, str) else None,
                 agent_id=_child_agent_id,
                 role=_child_role,
                 task_id=_parent_task_id,
@@ -1826,13 +1842,13 @@ def _run_single_child(
                 "task_index": task_index,
                 "status": "timeout" if is_timeout else "error",
                 "summary": None,
-                "subagent_id": _subagent_id,
-                "agent_id": _child_agent_id,
-                "role": _child_role,
-                "effective_toolsets": list(_child_toolsets or []),
-                "blocked_tools": sorted(_child_blocked) if _child_blocked else [],
-                "isolation": "shared",
-                "warnings": [],
+                "subagent_id": _safe_subagent_id,
+                "agent_id": _safe_agent_id,
+                "role": _safe_role,
+                "effective_toolsets": _safe_toolsets,
+                "blocked_tools": _safe_blocked,
+                "isolation": _child_isolation,
+                "warnings": _child_warnings,
                 "error": _err,
                 "exit_reason": "timeout" if is_timeout else "error",
                 "api_calls": child_api_calls,
@@ -1918,27 +1934,19 @@ def _run_single_child(
         _output_tokens = getattr(child, "session_completion_tokens", 0)
         _model = getattr(child, "model", None)
 
-        # Phase A: subagent profile metadata
-        _child_warnings = list(getattr(child, "_subagent_warnings", []) or [])
-        _child_isolation = (
-            (_resolved_profile or {}).get("isolation", "shared")
-            if _child_agent_id
-            else "shared"
-        )
-
         entry: Dict[str, Any] = {
             "task_index": task_index,
             "status": status,
             "summary": summary,
-            "subagent_id": _subagent_id,
-            "agent_id": _child_agent_id,
-            "role": _child_role,
+            "subagent_id": _safe_subagent_id,
+            "agent_id": _safe_agent_id,
+            "role": _safe_role,
             "api_calls": api_calls,
             "duration_seconds": duration,
             "model": _model if isinstance(_model, str) else None,
             "exit_reason": exit_reason,
-            "effective_toolsets": list(_child_toolsets or []),
-            "blocked_tools": sorted(_child_blocked) if _child_blocked else [],
+            "effective_toolsets": _safe_toolsets,
+            "blocked_tools": _safe_blocked,
             "isolation": _child_isolation,
             "warnings": _child_warnings,
             "tokens": {
@@ -2072,7 +2080,7 @@ def _run_single_child(
             _try_log_subagent_event(
                 "interrupted",
                 subagent_id=_subagent_id,
-                parent_id=_parent_sid if isinstance(_parent_sid, str) else None,
+                parent_id=_child_parent_sid if isinstance(_child_parent_sid, str) else None,
                 agent_id=_child_agent_id,
                 role=_child_role,
                 task_id=_parent_task_id,
@@ -2083,7 +2091,7 @@ def _run_single_child(
             _try_log_subagent_event(
                 "failed",
                 subagent_id=_subagent_id,
-                parent_id=_parent_sid if isinstance(_parent_sid, str) else None,
+                parent_id=_child_parent_sid if isinstance(_child_parent_sid, str) else None,
                 agent_id=_child_agent_id,
                 role=_child_role,
                 task_id=_parent_task_id,
@@ -2094,7 +2102,7 @@ def _run_single_child(
             _try_log_subagent_event(
                 "completed",
                 subagent_id=_subagent_id,
-                parent_id=_parent_sid if isinstance(_parent_sid, str) else None,
+                parent_id=_child_parent_sid if isinstance(_child_parent_sid, str) else None,
                 agent_id=_child_agent_id,
                 role=_child_role,
                 task_id=_parent_task_id,
@@ -2113,7 +2121,7 @@ def _run_single_child(
         _try_log_subagent_event(
             "failed",
             subagent_id=_subagent_id,
-            parent_id=_parent_sid if isinstance(_parent_sid, str) else None,
+            parent_id=_child_parent_sid if isinstance(_child_parent_sid, str) else None,
             agent_id=_child_agent_id,
             role=_child_role,
             task_id=_parent_task_id,
