@@ -3072,6 +3072,11 @@ def delegate_task(
     if parent_agent is None:
         return tool_error("delegate_task requires a parent agent context.")
 
+    logger.error(
+        "DELEGATE_ENTRY agent_id=%r role=%r toolsets=%r isolation=%r bg=%r",
+        agent_id, role, toolsets, isolation, run_in_background,
+    )
+
     # ── Phase A: agent_id / role mutual exclusion ──────────────────────
     if agent_id and role:
         return tool_error(
@@ -3218,6 +3223,12 @@ def delegate_task(
                 if (blocked_tools or task_blocked)
                 else None
             ) or None
+            logger.error(
+                "DELEGATE_CALL_BUILD task=%d effective_agent_id=%r top_agent_id=%r task_agent_id=%r has_config=%r has_profile=%r",
+                i, effective_agent_id, agent_id, task_agent_id,
+                bool(task_agent_config or _resolved_agent_config),
+                bool(task_profile or _resolved_profile),
+            )
             child = _build_child_agent(
                 task_index=i,
                 goal=t["goal"],
