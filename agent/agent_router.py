@@ -20,6 +20,9 @@ from typing import Any, Dict, List, Optional
 
 logger = logging.getLogger(__name__)
 
+VALID_RISK_LEVELS = {"low", "medium", "high"}
+VALID_ROUTING_MODES = {"self_execute", "single_agent", "pipeline", "review_only"}
+
 # ── Default routing rules ──
 # Maps task_category → (mode, capability, reason)
 
@@ -207,6 +210,14 @@ class AgentRouter:
         reason = default["reason"]
         routing_basis = ["task_category_default"]
         overrides: List[str] = []
+        user_override_locked = False
+
+        normalized_risk = (risk_level or "low").strip().lower()
+        if normalized_risk not in VALID_RISK_LEVELS:
+            logger.warning("Invalid risk_level=%r, falling back to low", risk_level)
+            normalized_risk = "low"
+            routing_basis.append("invalid_risk_level")
+            overrides.append("risk_level_normalized")
 
         # Resolve default agent from registry routing_rules via capability
         capability = default.get("capability")
@@ -225,8 +236,19 @@ class AgentRouter:
                 reason = f"用户显式指定使用 {user_agent_override}"
                 routing_basis.append("user_override")
                 overrides.append("user_override")
+                user_override_locked = True
             else:
                 logger.warning("Unknown agent override: %s", user_agent_override)
+                available = list(self._agents_map.keys())
+                return RoutingDecision(
+                    mode="review_only",
+                    agents=[],
+                    reason=f"用户指定的 Agent 不存在: {user_agent_override}",
+                    routing_basis=routing_basis + ["user_override_unknown"],
+                    overrides=overrides + ["user_override_unknown"],
+                    fallback_plan=f"请确认可用 agent: {available}",
+                    risk_level=normalized_risk,
+                )
 
         # Override 2: required capabilities not covered by default route
         if required_capabilities:
@@ -237,39 +259,81 @@ class AgentRouter:
                 default_caps.update(caps)
             missing = set(required_capabilities) - default_caps
             if missing:
-                matched = False
-                for name, info in self._agents_map.items():
-                    if name in agents:
-                        continue
-                    agent_caps = set(info.get("capabilities", []))
-                    if missing.issubset(agent_caps):
+                if user_override_locked:
+                    reason += f"; 用户指定 agent 缺少能力 {sorted(missing)}，未自动追加其他 agent"
+                    routing_basis.append("required_capability_gap")
+                    overrides.append("capability_gap_for_user_override")
+                else:
+                    added_agents = []
+                    remaining = set(missing)
+                    while remaining:
+                        best_name = None
+                        best_cover = set()
+                        for name, info in self._agents_map.items():
+                            if name in agents or name in added_agents:
+                                continue
+                            cover = set(info.get("capabilities", [])) & remaining
+                            if len(cover) > len(best_cover):
+                                best_name = name
+                                best_cover = cover
+                        if not best_name or not best_cover:
+                            logger.warning(
+                                "No agent combination covers required capabilities: %s (available: %s)",
+                                remaining, list(self._agents_map.keys()),
+                            )
+                            reason += f"; 未找到覆盖能力 {sorted(remaining)} 的 agent"
+                            routing_basis.append("required_capability_uncovered")
+                            overrides.append("capability_gap")
+                            break
+                        added_agents.append(best_name)
+                        remaining -= best_cover
+
+                    if added_agents:
+                        agents.extend(added_agents)
                         if mode == "self_execute":
-                            mode = "single_agent"
-                        agents.append(name)
-                        reason += f"; 需要 {missing} 能力，增加 {name}"
+                            mode = "single_agent" if len(agents) == 1 else "pipeline"
+                        elif mode == "single_agent" and len(agents) > 1:
+                            mode = "pipeline"
+                        reason += f"; 需要 {sorted(missing)} 能力，增加 {added_agents}"
                         routing_basis.append("required_capability")
                         overrides.append("capability_expansion")
-                        matched = True
-                        break
-                if not matched:
-                    logger.warning(
-                        "No single agent covers all required capabilities: %s (available: %s)",
-                        missing, list(self._agents_map.keys()),
-                    )
 
         # Override 3: high risk → force pipeline + review gate
-        if risk_level == "high" and mode == "self_execute":
+        if normalized_risk == "high":
             mode = "pipeline"
-            # Try to route via web_research capability
-            if self._routing_rules:
+            # Preserve explicit/expanded agents and add a review/research agent if needed.
+            if not agents and self._routing_rules:
                 research_agent = self._routing_rules.get("web_research")
                 if research_agent and research_agent in self._agents_map:
                     agents = [research_agent]
                 else:
                     agents = list(self._agents_map.keys())[:1]
+            elif self._routing_rules:
+                review_agent = self._routing_rules.get("strategy_decision") or self._routing_rules.get("web_research")
+                if review_agent and review_agent in self._agents_map and review_agent not in agents:
+                    agents.append(review_agent)
             reason += "; 高风险任务，强制走 pipeline + Review Gate"
             routing_basis.append("risk_level")
             overrides.append("risk_escalation")
+
+        if mode not in VALID_ROUTING_MODES:
+            logger.warning("Invalid routing mode=%r, falling back to self_execute", mode)
+            mode = "self_execute"
+            agents = []
+            routing_basis.append("invalid_mode")
+            overrides.append("mode_normalized")
+
+        if mode in ("single_agent", "pipeline") and not agents:
+            logger.warning("Routing mode %s had no agents; falling back to self_execute", mode)
+            reason += "; 路由未找到可用 agent，降级为主 Agent 自行处理"
+            mode = "self_execute"
+            routing_basis.append("empty_agent_fallback")
+            overrides.append("empty_agent_fallback")
+
+        if mode == "single_agent" and len(agents) > 1:
+            mode = "pipeline"
+            routing_basis.append("multi_agent_pipeline")
+            overrides.append("single_agent_promoted_to_pipeline")
 
         # Determine fallback plan
         fallback_plan = self._fallback_for(mode, agents)
@@ -281,12 +345,14 @@ class AgentRouter:
             routing_basis=routing_basis,
             overrides=overrides,
             fallback_plan=fallback_plan,
-            risk_level=risk_level,
+            risk_level=normalized_risk,
         )
 
     # ── Fallback ──
 
     def _fallback_for(self, mode: str, agents: List[str]) -> str:
+        if self._agents_map is None:
+            self._ensure_registry()
         if mode == "self_execute":
             return "主 Agent 自行完成"
         if mode == "single_agent" and agents:
@@ -305,7 +371,8 @@ class AgentRouter:
         Returns list of issues (empty = valid).
         """
         issues = []
-        if agent_name == "claude" or agent_name == "claude_code":
+        normalized = (agent_name or "").replace("_", "-").lower()
+        if normalized in {"claude", "claude-code", "codex"}:
             has_specific = bool(
                 re.search(r'\.(py|js|ts|json|yaml|yml|md|toml|cfg)\b', prompt)
                 or re.search(r'第?\s*\d+\s*[行列个条]', prompt)
@@ -313,12 +380,22 @@ class AgentRouter:
                 or re.search(r'(改为|改成|修改为|设置为|从.*改为)\s*\S', prompt)
             )
             if not has_specific:
+                label = "Codex CLI" if normalized == "codex" else "Claude Code"
                 if len(prompt) < 30:
-                    issues.append("Claude Code prompt 太短，需要具体的文件/函数/行号修改描述")
+                    issues.append(f"{label} prompt 太短，需要具体的文件/函数/行号修改描述")
                 else:
                     issues.append(
-                        "Claude Code prompt 缺少具体修改信息（文件路径、行号、函数名、参数修改等）"
+                        f"{label} prompt 缺少具体修改信息（文件路径、行号、函数名、参数修改等）"
                     )
+        elif normalized == "openclaw":
+            has_desktop_target = bool(
+                re.search(r'(截图|点击|输入|打开|切换|滚动|按|坐标|窗口|屏幕|App|应用|desktop|screenshot|click|type)', prompt, re.I)
+            )
+            if not has_desktop_target:
+                issues.append("OpenClaw prompt 缺少明确桌面动作或目标（如截图、点击、输入、打开 App）")
+        elif normalized == "kimi":
+            if len(prompt.strip()) < 20:
+                issues.append("Kimi 已降级且 prompt 太短；仅在用户明确要求 Kimi 且任务自包含时使用")
         return issues
 
     # ── Helpers ──
