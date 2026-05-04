@@ -25,6 +25,7 @@ def _write_test_registry(hermes_home: Path) -> Path:
             "kimi": {
                 "id": "kimi",
                 "type": "researcher",
+                "status": "deprecated",
                 "capabilities": ["web_search", "file_reading"],
             },
             "claude": {
@@ -32,10 +33,20 @@ def _write_test_registry(hermes_home: Path) -> Path:
                 "type": "file_executor",
                 "capabilities": ["file_modification", "script_execution", "system_operations"],
             },
+            "codex": {
+                "id": "codex",
+                "type": "code_executor",
+                "capabilities": ["code_review", "implementation_planning", "file_modification"],
+            },
+            "openclaw": {
+                "id": "openclaw",
+                "type": "desktop_operator",
+                "capabilities": ["desktop_control", "app_operation", "screenshot"],
+            },
             "hermes-internal": {
                 "id": "hermes-internal",
                 "type": "analyst",
-                "capabilities": ["analysis", "decision_making", "creative_planning"],
+                "capabilities": ["analysis", "decision_making", "creative_planning", "web_search", "file_reading"],
             },
             "deepseek-worker": {
                 "id": "deepseek-worker",
@@ -44,10 +55,12 @@ def _write_test_registry(hermes_home: Path) -> Path:
             },
         },
         "routing_rules": {
-            "web_research": "kimi",
-            "file_reading_analysis": "kimi",
+            "web_research": "hermes-internal",
+            "file_reading_analysis": "hermes-internal",
             "file_modification": "claude",
             "script_execution": "claude",
+            "code_review": "codex",
+            "desktop_control": "openclaw",
             "strategy_decision": "hermes-internal",
             "creative_direction": "hermes-internal",
         },
@@ -96,7 +109,7 @@ class TestRouting:
         router = AgentRouter()
         decision = router.route("research")
         assert decision.mode == "single_agent"
-        assert "kimi" in decision.agents
+        assert "hermes-internal" in decision.agents
 
     def test_route_unknown_category_self_execute(self, hermetic_registry):
         router = AgentRouter()
@@ -113,9 +126,9 @@ class TestRouting:
     def test_user_override_unknown_agent(self, hermetic_registry):
         router = AgentRouter()
         decision = router.route("research", user_agent_override="nonexistent")
-        # Falls back to default routing — kimi for research
+        # Falls back to default routing — Hermes internal for research
         assert decision.mode == "single_agent"
-        assert "kimi" in decision.agents
+        assert "hermes-internal" in decision.agents
 
     def test_high_risk_escalation(self, hermetic_registry):
         router = AgentRouter()
@@ -136,6 +149,8 @@ class TestRouting:
         agents = router.get_available_agents()
         assert "kimi" in agents
         assert "claude" in agents
+        assert "codex" in agents
+        assert "openclaw" in agents
 
     def test_get_agent_info(self, hermetic_registry):
         router = AgentRouter()
@@ -163,6 +178,21 @@ class TestRouting:
         decision = router.route("visual_design")
         # creative_direction → hermes-internal exists in routing_rules
         assert "hermes-internal" in decision.agents
+
+    def test_code_review_routes_to_codex(self, hermetic_registry):
+        router = AgentRouter()
+        decision = router.route("other", required_capabilities=["code_review"])
+        assert decision.mode == "single_agent"
+        assert decision.agents == ["codex"]
+
+    def test_desktop_control_route_available(self, hermetic_registry):
+        router = AgentRouter()
+        decision = router.route(
+            "other",
+            user_agent_override="openclaw",
+            required_capabilities=["desktop_control"],
+        )
+        assert decision.agents == ["openclaw"]
 
     def test_task_category_required_capability_complete(self):
         from agent.agent_router import DEFAULT_ROUTES

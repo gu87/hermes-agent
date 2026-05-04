@@ -32,7 +32,7 @@ DEFAULT_ROUTES: Dict[str, Dict[str, Any]] = {
     "code_analysis": {
         "mode": "pipeline",
         "capability": "file_reading_analysis",
-        "reason": "代码分析需先由 Kimi 搜集代码/文档，再由主 Agent 分析判断",
+        "reason": "代码分析先由当前可用研究/阅读 agent 收集材料，再由主 Agent 分析判断",
     },
     "brand_strategy": {
         "mode": "self_execute",
@@ -47,12 +47,12 @@ DEFAULT_ROUTES: Dict[str, Dict[str, Any]] = {
     "research": {
         "mode": "single_agent",
         "capability": "web_research",
-        "reason": "调研类任务适合 K2-thinking 的长上下文搜索能力",
+        "reason": "Kimi 已降级，调研默认由 Hermes 内部推理/当前主控能力处理",
     },
     "document": {
         "mode": "pipeline",
         "capability": "file_reading_analysis",
-        "reason": "文档类任务先由 Kimi 收集素材，再主 Agent 撰写整合",
+        "reason": "文档类任务先收集素材，再由主 Agent 撰写整合；Kimi 不再是默认素材收集 agent",
     },
     "prompt_design": {
         "mode": "self_execute",
@@ -84,15 +84,27 @@ TASK_CATEGORY_REQUIRED_CAPABILITY: Dict[str, Optional[str]] = {
 
 _FALLBACK_AGENT_CAPABILITIES: Dict[str, Dict[str, Any]] = {
     "kimi": {
-        "name": "Kimi (K2-thinking)",
+        "name": "Kimi (deprecated/manual-only)",
         "capabilities": ["web_search", "file_reading", "information_synthesis", "multi_file_analysis"],
-        "use_when": ["需要搜索网页", "需要读长文", "需要整理信息", "需要调研"],
+        "use_when": ["用户明确要求 Kimi 且本地仍可用"],
+        "constraint": "Kimi CLI 到期后不可作为默认研究路由",
     },
     "claude": {
         "name": "Claude Code",
         "capabilities": ["file_modification", "script_execution", "git_operations", "code_review"],
         "use_when": ["需要改代码", "需要执行脚本", "需要具体文件修改"],
         "constraint": "执行器而非思考器——收到的 prompt 需是明确的修改指令",
+    },
+    "codex": {
+        "name": "Codex CLI",
+        "capabilities": ["file_modification", "script_execution", "git_operations", "code_review", "implementation_planning"],
+        "use_when": ["需要 Codex 风格代码推理", "代码审查", "Claude Code 的执行备选"],
+    },
+    "openclaw": {
+        "name": "OpenClaw",
+        "capabilities": ["desktop_control", "app_operation", "screenshot", "macos_automation"],
+        "use_when": ["需要 macOS 桌面控制", "截图", "打开 App、点击、输入"],
+        "constraint": "外部桌面 operator，结果需要截图或命令输出确认",
     },
     "hermes-internal": {
         "name": "Hermes 内部推理",
@@ -224,13 +236,15 @@ class AgentRouter:
                 caps = agent_config.get("capabilities", [])
                 default_caps.update(caps)
             missing = set(required_capabilities) - default_caps
-            if missing and mode != "self_execute":
+            if missing:
                 matched = False
                 for name, info in self._agents_map.items():
                     if name in agents:
                         continue
                     agent_caps = set(info.get("capabilities", []))
                     if missing.issubset(agent_caps):
+                        if mode == "self_execute":
+                            mode = "single_agent"
                         agents.append(name)
                         reason += f"; 需要 {missing} 能力，增加 {name}"
                         routing_basis.append("required_capability")

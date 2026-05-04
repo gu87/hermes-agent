@@ -32,6 +32,7 @@ from tools.delegate_tool import (
     _strip_blocked_tools,
     _resolve_child_credential_pool,
     _resolve_delegation_credentials,
+    get_delegation_guidance,
 )
 
 
@@ -74,6 +75,54 @@ class TestDelegateRequirements(unittest.TestCase):
         # predictable budgets.
         self.assertNotIn("max_iterations", props)
         self.assertNotIn("maxItems", props["tasks"])  # removed — limit is now runtime-configurable
+
+    def test_named_agent_schema_matches_current_agent_roster(self):
+        props = DELEGATE_TASK_SCHEMA["parameters"]["properties"]
+        expected = {
+            "kimi",
+            "claude",
+            "codex",
+            "openclaw",
+            "hermes-internal",
+            "deepseek-worker",
+        }
+        self.assertEqual(set(props["agent_id"]["enum"]), expected)
+        self.assertEqual(set(props["tasks"]["items"]["properties"]["agent_id"]["enum"]), expected)
+
+    @patch("tools.delegate_tool._load_agent_registry")
+    def test_delegation_guidance_reflects_current_roster(self, mock_registry):
+        mock_registry.return_value = {
+            "agents": {
+                "kimi": {
+                    "type": "researcher",
+                    "status": "deprecated",
+                    "capabilities": ["web_search"],
+                    "subagent_profile": {"toolsets": ["web", "file"]},
+                },
+                "claude": {
+                    "type": "file_executor",
+                    "capabilities": ["file_modification", "script_execution"],
+                    "subagent_profile": {"toolsets": ["file", "terminal"]},
+                },
+                "codex": {
+                    "type": "code_executor",
+                    "capabilities": ["code_review", "implementation_planning"],
+                    "subagent_profile": {"toolsets": ["file", "terminal"]},
+                },
+                "openclaw": {
+                    "type": "desktop_operator",
+                    "capabilities": ["desktop_control", "screenshot"],
+                    "subagent_profile": {"toolsets": ["terminal", "file"]},
+                },
+            }
+        }
+
+        guidance = get_delegation_guidance()
+
+        self.assertIn("agent_id='codex'", guidance)
+        self.assertIn("agent_id='openclaw'", guidance)
+        self.assertIn("Kimi is deprecated/manual-only", guidance)
+        self.assertNotIn("When the user names kimi, ALWAYS delegate", guidance)
 
 
 class TestChildSystemPrompt(unittest.TestCase):
