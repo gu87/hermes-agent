@@ -3196,6 +3196,16 @@ def delegate_task(
             # Per-task role beats top-level; normalise again so unknown
             # per-task values warn and degrade to leaf uniformly.
             effective_role = _normalize_role(t.get("role") or top_role)
+            # Per-task agent_id — batch mode: each task can specify its own agent
+            task_agent_id = t.get("agent_id") if "agent_id" in t else None
+            effective_agent_id = task_agent_id or agent_id  # per-task beats top-level
+            task_agent_config = None
+            task_profile = None
+            if effective_agent_id:
+                try:
+                    task_agent_config, task_profile = _load_subagent_profile(effective_agent_id)
+                except ValueError:
+                    pass  # fall through: per-task profile load failure → skip agent_id path
             # Per-task blocked_tools — can only add to profile blocked
             task_blocked = t.get("blocked_tools") if "blocked_tools" in t else None
             effective_blocked = (
@@ -3225,13 +3235,13 @@ def delegate_task(
                     else (acp_args if acp_args is not None else creds.get("args"))
                 ),
                 role=effective_role,
-                agent_id=agent_id,
-                agent_config=_resolved_agent_config,
-                profile=_resolved_profile,
+                agent_id=effective_agent_id,
+                agent_config=task_agent_config or _resolved_agent_config,
+                profile=task_profile or _resolved_profile,
                 requested_blocked_tools=effective_blocked,
                 requested_isolation=t.get("isolation") if "isolation" in t else _requested_isolation,
-                profile_isolation=(_resolved_profile or {}).get("isolation") if _resolved_profile else None,
-                profile_permission_mode=(_resolved_profile or {}).get("permission_mode") if _resolved_profile else None,
+                profile_isolation=((task_profile or _resolved_profile) or {}).get("isolation") if (task_profile or _resolved_profile) else None,
+                profile_permission_mode=((task_profile or _resolved_profile) or {}).get("permission_mode") if (task_profile or _resolved_profile) else None,
             )
             # Override with correct parent tool names (before child construction mutated global)
             child._delegate_saved_tool_names = _parent_tool_names
@@ -3764,6 +3774,11 @@ DELEGATE_TASK_SCHEMA = {
                             "type": "string",
                             "enum": ["leaf", "orchestrator"],
                             "description": "Per-task role override. See top-level 'role' for semantics.",
+                        },
+                        "agent_id": {
+                            "type": "string",
+                            "enum": ["kimi", "claude", "hermes-internal", "deepseek-worker"],
+                            "description": "Per-task agent override. When set, this specific task uses the named agent's profile. In batch mode, each task can be routed to a different agent.",
                         },
                     },
                     "required": ["goal"],
