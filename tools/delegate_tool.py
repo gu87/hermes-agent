@@ -1962,11 +1962,6 @@ def _build_child_agent(
     child._subagent_goal = goal
     # Phase A: stash agent_id profile metadata for event logging
     child._subagent_agent_id = agent_id
-    logger.info(
-        "_build_child_agent: agent_id=%s effective_toolsets=%s effective_blocked=%s isolation=%s",
-        agent_id, child_toolsets, sorted(effective_blocked) if effective_blocked else [],
-        _effective_isolation,
-    )
     child._subagent_effective_toolsets = child_toolsets
     child._subagent_effective_blocked = effective_blocked
     child._subagent_warnings = warnings
@@ -2395,10 +2390,6 @@ def _run_single_child(
 
     # ── Phase A: subagent lifecycle event ─────────────────────────────
     _child_agent_id = getattr(child, "_subagent_agent_id", None)
-    logger.info(
-        "_run_single_child: subagent_id=%s agent_id=%s isolation=%s",
-        _raw_sid, _child_agent_id, getattr(child, "_subagent_isolation", None),
-    )
     _child_role = getattr(child, "_delegate_role", "leaf")
     _child_parent_sid = getattr(child, "_parent_subagent_id", None)
     _parent_task_id = getattr(parent_agent, "_current_task_id", None)
@@ -3091,12 +3082,6 @@ def delegate_task(
     if agent_id:
         try:
             _resolved_agent_config, _resolved_profile = _load_subagent_profile(agent_id)
-            logger.info(
-                "delegate_task: resolved agent_id=%s profile toolsets=%s isolation=%s",
-                agent_id,
-                _resolved_profile.get("toolsets"),
-                _resolved_profile.get("isolation"),
-            )
         except ValueError as exc:
             return tool_error(str(exc))
 
