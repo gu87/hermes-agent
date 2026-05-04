@@ -9182,6 +9182,10 @@ class AIAgent:
             acp_command=function_args.get("acp_command"),
             acp_args=function_args.get("acp_args"),
             role=function_args.get("role"),
+            agent_id=function_args.get("agent_id"),
+            blocked_tools=function_args.get("blocked_tools"),
+            isolation=function_args.get("isolation"),
+            run_in_background=function_args.get("run_in_background", False),
             parent_agent=self,
         )
 
