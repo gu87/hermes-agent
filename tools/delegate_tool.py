@@ -209,6 +209,9 @@ def _register_subagent(record: Dict[str, Any]) -> None:
 def _unregister_subagent(subagent_id: str) -> None:
     with _active_subagents_lock:
         _active_subagents.pop(subagent_id, None)
+    # Phase C+: clean up message queue and background result on unregister
+    with _subagent_message_lock:
+        _subagent_message_queues.pop(subagent_id, None)
 
 
 def interrupt_subagent(subagent_id: str) -> bool:
@@ -281,11 +284,12 @@ def get_subagent_result(subagent_id: str) -> Optional[Dict[str, Any]]:
     Once retrieved, the result is removed from storage. Returns None
     if the subagent is still running or the ID is unknown.
     """
+    # Check if still running (only need _active_subagents_lock)
+    with _active_subagents_lock:
+        if subagent_id in _active_subagents:
+            return {"status": "running", "subagent_id": subagent_id}
+    # Retrieve and consume completed result
     with _background_results_lock:
-        # Check if still running
-        with _active_subagents_lock:
-            if subagent_id in _active_subagents:
-                return {"status": "running", "subagent_id": subagent_id}
         return _background_results.pop(subagent_id, None)
 
 
@@ -3252,14 +3256,17 @@ def delegate_task(
             def _bg_run(c, g, p):
                 try:
                     r = _run_single_child(0, g, c, p)
-                except Exception:
+                except Exception as exc:
+                    logger.exception("Background subagent crashed: %s", exc)
                     r = {
                         "task_index": 0, "status": "error",
                         "subagent_id": getattr(c, "_subagent_id", None),
-                        "error": "background subagent crashed",
+                        "error": f"background subagent crashed: {exc}",
                     }
+                sid = getattr(c, "_subagent_id", None)
+                key = sid if isinstance(sid, str) else f"unknown-{time.time()}"
                 with _background_results_lock:
-                    _background_results[getattr(c, "_subagent_id", "")] = r
+                    _background_results[key] = r
 
             _bg_executor.submit(_bg_run, child, _t["goal"], parent_agent)
             results.append({
