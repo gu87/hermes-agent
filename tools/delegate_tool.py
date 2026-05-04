@@ -1164,8 +1164,11 @@ def _cleanup_worktree(
         return result
 
     try:
+        # git worktree remove must run from within the main repo.
+        # The worktree's .git file points to the main repo, so git can
+        # resolve the main repo from the worktree path itself without -C.
         _sp.run(
-            ["git", "-C", str(wpath.parent), "worktree", "remove", "--force", str(wpath)],
+            ["git", "worktree", "remove", "--force", str(wpath)],
             capture_output=True, text=True, timeout=15,
             check=True,
         )
@@ -2255,6 +2258,7 @@ def _run_single_child(
 
     # ── Phase C: Worktree / Transcript initialization ──────────────────
     _worktree_info: Dict[str, Any] = {}
+    _cleanup_result: Dict[str, Any] = {}
     _transcript_path: Optional[str] = None
     _child_isolation_mode = getattr(child, "_subagent_isolation", "shared") or "shared"
     if _child_isolation_mode == "worktree":
@@ -2795,7 +2799,7 @@ def _run_single_child(
         # ── Phase C: Worktree cleanup ──────────────────────────────────
         _wt_path = _worktree_info.get("worktree_path")
         _wt_head = _worktree_info.get("original_head")
-        _cleanup_result: Dict[str, Any] = {}
+        # _cleanup_result is initialized before the try block; update it here
         if _wt_path and _wt_head:
             try:
                 _cleanup_result = _cleanup_worktree(_wt_path, _wt_head)
