@@ -1742,6 +1742,10 @@ def _build_child_agent(
     effective_blocked: set = set()
     warnings: List[str] = []
 
+    logger.warning(
+        "DELEGATE_TOOLSET_DEBUG agent_id=%s has_config=%s has_profile=%s",
+        agent_id, bool(agent_config), bool(profile),
+    )
     if agent_id and agent_config and profile:
         # ── agent_id path ─────────────────────────────────────────────
         child_toolsets = _resolve_effective_toolsets(
@@ -3082,6 +3086,10 @@ def delegate_task(
     if agent_id:
         try:
             _resolved_agent_config, _resolved_profile = _load_subagent_profile(agent_id)
+            logger.warning(
+                "DELEGATE_PROFILE_DEBUG agent_id=%s profile_toolsets=%s",
+                agent_id, _resolved_profile.get("toolsets"),
+            )
         except ValueError as exc:
             return tool_error(str(exc))
 
