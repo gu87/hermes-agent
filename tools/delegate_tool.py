@@ -47,6 +47,17 @@ DELEGATE_BLOCKED_TOOLS = frozenset(
     ]
 )
 
+# Global subagent blocked toolsets — always stripped, cannot be re-enabled
+# by caller or profile.
+GLOBAL_SUBAGENT_BLOCKED_TOOLSETS = frozenset({"desktop"})
+
+# Global subagent blocked tools — always blocked at the single-tool level.
+GLOBAL_SUBAGENT_BLOCKED_TOOLS = frozenset({
+    "send_message",
+    "memory",
+    "execute_code",
+})
+
 
 # ---------------------------------------------------------------------------
 # Subagent approval callbacks
@@ -644,6 +655,154 @@ def _strip_blocked_tools(toolsets: List[str]) -> List[str]:
     return [t for t in toolsets if t not in blocked_toolset_names]
 
 
+# ---------------------------------------------------------------------------
+# Phase A: Registry / profile helpers
+# ---------------------------------------------------------------------------
+
+
+def _load_agent_registry() -> dict:
+    """Load agent registry from ~/.hermes/config/agent-registry.json."""
+    from pathlib import Path
+
+    try:
+        from hermes_constants import get_hermes_home
+    except Exception:
+        def get_hermes_home() -> Path:
+            return Path.home() / ".hermes"
+
+    registry_path = get_hermes_home() / "config" / "agent-registry.json"
+    with open(registry_path, "r", encoding="utf-8") as f:
+        return json.load(f)
+
+
+def _load_subagent_profile(agent_id: str) -> tuple:
+    """Return (agent_config, subagent_profile) for a named agent.
+
+    Raises:
+        ValueError: agent_id not found or missing subagent_profile.
+    """
+    registry = _load_agent_registry()
+    agents = registry.get("agents", {})
+    agent_config = agents.get(agent_id)
+    if agent_config is None:
+        raise ValueError(
+            f"Agent '{agent_id}' not found in agent-registry.json. "
+            f"Available agents: {list(agents.keys())}"
+        )
+    profile = agent_config.get("subagent_profile")
+    if not profile:
+        raise ValueError(
+            f"Agent '{agent_id}' has no subagent_profile in agent-registry.json. "
+            f"Add a 'subagent_profile' field to enable delegate_task(agent_id=...)."
+        )
+    return agent_config, profile
+
+
+def _desktop_allowed(agent_config: dict, profile: dict) -> bool:
+    """Return True only when both conditions are met:
+
+    1. agent_config.capabilities contains 'desktop_control'.
+    2. profile.toolsets explicitly includes 'desktop'.
+    """
+    caps = set(agent_config.get("capabilities") or [])
+    tools = set(profile.get("toolsets") or [])
+    return "desktop_control" in caps and "desktop" in tools
+
+
+def _should_inherit_mcp_toolsets_for_profile(profile: dict) -> bool:
+    """Return True when the profile explicitly opts into MCP inheritance."""
+    return bool(profile.get("inherit_mcp_toolsets") is True)
+
+
+def _resolve_effective_toolsets(
+    *,
+    agent_config: dict,
+    profile: dict,
+    requested_toolsets: Optional[List[str]],
+    parent_toolsets: set,
+) -> List[str]:
+    """Compute effective toolsets for a named subagent.
+
+    Rules (agent_id path):
+    1. Start with profile.toolsets.
+    2. Intersect with requested_toolsets if provided.
+    3. Intersect with parent_toolsets (never gain tools parent lacks).
+    4. Strip desktop unless _desktop_allowed(…).
+    5. Strip GLOBAL_SUBAGENT_BLOCKED_TOOLSETS (except desktop, already handled).
+    6. Default-deny MCP toolsets (caller must re-add if profile opts in).
+    """
+    base = set(profile.get("toolsets") or [])
+
+    if requested_toolsets:
+        base &= set(requested_toolsets)
+
+    base &= parent_toolsets
+
+    if not _desktop_allowed(agent_config, profile):
+        base.discard("desktop")
+
+    # Strip globally blocked toolsets (desktop already handled above)
+    for ts in GLOBAL_SUBAGENT_BLOCKED_TOOLSETS:
+        if ts != "desktop":
+            base.discard(ts)
+
+    # Default: no MCP inheritance for agent_id path.
+    # Caller adds back MCP toolsets only when the profile explicitly opts in.
+    return sorted(base)
+
+
+def _resolve_effective_blocked_tools(
+    *,
+    profile: dict,
+    requested_blocked_tools: Optional[List[str]] = None,
+) -> set:
+    """Compute effective blocked tools merging all sources.
+
+    Merge order (union only — blocked_tools can only grow):
+    1. DELEGATE_BLOCKED_TOOLS
+    2. GLOBAL_SUBAGENT_BLOCKED_TOOLS
+    3. profile.blocked_tools
+    4. caller-supplied blocked_tools
+
+    Caller blocked_tools can only add, never subtract.
+    """
+    blocked: set = set(DELEGATE_BLOCKED_TOOLS)
+    blocked |= GLOBAL_SUBAGENT_BLOCKED_TOOLS
+    blocked |= set(profile.get("blocked_tools") or [])
+    if requested_blocked_tools:
+        blocked |= set(requested_blocked_tools)
+    return blocked
+
+
+def _check_mcp_server_availability(profile: dict, warnings: List[str]) -> None:
+    """Check that required_mcp_servers are available.
+
+    This is an informational check only — it does NOT auto-grant MCP tool
+    permissions. Toolsets must be explicitly listed in profile.toolsets or
+    inherit_mcp_toolsets must be true.
+    """
+    required = profile.get("required_mcp_servers") or []
+    if not required:
+        return
+    try:
+        from tools.registry import registry
+        available_servers = {
+            name.replace("mcp-", "", 1)
+            for name in registry.get_registered_toolset_names()
+            if name.startswith("mcp-")
+        }
+    except Exception:
+        available_servers = set()
+    for server in required:
+        if server not in available_servers:
+            msg = (
+                f"Required MCP server '{server}' is not available. "
+                f"Subagent may lack expected tools."
+            )
+            logger.warning(msg)
+            warnings.append(msg)
+
+
 def _build_child_progress_callback(
     task_index: int,
     goal: str,
@@ -852,6 +1011,11 @@ def _build_child_agent(
     # 'leaf' (default) cannot; 'orchestrator' retains the delegation
     # toolset subject to depth/kill-switch bounds applied below.
     role: str = "leaf",
+    # Phase A: named subagent via agent_id
+    agent_id: Optional[str] = None,
+    agent_config: Optional[dict] = None,
+    profile: Optional[dict] = None,
+    requested_blocked_tools: Optional[List[str]] = None,
 ):
     """
     Build a child AIAgent on the main thread (thread-safe construction).
@@ -887,15 +1051,15 @@ def _build_child_agent(
 
     delegation_cfg = _load_config()
 
-    # When no explicit toolsets given, inherit from parent's enabled toolsets
-    # so disabled tools (e.g. web) don't leak to subagents.
-    # Note: enabled_toolsets=None means "all tools enabled" (the default),
-    # so we must derive effective toolsets from the parent's loaded tools.
+    # ── Toolset resolution ────────────────────────────────────────────────
+    # Two paths:
+    #   agent_id path — profile-driven, tools can only narrow, desktop default-deny
+    #   legacy path   — existing role-based inheritance (unchanged behavior)
+
     parent_enabled = getattr(parent_agent, "enabled_toolsets", None)
     if parent_enabled is not None:
         parent_toolsets = set(parent_enabled)
     elif parent_agent and hasattr(parent_agent, "valid_tool_names"):
-        # enabled_toolsets is None (all tools) — derive from loaded tool names
         import model_tools
 
         parent_toolsets = {
@@ -906,20 +1070,49 @@ def _build_child_agent(
     else:
         parent_toolsets = set(DEFAULT_TOOLSETS)
 
-    if toolsets:
-        # Intersect with parent — subagent must not gain tools the parent lacks
-        child_toolsets = [t for t in toolsets if t in parent_toolsets]
-        if _get_inherit_mcp_toolsets():
+    effective_blocked: set = set()
+    warnings: List[str] = []
+
+    if agent_id and agent_config and profile:
+        # ── agent_id path ─────────────────────────────────────────────
+        child_toolsets = _resolve_effective_toolsets(
+            agent_config=agent_config,
+            profile=profile,
+            requested_toolsets=toolsets,
+            parent_toolsets=parent_toolsets,
+        )
+
+        # MCP inheritance: only when profile explicitly opts in
+        if _should_inherit_mcp_toolsets_for_profile(profile):
             child_toolsets = _preserve_parent_mcp_toolsets(
                 child_toolsets, parent_toolsets
             )
-        child_toolsets = _strip_blocked_tools(child_toolsets)
-    elif parent_agent and parent_enabled is not None:
-        child_toolsets = _strip_blocked_tools(parent_enabled)
-    elif parent_toolsets:
-        child_toolsets = _strip_blocked_tools(sorted(parent_toolsets))
+        # Note: _resolve_effective_toolsets already defaults to no MCP toolsets.
+        # required_mcp_servers is only checked for availability, not for granting
+        # tool permissions. See _check_mcp_server_availability below.
+
+        # Check MCP server availability (informational only, not auto-granted)
+        _check_mcp_server_availability(profile, warnings)
+
+        effective_blocked = _resolve_effective_blocked_tools(
+            profile=profile,
+            requested_blocked_tools=requested_blocked_tools,
+        )
     else:
-        child_toolsets = _strip_blocked_tools(DEFAULT_TOOLSETS)
+        # ── legacy role path ──────────────────────────────────────────
+        if toolsets:
+            child_toolsets = [t for t in toolsets if t in parent_toolsets]
+            if _get_inherit_mcp_toolsets():
+                child_toolsets = _preserve_parent_mcp_toolsets(
+                    child_toolsets, parent_toolsets
+                )
+            child_toolsets = _strip_blocked_tools(child_toolsets)
+        elif parent_agent and parent_enabled is not None:
+            child_toolsets = _strip_blocked_tools(parent_enabled)
+        elif parent_toolsets:
+            child_toolsets = _strip_blocked_tools(sorted(parent_toolsets))
+        else:
+            child_toolsets = _strip_blocked_tools(DEFAULT_TOOLSETS)
 
     # Orchestrators retain the 'delegation' toolset that _strip_blocked_tools
     # removed.  The re-add is unconditional on parent-toolset membership because
@@ -1067,6 +1260,11 @@ def _build_child_agent(
     child._subagent_id = subagent_id
     child._parent_subagent_id = parent_subagent_id
     child._subagent_goal = goal
+    # Phase A: stash agent_id profile metadata for event logging
+    child._subagent_agent_id = agent_id
+    child._subagent_effective_toolsets = child_toolsets
+    child._subagent_effective_blocked = effective_blocked
+    child._subagent_warnings = warnings
 
     # Share a credential pool with the child when possible so subagents can
     # rotate credentials on rate limits instead of getting pinned to one key.
@@ -1239,6 +1437,87 @@ def _dump_subagent_timeout_diagnostic(
         return None
 
 
+def _try_log_subagent_event(
+    event_type: str,
+    *,
+    subagent_id: Optional[str],
+    parent_id: Optional[str],
+    agent_id: Optional[str],
+    role: str,
+    task_id: Optional[str],
+    session_id: Optional[str],
+    goal_preview: str = "",
+    effective_toolsets: Optional[List[str]] = None,
+    blocked_tools: Optional[set] = None,
+    status: str = "",
+    error: str = "",
+    reason: str = "",
+    duration_seconds: float = 0.0,
+    api_calls: int = 0,
+    tokens: Optional[Dict[str, int]] = None,
+) -> None:
+    """Fire a subagent lifecycle event, swallowing all failures.
+
+    EventLog write failure must never interrupt the main task.
+    """
+    try:
+        from agent.session_event_log import EventLog
+
+        elog = EventLog()
+        sid = task_id or ""
+        sess = session_id or ""
+        blocked_list = sorted(blocked_tools) if blocked_tools else []
+
+        if event_type == "started":
+            elog.log_subagent_started(
+                task_id=sid,
+                session_id=sess,
+                subagent_id=subagent_id or "",
+                goal_preview=goal_preview,
+                parent_id=parent_id,
+                agent_id=agent_id,
+                role=role,
+                effective_toolsets=effective_toolsets or [],
+                blocked_tools=blocked_list,
+            )
+        elif event_type == "completed":
+            elog.log_subagent_completed(
+                task_id=sid,
+                session_id=sess,
+                subagent_id=subagent_id or "",
+                status=status,
+                parent_id=parent_id,
+                agent_id=agent_id,
+                role=role,
+                duration_seconds=duration_seconds,
+                api_calls=api_calls,
+                tokens=tokens or {},
+            )
+        elif event_type == "failed":
+            elog.log_subagent_failed(
+                task_id=sid,
+                session_id=sess,
+                subagent_id=subagent_id or "",
+                error=error,
+                parent_id=parent_id,
+                agent_id=agent_id,
+                role=role,
+            )
+        elif event_type == "interrupted":
+            elog.log_subagent_interrupted(
+                task_id=sid,
+                session_id=sess,
+                subagent_id=subagent_id or "",
+                reason=reason,
+                parent_id=parent_id,
+                agent_id=agent_id,
+                role=role,
+            )
+        elog.close()
+    except Exception as exc:
+        logger.warning("Failed to write subagent %s event: %s", event_type, exc)
+
+
 def _run_single_child(
     task_index: int,
     goal: str,
@@ -1387,6 +1666,26 @@ def _run_single_child(
             }
         )
 
+    # ── Phase A: subagent lifecycle event ─────────────────────────────
+    _child_agent_id = getattr(child, "_subagent_agent_id", None)
+    _child_role = getattr(child, "_delegate_role", "leaf")
+    _child_toolsets = getattr(child, "_subagent_effective_toolsets", [])
+    _child_blocked = getattr(child, "_subagent_effective_blocked", set())
+    _parent_task_id = getattr(parent_agent, "_current_task_id", None)
+    _parent_session_id = getattr(parent_agent, "session_id", None)
+    _try_log_subagent_event(
+        "started",
+        subagent_id=_subagent_id,
+        parent_id=_parent_sid if isinstance(_parent_sid, str) else None,
+        agent_id=_child_agent_id,
+        role=_child_role,
+        task_id=_parent_task_id,
+        session_id=_parent_session_id,
+        goal_preview=goal,
+        effective_toolsets=_child_toolsets,
+        blocked_tools=_child_blocked,
+    )
+
     try:
         if child_progress_cb:
             try:
@@ -1513,10 +1812,27 @@ def _run_single_child(
             else:
                 _err = str(_timeout_exc)
 
+            _try_log_subagent_event(
+                "failed",
+                subagent_id=_subagent_id,
+                parent_id=_parent_sid if isinstance(_parent_sid, str) else None,
+                agent_id=_child_agent_id,
+                role=_child_role,
+                task_id=_parent_task_id,
+                session_id=_parent_session_id,
+                error=_err,
+            )
             return {
                 "task_index": task_index,
                 "status": "timeout" if is_timeout else "error",
                 "summary": None,
+                "subagent_id": _subagent_id,
+                "agent_id": _child_agent_id,
+                "role": _child_role,
+                "effective_toolsets": list(_child_toolsets or []),
+                "blocked_tools": sorted(_child_blocked) if _child_blocked else [],
+                "isolation": "shared",
+                "warnings": [],
                 "error": _err,
                 "exit_reason": "timeout" if is_timeout else "error",
                 "api_calls": child_api_calls,
@@ -1602,14 +1918,29 @@ def _run_single_child(
         _output_tokens = getattr(child, "session_completion_tokens", 0)
         _model = getattr(child, "model", None)
 
+        # Phase A: subagent profile metadata
+        _child_warnings = list(getattr(child, "_subagent_warnings", []) or [])
+        _child_isolation = (
+            (_resolved_profile or {}).get("isolation", "shared")
+            if _child_agent_id
+            else "shared"
+        )
+
         entry: Dict[str, Any] = {
             "task_index": task_index,
             "status": status,
             "summary": summary,
+            "subagent_id": _subagent_id,
+            "agent_id": _child_agent_id,
+            "role": _child_role,
             "api_calls": api_calls,
             "duration_seconds": duration,
             "model": _model if isinstance(_model, str) else None,
             "exit_reason": exit_reason,
+            "effective_toolsets": list(_child_toolsets or []),
+            "blocked_tools": sorted(_child_blocked) if _child_blocked else [],
+            "isolation": _child_isolation,
+            "warnings": _child_warnings,
             "tokens": {
                 "input": (
                     _input_tokens if isinstance(_input_tokens, (int, float)) else 0
@@ -1734,11 +2065,61 @@ def _run_single_child(
             except Exception as e:
                 logger.debug("Progress callback completion failed: %s", e)
 
+        # ── Phase A: subagent lifecycle event ─────────────────────────
+        _child_api_calls = entry.get("api_calls", 0)
+        _child_tokens = entry.get("tokens", {})
+        if status == "interrupted":
+            _try_log_subagent_event(
+                "interrupted",
+                subagent_id=_subagent_id,
+                parent_id=_parent_sid if isinstance(_parent_sid, str) else None,
+                agent_id=_child_agent_id,
+                role=_child_role,
+                task_id=_parent_task_id,
+                session_id=_parent_session_id,
+                reason=entry.get("error", "Interrupted"),
+            )
+        elif status == "failed":
+            _try_log_subagent_event(
+                "failed",
+                subagent_id=_subagent_id,
+                parent_id=_parent_sid if isinstance(_parent_sid, str) else None,
+                agent_id=_child_agent_id,
+                role=_child_role,
+                task_id=_parent_task_id,
+                session_id=_parent_session_id,
+                error=entry.get("error", "Subagent did not produce a response."),
+            )
+        else:
+            _try_log_subagent_event(
+                "completed",
+                subagent_id=_subagent_id,
+                parent_id=_parent_sid if isinstance(_parent_sid, str) else None,
+                agent_id=_child_agent_id,
+                role=_child_role,
+                task_id=_parent_task_id,
+                session_id=_parent_session_id,
+                status=status,
+                duration_seconds=duration,
+                api_calls=_child_api_calls,
+                tokens=_child_tokens,
+            )
+
         return entry
 
     except Exception as exc:
         duration = round(time.monotonic() - child_start, 2)
         logging.exception(f"[subagent-{task_index}] failed")
+        _try_log_subagent_event(
+            "failed",
+            subagent_id=_subagent_id,
+            parent_id=_parent_sid if isinstance(_parent_sid, str) else None,
+            agent_id=_child_agent_id,
+            role=_child_role,
+            task_id=_parent_task_id,
+            session_id=_parent_session_id,
+            error=str(exc),
+        )
         if child_progress_cb:
             try:
                 child_progress_cb(
@@ -1818,6 +2199,8 @@ def delegate_task(
     acp_command: Optional[str] = None,
     acp_args: Optional[List[str]] = None,
     role: Optional[str] = None,
+    agent_id: Optional[str] = None,
+    blocked_tools: Optional[List[str]] = None,
     parent_agent=None,
 ) -> str:
     """
@@ -1832,10 +2215,31 @@ def delegate_task(
     toolset and can spawn its own workers, bounded by
     delegation.max_spawn_depth.  Per-task role beats the top-level one.
 
+    NEW (Phase A): agent_id loads a named profile from agent-registry.json.
+    agent_id and role are mutually exclusive. blocked_tools can only add to
+    the profile's blocked list, never subtract.
+
     Returns JSON with results array, one entry per task.
     """
     if parent_agent is None:
         return tool_error("delegate_task requires a parent agent context.")
+
+    # ── Phase A: agent_id / role mutual exclusion ──────────────────────
+    if agent_id and role:
+        return tool_error(
+            "'agent_id' and 'role' are mutually exclusive. "
+            "Use agent_id for named subagents (registry profile), "
+            "or role for legacy leaf/orchestrator behavior."
+        )
+
+    # ── Phase A: resolve agent_id profile ──────────────────────────────
+    _resolved_agent_config: Optional[dict] = None
+    _resolved_profile: Optional[dict] = None
+    if agent_id:
+        try:
+            _resolved_agent_config, _resolved_profile = _load_subagent_profile(agent_id)
+        except ValueError as exc:
+            return tool_error(str(exc))
 
     # Operator-controlled kill switch — lets the TUI freeze new fan-out
     # when a runaway tree is detected, without interrupting already-running
@@ -1942,6 +2346,13 @@ def delegate_task(
             # Per-task role beats top-level; normalise again so unknown
             # per-task values warn and degrade to leaf uniformly.
             effective_role = _normalize_role(t.get("role") or top_role)
+            # Per-task blocked_tools — can only add to profile blocked
+            task_blocked = t.get("blocked_tools") if "blocked_tools" in t else None
+            effective_blocked = (
+                (blocked_tools or []) + (task_blocked or [])
+                if (blocked_tools or task_blocked)
+                else None
+            ) or None
             child = _build_child_agent(
                 task_index=i,
                 goal=t["goal"],
@@ -1964,6 +2375,10 @@ def delegate_task(
                     else (acp_args if acp_args is not None else creds.get("args"))
                 ),
                 role=effective_role,
+                agent_id=agent_id,
+                agent_config=_resolved_agent_config,
+                profile=_resolved_profile,
+                requested_blocked_tools=effective_blocked,
             )
             # Override with correct parent tool names (before child construction mutated global)
             child._delegate_saved_tool_names = _parent_tool_names
@@ -2482,7 +2897,28 @@ DELEGATE_TASK_SCHEMA = {
                     "delegation.max_spawn_depth >= 2 in config; ignored "
                     "(treated as 'leaf') when the child would exceed "
                     "max_spawn_depth or when "
-                    "delegation.orchestrator_enabled=false."
+                    "delegation.orchestrator_enabled=false. "
+                    "Mutually exclusive with 'agent_id'."
+                ),
+            },
+            "agent_id": {
+                "type": "string",
+                "description": (
+                    "Named subagent profile to load from agent-registry.json. "
+                    "When provided, the child's toolsets, blocked_tools, "
+                    "permission_mode, and isolation are driven by the registry "
+                    "profile. Mutually exclusive with 'role'. "
+                    "Available agents: claude, kimi, hermes-internal, deepseek-worker."
+                ),
+            },
+            "blocked_tools": {
+                "type": "array",
+                "items": {"type": "string"},
+                "description": (
+                    "Additional tools to block for this subagent (can only add, "
+                    "never subtract from the profile's blocked list). "
+                    "Use when the registry profile is nearly right but needs "
+                    "one extra tool blocked for this specific call."
                 ),
             },
             "acp_command": {
@@ -2524,6 +2960,8 @@ registry.register(
         acp_command=args.get("acp_command"),
         acp_args=args.get("acp_args"),
         role=args.get("role"),
+        agent_id=args.get("agent_id"),
+        blocked_tools=args.get("blocked_tools"),
         parent_agent=kw.get("parent_agent"),
     ),
     check_fn=check_delegate_requirements,

@@ -4,86 +4,133 @@ Routes user tasks to the appropriate agent based on task_category, required
 capabilities, and risk level. Supports pipeline mode and fallback.
 
 Design:
-- Default routing maps task_category → execution_mode + target agents
+- Default routing maps task_category → capability → routing_rules → agent_id
 - Override conditions allow the main agent to deviate from defaults
 - Fallback ensures degraded but complete delivery when sub-agents fail
 - Router does NOT call agents; it provides a plan that the main agent executes
+- Primary source of truth: ~/.hermes/config/agent-registry.json
 """
 
+import json
 import logging
 import re
 from dataclasses import dataclass, field, asdict
+from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 logger = logging.getLogger(__name__)
 
 # ── Default routing rules ──
-# Maps task_category → (mode, agents, reason)
+# Maps task_category → (mode, capability, reason)
 
 DEFAULT_ROUTES: Dict[str, Dict[str, Any]] = {
     "architecture_review": {
         "mode": "self_execute",
-        "agents": [],
+        "capability": None,
         "reason": "架构评审类任务的核心价值在主 Agent 的判断力和对 Hermes 全局的把握",
     },
     "code_analysis": {
         "mode": "pipeline",
-        "agents": ["kimi"],
+        "capability": "file_reading_analysis",
         "reason": "代码分析需先由 Kimi 搜集代码/文档，再由主 Agent 分析判断",
     },
     "brand_strategy": {
         "mode": "self_execute",
-        "agents": [],
+        "capability": None,
         "reason": "品牌策略类任务需要主 Agent 的策略判断力",
     },
     "visual_design": {
         "mode": "single_agent",
-        "agents": ["visual"],
+        "capability": "creative_direction",
         "reason": "视觉设计任务适合分发给图像/PPT Agent",
     },
     "research": {
         "mode": "single_agent",
-        "agents": ["kimi"],
+        "capability": "web_research",
         "reason": "调研类任务适合 K2-thinking 的长上下文搜索能力",
     },
     "document": {
         "mode": "pipeline",
-        "agents": ["kimi"],
+        "capability": "file_reading_analysis",
         "reason": "文档类任务先由 Kimi 收集素材，再主 Agent 撰写整合",
     },
     "prompt_design": {
         "mode": "self_execute",
-        "agents": [],
+        "capability": None,
         "reason": "提示词设计需要理解整体系统上下文",
     },
     "other": {
         "mode": "self_execute",
-        "agents": [],
+        "capability": None,
         "reason": "未分类任务默认主 Agent 自行处理",
     },
 }
 
-# ── Agent capability registry ──
-# Maps agent name → capabilities, description
+# ── task_category → required capability mapping ──
+# Used when no capability is specified directly in DEFAULT_ROUTES.
 
-AGENT_CAPABILITIES: Dict[str, Dict[str, Any]] = {
+TASK_CATEGORY_REQUIRED_CAPABILITY: Dict[str, Optional[str]] = {
+    "architecture_review": None,
+    "code_analysis": "file_reading_analysis",
+    "brand_strategy": "strategy_decision",
+    "visual_design": "creative_direction",
+    "research": "web_research",
+    "document": "file_reading_analysis",
+    "prompt_design": "strategy_decision",
+    "other": None,
+}
+
+# ── Fallback agent capability registry (used only when registry file is unavailable) ──
+
+_FALLBACK_AGENT_CAPABILITIES: Dict[str, Dict[str, Any]] = {
     "kimi": {
         "name": "Kimi (K2-thinking)",
-        "capabilities": ["search", "long_context_reading", "information_gathering"],
+        "capabilities": ["web_search", "file_reading", "information_synthesis", "multi_file_analysis"],
         "use_when": ["需要搜索网页", "需要读长文", "需要整理信息", "需要调研"],
     },
-    "claude_code": {
+    "claude": {
         "name": "Claude Code",
-        "capabilities": ["code_execution", "file_modification", "script_writing"],
+        "capabilities": ["file_modification", "script_execution", "git_operations", "code_review"],
         "use_when": ["需要改代码", "需要执行脚本", "需要具体文件修改"],
         "constraint": "执行器而非思考器——收到的 prompt 需是明确的修改指令",
     },
-    "visual": {
-        "name": "图像/PPT Agent",
-        "capabilities": ["visual_design", "ppt_generation", "image_creation"],
-        "use_when": ["需要视觉创意", "需要 PPT 生成", "需要图像设计"],
+    "hermes-internal": {
+        "name": "Hermes 内部推理",
+        "capabilities": ["analysis", "decision_making", "creative_planning", "prioritization"],
+        "use_when": ["需要策略判断", "需要方案设计", "需要决策"],
     },
 }
+
+
+def _load_agent_registry() -> dict:
+    """Load agent registry from the runtime config directory.
+
+    Uses ``get_hermes_home()`` as the single source of truth for path resolution.
+    Falls back to a minimal built-in registry if the file is unavailable.
+    """
+    try:
+        from hermes_constants import get_hermes_home
+    except Exception:
+        def get_hermes_home() -> Path:
+            return Path.home() / ".hermes"
+
+    registry_path = get_hermes_home() / "config" / "agent-registry.json"
+    try:
+        with open(registry_path, "r", encoding="utf-8") as f:
+            return json.load(f)
+    except (FileNotFoundError, json.JSONDecodeError, OSError) as exc:
+        logger.warning("Cannot load agent-registry.json (%s), using fallback", exc)
+        return {"agents": {}, "routing_rules": {}}
+
+
+def _get_agents_map(registry: dict) -> dict:
+    """Extract the agents map from a loaded registry."""
+    return registry.get("agents", {})
+
+
+def _get_routing_rules(registry: dict) -> dict:
+    """Extract routing rules from a loaded registry."""
+    return registry.get("routing_rules", {})
 
 
 @dataclass
@@ -105,10 +152,22 @@ class RoutingDecision:
 
 
 class AgentRouter:
-    """Routes tasks to agents based on task_category, capabilities, and risk."""
+    """Routes tasks to agents based on task_category, capabilities, and risk.
+
+    Reads agent capabilities from ~/.hermes/config/agent-registry.json.
+    """
 
     def __init__(self):
-        pass
+        self._registry: Optional[dict] = None
+        self._agents_map: Optional[dict] = None
+        self._routing_rules: Optional[dict] = None
+
+    def _ensure_registry(self) -> None:
+        """Lazy-load the registry on first use."""
+        if self._registry is None:
+            self._registry = _load_agent_registry()
+            self._agents_map = _get_agents_map(self._registry)
+            self._routing_rules = _get_routing_rules(self._registry)
 
     def route(
         self,
@@ -128,16 +187,27 @@ class AgentRouter:
         Returns:
             RoutingDecision with mode, agents, reason, routing_basis, overrides
         """
+        self._ensure_registry()
+
         default = DEFAULT_ROUTES.get(task_category, DEFAULT_ROUTES["other"])
         mode = default["mode"]
-        agents = list(default["agents"])
+        agents: List[str] = []
         reason = default["reason"]
         routing_basis = ["task_category_default"]
         overrides: List[str] = []
 
+        # Resolve default agent from registry routing_rules via capability
+        capability = default.get("capability")
+        if capability and self._routing_rules:
+            routed_agent = self._routing_rules.get(capability)
+            if routed_agent and routed_agent in self._agents_map:
+                agents = [routed_agent]
+            else:
+                routing_basis.append("registry_missing_route")
+
         # Override 1: user explicitly specifies an agent
         if user_agent_override:
-            if user_agent_override in AGENT_CAPABILITIES:
+            if user_agent_override in self._agents_map:
                 mode = "single_agent"
                 agents = [user_agent_override]
                 reason = f"用户显式指定使用 {user_agent_override}"
@@ -150,12 +220,13 @@ class AgentRouter:
         if required_capabilities:
             default_caps = set()
             for a in agents:
-                caps = AGENT_CAPABILITIES.get(a, {}).get("capabilities", [])
+                agent_config = self._agents_map.get(a, {})
+                caps = agent_config.get("capabilities", [])
                 default_caps.update(caps)
             missing = set(required_capabilities) - default_caps
             if missing and mode != "self_execute":
                 matched = False
-                for name, info in AGENT_CAPABILITIES.items():
+                for name, info in self._agents_map.items():
                     if name in agents:
                         continue
                     agent_caps = set(info.get("capabilities", []))
@@ -169,13 +240,19 @@ class AgentRouter:
                 if not matched:
                     logger.warning(
                         "No single agent covers all required capabilities: %s (available: %s)",
-                        missing, list(AGENT_CAPABILITIES.keys()),
+                        missing, list(self._agents_map.keys()),
                     )
 
         # Override 3: high risk → force pipeline + review gate
         if risk_level == "high" and mode == "self_execute":
             mode = "pipeline"
-            agents = ["kimi"]
+            # Try to route via web_research capability
+            if self._routing_rules:
+                research_agent = self._routing_rules.get("web_research")
+                if research_agent and research_agent in self._agents_map:
+                    agents = [research_agent]
+                else:
+                    agents = list(self._agents_map.keys())[:1]
             reason += "; 高风险任务，强制走 pipeline + Review Gate"
             routing_basis.append("risk_level")
             overrides.append("risk_escalation")
@@ -195,12 +272,11 @@ class AgentRouter:
 
     # ── Fallback ──
 
-    @staticmethod
-    def _fallback_for(mode: str, agents: List[str]) -> str:
+    def _fallback_for(self, mode: str, agents: List[str]) -> str:
         if mode == "self_execute":
             return "主 Agent 自行完成"
         if mode == "single_agent" and agents:
-            agent_name = AGENT_CAPABILITIES.get(agents[0], {}).get("name", agents[0])
+            agent_name = self._agents_map.get(agents[0], {}).get("display_name", agents[0]) if self._agents_map else agents[0]
             return f"{agent_name} 失败 → 主 Agent 接管，标记信息不足"
         if mode == "pipeline":
             return "Pipeline 任一步失败 → 主 Agent 接管，Task Card status=partial 或 blocked"
@@ -215,9 +291,7 @@ class AgentRouter:
         Returns list of issues (empty = valid).
         """
         issues = []
-        if agent_name == "claude_code":
-            # Claude Code must receive specific instructions, not vague requests.
-            # Check for specific indicators (file path, line number, parameter, etc.)
+        if agent_name == "claude" or agent_name == "claude_code":
             has_specific = bool(
                 re.search(r'\.(py|js|ts|json|yaml|yml|md|toml|cfg)\b', prompt)
                 or re.search(r'第?\s*\d+\s*[行列个条]', prompt)
@@ -233,12 +307,14 @@ class AgentRouter:
                     )
         return issues
 
-    # ── Static helpers ──
+    # ── Helpers ──
 
-    @staticmethod
-    def get_available_agents() -> List[str]:
-        return list(AGENT_CAPABILITIES.keys())
+    def get_available_agents(self) -> List[str]:
+        self._ensure_registry()
+        return list(self._agents_map.keys()) if self._agents_map else []
 
-    @staticmethod
-    def get_agent_info(name: str) -> Optional[Dict[str, Any]]:
-        return AGENT_CAPABILITIES.get(name)
+    def get_agent_info(self, name: str) -> Optional[Dict[str, Any]]:
+        self._ensure_registry()
+        if self._agents_map:
+            return self._agents_map.get(name)
+        return _FALLBACK_AGENT_CAPABILITIES.get(name)

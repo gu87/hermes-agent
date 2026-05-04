@@ -49,6 +49,19 @@ EVENT_QUALITY_CHECK = "quality_check"
 EVENT_USER_FEEDBACK = "user_feedback"
 EVENT_MEMORY_CANDIDATE = "memory_candidate"
 
+# ── Event types (Phase A: Subagent Lifecycle) ──
+EVENT_SUBAGENT_STARTED = "subagent.started"
+EVENT_SUBAGENT_COMPLETED = "subagent.completed"
+EVENT_SUBAGENT_FAILED = "subagent.failed"
+EVENT_SUBAGENT_INTERRUPTED = "subagent.interrupted"
+
+# ── Reserved event types (future phases) ──
+EVENT_SUBAGENT_BACKGROUNDED = "subagent.backgrounded"  # Phase B
+EVENT_SUBAGENT_SEND_MESSAGE = "subagent.send_message"  # reserved
+EVENT_SWARM_TASK_CLAIMED = "swarm.task_claimed"  # Phase C reserved
+EVENT_SWARM_TASK_REASSIGNED = "swarm.task_reassigned"  # Phase C reserved
+EVENT_COORDINATOR_NOTIFICATION = "coordinator.notification_received"  # Phase C reserved
+
 SPRINT_1_EVENT_TYPES = frozenset([
     EVENT_TASK_CREATED,
     EVENT_TASK_UPDATED,
@@ -66,6 +79,11 @@ REQUIRED_PAYLOAD_KEYS: Dict[str, List[str]] = {
     EVENT_EXECUTION_COMPLETED: ["result_type"],
     EVENT_EXECUTION_FAILED: ["error_type", "error_message", "retryable"],
     EVENT_ARTIFACT_CREATED: ["artifact_type", "artifact_path"],
+    # Phase A: Subagent lifecycle events
+    EVENT_SUBAGENT_STARTED: ["subagent_id", "goal_preview"],
+    EVENT_SUBAGENT_COMPLETED: ["subagent_id", "status"],
+    EVENT_SUBAGENT_FAILED: ["subagent_id", "error"],
+    EVENT_SUBAGENT_INTERRUPTED: ["subagent_id", "reason"],
 }
 
 SCHEMA_SQL = """
@@ -127,7 +145,7 @@ class EventLog:
 
     def __init__(self, db_path: Optional[Path] = None):
         self._db_path = Path(db_path) if db_path else _get_db_path()
-        self._lock = threading.Lock()
+        self._lock = threading.RLock()
         self._conn: Optional[sqlite3.Connection] = None
 
     # ── connection management ──
@@ -547,6 +565,94 @@ class EventLog:
         return self._log_event(task_id, session_id, EVENT_MEMORY_CANDIDATE, {
             "candidate_type": candidate_type,
             "content_preview": content_preview[:200],
+        })
+
+    # ── Phase A: Subagent lifecycle factories ──
+
+    def log_subagent_started(
+        self,
+        task_id: str,
+        session_id: str,
+        subagent_id: str,
+        goal_preview: str,
+        parent_id: Optional[str] = None,
+        agent_id: Optional[str] = None,
+        role: str = "leaf",
+        effective_toolsets: Optional[List[str]] = None,
+        blocked_tools: Optional[List[str]] = None,
+        isolation: str = "shared",
+    ) -> SessionEvent:
+        return self._log_event(task_id, session_id, EVENT_SUBAGENT_STARTED, {
+            "subagent_id": subagent_id,
+            "parent_id": parent_id,
+            "agent_id": agent_id,
+            "role": role,
+            "goal_preview": goal_preview[:200],
+            "effective_toolsets": effective_toolsets or [],
+            "blocked_tools": blocked_tools or [],
+            "isolation": isolation,
+        })
+
+    def log_subagent_completed(
+        self,
+        task_id: str,
+        session_id: str,
+        subagent_id: str,
+        status: str,
+        parent_id: Optional[str] = None,
+        agent_id: Optional[str] = None,
+        role: str = "leaf",
+        duration_seconds: float = 0.0,
+        api_calls: int = 0,
+        tokens: Optional[Dict[str, int]] = None,
+        transcript_path: Optional[str] = None,
+    ) -> SessionEvent:
+        return self._log_event(task_id, session_id, EVENT_SUBAGENT_COMPLETED, {
+            "subagent_id": subagent_id,
+            "parent_id": parent_id,
+            "agent_id": agent_id,
+            "role": role,
+            "status": status,
+            "duration_seconds": duration_seconds,
+            "api_calls": api_calls,
+            "tokens": tokens or {},
+            "transcript_path": transcript_path,
+        })
+
+    def log_subagent_failed(
+        self,
+        task_id: str,
+        session_id: str,
+        subagent_id: str,
+        error: str,
+        parent_id: Optional[str] = None,
+        agent_id: Optional[str] = None,
+        role: str = "leaf",
+    ) -> SessionEvent:
+        return self._log_event(task_id, session_id, EVENT_SUBAGENT_FAILED, {
+            "subagent_id": subagent_id,
+            "parent_id": parent_id,
+            "agent_id": agent_id,
+            "role": role,
+            "error": error[:500],
+        })
+
+    def log_subagent_interrupted(
+        self,
+        task_id: str,
+        session_id: str,
+        subagent_id: str,
+        reason: str,
+        parent_id: Optional[str] = None,
+        agent_id: Optional[str] = None,
+        role: str = "leaf",
+    ) -> SessionEvent:
+        return self._log_event(task_id, session_id, EVENT_SUBAGENT_INTERRUPTED, {
+            "subagent_id": subagent_id,
+            "parent_id": parent_id,
+            "agent_id": agent_id,
+            "role": role,
+            "reason": reason[:500],
         })
 
     def _log_event(
