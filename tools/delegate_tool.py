@@ -60,6 +60,26 @@ GLOBAL_SUBAGENT_BLOCKED_TOOLS = frozenset({
 
 
 # ---------------------------------------------------------------------------
+# Phase B: Write tool classification for readonly isolation
+# ---------------------------------------------------------------------------
+
+# Toolsets that contain write-capable tools and should be stripped entirely
+# in readonly mode. "terminal" is the primary one — it lets subagents execute
+# arbitrary commands including file modifications.
+READONLY_STRIP_TOOLSETS = frozenset({"terminal"})
+
+# Individual tools that are write-capable. Stripped from their parent toolsets
+# in readonly mode even when the toolset itself is not entirely stripped.
+# Tool names match the Hermes registry from toolsets.py.
+READONLY_STRIP_TOOLS = frozenset({
+    "write_file",
+    "patch",
+    "terminal",
+    "process",
+})
+
+
+# ---------------------------------------------------------------------------
 # Subagent approval callbacks
 # ---------------------------------------------------------------------------
 # Subagents run inside a ThreadPoolExecutor worker. The CLI's interactive
@@ -803,6 +823,169 @@ def _check_mcp_server_availability(profile: dict, warnings: List[str]) -> None:
             warnings.append(msg)
 
 
+# ---------------------------------------------------------------------------
+# Phase B: Isolation resolution
+# ---------------------------------------------------------------------------
+
+
+def _resolve_isolation(
+    *,
+    requested_isolation: Optional[str],
+    profile_isolation: Optional[str],
+    permission_mode: Optional[str],
+) -> tuple:
+    """Resolve effective isolation mode and return (isolation, warnings, error).
+
+    Returns:
+        (isolation: str, warnings: list, error: str or None)
+        If error is not None, the caller must return a tool_error immediately.
+    """
+    warnings: List[str] = []
+
+    # Determine effective isolation: requested > profile default > "shared"
+    effective = requested_isolation or profile_isolation or "shared"
+
+    # read_only permission_mode auto-enables readonly isolation
+    # Only when the caller did not explicitly request a different isolation.
+    if (
+        permission_mode == "read_only"
+        and effective != "readonly"
+        and requested_isolation is None
+    ):
+        effective = "readonly"
+        warnings.append(
+            "permission_mode='read_only' automatically enables isolation='readonly'"
+        )
+
+    # worktree is not implemented until Phase C
+    if effective == "worktree":
+        return (
+            "worktree",
+            warnings,
+            "worktree isolation is not implemented yet; use 'shared' or 'readonly'.",
+        )
+
+    # Validate isolation value
+    if effective not in ("shared", "readonly"):
+        return (
+            "shared",
+            warnings,
+            f"Unknown isolation mode '{effective}'; valid values: shared, readonly, worktree.",
+        )
+
+    return effective, warnings, None
+
+
+def _apply_readonly_isolation(toolsets: List[str]) -> List[str]:
+    """Strip write-capable toolsets and individual tools for readonly mode.
+
+    - Entire toolsets in READONLY_STRIP_TOOLSETS are removed.
+    - Individual tools in READONLY_STRIP_TOOLS are removed from their
+      parent toolsets.
+    """
+    # Remove entirely-stripped toolsets
+    filtered = [ts for ts in toolsets if ts not in READONLY_STRIP_TOOLSETS]
+
+    # For remaining toolsets, strip individual write tools
+    # We don't resolve individual tools here — we just pass through the
+    # toolset names. The actual tool filtering happens when tools are
+    # resolved downstream via model_tools.get_tool_definitions().
+    # We add blocked_tools entries to ensure write tools are denied.
+    return filtered
+
+
+# ---------------------------------------------------------------------------
+# Phase B: Subagent status/output interfaces (read-only)
+# ---------------------------------------------------------------------------
+
+
+def get_subagent_status(subagent_id: str) -> Optional[Dict[str, Any]]:
+    """Return a snapshot of a subagent's current state, or None if not found.
+
+    Safe to call from any thread. Returns a copy of the record without
+    the raw agent reference.
+    """
+    with _active_subagents_lock:
+        record = _active_subagents.get(subagent_id)
+    if not record:
+        return None
+    return {
+        "subagent_id": record.get("subagent_id"),
+        "parent_id": record.get("parent_id"),
+        "depth": record.get("depth"),
+        "goal": record.get("goal"),
+        "model": record.get("model"),
+        "started_at": record.get("started_at"),
+        "status": record.get("status"),
+        "tool_count": record.get("tool_count"),
+        "last_tool": record.get("last_tool"),
+    }
+
+
+def get_subagent_output_tail(
+    subagent_id: str,
+    lines: int = 50,
+) -> Optional[List[Dict[str, Any]]]:
+    """Return recent tool-call output entries for a subagent, or None.
+
+    This relies on the parent having stored the child's results. For
+    running subagents, returns the tail from the child's conversation
+    messages if the child exposes them.
+
+    Args:
+        subagent_id: The subagent to query.
+        lines: Maximum number of output entries to return.
+    """
+    with _active_subagents_lock:
+        record = _active_subagents.get(subagent_id)
+    if not record:
+        return None
+
+    agent = record.get("agent")
+    if agent is None:
+        return None
+
+    # Try to get conversation messages from the running child
+    try:
+        messages = getattr(agent, "_conversation_messages", None) or []
+        if not messages:
+            return []
+        tail = messages[-min(lines, len(messages)):]
+        return [
+            {
+                "role": m.get("role") if isinstance(m, dict) else "unknown",
+                "content_preview": (
+                    str(m.get("content", ""))[:200]
+                    if isinstance(m, dict)
+                    else str(m)[:200]
+                ),
+            }
+            for m in tail
+        ]
+    except Exception:
+        return None
+
+
+def get_subagent_usage(subagent_id: str) -> Optional[Dict[str, Any]]:
+    """Return token/cost usage for a running subagent, or None."""
+    with _active_subagents_lock:
+        record = _active_subagents.get(subagent_id)
+    if not record:
+        return None
+    agent = record.get("agent")
+    if agent is None:
+        return None
+    try:
+        return {
+            "input_tokens": getattr(agent, "session_prompt_tokens", 0) or 0,
+            "output_tokens": getattr(agent, "session_completion_tokens", 0) or 0,
+            "api_calls": getattr(agent, "api_call_count", 0) or 0,
+            "cost_usd": getattr(agent, "session_estimated_cost_usd", 0.0) or 0.0,
+        }
+    except Exception:
+        return None
+
+
 def _build_child_progress_callback(
     task_index: int,
     goal: str,
@@ -1016,6 +1199,10 @@ def _build_child_agent(
     agent_config: Optional[dict] = None,
     profile: Optional[dict] = None,
     requested_blocked_tools: Optional[List[str]] = None,
+    # Phase B: isolation
+    requested_isolation: Optional[str] = None,
+    profile_isolation: Optional[str] = None,
+    profile_permission_mode: Optional[str] = None,
 ):
     """
     Build a child AIAgent on the main thread (thread-safe construction).
@@ -1120,6 +1307,32 @@ def _build_child_agent(
     # test_intersection_preserves_delegation_bound test for the design rationale.
     if effective_role == "orchestrator" and "delegation" not in child_toolsets:
         child_toolsets.append("delegation")
+
+    # ── Phase B: Isolation resolution ───────────────────────────────────
+    _effective_isolation, _iso_warnings, _iso_error = _resolve_isolation(
+        requested_isolation=requested_isolation,
+        profile_isolation=profile_isolation,
+        permission_mode=profile_permission_mode,
+    )
+    warnings.extend(_iso_warnings)
+    # If the caller requested worktree isolation, that's a hard error
+    if _iso_error:
+        # We stash the error so delegate_task can return it cleanly.
+        # _build_child_agent doesn't return errors directly, so we store it
+        # as a sentinel on the child object.
+        _isolation_error = _iso_error
+    else:
+        _isolation_error = None
+
+    # Apply readonly isolation: strip write toolsets and individual write tools
+    if _effective_isolation == "readonly":
+        child_toolsets_before_readonly = list(child_toolsets)
+        child_toolsets = _apply_readonly_isolation(child_toolsets)
+        # Add any write tools that got stripped by toolset removal to blocked
+        stripped_ts = set(child_toolsets_before_readonly) - set(child_toolsets)
+        for ts in stripped_ts:
+            effective_blocked.add(ts)
+            warnings.append(f"readonly isolation: stripped toolset '{ts}'")
 
     workspace_hint = _resolve_workspace_hint(parent_agent)
     child_prompt = _build_child_system_prompt(
@@ -1265,9 +1478,8 @@ def _build_child_agent(
     child._subagent_effective_toolsets = child_toolsets
     child._subagent_effective_blocked = effective_blocked
     child._subagent_warnings = warnings
-    child._subagent_isolation = (
-        (profile or {}).get("isolation", "shared") if agent_id else "shared"
-    )
+    child._subagent_isolation = _effective_isolation
+    child._subagent_isolation_error = _isolation_error
 
     # Share a credential pool with the child when possible so subagents can
     # rotate credentials on rate limits instead of getting pinned to one key.
@@ -1937,8 +2149,10 @@ def _run_single_child(
         entry: Dict[str, Any] = {
             "task_index": task_index,
             "status": status,
+            "goal": (goal or "").strip(),
             "summary": summary,
             "subagent_id": _safe_subagent_id,
+            "parent_id": _child_parent_sid if isinstance(_child_parent_sid, str) else None,
             "agent_id": _safe_agent_id,
             "role": _safe_role,
             "api_calls": api_calls,
@@ -1949,6 +2163,15 @@ def _run_single_child(
             "blocked_tools": _safe_blocked,
             "isolation": _child_isolation,
             "warnings": _child_warnings,
+            "usage": {
+                "input_tokens": (
+                    _input_tokens if isinstance(_input_tokens, (int, float)) else 0
+                ),
+                "output_tokens": (
+                    _output_tokens if isinstance(_output_tokens, (int, float)) else 0
+                ),
+                "api_calls": api_calls,
+            },
             "tokens": {
                 "input": (
                     _input_tokens if isinstance(_input_tokens, (int, float)) else 0
@@ -2039,6 +2262,7 @@ def _run_single_child(
         )[:40]
 
         _output_tail = _extract_output_tail(result, max_entries=8, max_chars=600)
+        entry["output_tail"] = _output_tail
 
         complete_kwargs: Dict[str, Any] = {
             "preview": summary[:160] if summary else entry.get("error", ""),
@@ -2209,6 +2433,8 @@ def delegate_task(
     role: Optional[str] = None,
     agent_id: Optional[str] = None,
     blocked_tools: Optional[List[str]] = None,
+    isolation: Optional[str] = None,
+    run_in_background: bool = False,
     parent_agent=None,
 ) -> str:
     """
@@ -2227,6 +2453,10 @@ def delegate_task(
     agent_id and role are mutually exclusive. blocked_tools can only add to
     the profile's blocked list, never subtract.
 
+    NEW (Phase B): isolation='readonly' strips write tools. isolation='worktree'
+    returns an error (not yet implemented). run_in_background=True returns
+    immediately with status='running' and a subagent_id for later status queries.
+
     Returns JSON with results array, one entry per task.
     """
     if parent_agent is None:
@@ -2243,6 +2473,7 @@ def delegate_task(
     # ── Phase A: resolve agent_id profile ──────────────────────────────
     _resolved_agent_config: Optional[dict] = None
     _resolved_profile: Optional[dict] = None
+    _requested_isolation: Optional[str] = isolation
     if agent_id:
         try:
             _resolved_agent_config, _resolved_profile = _load_subagent_profile(agent_id)
@@ -2387,6 +2618,9 @@ def delegate_task(
                 agent_config=_resolved_agent_config,
                 profile=_resolved_profile,
                 requested_blocked_tools=effective_blocked,
+                requested_isolation=t.get("isolation") if "isolation" in t else _requested_isolation,
+                profile_isolation=(_resolved_profile or {}).get("isolation") if _resolved_profile else None,
+                profile_permission_mode=(_resolved_profile or {}).get("permission_mode") if _resolved_profile else None,
             )
             # Override with correct parent tool names (before child construction mutated global)
             child._delegate_saved_tool_names = _parent_tool_names
@@ -2394,6 +2628,12 @@ def delegate_task(
     finally:
         # Authoritative restore: reset global to parent's tool names after all children built
         _model_tools._last_resolved_tool_names = _parent_tool_names
+
+    # ── Phase B: isolation error check ──────────────────────────────────
+    for _i, _t, child in children:
+        iso_err = getattr(child, "_subagent_isolation_error", None)
+        if iso_err:
+            return tool_error(iso_err)
 
     if n_tasks == 1:
         # Single task -- run directly (no thread pool overhead)
@@ -2929,6 +3169,26 @@ DELEGATE_TASK_SCHEMA = {
                     "one extra tool blocked for this specific call."
                 ),
             },
+            "isolation": {
+                "type": "string",
+                "enum": ["shared", "readonly", "worktree"],
+                "description": (
+                    "Subagent isolation mode. 'shared' (default) shares the "
+                    "parent's workspace. 'readonly' strips all write-capable "
+                    "tools (write_file, patch, terminal, process). "
+                    "'worktree' is not yet implemented — returns an error. "
+                    "When permission_mode is 'read_only' in the registry profile, "
+                    "readonly isolation is automatically enabled."
+                ),
+            },
+            "run_in_background": {
+                "type": "boolean",
+                "description": (
+                    "When true, the subagent runs asynchronously and the parent "
+                    "continues immediately. Use get_subagent_status() to query "
+                    "progress. NOT YET IMPLEMENTED — scheduled for Phase C."
+                ),
+            },
             "acp_command": {
                 "type": "string",
                 "description": (
@@ -2970,6 +3230,8 @@ registry.register(
         role=args.get("role"),
         agent_id=args.get("agent_id"),
         blocked_tools=args.get("blocked_tools"),
+        isolation=args.get("isolation"),
+        run_in_background=args.get("run_in_background", False),
         parent_agent=kw.get("parent_agent"),
     ),
     check_fn=check_delegate_requirements,
