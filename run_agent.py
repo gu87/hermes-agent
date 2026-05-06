@@ -9755,16 +9755,30 @@ class AIAgent:
         # ── Tool Input Repair (Phase 0-1.5) ──
         # Apply repair to all tools so agent-loop tools also benefit.
         # Skip MCP tools (dynamic schema incompatible) and tools with no schema.
+        # For registry-routed tools (the else branch), repair is done inside
+        # handle_function_call — skip here to avoid double repair.
+        _registry_routed_tools = {"todo", "session_search", "memory", "clarify", "delegate_task"}
         repair_log = None
-        if not function_name.startswith("mcp_"):
+        if not function_name.startswith("mcp_") and function_name not in _registry_routed_tools:
             try:
                 from model_tools import _repair_semantic_args, _repair_tool_args
                 function_args, sem_log = _repair_semantic_args(function_name, function_args)
                 function_args, struct_log = _repair_tool_args(function_name, function_args)
                 if sem_log or struct_log:
                     repair_log = (sem_log or []) + (struct_log or [])
+                # Log repair events to the session event store
+                if repair_log and self._event_log and self.task_id and self.session_id:
+                    try:
+                        self._event_log.log_tool_input_repaired(
+                            task_id=self.task_id,
+                            session_id=self.session_id,
+                            tool_name=function_name,
+                            repair_log=repair_log,
+                        )
+                    except Exception:
+                        pass
             except Exception:
-                pass  # Repair best-effort; don't block tool execution
+                logger.warning("Tool Input Repair failed for %s", function_name, exc_info=True)
 
         # Check plugin hooks for a block directive before executing anything.
         block_message: Optional[str] = None

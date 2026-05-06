@@ -665,11 +665,11 @@ def _repair_expand_user(value):
 
 
 def _repair_check_path_traversal(value):
-    """Check for path traversal patterns (does not fix, just flags)."""
+    """Check for path traversal patterns and log a warning if found."""
     if not isinstance(value, str):
         return value
     if _PATH_TRAVERSAL_RE.search(value):
-        pass  # flagged — tool handler will block it
+        logger.warning("Path traversal pattern detected: %s", repr(value[:200]))
     return value
 
 
@@ -685,7 +685,7 @@ def _repair_strip_shell_prompt(value):
 
 
 def _repair_fix_double_escape(value):
-    """Fix double-escaped backslashes in command strings."""
+    """Fix double-escaped backslashes in command strings (2 backslashes → 1)."""
     if not isinstance(value, str):
         return value
     return value.replace('\\\\', '\\')
@@ -704,6 +704,7 @@ _SEMANTIC_REPAIR_MAP = {
     ],
     ("terminal", "command"): [
         ("fix_double_escape", _repair_fix_double_escape),
+        ("strip_shell_prompt", _repair_strip_shell_prompt),
     ],
     ("patch", "path"): [
         ("strip_markdown_link", _repair_markdown_link),
@@ -737,18 +738,20 @@ def _repair_semantic_args(tool_name: str, args: Dict[str, Any]) -> tuple:
         original = value
         for rule_name, rule_fn in rules:
             try:
-                value = rule_fn(value)
+                new_value = rule_fn(value)
             except Exception:
                 continue
+            if new_value is not value:
+                if repair_log is None:
+                    repair_log = []
+                repair_log.append({
+                    "param": pname,
+                    "from": value,
+                    "to": new_value,
+                    "repair": rule_name,
+                })
+                value = new_value
         if value is not original:
-            if repair_log is None:
-                repair_log = []
-            repair_log.append({
-                "param": pname,
-                "from": original,
-                "to": value,
-                "repair": rule_name,
-            })
             repaired[pname] = value
 
     return repaired, repair_log
@@ -795,7 +798,7 @@ def coerce_tool_args(tool_name: str, args: Dict[str, Any]) -> Dict[str, Any]:
     safe coercion when the value is a string but the schema expects a different
     type.  Original values are preserved when coercion fails.
 
-    Handles ``"type": "integer"``, ``"type": "number"``, ``"type": "boolean``",
+    Handles ``"type": "integer"``, ``"type": "number"``, ``"type": "boolean"``,
     and union types (``"type": ["integer", "string"]``).
 
     Also wraps bare scalar values in a single-element list when the schema
@@ -1002,6 +1005,20 @@ def handle_function_call(
             repair_log.extend(sem_repair_log)
         if struct_repair_log:
             repair_log.extend(struct_repair_log)
+
+    # Log repair events to the session event store (event logging is optional)
+    if repair_log and session_id and task_id:
+        try:
+            from agent.session_event_log import EventLog
+            el = EventLog()
+            el.log_tool_input_repaired(
+                task_id=task_id,
+                session_id=session_id,
+                tool_name=function_name,
+                repair_log=repair_log,
+            )
+        except Exception:
+            pass
 
     # Coerce string arguments to their schema-declared types (e.g. "42"→42)
     function_args = coerce_tool_args(function_name, function_args)

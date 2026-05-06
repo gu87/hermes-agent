@@ -9,7 +9,7 @@ import json
 import os
 import sys
 import tempfile
-from unittest.mock import MagicMock, patch
+from unittest.mock import patch
 
 import pytest
 
@@ -32,12 +32,6 @@ def reset_schemas():
 
 def _register_schema(name, schema):
     _FAKE_SCHEMAS[name] = schema
-
-
-# Patch registry before importing model_tools internals
-with patch.dict("sys.modules"):
-    # We'll import the repair functions directly
-    pass
 
 
 # =============================================================================
@@ -88,9 +82,9 @@ class TestStructuralRepair:
         mock_registry.get_schema.side_effect = _fake_get_schema
 
         args, log = _repair_tool_args("test_tool", {"name": None})
-        # Required field — should still be removed since it's null but we
-        # keep it per the validate-then-repair principle
-        assert log is None or args.get("name") is None
+        # Required field with None — should be kept as-is (only optional nulls are stripped)
+        assert args.get("name") is None
+        assert log is None  # No repair needed for required null params
 
     @patch("model_tools.registry")
     def test_parse_json_array(self, mock_registry):
@@ -545,3 +539,161 @@ class TestFullPipeline:
         args, log = _repair_tool_args("test_tool", "not_a_dict")
         assert args == "not_a_dict"
         assert log is None
+
+
+# =============================================================================
+# Phase 4: Missing Edge Case Tests (Bug #12)
+# =============================================================================
+
+
+class TestEdgeCases:
+    """Test edge cases: multi-rule log accuracy, unicode, empty schema, idempotency."""
+
+    @patch("model_tools.registry")
+    def test_multi_rule_log_accuracy(self, mock_registry):
+        """Multiple rules applied to the same param should ALL be logged."""
+        from model_tools import _repair_semantic_args, _repair_markdown_link
+
+        _register_schema("read_file", {
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "path": {"type": "string", "x-semantic-type": "file-path"},
+                },
+                "required": ["path"],
+            }
+        })
+        mock_registry.get_schema.side_effect = _fake_get_schema
+
+        # Apply repair on a value that triggers both strip_markdown_link AND expand_tilde
+        # [~/project/file.txt](display) → markdown strip → ~/project/file.txt → expand → /home/user/project/file.txt
+        args, log = _repair_semantic_args("read_file", {
+            "path": "[~/project/file.txt](display)",
+        })
+        assert log is not None, "Repair log should not be None"
+        assert len(log) >= 2, f"Expected at least 2 repairs, got {len(log)}: {log}"
+        rule_names = [entry["repair"] for entry in log]
+        assert "strip_markdown_link" in rule_names, f"Missing strip_markdown_link in {rule_names}"
+        assert "expand_tilde" in rule_names, f"Missing expand_tilde in {rule_names}"
+
+    @patch("model_tools.registry")
+    def test_unicode_path_preserved(self, mock_registry):
+        """Unicode characters in paths should pass through untouched."""
+        from model_tools import _repair_semantic_args
+
+        _register_schema("read_file", {
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "path": {"type": "string", "x-semantic-type": "file-path"},
+                },
+                "required": ["path"],
+            }
+        })
+        mock_registry.get_schema.side_effect = _fake_get_schema
+
+        args, log = _repair_semantic_args("read_file", {
+            "path": "/data/中文/ファイル.txt",
+        })
+        assert "/data/中文/ファイル.txt" in args["path"]
+
+    @patch("model_tools.registry")
+    def test_unicode_path_with_markdown_link(self, mock_registry):
+        """Unicode markdown link should be stripped correctly."""
+        from model_tools import _repair_semantic_args
+
+        _register_schema("read_file", {
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "path": {"type": "string", "x-semantic-type": "file-path"},
+                },
+                "required": ["path"],
+            }
+        })
+        mock_registry.get_schema.side_effect = _fake_get_schema
+
+        args, log = _repair_semantic_args("read_file", {
+            "path": "[中文/文件.txt](リンク)",
+        })
+        assert args["path"] == "中文/文件.txt"
+
+    @patch("model_tools.registry")
+    def test_empty_schema_no_repair(self, mock_registry):
+        """Tools with empty schema (no properties) should pass through."""
+        from model_tools import _repair_tool_args
+
+        _register_schema("empty_tool", {
+            "parameters": {
+                "type": "object",
+                "properties": {},
+                "required": [],
+            }
+        })
+        mock_registry.get_schema.side_effect = _fake_get_schema
+
+        args, log = _repair_tool_args("empty_tool", {"key": "value"})
+        assert args == {"key": "value"}
+        assert log is None
+
+    @patch("model_tools.registry")
+    def test_semantic_repair_idempotent(self, mock_registry):
+        """Applying semantic repair twice should give same result."""
+        from model_tools import _repair_semantic_args
+
+        _register_schema("read_file", {
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "path": {"type": "string", "x-semantic-type": "file-path"},
+                },
+                "required": ["path"],
+            }
+        })
+        mock_registry.get_schema.side_effect = _fake_get_schema
+
+        args1, log1 = _repair_semantic_args("read_file", {
+            "path": "[~/project/file.txt](display)",
+        })
+        args2, log2 = _repair_semantic_args("read_file", dict(args1))
+        assert args1["path"] == args2["path"], "Idempotency violated"
+        # Second pass should have no new repairs (tilde already expanded, markdown already stripped)
+        assert log2 is None or not any(
+            e["repair"] in ("strip_markdown_link", "expand_tilde") for e in (log2 or [])
+        )
+
+    @patch("model_tools.registry")
+    def test_structural_repair_idempotent(self, mock_registry):
+        """Applying structural repair twice should be stable."""
+        from model_tools import _repair_tool_args
+
+        _register_schema("test_tool", {
+            "parameters": {
+                "type": "object",
+                "properties": {
+                    "tags": {"type": "array", "items": {"type": "string"}},
+                    "optional_field": {"type": "string"},
+                },
+                "required": [],
+            }
+        })
+        mock_registry.get_schema.side_effect = _fake_get_schema
+
+        args1, _ = _repair_tool_args("test_tool", {
+            "tags": "bare_string",
+            "optional_field": None,
+        })
+        args2, log2 = _repair_tool_args("test_tool", dict(args1))
+        assert args1 == args2, "Structural repair idempotency violated"
+        # Second pass should have no repairs (already fixed)
+        assert log2 is None
+
+    def test_fix_double_escape_two_to_one(self):
+        """Double backslash (2→1) should be handled correctly."""
+        from model_tools import _repair_fix_double_escape
+
+        # 2 backslashes → 1 backslash
+        assert _repair_fix_double_escape("ls\\\\n") == "ls\\n"
+        assert _repair_fix_double_escape("a\\\\nb") == "a\\nb"
+        assert _repair_fix_double_escape("no_escape") == "no_escape"
+        assert _repair_fix_double_escape(42) == 42

@@ -87,6 +87,7 @@ REQUIRED_PAYLOAD_KEYS: Dict[str, List[str]] = {
     EVENT_SUBAGENT_COMPLETED: ["subagent_id", "status"],
     EVENT_SUBAGENT_FAILED: ["subagent_id", "error"],
     EVENT_SUBAGENT_INTERRUPTED: ["subagent_id", "reason"],
+    EVENT_TOOL_INPUT_REPAIRED: ["tool_name", "repairs"],
 }
 
 SCHEMA_SQL = """
