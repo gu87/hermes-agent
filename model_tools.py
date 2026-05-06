@@ -691,6 +691,67 @@ def _repair_fix_double_escape(value):
     return value.replace('\\\\', '\\')
 
 
+# ── Desktop-tool semantic repair functions for OpenClaw (GLM-5-Turbo) ──
+
+
+def _repair_desktop_coord_int(value):
+    """Convert float or string coordinates to int for desktop_click/desktop_move.
+
+    GLM-5-Turbo occasionally emits coordinates as floats (``100.0``) or
+    string digits (``"500"``) instead of plain ints.
+    """
+    if isinstance(value, float):
+        return int(value)
+    if isinstance(value, str):
+        try:
+            return int(value.strip())
+        except (ValueError, TypeError):
+            return value
+    # None stays None — required param, let handler produce a clear error
+    return value
+
+
+def _repair_desktop_clipboard_action(value):
+    """Fix ``action: null`` → ``action: "read"`` for desktop_clipboard.
+
+    ``action`` is a required param.  GLM-5-Turbo sometimes sends null
+    for required string enums; defaulting to ``"read"`` is safe because
+    read is side-effect-free.
+    """
+    if value is None:
+        return "read"
+    return value
+
+
+def _repair_desktop_clipboard_text_string(value):
+    """Convert non-string ``text`` to string for desktop_clipboard write.
+
+    GLM-5-Turbo occasionally passes ``text: 123`` (int) instead of
+    ``text: "123"`` (string).  The existing coerce layer only converts
+    *string → target_type*, not the reverse, so this covers the gap.
+    """
+    if not isinstance(value, str):
+        return str(value)
+    return value
+
+
+def _repair_desktop_scroll_amount(value):
+    """Convert float or string ``amount`` to int for desktop_scroll.
+
+    ``coerce_tool_args`` handles string→int, but float→int is missed
+    because the coerce layer only acts on string values.  This catches
+    ``amount: 5.0`` emitted as a JSON number by the model.
+    """
+    if isinstance(value, float):
+        return int(value)
+    if isinstance(value, str):
+        try:
+            return int(value.strip())
+        except (ValueError, TypeError):
+            return value
+    return value
+
+
 # ── Semantic repair map (per-tool, per-parameter) ──
 # Keyed by (tool_name, param_name) tuple.
 _SEMANTIC_REPAIR_MAP = {
@@ -713,6 +774,32 @@ _SEMANTIC_REPAIR_MAP = {
     ("search_files", "path"): [
         ("strip_markdown_link", _repair_markdown_link),
         ("expand_tilde", _repair_expand_user),
+    ],
+    # ── Desktop tools (OpenClaw / GLM-5-Turbo) ──
+    # desktop_type.text must NEVER be modified — content is user-authored text
+    ("desktop_type", "text"): [
+        ("safeguard_desktop_type_text", lambda v: v),
+    ],
+    ("desktop_click", "x"): [
+        ("fix_coord_type", _repair_desktop_coord_int),
+    ],
+    ("desktop_click", "y"): [
+        ("fix_coord_type", _repair_desktop_coord_int),
+    ],
+    ("desktop_move", "x"): [
+        ("fix_coord_type", _repair_desktop_coord_int),
+    ],
+    ("desktop_move", "y"): [
+        ("fix_coord_type", _repair_desktop_coord_int),
+    ],
+    ("desktop_clipboard", "action"): [
+        ("fix_clipboard_action_null", _repair_desktop_clipboard_action),
+    ],
+    ("desktop_clipboard", "text"): [
+        ("fix_clipboard_text_type", _repair_desktop_clipboard_text_string),
+    ],
+    ("desktop_scroll", "amount"): [
+        ("fix_amount_type", _repair_desktop_scroll_amount),
     ],
 }
 
