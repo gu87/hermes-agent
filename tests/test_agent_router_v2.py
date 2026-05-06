@@ -181,13 +181,10 @@ class TestMarketingHardRules:
             assert result.mode != "self_execute" or result.agents != [], \
                 f"Keyword '{kw}' should not route to self_execute with no agents"
 
-    def test_client_name_forces_marketing_deck(self, router):
-        """客户名命中 → 强制 marketing_deck。"""
+    def test_client_name_populates_metadata(self, router):
+        """客户名出现时 client 元数据被填充。"""
         result = router.route("other", raw_request="百威的方案帮我看看")
-        assert any(
-            kw in result.reason or result.client == "百威"
-            for kw in ["marketing_deck", "百威"]
-        )
+        assert result.client == "百威"
 
     def test_first_output_strategy_spine(self, router):
         """marketing_deck 类型 first_output 必须为 strategy_spine。"""

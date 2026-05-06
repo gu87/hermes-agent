@@ -133,7 +133,7 @@ TASK_TYPE_KEYWORDS: Dict[str, List[str]] = {
         "对比文件", "合同", "报价表", "排期", "读一下",
     ],
     "research": [
-        "搜索", "搜集", "整理资料", "竞品",
+        "搜索", "搜集", "整理资料", "竞品", "人物",
         "品牌动作", "行业信息", "全网搜索",
     ],
     "marketing_deck": [
@@ -151,20 +151,25 @@ CLIENT_NAME_KEYWORDS: List[str] = [
 # ── v2.8 客户目录映射（从配置文件加载，此处为默认值）──
 
 def _load_client_directory_map() -> Dict[str, str]:
-    """Load client name → local project directory mapping."""
-    import json as _json
-    from pathlib import Path as _Path
+    """Load client name → local project directory mapping.
+
+    Only keys that look like client names are kept — metadata keys
+    starting with ``_`` are filtered out.
+    """
     try:
         from hermes_constants import get_hermes_home as _get_home
     except Exception:
+        from pathlib import Path as _Path
         def _get_home() -> _Path:
             return _Path.home() / ".hermes"
     config_path = _get_home() / "config" / "client_directory_map.json"
     try:
         with open(config_path, "r", encoding="utf-8") as _f:
-            return _json.load(_f)
-    except (FileNotFoundError, _json.JSONDecodeError, OSError):
+            raw = json.load(_f)
+    except (FileNotFoundError, json.JSONDecodeError, OSError):
         return {}
+    # Filter out metadata keys like "_description", "_updated"
+    return {k: v for k, v in raw.items() if isinstance(k, str) and not k.startswith("_")}
 
 CLIENT_DIRECTORY_MAP: Dict[str, str] = _load_client_directory_map()
 
