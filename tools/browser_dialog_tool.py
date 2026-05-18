@@ -19,7 +19,6 @@ import json
 import logging
 from typing import Any, Dict, Optional
 
-from tools.browser_supervisor import SUPERVISOR_REGISTRY
 from tools.registry import registry
 
 logger = logging.getLogger(__name__)
@@ -86,6 +85,20 @@ def browser_dialog(
     task_id: Optional[str] = None,
 ) -> str:
     """Respond to a pending dialog on the active task's CDP supervisor."""
+    try:
+        from tools.browser_supervisor import SUPERVISOR_REGISTRY  # type: ignore[import-not-found]
+    except ImportError as exc:
+        return json.dumps(
+            {
+                "success": False,
+                "error": (
+                    "CDP supervisor dependencies are not installed. "
+                    "Install the browser/CDP dependencies, then retry "
+                    f"browser_dialog. Import error: {exc}"
+                ),
+            }
+        )
+
     effective_task_id = task_id or "default"
     supervisor = SUPERVISOR_REGISTRY.get(effective_task_id)
     if supervisor is None:
