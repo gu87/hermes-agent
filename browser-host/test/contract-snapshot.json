@@ -1,0 +1,50 @@
+{
+  "comment": "BrowserContextSnapshot contract fixture — Phase 5A. Both /snapshot and /context must match this shape.",
+  "capturedAt": "2026-06-06T10:00:00.000Z",
+  "source": {
+    "provider": "browser-host",
+    "mode": "read-only",
+    "version": "phase-5a"
+  },
+  "profileId": "default",
+  "activeTab": {
+    "id": "main",
+    "url": "https://example.com",
+    "title": "Example Domain",
+    "pageType": "generic-web",
+    "isLoading": false,
+    "canGoBack": false,
+    "canGoForward": false,
+    "screenshotRef": null,
+    "domSummary": "Example Domain\n\nThis domain is for use in illustrative examples...",
+    "selectedText": "Example Domain",
+    "clipboardTextPreview": ""
+  },
+  "tabs": [
+    {
+      "id": "main",
+      "url": "https://example.com",
+      "title": "Example Domain",
+      "active": true
+    }
+  ],
+  "recentEvents": [
+    {
+      "ts": "2026-06-06T10:00:00.000Z",
+      "type": "page-load-complete",
+      "url": "https://example.com"
+    }
+  ],
+  "permissions": {
+    "screenshot": "available",
+    "clipboard": "available",
+    "dom": "available",
+    "selection": "available"
+  },
+  "limits": {
+    "domSummaryChars": 3000,
+    "selectedTextChars": 3000,
+    "clipboardPreviewChars": 1000
+  },
+  "pluginContext": null
+}

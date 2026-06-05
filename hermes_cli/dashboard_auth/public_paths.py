@@ -46,4 +46,13 @@ PUBLIC_API_PATHS: frozenset[str] = frozenset({
     # Read-only theme + plugin manifests for the dashboard skin engine.
     "/api/dashboard/themes",
     "/api/dashboard/plugins",
+    # Dashboard plugin manifest rescan (read-only, admin trigger).
+    "/api/dashboard/plugins/rescan",
+    # Read-only browser workspace health + context endpoints.
+    "/api/browser-host/status",
+    "/api/browser-host/start",
+    "/api/browser-host/stop",
+    "/api/browser-host/snapshot",
+    "/api/browser-host/screenshot",
+    "/api/browser-host/context",
 })

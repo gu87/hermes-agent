@@ -1,0 +1,14 @@
+{
+  "name": "browser-workspace",
+  "label": "Browser",
+  "description": "Shared browser workspace — read-only embedded browser for Agent context",
+  "icon": "Globe",
+  "version": "0.1.0",
+  "tab": {
+    "path": "/browser",
+    "position": "after:skills"
+  },
+  "entry": "dist/index.js",
+  "has_api": false,
+  "source": "bundled"
+}

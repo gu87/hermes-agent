@@ -9264,6 +9264,236 @@ def _mount_plugin_api_routes():
             _log.warning("Failed to load plugin %s API routes: %s", plugin["name"], exc)
 
 
+# ── Browser Host API (Phase 2B) ────────────────────────────────────────
+# Read-only status / start / stop for the independent Electron child process.
+# No snapshot, screenshot, DOM, clipboard, or Agent action APIs.
+
+_BROWSER_HOST_DIR = Path(__file__).parent.parent / "browser-host"
+_BROWSER_HOST_LOG = get_hermes_home() / "logs" / "browser-host.log"
+_BROWSER_HOST_STATE = get_hermes_home() / "browser-host" / "state.json"
+_BROWSER_HOST_START_TIMEOUT = 10  # seconds
+
+
+def _read_browser_host_state() -> dict | None:
+    """Read the state file written by the Electron host on startup."""
+    if not _BROWSER_HOST_STATE.exists():
+        return None
+    try:
+        return json.loads(_BROWSER_HOST_STATE.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return None
+
+
+def _is_pid_alive(pid: int) -> bool:
+    """Check if a process with the given PID is alive."""
+    try:
+        os.kill(pid, 0)
+        return True
+    except (OSError, ProcessLookupError):
+        return False
+
+
+def _check_browser_host_status() -> dict:
+    """Return the full status dict for the browser host."""
+    state = _read_browser_host_state()
+    if state is None:
+        return {
+            "status": "stopped",
+            "pid": None,
+            "port": None,
+            "healthUrl": None,
+            "statePath": str(_BROWSER_HOST_STATE),
+            "lastError": None,
+            "health": None,
+        }
+
+    pid = state.get("pid")
+    health_url = state.get("healthUrl")
+
+    if pid is None or not _is_pid_alive(pid):
+        return {
+            "status": "stopped",
+            "pid": pid,
+            "port": state.get("port"),
+            "healthUrl": health_url,
+            "statePath": str(_BROWSER_HOST_STATE),
+            "lastError": "stale state file (PID not alive)",
+            "health": None,
+        }
+
+    # PID alive — check health endpoint
+    health = None
+    if health_url:
+        try:
+            import urllib.request
+            req = urllib.request.Request(health_url)
+            with urllib.request.urlopen(req, timeout=3) as resp:
+                health = json.loads(resp.read().decode("utf-8"))
+        except Exception as exc:
+            return {
+                "status": "error",
+                "pid": pid,
+                "port": state.get("port"),
+                "healthUrl": health_url,
+                "statePath": str(_BROWSER_HOST_STATE),
+                "lastError": str(exc),
+                "health": None,
+            }
+
+    return {
+        "status": "running",
+        "pid": pid,
+        "port": state.get("port"),
+        "healthUrl": health_url,
+        "statePath": str(_BROWSER_HOST_STATE),
+        "lastError": None,
+        "health": health,
+    }
+
+
+@app.get("/api/browser-host/status")
+async def get_browser_host_status():
+    """Return the current status of the browser host."""
+    return _check_browser_host_status()
+
+
+@app.post("/api/browser-host/start")
+async def start_browser_host():
+    """Start the browser host Electron child process."""
+    current = _check_browser_host_status()
+    if current["status"] == "running":
+        return current
+
+    # Clean up stale state file if present
+    if _BROWSER_HOST_STATE.exists():
+        try:
+            _BROWSER_HOST_STATE.unlink()
+        except OSError:
+            pass
+
+    _BROWSER_HOST_LOG.parent.mkdir(parents=True, exist_ok=True)
+    log_file = _BROWSER_HOST_LOG.open("a")
+
+    try:
+        subprocess.Popen(
+            ["npm", "run", "dev"],
+            cwd=str(_BROWSER_HOST_DIR),
+            stdout=log_file,
+            stderr=log_file,
+            start_new_session=True,  # detach from web server process
+        )
+    except Exception as exc:
+        return {
+            "status": "error",
+            "pid": None,
+            "port": None,
+            "healthUrl": None,
+            "statePath": str(_BROWSER_HOST_STATE),
+            "lastError": f"Failed to start: {exc}",
+            "health": None,
+        }
+
+    # Wait for state file to appear (up to 10s)
+    deadline = time.time() + _BROWSER_HOST_START_TIMEOUT
+    while time.time() < deadline:
+        if _BROWSER_HOST_STATE.exists():
+            time.sleep(0.5)  # give the health server a moment
+            return _check_browser_host_status()
+        time.sleep(0.5)
+
+    return {
+        "status": "error",
+        "pid": None,
+        "port": None,
+        "healthUrl": None,
+        "statePath": str(_BROWSER_HOST_STATE),
+        "lastError": f"State file did not appear within {_BROWSER_HOST_START_TIMEOUT}s",
+        "health": None,
+    }
+
+
+@app.post("/api/browser-host/stop")
+async def stop_browser_host():
+    """Stop the browser host process."""
+    current = _check_browser_host_status()
+    if current["status"] == "stopped":
+        # Clean up stale state file
+        if _BROWSER_HOST_STATE.exists():
+            try:
+                _BROWSER_HOST_STATE.unlink()
+            except OSError:
+                pass
+        current["lastError"] = None
+        return current
+
+    pid = current.get("pid")
+    if pid is not None:
+        # Try graceful termination first
+        try:
+            os.kill(pid, 15)  # SIGTERM
+            deadline = time.time() + 5
+            while time.time() < deadline:
+                if not _is_pid_alive(pid):
+                    break
+                time.sleep(0.3)
+            # Force kill if still alive
+            if _is_pid_alive(pid):
+                os.kill(pid, 9)  # SIGKILL
+        except (OSError, ProcessLookupError):
+            pass  # already dead
+
+    # Clean up state file
+    if _BROWSER_HOST_STATE.exists():
+        try:
+            _BROWSER_HOST_STATE.unlink()
+        except OSError:
+            pass
+
+    return _check_browser_host_status()
+
+
+# ── Browser Host proxy endpoints (Phase 2C) ────────────────────────────
+
+def _proxy_to_browser_host(path: str):
+    """Proxy a GET request to the browser host's API.
+    Returns (status_code, dict) on error, or the parsed JSON result."""
+    current = _check_browser_host_status()
+    if current["status"] != "running":
+        raise HTTPException(status_code=409, detail=f"Browser host is {current['status']}")
+
+    port = current.get("port")
+    if not port:
+        raise HTTPException(status_code=409, detail="Browser host port unknown")
+
+    try:
+        import urllib.request
+        url = f"http://127.0.0.1:{port}{path}"
+        req = urllib.request.Request(url)
+        with urllib.request.urlopen(req, timeout=10) as resp:
+            data = resp.read()
+            return json.loads(data.decode("utf-8"))
+    except Exception as exc:
+        raise HTTPException(status_code=502, detail=f"Browser host unreachable: {exc}")
+
+
+@app.get("/api/browser-host/snapshot")
+async def get_browser_host_snapshot():
+    """Proxy to browser-host /snapshot."""
+    return _proxy_to_browser_host("/snapshot")
+
+
+@app.get("/api/browser-host/screenshot")
+async def get_browser_host_screenshot():
+    """Proxy to browser-host /screenshot."""
+    return _proxy_to_browser_host("/screenshot")
+
+
+@app.get("/api/browser-host/context")
+async def get_browser_host_context():
+    """Proxy to browser-host /context."""
+    return _proxy_to_browser_host("/context")
+
+
 # Mount plugin API routes before the SPA catch-all.
 _mount_plugin_api_routes()
 
