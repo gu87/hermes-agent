@@ -37,8 +37,8 @@ export interface ToolEntry {
 }
 
 const STATUS_TONE: Record<ToolEntry["status"], string> = {
-  running: "border-primary/40 bg-primary/[0.04]",
-  done: "border-border bg-muted/20",
+  running: "border-primary/50 bg-primary/[0.03]",
+  done: "border-border/50 bg-transparent",
   error: "border-destructive/50 bg-destructive/[0.04]",
 };
 
@@ -50,7 +50,15 @@ const BULLET_TONE: Record<ToolEntry["status"], string> = {
 
 const TICK_MS = 500;
 
-export function ToolCall({ tool }: { tool: ToolEntry }) {
+export function ToolCall({
+  tool,
+  onClick,
+  selected,
+}: {
+  tool: ToolEntry;
+  onClick?: () => void;
+  selected?: boolean;
+}) {
   // `open` is derived: errors default-expanded, everything else collapsed.
   // `null` means "follow the default"; any explicit bool is the user's override.
   // This lets a running tool flip to expanded automatically when it errors,
@@ -86,11 +94,14 @@ export function ToolCall({ tool }: { tool: ToolEntry }) {
 
   return (
     <div
-      className={`rounded-md border overflow-hidden ${STATUS_TONE[tool.status]}`}
+      className={`rounded-md border overflow-hidden ${STATUS_TONE[tool.status]}${selected ? " ring-2 ring-primary/40" : ""}`}
     >
       <ListItem
-        onClick={() => setUserOverride(!open)}
-        disabled={!hasBody}
+        onClick={() => {
+          setUserOverride(!open);
+          onClick?.();
+        }}
+        disabled={!hasBody && !onClick}
         aria-expanded={open}
         className="px-2.5 py-1.5 text-xs hover:bg-foreground/2 disabled:cursor-default"
       >
