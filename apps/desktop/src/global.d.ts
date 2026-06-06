@@ -87,6 +87,9 @@ declare global {
         unmount: () => Promise<DesktopBrowserResult>
         setBounds: (bounds: DesktopBrowserBounds) => Promise<DesktopBrowserResult>
         getState: () => Promise<DesktopBrowserState>
+        getDomSummary: () => Promise<DesktopBrowserDomSummary>
+        getScreenshot: () => Promise<DesktopBrowserScreenshot>
+        getSelectedText: () => Promise<DesktopBrowserSelectedText>
         navigate: (payload: DesktopBrowserNavigatePayload) => Promise<DesktopBrowserNavigateResult>
         reload: () => Promise<DesktopBrowserResult>
         stop: () => Promise<DesktopBrowserResult>
@@ -436,6 +439,26 @@ export interface DesktopBrowserState {
   canGoBack: boolean
   canGoForward: boolean
   isLoading: boolean
+  error?: string
+}
+
+export interface DesktopBrowserDomSummary {
+  title: string
+  description: string
+  headings: Array<{ tag: string; text: string }>
+  textPreview: string
+  error?: string
+}
+
+export interface DesktopBrowserScreenshot {
+  dataURL: string
+  width: number
+  height: number
+  error?: string
+}
+
+export interface DesktopBrowserSelectedText {
+  text: string
   error?: string
 }
 

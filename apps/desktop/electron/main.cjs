@@ -5525,6 +5525,53 @@ ipcMain.handle('hermes:browser:get-state', async () => {
   }
 })
 
+// ── Read-only inspection: DOM / screenshot / selection ───────────────────
+
+ipcMain.handle('hermes:browser:get-dom-summary', async () => {
+  try {
+    const view = getBrowserView()
+    const wc = view.webContents
+    const summary = await wc.executeJavaScript(`
+      (() => {
+        const title = document.title || ''
+        const metaDesc = (document.querySelector('meta[name="description"]') || {}).content || ''
+        const headings = Array.from(document.querySelectorAll('h1,h2,h3'))
+          .slice(0, 20)
+          .map(h => ({ tag: h.tagName.toLowerCase(), text: h.textContent.trim().slice(0, 200) }))
+        const textPreview = (document.body ? document.body.innerText : '').slice(0, 3000)
+        return { title, description: metaDesc, headings, textPreview }
+      })()
+    `)
+    return summary
+  } catch (error) {
+    return { title: '', description: '', headings: [], textPreview: '', error: error.message }
+  }
+})
+
+ipcMain.handle('hermes:browser:get-screenshot', async () => {
+  try {
+    const view = getBrowserView()
+    const wc = view.webContents
+    const image = await wc.capturePage()
+    const size = image.getSize()
+    const dataURL = image.toDataURL()
+    return { dataURL, width: size.width, height: size.height }
+  } catch (error) {
+    return { dataURL: '', width: 0, height: 0, error: error.message }
+  }
+})
+
+ipcMain.handle('hermes:browser:get-selected-text', async () => {
+  try {
+    const view = getBrowserView()
+    const wc = view.webContents
+    const text = await wc.executeJavaScript('window.getSelection().toString()')
+    return { text: text || '' }
+  } catch (error) {
+    return { text: '', error: error.message }
+  }
+})
+
 // ── User-action-only navigation ──────────────────────────────────────────
 
 ipcMain.handle('hermes:browser:navigate', async (_event, payload) => {
