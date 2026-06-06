@@ -116,6 +116,48 @@ contextBridge.exposeInMainWorld('hermesDesktop', {
     ipcRenderer.on('hermes:bootstrap:event', listener)
     return () => ipcRenderer.removeListener('hermes:bootstrap:event', listener)
   },
+  browser: {
+    isAvailable: () => ipcRenderer.invoke('hermes:browser:is-available'),
+    mount: () => ipcRenderer.invoke('hermes:browser:mount'),
+    unmount: () => ipcRenderer.invoke('hermes:browser:unmount'),
+    setBounds: bounds => ipcRenderer.invoke('hermes:browser:set-bounds', bounds),
+    getState: () => ipcRenderer.invoke('hermes:browser:get-state'),
+    navigate: payload => ipcRenderer.invoke('hermes:browser:navigate', payload),
+    reload: () => ipcRenderer.invoke('hermes:browser:reload', { source: 'user' }),
+    stop: () => ipcRenderer.invoke('hermes:browser:stop', { source: 'user' }),
+    goBack: () => ipcRenderer.invoke('hermes:browser:go-back', { source: 'user' }),
+    goForward: () => ipcRenderer.invoke('hermes:browser:go-forward', { source: 'user' }),
+    onPageTitleUpdated: callback => {
+      const listener = (_event, payload) => callback(payload)
+      ipcRenderer.on('hermes:browser:page-title-updated', listener)
+      return () => ipcRenderer.removeListener('hermes:browser:page-title-updated', listener)
+    },
+    onPageFaviconUpdated: callback => {
+      const listener = (_event, payload) => callback(payload)
+      ipcRenderer.on('hermes:browser:page-favicon-updated', listener)
+      return () => ipcRenderer.removeListener('hermes:browser:page-favicon-updated', listener)
+    },
+    onDidNavigate: callback => {
+      const listener = (_event, payload) => callback(payload)
+      ipcRenderer.on('hermes:browser:did-navigate', listener)
+      return () => ipcRenderer.removeListener('hermes:browser:did-navigate', listener)
+    },
+    onDidNavigateInPage: callback => {
+      const listener = (_event, payload) => callback(payload)
+      ipcRenderer.on('hermes:browser:did-navigate-in-page', listener)
+      return () => ipcRenderer.removeListener('hermes:browser:did-navigate-in-page', listener)
+    },
+    onDidStartLoading: callback => {
+      const listener = () => callback()
+      ipcRenderer.on('hermes:browser:did-start-loading', listener)
+      return () => ipcRenderer.removeListener('hermes:browser:did-start-loading', listener)
+    },
+    onDidStopLoading: callback => {
+      const listener = () => callback()
+      ipcRenderer.on('hermes:browser:did-stop-loading', listener)
+      return () => ipcRenderer.removeListener('hermes:browser:did-stop-loading', listener)
+    }
+  },
   getVersion: () => ipcRenderer.invoke('hermes:version'),
   updates: {
     check: () => ipcRenderer.invoke('hermes:updates:check'),
