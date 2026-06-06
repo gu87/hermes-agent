@@ -51,6 +51,8 @@ import { Badge } from "@nous-research/ui/ui/components/badge";
 import { useI18n } from "@/i18n";
 import { usePageHeader } from "@/contexts/usePageHeader";
 import { PluginSlot } from "@/plugins";
+import { Link } from "react-router-dom";
+import { isDashboardEmbeddedChatEnabled } from "@/lib/dashboard-flags";
 
 /* ------------------------------------------------------------------ */
 /*  Helpers                                                            */
@@ -637,6 +639,43 @@ export default function ConfigPage() {
             )}
           </div>
         </div>
+      )}
+      {isDashboardEmbeddedChatEnabled() && (
+        <Card>
+          <CardHeader className="py-3 px-4">
+            <CardTitle className="text-sm flex items-center gap-2">
+              <History className="h-4 w-4" />
+              Diagnostics & History
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="px-4 pb-4">
+            <p className="text-[0.68rem] text-muted-foreground mb-3 leading-relaxed">
+              Advanced pages for troubleshooting and administration. These
+              are not part of the default chat experience.
+            </p>
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-1.5">
+              {([
+                ["/operations", "Operations", "Activity"],
+                ["/sessions", "Sessions", "MessageSquare"],
+                ["/analytics", "Analytics", "BarChart3"],
+                ["/models", "Models", "Cpu"],
+                ["/delegations", "Delegations", "Activity"],
+                ["/runs", "Runs", "Play"],
+                ["/logs", "Logs", "FileText"],
+              ] as const).map(([path, label]) => (
+                <Link
+                  key={path}
+                  to={path}
+                  className="flex items-center gap-1.5 rounded border border-border/50 bg-muted/30 px-2.5 py-1.5 text-[0.68rem] text-muted-foreground transition-colors hover:border-midground/30 hover:text-midground hover:bg-midground/5"
+                >
+                  <span className="text-[0.6rem] uppercase tracking-[0.08em]">
+                    {label}
+                  </span>
+                </Link>
+              ))}
+            </div>
+          </CardContent>
+        </Card>
       )}
       <PluginSlot name="config:bottom" />
       <ConfirmDialog
