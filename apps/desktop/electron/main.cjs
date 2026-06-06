@@ -51,6 +51,7 @@ const {
   resolveReadableFileForIpc,
   resolveTimeoutMs
 } = require('./hardening.cjs')
+const { resolveShellCommand } = require('./terminal-shell.cjs')
 
 let nodePty = null
 
@@ -74,6 +75,29 @@ try {
     nodePty = null
   }
 }
+
+// node-pty's macOS prebuild ships spawn-helper without the execute bit.
+// posix_spawnp on macOS spawns the helper first (it then launches the real
+// shell), so the helper must be executable. Fix it at load time so the
+// terminal works on every `npm run dev` / packaged run without manual chmod.
+;(function ensurePtySpawnHelperExecutable() {
+  if (!nodePty || process.platform !== 'darwin') return
+  try {
+    const ptyPkgRoot = path.dirname(require.resolve('node-pty/package.json'))
+    const helperPath = path.join(ptyPkgRoot, 'prebuilds', `${process.platform}-${process.arch}`, 'spawn-helper')
+    if (!fs.existsSync(helperPath)) return
+    const stat = fs.statSync(helperPath)
+    // eslint-disable-next-line no-bitwise
+    if (!(stat.mode & fs.constants.S_IXUSR)) {
+      // eslint-disable-next-line no-bitwise
+      fs.chmodSync(helperPath, stat.mode | fs.constants.S_IXUSR | fs.constants.S_IXGRP | fs.constants.S_IXOTH)
+      rememberLog(`[pty] made spawn-helper executable: ${helperPath}`)
+    }
+  } catch (error) {
+    // Non-fatal — terminal:start will surface a diagnostic error downstream.
+    rememberLog(`[pty] could not ensure spawn-helper is executable: ${error.message}`)
+  }
+})()
 
 const USER_DATA_OVERRIDE = process.env.HERMES_DESKTOP_USER_DATA_DIR
 if (USER_DATA_OVERRIDE) {
@@ -5141,19 +5165,22 @@ function findGitRoot(start) {
 }
 
 function terminalShellCommand() {
-  if (IS_WINDOWS) {
-    return { args: [], command: process.env.COMSPEC || 'cmd.exe' }
+  const result = resolveShellCommand({
+    platform: process.platform,
+    envSHELL: process.env.SHELL,
+    envComspec: process.env.COMSPEC
+  })
+
+  // Defensive: if the resolved shell doesn't exist on disk, log a clear
+  // diagnostic so the downstream posix_spawnp error is debuggable.
+  if (!fs.existsSync(result.command)) {
+    rememberLog(
+      `[terminal] resolved shell does not exist on disk: ${result.command} ` +
+        `(SHELL=${process.env.SHELL || '<unset>'})`
+    )
   }
 
-  const configuredShell = process.env.SHELL || ''
-  const shellPath =
-    (path.isAbsolute(configuredShell) && fs.existsSync(configuredShell) && configuredShell) ||
-    ['/bin/zsh', '/bin/bash', '/bin/sh'].find(candidate => fs.existsSync(candidate)) ||
-    '/bin/sh'
-  const shellName = path.basename(shellPath)
-  const interactiveArgs = shellName.includes('zsh') || shellName.includes('bash') ? ['-il'] : ['-i']
-
-  return { args: interactiveArgs, command: shellPath, name: shellName }
+  return result
 }
 
 function safeTerminalCwd(cwd) {
@@ -5269,13 +5296,32 @@ ipcMain.handle('hermes:terminal:start', async (event, payload = {}) => {
   const cwd = safeTerminalCwd(payload?.cwd)
   const cols = Math.max(2, Number.parseInt(String(payload?.cols || 80), 10) || 80)
   const rows = Math.max(2, Number.parseInt(String(payload?.rows || 24), 10) || 24)
-  const ptyProcess = nodePty.spawn(command, args, {
-    cols,
-    cwd,
-    env: terminalShellEnv(),
-    name: 'xterm-256color',
-    rows
-  })
+
+  let ptyProcess
+  try {
+    ptyProcess = nodePty.spawn(command, args, {
+      cols,
+      cwd,
+      env: terminalShellEnv(),
+      name: 'xterm-256color',
+      rows
+    })
+  } catch (error) {
+    const existsOnDisk = fs.existsSync(command)
+    const shellStat = existsOnDisk ? fs.statSync(command) : null
+    const details = [
+      `shell=${command}`,
+      `args=[${args.join(', ')}]`,
+      `cwd=${cwd}`,
+      `exists=${existsOnDisk}`,
+      `mode=${shellStat ? (shellStat.mode & 0o777).toString(8) : 'n/a'}`,
+      `SHELL=${process.env.SHELL || '<unset>'}`,
+      `platform=${process.platform}`,
+      `arch=${process.arch}`
+    ].join(' ')
+    rememberLog(`[terminal] spawn failed: ${error.message} | ${details}`)
+    throw new Error(`Failed to start terminal: ${error.message} (${details})`)
+  }
 
   terminalSessions.set(id, { pty: ptyProcess, webContentsId: event.sender.id })
 
