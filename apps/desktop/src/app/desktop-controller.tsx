@@ -94,6 +94,7 @@ import { UpdatesOverlay } from './updates-overlay'
 
 const AgentsView = lazy(async () => ({ default: (await import('./agents')).AgentsView }))
 const ArtifactsView = lazy(async () => ({ default: (await import('./artifacts')).ArtifactsView }))
+const BrowserWorkspaceView = lazy(async () => ({ default: (await import('./browser-workspace')).BrowserWorkspace }))
 const CommandCenterView = lazy(async () => ({ default: (await import('./command-center')).CommandCenterView }))
 const CronView = lazy(async () => ({ default: (await import('./cron')).CronView }))
 const MessagingView = lazy(async () => ({ default: (await import('./messaging')).MessagingView }))
@@ -226,7 +227,7 @@ export function DesktopController() {
 
   // Global chrome shortcuts (plain Cmd/Ctrl, no alt/shift): Cmd+K / Cmd+P →
   // command palette (the composer's "drain next queued" moved to Cmd+Shift+K),
-  // Cmd+. → command center (sessions / system / usage).
+  // Cmd+. → command center (sessions / system / usage), Cmd+T → browser workspace.
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
       if (!(event.metaKey || event.ctrlKey) || event.altKey || event.shiftKey) {
@@ -241,13 +242,16 @@ export function DesktopController() {
       } else if (key === '.') {
         event.preventDefault()
         toggleCommandCenter()
+      } else if (key === 't') {
+        event.preventDefault()
+        navigate('/browser')
       }
     }
 
     window.addEventListener('keydown', onKeyDown)
 
     return () => window.removeEventListener('keydown', onKeyDown)
-  }, [toggleCommandCenter])
+  }, [toggleCommandCenter, navigate])
 
   const refreshSessions = useCallback(async () => {
     const requestId = refreshSessionsRequestRef.current + 1
@@ -864,6 +868,14 @@ export function DesktopController() {
           <Route element={null} path="settings" />
           <Route element={null} path="command-center" />
           <Route element={null} path="agents" />
+          <Route
+            element={
+              <Suspense fallback={null}>
+                <BrowserWorkspaceView />
+              </Suspense>
+            }
+            path="browser"
+          />
           <Route element={<Navigate replace to={NEW_CHAT_ROUTE} />} path="new" />
           <Route element={<LegacySessionRedirect />} path="sessions/:sessionId" />
           <Route element={<Navigate replace to={NEW_CHAT_ROUTE} />} path="*" />
