@@ -3,6 +3,7 @@ import { useCallback, useEffect, useRef, useState } from 'react'
 import {
   ChevronLeft,
   ChevronRight,
+  Clipboard,
   Globe,
   Loader2,
   RefreshCw,
@@ -22,9 +23,17 @@ interface BrowserPageState {
   isLoading: boolean
 }
 
+interface DomSummary {
+  title: string
+  description: string
+  headings: Array<{ tag: string; text: string }>
+  textPreview: string
+}
+
 // ── Constants ────────────────────────────────────────────────────────────────
 
 const HOME_URL = 'about:blank'
+const COPY_FEEDBACK_MS = 1800
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -67,6 +76,8 @@ export function BrowserWorkspace() {
     isLoading: false
   })
   const [urlInput, setUrlInput] = useState('')
+  const [copyLabel, setCopyLabel] = useState('Copy Context')
+  const [copyDisabled, setCopyDisabled] = useState(false)
 
   const mountRef = useRef<HTMLDivElement>(null)
   const observerRef = useRef<ResizeObserver | null>(null)
@@ -232,6 +243,63 @@ export function BrowserWorkspace() {
     await bridge.stop()
   }, [bridge])
 
+  // ── Copy Context (renderer-only — no main process IPC) ─────────────────
+
+  const copyContext = useCallback(async () => {
+    if (!bridge || copyDisabled) return
+    setCopyDisabled(true)
+    setCopyLabel('Copying…')
+
+    try {
+      const [screenshot, domSummary] = await Promise.all([
+        bridge.getScreenshot(),
+        bridge.getDomSummary()
+      ])
+
+      const pageUrl = page.url || ''
+
+      // Build markdown summary for clipboard.
+      const summaryParts: string[] = []
+      const title = domSummary.title || page.title || ''
+      if (title) summaryParts.push(`**${title}**`)
+      if (pageUrl) summaryParts.push(pageUrl)
+      if (domSummary.description) summaryParts.push(`> ${domSummary.description}`)
+      if (domSummary.textPreview) {
+        summaryParts.push('')
+        summaryParts.push(domSummary.textPreview.slice(0, 500))
+      }
+
+      const markdown = summaryParts.join('\n')
+      await window.hermesDesktop?.writeClipboard(markdown)
+
+      // Best-effort: save screenshot to composer-images directory.
+      if (screenshot.dataURL && screenshot.dataURL.startsWith('data:')) {
+        try {
+          const base64 = screenshot.dataURL.split(',')[1]
+          if (base64) {
+            const binaryString = atob(base64)
+            const bytes = new Uint8Array(binaryString.length)
+            for (let i = 0; i < binaryString.length; i++) {
+              bytes[i] = binaryString.charCodeAt(i)
+            }
+            await window.hermesDesktop?.saveImageBuffer(bytes, '.png')
+          }
+        } catch {
+          // Screenshot save is best-effort.
+        }
+      }
+
+      setCopyLabel('Copied!')
+    } catch {
+      setCopyLabel('Copy failed')
+    } finally {
+      setTimeout(() => {
+        setCopyLabel('Copy Context')
+        setCopyDisabled(false)
+      }, COPY_FEEDBACK_MS)
+    }
+  }, [bridge, copyDisabled, page.url, page.title])
+
   // ── Render: launcher / placeholder ──────────────────────────────────────
 
   if (available === null) {
@@ -326,6 +394,18 @@ export function BrowserWorkspace() {
             />
           </div>
         </form>
+
+        {/* Copy Context — renderer-only composite action */}
+        <button
+          aria-label="Copy page context to clipboard"
+          className="flex shrink-0 items-center gap-1 rounded-md px-2 py-1 text-xs text-muted-foreground transition-colors hover:bg-(--ui-bg-secondary)/60 hover:text-foreground"
+          disabled={copyDisabled}
+          onClick={copyContext}
+          type="button"
+        >
+          <Clipboard className="size-3.5" />
+          <span className="hidden sm:inline">{copyLabel}</span>
+        </button>
 
         {/* Close browser */}
         <button
