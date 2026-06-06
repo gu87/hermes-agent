@@ -467,8 +467,11 @@ class TestNoSideEffects:
 
     def test_does_not_import_worktree(self) -> None:
         import sys
+        # Drop executors.worktree (if already loaded by an earlier test
+        # in the same session) so the assertion below observes only
+        # what prompt_builder.py's re-import pulls in.
         for mod_name in list(sys.modules):
-            if mod_name == "executors.prompt_builder":
+            if mod_name in ("executors.prompt_builder", "executors.worktree"):
                 del sys.modules[mod_name]
         import executors.prompt_builder  # noqa: F401
         assert "executors.worktree" not in sys.modules

@@ -483,8 +483,11 @@ class TestNoSideEffects:
 
     def test_does_not_import_worktree(self) -> None:
         import sys
+        # Drop executors.worktree (if already loaded by an earlier test
+        # in the same session) so the assertion below observes only
+        # what inbox.py's re-import pulls in.
         for mod_name in list(sys.modules):
-            if mod_name == "executors.inbox":
+            if mod_name in ("executors.inbox", "executors.worktree"):
                 del sys.modules[mod_name]
         import executors.inbox  # noqa: F401
         assert "executors.worktree" not in sys.modules

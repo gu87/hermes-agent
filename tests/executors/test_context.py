@@ -404,9 +404,12 @@ class TestNoSideEffects:
     def test_does_not_import_worktree(self) -> None:
         """Importing context.py must not pull in executors.worktree."""
         import sys
-        # Clear cached modules so we observe fresh imports.
+        # Clear cached modules so we observe fresh imports. We must also
+        # drop executors.worktree (if already loaded by an earlier test
+        # in the same session) so the assertion below observes only
+        # what context.py's re-import pulls in.
         for mod_name in list(sys.modules):
-            if mod_name == "executors.context":
+            if mod_name in ("executors.context", "executors.worktree"):
                 del sys.modules[mod_name]
         import executors.context  # noqa: F401
         # The worktree module must remain unloaded.
