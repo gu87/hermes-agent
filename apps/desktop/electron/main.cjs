@@ -52,6 +52,7 @@ const {
   resolveTimeoutMs
 } = require('./hardening.cjs')
 const { resolveShellCommand } = require('./terminal-shell.cjs')
+const { destroyBrowserView, getBrowserView, BLOCKED_SCHEMES } = require('./browser-session.cjs')
 
 let nodePty = null
 
@@ -87,9 +88,7 @@ try {
     const helperPath = path.join(ptyPkgRoot, 'prebuilds', `${process.platform}-${process.arch}`, 'spawn-helper')
     if (!fs.existsSync(helperPath)) return
     const stat = fs.statSync(helperPath)
-    // eslint-disable-next-line no-bitwise
     if (!(stat.mode & fs.constants.S_IXUSR)) {
-      // eslint-disable-next-line no-bitwise
       fs.chmodSync(helperPath, stat.mode | fs.constants.S_IXUSR | fs.constants.S_IXGRP | fs.constants.S_IXOTH)
       rememberLog(`[pty] made spawn-helper executable: ${helperPath}`)
     }
@@ -300,6 +299,20 @@ const APP_ICON_PATHS = [
 
 let rendererTitleBarTheme = null
 const terminalSessions = new Map()
+
+// ── Embedded browser state ────────────────────────────────────────────────────
+const browserPageEventCleanups = []
+
+function addBrowserCleanup(fn) {
+  browserPageEventCleanups.push(fn)
+}
+
+function removeBrowserPageListeners() {
+  for (const cleanup of browserPageEventCleanups) {
+    try { cleanup() } catch { /* ignore */ }
+  }
+  browserPageEventCleanups.length = 0
+}
 
 function isHexColor(value) {
   return typeof value === 'string' && /^#[0-9a-f]{6}$/i.test(value)
@@ -5371,6 +5384,294 @@ ipcMain.handle('hermes:terminal:resize', (_event, id, size = {}) => {
 })
 ipcMain.handle('hermes:terminal:dispose', (_event, id) => disposeTerminalSession(String(id || '')))
 
+// ── Embedded browser IPC handlers ──────────────────────────────────────────
+
+/**
+ * Validate that a browser navigation/control request comes from a user action
+ * (renderer UI button click), NOT from an Agent or programmatic code path.
+ * @returns {boolean} true if the source is explicitly 'user'
+ */
+function requireUserSource(payload) {
+  const valid = payload && typeof payload === 'object' && payload.source === 'user'
+  if (!valid) {
+    rememberLog('[browser] blocked navigation without source:"user"')
+  }
+  return valid
+}
+
+/**
+ * Forward a page event from the browser WebContents to the renderer.
+ * Safe to call when browser is not mounted — silently no-ops.
+ */
+function sendBrowserEvent(channel, payload) {
+  if (!mainWindow || mainWindow.isDestroyed()) return
+  const { webContents } = mainWindow
+  if (!webContents || webContents.isDestroyed()) return
+  webContents.send(channel, payload)
+}
+
+/**
+ * Register page event listeners on the browser WebContents and forward them
+ * to the renderer. Returns cleanup function.
+ */
+function registerBrowserPageEvents(browserWc) {
+  const onTitle = (_event, title) =>
+    sendBrowserEvent('hermes:browser:page-title-updated', { title })
+  const onFavicon = (_event, favicons) =>
+    sendBrowserEvent('hermes:browser:page-favicon-updated', { favicons })
+  const onNavigate = (_event, url) =>
+    sendBrowserEvent('hermes:browser:did-navigate', { url })
+  const onNavigateInPage = (_event, url) =>
+    sendBrowserEvent('hermes:browser:did-navigate-in-page', { url })
+  const onStartLoading = () =>
+    sendBrowserEvent('hermes:browser:did-start-loading', {})
+  const onStopLoading = () =>
+    sendBrowserEvent('hermes:browser:did-stop-loading', {})
+
+  browserWc.on('page-title-updated', onTitle)
+  browserWc.on('page-favicon-updated', onFavicon)
+  browserWc.on('did-navigate', onNavigate)
+  browserWc.on('did-navigate-in-page', onNavigateInPage)
+  browserWc.on('did-start-loading', onStartLoading)
+  browserWc.on('did-stop-loading', onStopLoading)
+
+  return () => {
+    browserWc.removeListener('page-title-updated', onTitle)
+    browserWc.removeListener('page-favicon-updated', onFavicon)
+    browserWc.removeListener('did-navigate', onNavigate)
+    browserWc.removeListener('did-navigate-in-page', onNavigateInPage)
+    browserWc.removeListener('did-start-loading', onStartLoading)
+    browserWc.removeListener('did-stop-loading', onStopLoading)
+  }
+}
+
+// ── Lifecycle: mount / unmount / set-bounds ──────────────────────────────
+
+ipcMain.handle('hermes:browser:mount', async () => {
+  try {
+    const view = getBrowserView()
+    if (!mainWindow || mainWindow.isDestroyed()) {
+      return { ok: false, error: 'main window not available' }
+    }
+    mainWindow.contentView.addChildView(view)
+
+    // Register page event forwarding (idempotent — remove old first).
+    removeBrowserPageListeners()
+    const cleanup = registerBrowserPageEvents(view.webContents)
+    addBrowserCleanup(cleanup)
+
+    rememberLog('[browser] mounted WebContentsView')
+    return { ok: true }
+  } catch (error) {
+    rememberLog(`[browser] mount failed: ${error.message}`)
+    return { ok: false, error: error.message }
+  }
+})
+
+ipcMain.handle('hermes:browser:unmount', async () => {
+  try {
+    removeBrowserPageListeners()
+    const view = getBrowserView()
+    if (mainWindow && !mainWindow.isDestroyed()) {
+      mainWindow.contentView.removeChildView(view)
+    }
+    rememberLog('[browser] unmounted WebContentsView')
+    return { ok: true }
+  } catch (error) {
+    rememberLog(`[browser] unmount failed: ${error.message}`)
+    return { ok: false, error: error.message }
+  }
+})
+
+ipcMain.handle('hermes:browser:set-bounds', async (_event, bounds) => {
+  if (!bounds || typeof bounds.x !== 'number') {
+    return { ok: false, error: 'invalid bounds' }
+  }
+  try {
+    const view = getBrowserView()
+    view.setBounds({
+      x: Math.round(bounds.x),
+      y: Math.round(bounds.y),
+      width: Math.max(0, Math.round(bounds.width || 0)),
+      height: Math.max(0, Math.round(bounds.height || 0))
+    })
+    return { ok: true }
+  } catch (error) {
+    return { ok: false, error: error.message }
+  }
+})
+
+// ── Read-only inspection ──────────────────────────────────────────────────
+
+ipcMain.handle('hermes:browser:get-state', async () => {
+  try {
+    const view = getBrowserView()
+    const wc = view.webContents
+    return {
+      url: wc.getURL(),
+      title: wc.getTitle(),
+      canGoBack: wc.canGoBack(),
+      canGoForward: wc.canGoForward(),
+      isLoading: wc.isLoading()
+    }
+  } catch (error) {
+    return { url: '', title: '', canGoBack: false, canGoForward: false, isLoading: false, error: error.message }
+  }
+})
+
+// ── Read-only inspection: DOM / screenshot / selection ───────────────────
+
+ipcMain.handle('hermes:browser:get-dom-summary', async () => {
+  try {
+    const view = getBrowserView()
+    const wc = view.webContents
+    const summary = await wc.executeJavaScript(`
+      (() => {
+        const title = document.title || ''
+        const metaDesc = (document.querySelector('meta[name="description"]') || {}).content || ''
+        const headings = Array.from(document.querySelectorAll('h1,h2,h3'))
+          .slice(0, 20)
+          .map(h => ({ tag: h.tagName.toLowerCase(), text: h.textContent.trim().slice(0, 200) }))
+        const textPreview = (document.body ? document.body.innerText : '').slice(0, 3000)
+        return { title, description: metaDesc, headings, textPreview }
+      })()
+    `)
+    return summary
+  } catch (error) {
+    return { title: '', description: '', headings: [], textPreview: '', error: error.message }
+  }
+})
+
+ipcMain.handle('hermes:browser:get-screenshot', async () => {
+  try {
+    const view = getBrowserView()
+    const wc = view.webContents
+    const image = await wc.capturePage()
+    const size = image.getSize()
+    const dataURL = image.toDataURL()
+    return { dataURL, width: size.width, height: size.height }
+  } catch (error) {
+    return { dataURL: '', width: 0, height: 0, error: error.message }
+  }
+})
+
+ipcMain.handle('hermes:browser:get-selected-text', async () => {
+  try {
+    const view = getBrowserView()
+    const wc = view.webContents
+    const text = await wc.executeJavaScript('window.getSelection().toString()')
+    return { text: text || '' }
+  } catch (error) {
+    return { text: '', error: error.message }
+  }
+})
+
+// ── User-action-only navigation ──────────────────────────────────────────
+
+ipcMain.handle('hermes:browser:navigate', async (_event, payload) => {
+  if (!requireUserSource(payload)) {
+    return { ok: false, error: 'navigation requires source:"user"' }
+  }
+  const url = String(payload.url || '').trim()
+  if (!url) return { ok: false, error: 'url is required' }
+
+  let parsed
+  try {
+    parsed = new URL(url)
+  } catch {
+    // Try prepending https://
+    try {
+      parsed = new URL(`https://${url}`)
+    } catch {
+      return { ok: false, error: 'invalid url' }
+    }
+  }
+
+  if (BLOCKED_SCHEMES.has(parsed.protocol)) {
+    return { ok: false, error: `scheme "${parsed.protocol}" is not allowed` }
+  }
+
+  try {
+    const view = getBrowserView()
+    await view.webContents.loadURL(parsed.toString())
+    return { ok: true, url: parsed.toString() }
+  } catch (error) {
+    return { ok: false, url: parsed.toString(), error: error.message }
+  }
+})
+
+ipcMain.handle('hermes:browser:reload', async (_event, payload) => {
+  if (!requireUserSource(payload)) {
+    return { ok: false, error: 'reload requires source:"user"' }
+  }
+  try {
+    const view = getBrowserView()
+    view.webContents.reload()
+    return { ok: true }
+  } catch (error) {
+    return { ok: false, error: error.message }
+  }
+})
+
+ipcMain.handle('hermes:browser:stop', async (_event, payload) => {
+  if (!requireUserSource(payload)) {
+    return { ok: false, error: 'stop requires source:"user"' }
+  }
+  try {
+    const view = getBrowserView()
+    view.webContents.stop()
+    return { ok: true }
+  } catch (error) {
+    return { ok: false, error: error.message }
+  }
+})
+
+ipcMain.handle('hermes:browser:go-back', async (_event, payload) => {
+  if (!requireUserSource(payload)) {
+    return { ok: false, error: 'go-back requires source:"user"' }
+  }
+  try {
+    const view = getBrowserView()
+    const wc = view.webContents
+    if (wc.canGoBack()) {
+      wc.goBack()
+    }
+    return { ok: true, canGoBack: wc.canGoBack() }
+  } catch (error) {
+    return { ok: false, canGoBack: false, error: error.message }
+  }
+})
+
+ipcMain.handle('hermes:browser:go-forward', async (_event, payload) => {
+  if (!requireUserSource(payload)) {
+    return { ok: false, error: 'go-forward requires source:"user"' }
+  }
+  try {
+    const view = getBrowserView()
+    const wc = view.webContents
+    if (wc.canGoForward()) {
+      wc.goForward()
+    }
+    return { ok: true, canGoForward: wc.canGoForward() }
+  } catch (error) {
+    return { ok: false, canGoForward: false, error: error.message }
+  }
+})
+
+// ── Environment guard ─────────────────────────────────────────────────────
+
+ipcMain.handle('hermes:browser:is-available', async () => {
+  if (process.env.HERMES_DESKTOP_DISABLE_BROWSER === '1') {
+    return { available: false, reason: 'HERMES_DESKTOP_DISABLE_BROWSER=1' }
+  }
+  try {
+    getBrowserView() // ensure the view can be created
+    return { available: true }
+  } catch (error) {
+    return { available: false, reason: error.message }
+  }
+})
+
 ipcMain.handle('hermes:updates:check', async () =>
   checkUpdates().catch(error => ({
     supported: true,
@@ -5484,6 +5785,8 @@ app.on('before-quit', () => {
   }
   flushDesktopLogBufferSync()
   closePreviewWatchers()
+  removeBrowserPageListeners()
+  destroyBrowserView()
 
   if (hermesProcess && !hermesProcess.killed) {
     hermesProcess.kill('SIGTERM')

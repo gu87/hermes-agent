@@ -15,6 +15,7 @@ import { getSessionMessages, listAllProfileSessions, type SessionInfo } from '..
 import { preserveLocalAssistantErrors, toChatMessages } from '../lib/chat-messages'
 import { toggleCommandPalette } from '../store/command-palette'
 import {
+  $fileBrowserOpen,
   $panesFlipped,
   $pinnedSessionIds,
   $sessionsLimit,
@@ -26,6 +27,7 @@ import {
   SIDEBAR_DEFAULT_WIDTH,
   SIDEBAR_MAX_WIDTH,
   SIDEBAR_SESSIONS_PAGE_SIZE,
+  toggleFileBrowserOpen,
   unpinSession
 } from '../store/layout'
 import { $filePreviewTarget, $previewTarget, closeActiveRightRailTab } from '../store/preview'
@@ -69,7 +71,8 @@ import { useGatewayRequest } from './gateway/hooks/use-gateway-request'
 import { ModelPickerOverlay } from './model-picker-overlay'
 import { ModelVisibilityOverlay } from './model-visibility-overlay'
 import { RightSidebarPane } from './right-sidebar'
-import { $terminalTakeover } from './right-sidebar/store'
+import { PersistentBrowser } from './right-sidebar/browser-persistent'
+import { $terminalTakeover, setRightSidebarTab } from './right-sidebar/store'
 import { PersistentTerminal, TerminalSlot } from './right-sidebar/terminal/persistent'
 import { NEW_CHAT_ROUTE, routeSessionId, sessionRoute, SETTINGS_ROUTE } from './routes'
 import { useContextSuggestions } from './session/hooks/use-context-suggestions'
@@ -244,7 +247,12 @@ export function DesktopController() {
         toggleCommandCenter()
       } else if (key === 't') {
         event.preventDefault()
-        navigate('/browser')
+
+        if (!$fileBrowserOpen.get()) {
+          toggleFileBrowserOpen()
+        }
+
+        setRightSidebarTab('web')
       }
     }
 
@@ -668,6 +676,7 @@ export function DesktopController() {
       {/* One PTY-backed terminal mounted forever; <TerminalSlot /> placeholders
           decide where it shows. Toggling fullscreen never rebuilds the shell. */}
       <PersistentTerminal cwd={currentCwd} onAddSelectionToChat={composer.addTerminalSelectionAttachment} />
+      <PersistentBrowser />
       <DesktopOnboardingOverlay
         enabled={gatewayState === 'open'}
         onCompleted={() => {

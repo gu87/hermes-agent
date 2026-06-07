@@ -81,6 +81,27 @@ declare global {
         setBranch: (name: string) => Promise<{ branch: string }>
         onProgress: (callback: (payload: DesktopUpdateProgress) => void) => () => void
       }
+      browser: {
+        isAvailable: () => Promise<DesktopBrowserAvailability>
+        mount: () => Promise<DesktopBrowserResult>
+        unmount: () => Promise<DesktopBrowserResult>
+        setBounds: (bounds: DesktopBrowserBounds) => Promise<DesktopBrowserResult>
+        getState: () => Promise<DesktopBrowserState>
+        getDomSummary: () => Promise<DesktopBrowserDomSummary>
+        getScreenshot: () => Promise<DesktopBrowserScreenshot>
+        getSelectedText: () => Promise<DesktopBrowserSelectedText>
+        navigate: (payload: DesktopBrowserNavigatePayload) => Promise<DesktopBrowserNavigateResult>
+        reload: () => Promise<DesktopBrowserResult>
+        stop: () => Promise<DesktopBrowserResult>
+        goBack: () => Promise<DesktopBrowserNavigateResult>
+        goForward: () => Promise<DesktopBrowserNavigateResult>
+        onPageTitleUpdated: (callback: (payload: { title: string }) => void) => () => void
+        onPageFaviconUpdated: (callback: (payload: { favicons: string[] }) => void) => () => void
+        onDidNavigate: (callback: (payload: { url: string }) => void) => () => void
+        onDidNavigateInPage: (callback: (payload: { url: string }) => void) => () => void
+        onDidStartLoading: (callback: () => void) => () => void
+        onDidStopLoading: (callback: () => void) => () => void
+      }
     }
   }
 }
@@ -391,4 +412,65 @@ export interface HermesSelectPathsOptions {
 export interface BackendExit {
   code: number | null
   signal: string | null
+}
+
+// ── Embedded browser types ─────────────────────────────────────────────────
+
+export interface DesktopBrowserAvailability {
+  available: boolean
+  reason?: string
+}
+
+export interface DesktopBrowserResult {
+  ok: boolean
+  error?: string
+}
+
+export interface DesktopBrowserBounds {
+  x: number
+  y: number
+  width: number
+  height: number
+}
+
+export interface DesktopBrowserState {
+  url: string
+  title: string
+  canGoBack: boolean
+  canGoForward: boolean
+  isLoading: boolean
+  error?: string
+}
+
+export interface DesktopBrowserDomSummary {
+  title: string
+  description: string
+  headings: Array<{ tag: string; text: string }>
+  textPreview: string
+  error?: string
+}
+
+export interface DesktopBrowserScreenshot {
+  dataURL: string
+  width: number
+  height: number
+  error?: string
+}
+
+export interface DesktopBrowserSelectedText {
+  text: string
+  error?: string
+}
+
+export interface DesktopBrowserNavigatePayload {
+  url: string
+  source: 'user'
+}
+
+export interface DesktopBrowserNavigateResult {
+  ok: boolean
+  url?: string
+  canGoBack?: boolean
+  canGoForward?: boolean
+  error?: string
 }
