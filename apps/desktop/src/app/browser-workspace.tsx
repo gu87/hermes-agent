@@ -14,6 +14,7 @@ import { cn } from '@/lib/utils'
 
 import { proposeAction } from './browser-runtime/action-gateway'
 import { BrowserActionGateway } from './browser-runtime/action-gateway-ui'
+import type { BrowserActionSafetyContext } from './browser-runtime/types'
 import { WorkspaceLauncher } from './workspace-launcher'
 
 // ── Types ────────────────────────────────────────────────────────────────────
@@ -517,16 +518,46 @@ export function BrowserWorkspace() {
               proposeAction(
                 { type: 'click', ref: '@e5' },
                 'agent', 'demo_task',
-                'Agent wants to click a button on the page',
+                'Agent wants to click the Submit button on the PR form',
                 'desktop-visible',
+                {
+                  originUrl: page.url || 'https://github.com/gu/trendradar/pull/42',
+                  originTitle: page.title || 'Pull Request #42',
+                  targetDescription: "button 'Submit PR' (tag: button, type: submit) near heading 'Create Pull Request'",
+                  targetRef: '@e5',
+                  riskLevel: 'medium',
+                } satisfies BrowserActionSafetyContext,
               )
             }} />
             <DemoInjectButton label="Type" onClick={() => {
               proposeAction(
-                { type: 'type', ref: '@e3', text: 'search query' },
+                { type: 'type', ref: '@e3', text: 'fix: update dependencies to v3.2.1' },
                 'agent', 'demo_task',
-                'Agent wants to type into a search field',
+                'Agent wants to fill in a PR title',
                 'desktop-visible',
+                {
+                  originUrl: page.url || 'https://github.com/gu/trendradar/pull/42',
+                  originTitle: page.title || 'Pull Request #42',
+                  targetDescription: "input field 'PR Title' (tag: input, type: text) inside form near heading 'Create Pull Request'",
+                  targetRef: '@e3',
+                  typeText: 'fix: update dependencies to v3.2.1',
+                  riskLevel: 'medium',
+                } satisfies BrowserActionSafetyContext,
+              )
+            }} />
+            <DemoInjectButton label="Eval (blocked)" onClick={() => {
+              proposeAction(
+                { type: 'eval', expression: 'document.cookie' },
+                'agent', 'demo_task',
+                'Agent wants to evaluate JS on the page',
+                'desktop-visible',
+                {
+                  originUrl: page.url || 'https://example.com',
+                  originTitle: page.title || 'Example',
+                  targetDescription: 'JavaScript evaluation in page context',
+                  targetRef: '',
+                  riskLevel: 'high',
+                } satisfies BrowserActionSafetyContext,
               )
             }} />
           </div>

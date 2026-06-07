@@ -422,3 +422,194 @@ describe('full lifecycle', () => {
     expect(log[2].status).toBe('executed')
   })
 })
+
+// ═══════════════════════════════════════════════════════════════════════
+// Phase 2E — Action classification & non-execution contract
+// ═══════════════════════════════════════════════════════════════════════
+
+import {
+  AWAITING_SAFETY_ACTIONS,
+  EXECUTABLE_ACTIONS,
+  PERMANENTLY_DENIED_ACTIONS,
+  getBlockedActionReason,
+  isActionExecutable,
+  isActionPermanentlyBlocked,
+} from './action-gateway'
+
+describe('Phase 2E — action classification sets', () => {
+  it('PERMANENTLY_DENIED_ACTIONS contains eval, press_key, scroll', () => {
+    expect(PERMANENTLY_DENIED_ACTIONS.has('eval')).toBe(true)
+    expect(PERMANENTLY_DENIED_ACTIONS.has('press_key')).toBe(true)
+    expect(PERMANENTLY_DENIED_ACTIONS.has('scroll')).toBe(true)
+  })
+
+  it('PERMANENTLY_DENIED_ACTIONS does NOT contain click or type', () => {
+    expect(PERMANENTLY_DENIED_ACTIONS.has('click')).toBe(false)
+    expect(PERMANENTLY_DENIED_ACTIONS.has('type')).toBe(false)
+  })
+
+  it('PERMANENTLY_DENIED_ACTIONS does NOT contain navigate', () => {
+    expect(PERMANENTLY_DENIED_ACTIONS.has('navigate')).toBe(false)
+  })
+
+  it('AWAITING_SAFETY_ACTIONS contains click and type', () => {
+    expect(AWAITING_SAFETY_ACTIONS.has('click')).toBe(true)
+    expect(AWAITING_SAFETY_ACTIONS.has('type')).toBe(true)
+  })
+
+  it('AWAITING_SAFETY_ACTIONS does NOT contain navigate or eval', () => {
+    expect(AWAITING_SAFETY_ACTIONS.has('navigate')).toBe(false)
+    expect(AWAITING_SAFETY_ACTIONS.has('eval')).toBe(false)
+  })
+
+  it('EXECUTABLE_ACTIONS only contains navigate', () => {
+    expect(EXECUTABLE_ACTIONS.has('navigate')).toBe(true)
+    expect(EXECUTABLE_ACTIONS.has('click')).toBe(false)
+    expect(EXECUTABLE_ACTIONS.has('type')).toBe(false)
+    expect(EXECUTABLE_ACTIONS.has('eval')).toBe(false)
+    expect(EXECUTABLE_ACTIONS.has('snapshot')).toBe(false)
+  })
+})
+
+describe('Phase 2E — isActionExecutable', () => {
+  it('returns true for navigate', () => {
+    expect(isActionExecutable('navigate')).toBe(true)
+  })
+
+  it('returns false for click, type, eval, scroll, press_key', () => {
+    expect(isActionExecutable('click')).toBe(false)
+    expect(isActionExecutable('type')).toBe(false)
+    expect(isActionExecutable('eval')).toBe(false)
+    expect(isActionExecutable('scroll')).toBe(false)
+    expect(isActionExecutable('press_key')).toBe(false)
+  })
+})
+
+describe('Phase 2E — isActionPermanentlyBlocked', () => {
+  it('returns true for eval, press_key, scroll', () => {
+    expect(isActionPermanentlyBlocked('eval')).toBe(true)
+    expect(isActionPermanentlyBlocked('press_key')).toBe(true)
+    expect(isActionPermanentlyBlocked('scroll')).toBe(true)
+  })
+
+  it('returns false for click, type, navigate', () => {
+    expect(isActionPermanentlyBlocked('click')).toBe(false)
+    expect(isActionPermanentlyBlocked('type')).toBe(false)
+    expect(isActionPermanentlyBlocked('navigate')).toBe(false)
+  })
+})
+
+describe('Phase 2E — getBlockedActionReason', () => {
+  it('returns a reason for permanently denied actions', () => {
+    const reason = getBlockedActionReason('eval')
+    expect(reason).toBeTruthy()
+    expect(reason).toContain('permanently blocked')
+  })
+
+  it('returns a reason for awaiting-safety actions', () => {
+    const reason = getBlockedActionReason('click')
+    expect(reason).toBeTruthy()
+    expect(reason).toContain('Phase 2E')
+    expect(reason).toContain('Phase 2F')
+  })
+
+  it('returns null for executable actions', () => {
+    expect(getBlockedActionReason('navigate')).toBeNull()
+  })
+
+  it('returns a reason for unknown action types', () => {
+    expect(getBlockedActionReason('unknown')).toContain('not in the Desktop executable action set')
+  })
+})
+
+describe('Phase 2E — proposeAction accepts safetyContext', () => {
+  it('stores safetyContext on the pending request', () => {
+    resetAll()
+    const id = proposeAction(
+      { type: 'click', ref: '@e5' },
+      'agent',
+      'task_2e',
+      'Agent wants to click a button',
+      'desktop-visible',
+      {
+        originUrl: 'https://github.com/gu/trendradar/pull/42',
+        originTitle: 'PR #42',
+        targetDescription: "button 'Submit PR' (tag: button, type: submit)",
+        targetRef: '@e5',
+        riskLevel: 'high',
+      },
+    )
+
+    const pending = getPending(id)
+    expect(pending?.safetyContext).toBeDefined()
+    expect(pending?.safetyContext?.originUrl).toBe('https://github.com/gu/trendradar/pull/42')
+    expect(pending?.safetyContext?.targetRef).toBe('@e5')
+    expect(pending?.safetyContext?.riskLevel).toBe('high')
+  })
+
+  it('safetyContext remains optional (backward compat)', () => {
+    resetAll()
+    const id = proposeAction(
+      { type: 'snapshot' },
+      'agent',
+      'task_plain',
+    )
+    expect(getPending(id)?.safetyContext).toBeUndefined()
+  })
+
+  it('stores typeText for type actions', () => {
+    resetAll()
+    const id = proposeAction(
+      { type: 'type', ref: '@e3', text: 'fix: update deps' },
+      'agent',
+      'task_type',
+      'Agent wants to fill a field',
+      'desktop-visible',
+      {
+        originUrl: 'https://example.com',
+        originTitle: 'Example',
+        targetDescription: "input field 'Title'",
+        targetRef: '@e3',
+        typeText: 'fix: update deps',
+        riskLevel: 'medium',
+      },
+    )
+
+    expect(getPending(id)?.safetyContext?.typeText).toBe('fix: update deps')
+  })
+})
+
+describe('Phase 2E — click/type non-execution contract', () => {
+  it('click is NOT in EXECUTABLE_ACTIONS', () => {
+    expect(EXECUTABLE_ACTIONS.has('click')).toBe(false)
+  })
+
+  it('type is NOT in EXECUTABLE_ACTIONS', () => {
+    expect(EXECUTABLE_ACTIONS.has('type')).toBe(false)
+  })
+
+  it('eval is PERMANENTLY denied, not just awaiting safety', () => {
+    expect(PERMANENTLY_DENIED_ACTIONS.has('eval')).toBe(true)
+    expect(AWAITING_SAFETY_ACTIONS.has('eval')).toBe(false)
+  })
+
+  it('navigate is the only executable action', () => {
+    expect([...EXECUTABLE_ACTIONS]).toEqual(['navigate'])
+  })
+})
+
+describe('Phase 2E — action log carries actionType', () => {
+  it('approved navigate creates a log entry with readable actionType', () => {
+    resetAll()
+    const id = proposeAction(
+      { type: 'navigate', url: 'https://example.com' },
+      'agent',
+      'task_log',
+    )
+    approveProposal(id)
+
+    const entry = $actionLog.get()[0]
+    // actionType is stored by _resolveProposal for UI display
+    expect((entry as unknown as Record<string, unknown>).actionType).toBe('navigate')
+  })
+})

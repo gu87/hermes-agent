@@ -1,23 +1,30 @@
 /**
- * Browser Action Gateway UI — Phase 2C
+ * Browser Action Gateway UI — Phase 2E
  *
  * Renders the pending action queue and action log.  Provides
- * Allow / Deny buttons for each pending action.  In Phase 2C it only
- * executes approved desktop-visible `navigate` actions; click/type/eval
- * remain intentionally blocked until their safety design is done.
+ * Allow / Deny buttons for each pending action.
+ *
+ * Execution status by action type:
+ * - navigate      → executable after user Allow (Phase 2C).
+ * - click / type  → approval UI surfaces safetyContext, but executor
+ *                   returns failed (Phase 2E).
+ * - eval / press_key / scroll → permanently blocked, no Allow button.
+ * - snapshot / vision / get_images / console → always allowed (read-only).
  *
  * The gateway is a self-contained panel intended to live inside
  * the browser workspace (either the standalone /browser route or
  * the right-sidebar tab).  It reads/writes shared nanostore atoms
  * so state survives component mount/unmount.
  *
- * @see docs/architecture/browser-runtime-provider-unification.md (Phase 2C)
+ * @see docs/architecture/browser-runtime-provider-unification.md (Phase 2E)
+ * @see docs/architecture/desktop-browser-agent-action-safety.md
  */
 
 import { useStore } from '@nanostores/react'
 import { useCallback, useState } from 'react'
 
 import {
+  AlertTriangle,
   ArrowUpRight,
   Check,
   ChevronDown,
@@ -35,9 +42,13 @@ import {
   $actionLog,
   $pendingActions,
   approveProposalWithExecutor,
+  AWAITING_SAFETY_ACTIONS,
   cancelAllPending,
   clearActionLog,
   denyProposal,
+  EXECUTABLE_ACTIONS,
+  getBlockedActionReason,
+  PERMANENTLY_DENIED_ACTIONS,
 } from './action-gateway'
 import {
   type DesktopBrowserBridge,
@@ -46,6 +57,7 @@ import {
 import type {
   BrowserActionRequest,
   BrowserActionResult,
+  BrowserActionRiskLevel,
 } from './types'
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -57,8 +69,8 @@ import type {
  *
  * The panel contains two sections:
  *   1. **Pending Queue** — actions awaiting user approval, each with
- *      Allow / Deny buttons.
- *   2. **Action Log** — history of resolved (approved/denied) actions.
+ *      Allow / Deny buttons (unless permanently blocked).
+ *   2. **Action Log** — history of resolved (approved/denied/failed) actions.
  *
  * Both sections are collapsible.
  */
@@ -73,57 +85,86 @@ export function BrowserActionGateway({ desktopBridge }: { desktopBridge?: Deskto
   const [pendingOpen, setPendingOpen] = useState(true)
   const [logOpen, setLogOpen] = useState(true)
   const [resolvingIds, setResolvingIds] = useState<Set<string>>(() => new Set())
+  // Per-request secondary confirmation for type actions
+  const [typeConfirms, setTypeConfirms] = useState<Set<string>>(() => new Set())
 
   const hasPending = pending.length > 0
   const hasLog = log.length > 0
 
   const executeApprovedAction = useCallback(async (request: BrowserActionRequest) => {
-    if (request.action.type !== 'navigate') {
+    const actionType = request.action.type
+
+    // ── Permanently blocked actions ──────────────────────────────────
+    const blockedReason = getBlockedActionReason(actionType)
+
+    if (blockedReason) {
       return {
         status: 'failed' as const,
-        error: `Desktop execution for "${request.action.type}" is not implemented in Phase 2C.`,
+        error: blockedReason,
       }
     }
 
-    if (!desktopBridge) {
-      return {
-        status: 'failed' as const,
-        error: 'Desktop browser bridge is unavailable.',
+    // ── Navigate (Phase 2C) ─────────────────────────────────────────
+    if (actionType === 'navigate') {
+      if (!desktopBridge) {
+        return {
+          status: 'failed' as const,
+          error: 'Desktop browser bridge is unavailable.',
+        }
+      }
+
+      const url = (request.action as { url?: string }).url?.trim()
+
+      if (!url) {
+        return {
+          status: 'failed' as const,
+          error: 'Navigate action is missing a URL.',
+        }
+      }
+
+      const result = await desktopBridge.navigate({ url, source: 'user' })
+
+      if (!result.ok) {
+        return {
+          status: 'failed' as const,
+          error: result.error || 'Desktop navigation failed.',
+        }
+      }
+
+      try {
+        return {
+          status: 'executed' as const,
+          postActionSnapshot: await getDesktopSnapshot(desktopBridge),
+        }
+      } catch (error) {
+        return {
+          status: 'executed' as const,
+          error: `Navigation succeeded, but post-action snapshot failed: ${error instanceof Error ? error.message : String(error)}`,
+        }
       }
     }
 
-    const url = request.action.url.trim()
-
-    if (!url) {
-      return {
-        status: 'failed' as const,
-        error: 'Navigate action is missing a URL.',
-      }
+    // ── Read-only actions — mark executed (no side effects) ──────────
+    if (actionType === 'snapshot' || actionType === 'vision' || actionType === 'get_images' || actionType === 'console') {
+      return { status: 'executed' as const }
     }
 
-    const result = await desktopBridge.navigate({ url, source: 'user' })
-
-    if (!result.ok) {
-      return {
-        status: 'failed' as const,
-        error: result.error || 'Desktop navigation failed.',
-      }
-    }
-
-    try {
-      return {
-        status: 'executed' as const,
-        postActionSnapshot: await getDesktopSnapshot(desktopBridge),
-      }
-    } catch (error) {
-      return {
-        status: 'executed' as const,
-        error: `Navigation succeeded, but post-action snapshot failed: ${error instanceof Error ? error.message : String(error)}`,
-      }
+    // ── Everything else: not executable ─────────────────────────────
+    return {
+      status: 'failed' as const,
+      error: `Desktop execution for "${actionType}" is not implemented.`,
     }
   }, [desktopBridge])
 
   const handleApprove = useCallback(async (requestId: string): Promise<BrowserActionResult | null> => {
+    // Clear type confirmation on approve
+    setTypeConfirms(prev => {
+      const next = new Set(prev)
+      next.delete(requestId)
+
+      return next
+    })
+
     setResolvingIds(prev => new Set(prev).add(requestId))
 
     try {
@@ -166,7 +207,9 @@ export function BrowserActionGateway({ desktopBridge }: { desktopBridge?: Deskto
                   busy={resolvingIds.has(req.requestId)}
                   key={req.requestId}
                   onApprove={() => void handleApprove(req.requestId)}
+                  onConfirmType={() => setTypeConfirms(prev => new Set(prev).add(req.requestId))}
                   request={req}
+                  typeConfirmed={typeConfirms.has(req.requestId)}
                 />
               ))}
               <div className="flex justify-end">
@@ -256,13 +299,24 @@ function GatewaySectionHeader({
 function PendingActionCard({
   busy,
   onApprove,
+  onConfirmType,
   request,
+  typeConfirmed,
 }: {
   busy?: boolean
   onApprove: () => void
+  onConfirmType?: () => void
   request: BrowserActionRequestLike
+  typeConfirmed?: boolean
 }) {
-  const icon = actionIcon(request.action.type)
+  const actionType = request.action.type
+  const permanentlyBlocked = PERMANENTLY_DENIED_ACTIONS.has(actionType)
+  const awaitingSafety = AWAITING_SAFETY_ACTIONS.has(actionType)
+  const executable = EXECUTABLE_ACTIONS.has(actionType)
+  const blockedReason = getBlockedActionReason(actionType)
+  const needsTypeConfirm = actionType === 'type' && !typeConfirmed
+
+  const icon = actionIcon(actionType)
   const description = actionDescription(request)
 
   return (
@@ -281,22 +335,103 @@ function PendingActionCard({
               {request.reason}
             </p>
           )}
-          <div className="mt-1 flex items-center gap-2 text-[0.5625rem] text-muted-foreground/40">
-            <span className="rounded bg-(--ui-bg-secondary)/50 px-1 py-0">{request.action.type}</span>
-            <span>{new Date(request.requestedAt).toLocaleTimeString()}</span>
+
+          {/* ── Safety context (Phase 2E) ──────────────────────────── */}
+          {request.safetyContext && (
+            <div className="mt-1.5 space-y-0.5">
+              <div className="text-[0.625rem] text-muted-foreground/70">
+                <span className="font-medium">Target:</span>{' '}
+                {request.safetyContext.targetDescription}
+              </div>
+              {request.safetyContext.typeText && (
+                <div className="rounded bg-(--ui-bg-secondary)/30 px-1.5 py-0.5 font-mono text-[0.5625rem] text-foreground/80 break-all">
+                  {request.safetyContext.typeText.length > 120
+                    ? request.safetyContext.typeText.slice(0, 120) + '…'
+                    : request.safetyContext.typeText}
+                </div>
+              )}
+              <div className="flex items-center gap-2 text-[0.5625rem] text-muted-foreground/40">
+                <span className="truncate">{request.safetyContext.originUrl}</span>
+                <RiskBadge level={request.safetyContext.riskLevel} />
+              </div>
+            </div>
+          )}
+
+          {/* ── Status badge row ────────────────────────────────────── */}
+          <div className="mt-1 flex items-center gap-2 text-[0.5625rem]">
+            <span className="rounded bg-(--ui-bg-secondary)/50 px-1 py-0 text-muted-foreground/40">
+              {actionType}
+            </span>
+            <span className="text-muted-foreground/40">
+              {new Date(request.requestedAt).toLocaleTimeString()}
+            </span>
+            {permanentlyBlocked && (
+              <span className="rounded bg-red-500/10 px-1 py-0 font-medium text-red-600">
+                Permanently Blocked
+              </span>
+            )}
+            {awaitingSafety && (
+              <span className="rounded bg-amber-500/10 px-1 py-0 font-medium text-amber-600">
+                Safety Required — Not Executed
+              </span>
+            )}
+            {executable && !permanentlyBlocked && (
+              <span className="rounded bg-emerald-500/10 px-1 py-0 font-medium text-emerald-600">
+                Ready
+              </span>
+            )}
+            {!permanentlyBlocked && !awaitingSafety && !executable && (
+              <span className="rounded bg-(--ui-bg-secondary)/40 px-1 py-0 text-muted-foreground/40">
+                Read-only
+              </span>
+            )}
           </div>
+
+          {/* ── Permanent block explanation ─────────────────────────── */}
+          {permanentlyBlocked && blockedReason && (
+            <div className="mt-1 flex items-start gap-1 rounded bg-red-500/5 px-1.5 py-1 text-[0.5625rem] text-red-600/70">
+              <AlertTriangle className="mt-0.5 size-2.5 shrink-0" />
+              <span>{blockedReason}</span>
+            </div>
+          )}
+
+          {/* ── Awaiting safety explanation ─────────────────────────── */}
+          {awaitingSafety && blockedReason && (
+            <div className="mt-1 flex items-start gap-1 rounded bg-amber-500/5 px-1.5 py-1 text-[0.5625rem] text-amber-600/70">
+              <AlertTriangle className="mt-0.5 size-2.5 shrink-0" />
+              <span>{blockedReason}</span>
+            </div>
+          )}
         </div>
       </div>
 
       {/* Action buttons */}
       <div className="mt-2 flex items-center gap-1.5">
-        <ApprovalButton
-          disabled={busy}
-          onClick={onApprove}
-          variant="allow"
-        >
-          {busy ? 'Running...' : 'Allow'}
-        </ApprovalButton>
+        {typeConfirmed !== undefined && (
+          needsTypeConfirm ? (
+            <button
+              className="flex items-center gap-1 rounded-md bg-brand/10 px-2.5 py-1 text-[0.6875rem] font-medium text-brand hover:bg-brand/20 transition-colors"
+              onClick={onConfirmType}
+              type="button"
+            >
+              <Check className="size-3" /> Confirm Text
+            </button>
+          ) : (
+            <span className="rounded-md bg-brand/5 px-2 py-1 text-[0.625rem] text-brand/70">
+              Text confirmed
+            </span>
+          )
+        )}
+
+        {!permanentlyBlocked && (
+          <ApprovalButton
+            disabled={busy || needsTypeConfirm}
+            onClick={onApprove}
+            variant="allow"
+          >
+            {busy ? 'Running...' : awaitingSafety ? 'Allow (Will Not Execute)' : 'Allow'}
+          </ApprovalButton>
+        )}
         <ApprovalButton
           disabled={busy}
           onClick={() => denyProposal(request.requestId)}
@@ -339,31 +474,58 @@ function ApprovalButton({
 }
 
 function ActionLogEntry({ entry }: { entry: BrowserActionResultLike }) {
+  const statusBadge = entry.status === 'executed'
+    ? 'OK'
+    : entry.status === 'denied' ? 'NO' : entry.status === 'failed' ? 'ERR' : '…'
+
+  const statusColor = entry.status === 'executed'
+    ? 'bg-emerald-500/10 text-emerald-600'
+    : entry.status === 'denied'
+      ? 'bg-red-500/10 text-red-600'
+      : entry.status === 'failed'
+        ? 'bg-amber-500/10 text-amber-600'
+        : 'bg-blue-500/10 text-blue-600'
+
   return (
-    <div className="flex items-center gap-1.5 rounded px-1.5 py-0.5 text-[0.625rem]">
-      <span
-        className={cn(
-          'shrink-0 rounded-full px-1 py-0 text-[0.5rem] font-semibold',
-          entry.status === 'executed' && 'bg-emerald-500/10 text-emerald-600',
-          entry.status === 'denied' && 'bg-red-500/10 text-red-600',
-          entry.status === 'failed' && 'bg-amber-500/10 text-amber-600',
-          entry.status === 'pending_approval' && 'bg-blue-500/10 text-blue-600',
-        )}
-      >
-        {entry.status === 'executed' ? 'OK' : entry.status === 'denied' ? 'NO' : entry.status === 'failed' ? 'ERR' : '…'}
-      </span>
-      <span className="min-w-0 truncate text-foreground/80">
-        {entry.executedBy.provider}
-      </span>
-      <span className="shrink-0 tabular-nums text-muted-foreground/40">
-        {new Date(entry.executedAt).toLocaleTimeString()}
-      </span>
+    <div className="rounded px-1.5 py-0.5 text-[0.625rem]">
+      <div className="flex items-center gap-1.5">
+        <span className={cn('shrink-0 rounded-full px-1 py-0 text-[0.5rem] font-semibold', statusColor)}>
+          {statusBadge}
+        </span>
+        <span className="rounded bg-(--ui-bg-secondary)/40 px-0.5 py-0 text-[0.5rem] text-muted-foreground/50">
+          {entry.actionType || '?'}
+        </span>
+        <span className="min-w-0 truncate text-foreground/80">
+          {entry.error || entry.executedBy.provider}
+        </span>
+        <span className="shrink-0 tabular-nums text-muted-foreground/40">
+          {new Date(entry.executedAt).toLocaleTimeString()}
+        </span>
+      </div>
     </div>
   )
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// 3. Helpers
+// 3. Risk badge
+// ═══════════════════════════════════════════════════════════════════════════
+
+function RiskBadge({ level }: { level: BrowserActionRiskLevel }) {
+  const colors: Record<BrowserActionRiskLevel, string> = {
+    low: 'bg-emerald-500/10 text-emerald-600',
+    medium: 'bg-amber-500/10 text-amber-600',
+    high: 'bg-red-500/10 text-red-600',
+  }
+
+  return (
+    <span className={cn('rounded-full px-1.5 py-0 text-[0.5rem] font-semibold', colors[level])}>
+      {level.toUpperCase()}
+    </span>
+  )
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// 4. Helpers
 // ═══════════════════════════════════════════════════════════════════════════
 
 function actionIcon(type: string): React.ReactNode {
@@ -418,7 +580,7 @@ function actionDescription(request: {
       return `click ${a.ref || 'an element'}`
 
     case 'type':
-      return `type "${a.text || 'text'}" into ${a.ref || 'a field'}`
+      return `type "${(a.text || '').length > 60 ? (a.text || '').slice(0, 60) + '…' : (a.text || 'text')}" into ${a.ref || 'a field'}`
 
     case 'scroll':
       return `scroll ${a.direction || 'down'}`
@@ -430,7 +592,7 @@ function actionDescription(request: {
       return `press ${a.key || 'a key'}`
 
     case 'eval':
-      return `evaluate JS: ${(a.text || '').slice(0, 60)}`
+      return `evaluate JS`
 
     case 'console':
       return a.text
@@ -452,21 +614,32 @@ function actionDescription(request: {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// 4. Re-exported type shims for the UI layer
+// 5. Re-exported type shims for the UI layer
 // ═══════════════════════════════════════════════════════════════════════════
 
-/**
- * Minimal action-request shape needed by the UI.
- * This avoids importing the full BrowserActionRequest from types.ts
- * in the UI component (the actual store already validates the shape).
- */
 export type BrowserActionRequestLike = {
   requestId: string
   requestedAt: string
   actor: string
   taskId: string
-  action: { type: string; url?: string; ref?: string; text?: string; key?: string; direction?: string }
+  action: {
+    type: string
+    url?: string
+    ref?: string
+    text?: string
+    key?: string
+    direction?: string
+  }
   reason?: string
+  /** Phase 2E safety context (may be absent for headless providers). */
+  safetyContext?: {
+    originUrl: string
+    originTitle: string
+    targetDescription: string
+    targetRef: string
+    typeText?: string
+    riskLevel: BrowserActionRiskLevel
+  }
 }
 
 export type BrowserActionResultLike = {
@@ -475,4 +648,6 @@ export type BrowserActionResultLike = {
   executedBy: { provider: string; sessionKey: string }
   status: string
   error?: string
+  /** Action type for display (filled at log time). */
+  actionType?: string
 }
