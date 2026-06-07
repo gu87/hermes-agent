@@ -4151,14 +4151,8 @@ def _visible_browser_snapshot(
     return result
 
 def _check_visible_browser_requirements() -> bool:
-    """Visible browser tools are available when a Desktop session is connected."""
-    from tools.visible_browser_gateway import get_notify as _vb_get_notify
-    from gateway.session_context import get_current_session_key
-    try:
-        key = get_current_session_key()
-        return key is not None and _vb_get_notify(key) is not None
-    except Exception:
-        return False
+    """Visible browser tools are always enabled (handler returns error if no Desktop session)."""
+    return True
 
 
 _VISIBLE_BROWSER_SCHEMA_MAP = {s["name"]: s for s in VISIBLE_BROWSER_SCHEMAS}
