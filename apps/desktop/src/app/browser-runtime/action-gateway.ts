@@ -21,6 +21,7 @@ import type {
   BrowserActionRequest,
   BrowserActionResult,
   BrowserActionResultStatus,
+  BrowserActionSafetyContext,
   BrowserActor,
   BrowserProviderId,
   BrowserSnapshot,
@@ -80,6 +81,7 @@ export function proposeAction(
   taskId: string,
   reason?: string,
   provider?: BrowserProviderId,
+  safetyContext?: BrowserActionSafetyContext,
 ): string {
   const requestId = nextRequestId()
 
@@ -91,6 +93,7 @@ export function proposeAction(
     action,
     reason,
     targetProvider: provider,
+    safetyContext,
   }
 
   const current = $pendingActions.get()
@@ -207,7 +210,86 @@ export function getPending(requestId: string): BrowserActionRequest | undefined 
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// 4. Internal helpers
+// 4. Action classification (Phase 2E)
+// ═══════════════════════════════════════════════════════════════════════════
+
+/**
+ * Action kinds that are permanently denied on the Desktop browser.
+ *
+ * These MUST NOT transition to approval_required — there is no safe
+ * execution path for them on a user-visible, login-state-bearing
+ * WebContentsView.
+ *
+ * @see docs/architecture/desktop-browser-agent-action-safety.md §7.1
+ */
+export const PERMANENTLY_DENIED_ACTIONS: ReadonlySet<string> = new Set([
+  'eval',
+  'press_key',
+  'scroll',
+])
+
+/**
+ * Action kinds that await safety implementation before they can be
+ * executed on Desktop.  The approval UI shows them but the executor
+ * returns `failed`.
+ *
+ * @see docs/architecture/desktop-browser-agent-action-safety.md §7.3
+ */
+export const AWAITING_SAFETY_ACTIONS: ReadonlySet<string> = new Set([
+  'click',
+  'type',
+])
+
+/**
+ * Action kinds that are currently executable on Desktop after user
+ * approval (Phase 2C).
+ */
+export const EXECUTABLE_ACTIONS: ReadonlySet<string> = new Set([
+  'navigate',
+])
+
+/**
+ * Return a human-readable blocked reason for actions the Desktop
+ * executor cannot run, or ``null`` when the action can be executed.
+ */
+export function getBlockedActionReason(
+  actionType: string,
+): string | null {
+  if (PERMANENTLY_DENIED_ACTIONS.has(actionType)) {
+    return `"${actionType}" is permanently blocked on the Desktop browser. There is no safe execution path for this action on a user-visible page with login state.`
+  }
+
+  if (AWAITING_SAFETY_ACTIONS.has(actionType)) {
+    return `"${actionType}" execution is not yet implemented for the Desktop browser. `
+      + 'Phase 2E captures the approval decision but does not perform the real page operation. '
+      + 'Full safety model (pre-action verification + executor) is planned for Phase 2F.'
+  }
+
+  if (!EXECUTABLE_ACTIONS.has(actionType)) {
+    return `"${actionType}" is not in the Desktop executable action set.`
+  }
+
+  return null
+}
+
+/**
+ * Return true when the Desktop executor can execute this action type
+ * (navigate only in Phase 2C/2E).
+ */
+export function isActionExecutable(actionType: string): boolean {
+  return EXECUTABLE_ACTIONS.has(actionType)
+}
+
+/**
+ * Return true when the action is permanently blocked on Desktop
+ * (eval, press_key, scroll).
+ */
+export function isActionPermanentlyBlocked(actionType: string): boolean {
+  return PERMANENTLY_DENIED_ACTIONS.has(actionType)
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// 5. Internal helpers
 // ═══════════════════════════════════════════════════════════════════════════
 
 function _resolveProposal(
@@ -225,7 +307,7 @@ function _resolveProposal(
   const [request] = pending.splice(idx, 1)
   $pendingActions.set([...pending])
 
-  const result: BrowserActionResult = {
+  const result: BrowserActionResult & { actionType?: string } = {
     requestId: request.requestId,
     executedAt: new Date().toISOString(),
     executedBy: {
@@ -235,6 +317,7 @@ function _resolveProposal(
     status,
     error,
     postActionSnapshot,
+    actionType: request.action.type,
   }
 
   const log = $actionLog.get()
