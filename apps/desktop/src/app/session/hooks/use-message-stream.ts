@@ -16,6 +16,7 @@ import {
 import { coerceGatewayText, coerceThinkingText, normalizePersonalityValue } from '@/lib/chat-runtime'
 import { triggerHaptic } from '@/lib/haptics'
 import { isProviderSetupErrorMessage } from '@/lib/provider-setup-errors'
+import { setPendingBrowserAction } from '@/store/browser-actions'
 import { setClarifyRequest } from '@/store/clarify'
 import { notify } from '@/store/notifications'
 import { requestDesktopOnboarding } from '@/store/onboarding'
@@ -886,6 +887,25 @@ export function useMessageStream({
             envVar: typeof payload?.env_var === 'string' ? payload.env_var : '',
             prompt: typeof payload?.prompt === 'string' ? payload.prompt : '',
             sessionId: sessionId ?? null
+          })
+
+          if (sessionId) {
+            updateSessionState(sessionId, state => ({ ...state, needsInput: true }))
+          }
+        }
+      } else if (event.type === 'browser.action.proposed') {
+        // Visible browser action proposed by the agent. Park it so the Action
+        // Gateway UI can surface the approval card.
+        const proposalId = typeof payload?.proposal_id === 'string' ? payload.proposal_id : ''
+        const actionType = typeof payload?.action_type === 'string' ? payload.action_type : ''
+
+        if (proposalId && actionType) {
+          setPendingBrowserAction({
+            proposalId,
+            actionType,
+            actionParams: (payload?.action_params as Record<string, unknown>) ?? {},
+            reason: typeof payload?.reason === 'string' ? payload.reason : undefined,
+            sessionId: sessionId ?? null,
           })
 
           if (sessionId) {

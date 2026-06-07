@@ -367,6 +367,16 @@ def _teardown_session(session: dict | None) -> None:
     except Exception:
         pass
     try:
+        from tools.visible_browser_gateway import (
+            clear_session as _clear_vb_session,
+            unregister_notify as _vb_unregister_notify,
+        )
+
+        _vb_unregister_notify(session["session_key"])
+        _clear_vb_session(session["session_key"])
+    except Exception:
+        pass
+    try:
         agent = session.get("agent")
         if agent and hasattr(agent, "close"):
             agent.close()
@@ -720,6 +730,27 @@ def _start_agent_build(sid: str, session: dict) -> None:
                 )
                 notify_registered = True
                 load_permanent_allowlist()
+            except Exception:
+                pass
+
+            try:
+                from tools.visible_browser_gateway import (
+                    register_notify as _vb_register_notify,
+                )
+
+                _vb_register_notify(
+                    key,
+                    lambda entry: _emit(
+                        "browser.action.proposed",
+                        sid,
+                        {
+                            "proposal_id": entry.proposal_id,
+                            "action_type": entry.action_type,
+                            "action_params": entry.action_params,
+                            "reason": entry.reason,
+                        },
+                    ),
+                )
             except Exception:
                 pass
 
@@ -5254,6 +5285,24 @@ def _(rid, params: dict) -> dict:
                 )
             },
         )
+    except Exception as e:
+        return _err(rid, 5004, str(e))
+
+
+@method("browser.action.respond")
+def _(rid, params: dict) -> dict:
+    session, err = _sess(params, rid)
+    if err:
+        return err
+    try:
+        from tools.visible_browser_gateway import resolve
+
+        proposal_id = params.get("proposal_id", "")
+        result = params.get("result")
+        if not proposal_id:
+            return _err(rid, 4004, "proposal_id is required")
+        resolved = resolve(proposal_id, result if isinstance(result, str) else json.dumps(result or {}))
+        return _ok(rid, {"resolved": resolved})
     except Exception as e:
         return _err(rid, 5004, str(e))
 

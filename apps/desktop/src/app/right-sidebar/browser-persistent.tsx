@@ -19,6 +19,12 @@ import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react
 
 import { Globe, Loader2 } from '@/lib/icons'
 
+import { $pendingBrowserAction, setPendingBrowserAction } from '@/store/browser-actions'
+import { $gateway } from '@/store/gateway'
+import { proposeAction, $actionLog, approveProposalWithExecutor, denyProposal } from '@/app/browser-runtime/action-gateway'
+import { getDesktopSnapshot } from '@/app/browser-runtime/desktop-visible-provider'
+import type { BrowserActionKind } from '@/app/browser-runtime/types'
+
 // ── Slot registry ────────────────────────────────────────────────────────────
 
 const $browserSlot = atom<HTMLElement | null>(null)
@@ -214,6 +220,9 @@ export function BrowserTab() {
         )}
       </div>
 
+      {/* Agent Action Gateway — shows pending browser actions from the agent */}
+      <BrowserActionGatewayPanel />
+
       {/* Status bar */}
       <div className="flex shrink-0 items-center gap-1.5 border-t border-(--ui-stroke-secondary) px-2 py-0.5">
         {loading && <Loader2 className="size-2.5 animate-spin text-muted-foreground/50" />}
@@ -223,6 +232,119 @@ export function BrowserTab() {
       </div>
     </div>
   )
+}
+
+
+// ── Browser Action Gateway Panel (injected into BrowserTab) ─────────────────
+
+/** Maps agent proposal IDs to the request IDs from proposeAction. */
+const proposalToActionMap = new Map<string, string>()
+
+function BrowserActionGatewayPanel() {
+  const pendingAction = useStore($pendingBrowserAction)
+  const gateway = useStore($gateway)
+  const actionLog = useStore($actionLog)
+
+  // When a browser.action.proposed event arrives, call proposeAction to
+  // surface it in the Action Gateway UI.
+  useEffect(() => {
+    if (!pendingAction) {return}
+
+    const { proposalId, actionType, actionParams, reason } = pendingAction
+
+    // Build the BrowserActionKind from the proposal
+    let action: BrowserActionKind
+    if (actionType === 'navigate') {
+      action = { type: 'navigate', url: String(actionParams.url ?? 'about:blank') }
+    } else if (actionType === 'click') {
+      action = { type: 'click', ref: String(actionParams.ref ?? '') }
+    } else if (actionType === 'type') {
+      action = { type: 'type', ref: String(actionParams.ref ?? ''), text: String(actionParams.text ?? '') }
+    } else if (actionType === 'snapshot') {
+      action = { type: 'snapshot' }
+    } else {
+      return  // unknown action type — skip
+    }
+
+    const requestId = proposeAction(
+      action,
+      'agent',
+      proposalId,
+      reason,
+      'desktop-visible',
+    )
+
+    // Record mapping so we can send response when resolved
+    proposalToActionMap.set(requestId, proposalId)
+
+    // Clear the pending action atom so we don't re-trigger
+    setPendingBrowserAction(null)
+
+    // ── Auto-resolve snapshot (read-only, no user approval needed) ────
+    if (actionType === 'snapshot') {
+      const bridge = window.hermesDesktop?.browser
+
+      if (bridge) {
+        // Fire-and-forget: get snapshot, approve with executor, response
+        // will be sent when actionLog updates are detected below.
+        void (async () => {
+          try {
+            const snapshot = await getDesktopSnapshot(bridge)
+            await approveProposalWithExecutor(
+              requestId,
+              async () => ({ status: 'executed', postActionSnapshot: snapshot }),
+            )
+          } catch (err) {
+            denyProposal(
+              requestId,
+              err instanceof Error ? err.message : 'Snapshot failed',
+            )
+          }
+        })()
+      } else {
+        denyProposal(requestId, 'Desktop browser bridge is unavailable')
+      }
+    }
+  }, [pendingAction])
+
+  // Watch action log for completion of agent-initiated actions and send
+  // browser.action.respond back to the Python gateway.
+  const sentRef = useRef<Set<string>>(new Set())
+
+  useEffect(() => {
+    if (!gateway) {return}
+
+    for (const result of actionLog) {
+      if (sentRef.current.has(result.requestId)) {continue}
+      const proposalId = proposalToActionMap.get(result.requestId)
+      if (!proposalId) {continue}
+
+      sentRef.current.add(result.requestId)
+
+      // Build result payload — for snapshots, include the full snapshot data
+      const resultPayload: Record<string, unknown> = {
+        status: result.status,
+        error: result.error,
+        url: result.postActionSnapshot?.url,
+        title: result.postActionSnapshot?.title,
+      }
+
+      if (result.postActionSnapshot?.dom) {
+        resultPayload.bodyText = result.postActionSnapshot.dom.bodyText
+        resultPayload.headings = result.postActionSnapshot.dom.headings
+        resultPayload.metaDescription = result.postActionSnapshot.dom.metaDescription
+      }
+
+      void gateway.request<{ resolved?: boolean }>('browser.action.respond', {
+        proposal_id: proposalId,
+        result: JSON.stringify(resultPayload),
+      }).catch(() => {
+        // Best-effort — if the gateway is gone, the agent will time out
+      })
+    }
+  }, [actionLog, gateway])
+
+  return null
 }
 
 // ── Persistent browser overlay (layout root, owns WebContentsView lifecycle) ─

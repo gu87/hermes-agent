@@ -3861,3 +3861,353 @@ registry.register(
     check_fn=check_browser_requirements,
     emoji="🖥️",
 )
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# Visible Browser Tools (Desktop Electron WebContentsView)
+# ═══════════════════════════════════════════════════════════════════════════════
+#
+# These tools propose actions on the user's visible Desktop browser (the
+# Electron WebContentsView rendered in the right sidebar).  They block the
+# agent thread until the user approves or denies the action in the Desktop UI.
+#
+# ── Security model ──
+#   * Every click/type/navigate requires user approval (Allow/Deny in Desktop)
+#   * Desktop re-verifies the target element identity independently (main.cjs)
+#   * eval, press_key, and scroll are permanently denied on Desktop
+#   * Timeout after 120s returns a "user did not respond" sentinel
+# ──────────────────────────────────────────────────────────────────────────────
+
+import uuid as _uuid
+
+VISIBLE_BROWSER_SCHEMAS = [
+    {
+        "name": "visible_browser_navigate",
+        "description": (
+            "Navigate the visible Desktop browser to a URL. Requires user "
+            "approval in the Desktop app. Use this when you need the user to "
+            "see and interact with a page in their visible browser window "
+            "(not headless). Returns the new page URL on success."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "url": {
+                    "type": "string",
+                    "description": "The URL to navigate to (e.g., 'https://example.com')"
+                },
+                "reason": {
+                    "type": "string",
+                    "description": "Why you need to navigate. Shown to the user in the approval UI."
+                },
+            },
+            "required": ["url"],
+        },
+    },
+    {
+        "name": "visible_browser_click",
+        "description": (
+            "Click an element in the visible Desktop browser. Requires user "
+            "approval. The Desktop verifies the target independently before "
+            "executing. Use visible_browser_snapshot first to find element refs."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "ref": {
+                    "type": "string",
+                    "description": "Element reference like '@e5' from visible_browser_snapshot"
+                },
+                "reason": {
+                    "type": "string",
+                    "description": "Why you need to click this element. Shown in approval UI."
+                },
+            },
+            "required": ["ref"],
+        },
+    },
+    {
+        "name": "visible_browser_type",
+        "description": (
+            "Type text into an input field in the visible Desktop browser. "
+            "Requires user approval. The Desktop verifies the target field "
+            "independently before typing."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "ref": {
+                    "type": "string",
+                    "description": "Element reference like '@e3' from visible_browser_snapshot"
+                },
+                "text": {
+                    "type": "string",
+                    "description": "The text to type into the field"
+                },
+                "reason": {
+                    "type": "string",
+                    "description": "Why you need to type this. Shown in approval UI."
+                },
+            },
+            "required": ["ref", "text"],
+        },
+    },
+    {
+        "name": "visible_browser_snapshot",
+        "description": (
+            "Get a snapshot of the visible Desktop browser's current page. "
+            "Returns interactive elements with ref IDs for use with "
+            "visible_browser_click and visible_browser_type. This is read-only "
+            "and does NOT require user approval."
+        ),
+        "parameters": {
+            "type": "object",
+            "properties": {
+                "full": {
+                    "type": "boolean",
+                    "description": "If true, returns full page content. Default: compact.",
+                },
+            },
+            "required": [],
+        },
+    },
+]
+
+
+def _visible_browser_navigate(
+    url: str,
+    reason: Optional[str] = None,
+    *,
+    session_key: Optional[str] = None,
+) -> str:
+    """Propose a navigation action on the visible Desktop browser."""
+    from tools.visible_browser_gateway import (
+        get_notify,
+        get_timeout,
+        register as vb_register,
+        wait_for_response,
+    )
+
+    proposal_id = _uuid.uuid4().hex[:12]
+    entry = vb_register(
+        proposal_id=proposal_id,
+        session_key=session_key or "",
+        action_type="navigate",
+        action_params={"url": url},
+        reason=reason,
+    )
+
+    # Notify the gateway adapter to push to Desktop
+    notify_cb = get_notify(entry.session_key) if entry.session_key else None
+    if notify_cb is None:
+        return json.dumps({
+            "status": "error",
+            "message": "Visible browser is not available — no Desktop session connected.",
+        })
+
+    notify_cb(entry)
+
+    timeout = get_timeout()
+    result = wait_for_response(proposal_id, timeout=float(timeout))
+    if result is None:
+        return json.dumps({
+            "status": "timeout",
+            "message": f"User did not respond to browser navigation request within {int(timeout / 60)}m.",
+        })
+
+    return result
+
+
+def _visible_browser_click(
+    ref: str,
+    reason: Optional[str] = None,
+    *,
+    session_key: Optional[str] = None,
+) -> str:
+    """Propose a click action on the visible Desktop browser."""
+    from tools.visible_browser_gateway import (
+        get_notify,
+        get_timeout,
+        register as vb_register,
+        wait_for_response,
+    )
+
+    proposal_id = _uuid.uuid4().hex[:12]
+    entry = vb_register(
+        proposal_id=proposal_id,
+        session_key=session_key or "",
+        action_type="click",
+        action_params={"ref": ref},
+        reason=reason,
+    )
+
+    notify_cb = get_notify(entry.session_key) if entry.session_key else None
+    if notify_cb is None:
+        return json.dumps({
+            "status": "error",
+            "message": "Visible browser is not available — no Desktop session connected.",
+        })
+
+    notify_cb(entry)
+
+    timeout = get_timeout()
+    result = wait_for_response(proposal_id, timeout=float(timeout))
+    if result is None:
+        return json.dumps({
+            "status": "timeout",
+            "message": f"User did not respond to browser click request within {int(timeout / 60)}m.",
+        })
+
+    return result
+
+
+def _visible_browser_type(
+    ref: str,
+    text: str,
+    reason: Optional[str] = None,
+    *,
+    session_key: Optional[str] = None,
+) -> str:
+    """Propose a type action on the visible Desktop browser."""
+    from tools.visible_browser_gateway import (
+        get_notify,
+        get_timeout,
+        register as vb_register,
+        wait_for_response,
+    )
+
+    proposal_id = _uuid.uuid4().hex[:12]
+    entry = vb_register(
+        proposal_id=proposal_id,
+        session_key=session_key or "",
+        action_type="type",
+        action_params={"ref": ref, "text": text},
+        reason=reason,
+    )
+
+    notify_cb = get_notify(entry.session_key) if entry.session_key else None
+    if notify_cb is None:
+        return json.dumps({
+            "status": "error",
+            "message": "Visible browser is not available — no Desktop session connected.",
+        })
+
+    notify_cb(entry)
+
+    timeout = get_timeout()
+    result = wait_for_response(proposal_id, timeout=float(timeout))
+    if result is None:
+        return json.dumps({
+            "status": "timeout",
+            "message": f"User did not respond to browser type request within {int(timeout / 60)}m.",
+        })
+
+    return result
+
+
+def _visible_browser_snapshot(
+    full: bool = False,
+    *,
+    session_key: Optional[str] = None,
+) -> str:
+    """Read-only: snapshot the visible Desktop browser page.
+
+    Proposes a snapshot action to Desktop.  Desktop auto-resolves snapshot
+    requests without user approval, captures the page state via the preload
+    bridge (DOM summary + screenshot), and returns the result.
+    """
+    from tools.visible_browser_gateway import (
+        get_notify,
+        get_timeout,
+        register as vb_register,
+        wait_for_response,
+    )
+
+    proposal_id = _uuid.uuid4().hex[:12]
+    entry = vb_register(
+        proposal_id=proposal_id,
+        session_key=session_key or "",
+        action_type="snapshot",
+        action_params={"full": full},
+        reason="Agent requested page snapshot",
+    )
+
+    notify_cb = get_notify(entry.session_key) if entry.session_key else None
+    if notify_cb is None:
+        return json.dumps({
+            "status": "error",
+            "message": "Visible browser is not available — no Desktop session connected.",
+        })
+
+    notify_cb(entry)
+
+    timeout = get_timeout()
+    result = wait_for_response(proposal_id, timeout=float(timeout))
+    if result is None:
+        return json.dumps({
+            "status": "timeout",
+            "message": f"Snapshot timed out after {int(timeout / 60)}m.",
+        })
+
+    return result
+
+def _check_visible_browser_requirements() -> bool:
+    """Visible browser tools are available when a Desktop session is connected."""
+    from tools.visible_browser_gateway import get_notify as _vb_get_notify
+    from gateway.session_context import get_current_session_key
+    try:
+        key = get_current_session_key()
+        return key is not None and _vb_get_notify(key) is not None
+    except Exception:
+        return False
+
+
+_VISIBLE_BROWSER_SCHEMA_MAP = {s["name"]: s for s in VISIBLE_BROWSER_SCHEMAS}
+
+registry.register(
+    name="visible_browser_navigate",
+    toolset="browser",
+    schema=_VISIBLE_BROWSER_SCHEMA_MAP["visible_browser_navigate"],
+    handler=lambda args, **kw: _visible_browser_navigate(
+        url=args.get("url", ""),
+        reason=args.get("reason"),
+        session_key=kw.get("session_key"),
+    ),
+    check_fn=_check_visible_browser_requirements,
+    emoji="🖥️",
+)
+registry.register(
+    name="visible_browser_click",
+    toolset="browser",
+    schema=_VISIBLE_BROWSER_SCHEMA_MAP["visible_browser_click"],
+    handler=lambda args, **kw: _visible_browser_click(
+        ref=args.get("ref", ""),
+        reason=args.get("reason"),
+        session_key=kw.get("session_key"),
+    ),
+    check_fn=_check_visible_browser_requirements,
+    emoji="👆",
+)
+registry.register(
+    name="visible_browser_type",
+    toolset="browser",
+    schema=_VISIBLE_BROWSER_SCHEMA_MAP["visible_browser_type"],
+    handler=lambda args, **kw: _visible_browser_type(
+        ref=args.get("ref", ""),
+        text=args.get("text", ""),
+        reason=args.get("reason"),
+        session_key=kw.get("session_key"),
+    ),
+    check_fn=_check_visible_browser_requirements,
+    emoji="⌨️",
+)
+registry.register(
+    name="visible_browser_snapshot",
+    toolset="browser",
+    schema=_VISIBLE_BROWSER_SCHEMA_MAP["visible_browser_snapshot"],
+    handler=lambda args, **kw: _visible_browser_snapshot(
+        full=args.get("full", False),
+        session_key=kw.get("session_key"),
+    ),
+    check_fn=_check_visible_browser_requirements,
+    emoji="📸",
+)
