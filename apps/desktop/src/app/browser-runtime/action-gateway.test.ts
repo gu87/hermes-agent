@@ -430,10 +430,10 @@ describe('full lifecycle', () => {
 import {
   AWAITING_SAFETY_ACTIONS,
   EXECUTABLE_ACTIONS,
-  PERMANENTLY_DENIED_ACTIONS,
   getBlockedActionReason,
   isActionExecutable,
   isActionPermanentlyBlocked,
+  PERMANENTLY_DENIED_ACTIONS,
 } from './action-gateway'
 
 describe('Phase 2E — action classification sets', () => {
@@ -525,6 +525,7 @@ describe('Phase 2E — getBlockedActionReason', () => {
 describe('Phase 2E — proposeAction accepts safetyContext', () => {
   it('stores safetyContext on the pending request', () => {
     resetAll()
+
     const id = proposeAction(
       { type: 'click', ref: '@e5' },
       'agent',
@@ -549,16 +550,19 @@ describe('Phase 2E — proposeAction accepts safetyContext', () => {
 
   it('safetyContext remains optional (backward compat)', () => {
     resetAll()
+
     const id = proposeAction(
       { type: 'snapshot' },
       'agent',
       'task_plain',
     )
+
     expect(getPending(id)?.safetyContext).toBeUndefined()
   })
 
   it('stores typeText for type actions', () => {
     resetAll()
+
     const id = proposeAction(
       { type: 'type', ref: '@e3', text: 'fix: update deps' },
       'agent',
@@ -601,15 +605,86 @@ describe('Phase 2E — click/type non-execution contract', () => {
 describe('Phase 2E — action log carries actionType', () => {
   it('approved navigate creates a log entry with readable actionType', () => {
     resetAll()
+
     const id = proposeAction(
       { type: 'navigate', url: 'https://example.com' },
       'agent',
       'task_log',
     )
+
     approveProposal(id)
 
     const entry = $actionLog.get()[0]
     // actionType is stored by _resolveProposal for UI display
     expect((entry as unknown as Record<string, unknown>).actionType).toBe('navigate')
+  })
+})
+
+// ═══════════════════════════════════════════════════════════════════════
+// Phase 2F-A — Read-only verification contract
+// ═══════════════════════════════════════════════════════════════════════
+
+describe('Phase 2F-A — read-only actions produce real data', () => {
+  it('snapshot is not in AWAITING_SAFETY_ACTIONS', () => {
+    expect(AWAITING_SAFETY_ACTIONS.has('snapshot')).toBe(false)
+  })
+
+  it('snapshot is not in PERMANENTLY_DENIED_ACTIONS', () => {
+    expect(PERMANENTLY_DENIED_ACTIONS.has('snapshot')).toBe(false)
+  })
+
+  it('snapshot is not the only executable (it is read-only handled in executor)', () => {
+    // Phase 2F-A executor handles snapshot explicitly with getDesktopSnapshot()
+    expect(EXECUTABLE_ACTIONS.has('snapshot')).toBe(false)
+  })
+})
+
+describe('Phase 2F-A — EXECUTABLE_ACTIONS still only contains navigate', () => {
+  it('only navigate is directly executable', () => {
+    expect([...EXECUTABLE_ACTIONS].sort()).toEqual(['navigate'])
+  })
+
+  it('click and type are STILL not executable', () => {
+    expect(EXECUTABLE_ACTIONS.has('click')).toBe(false)
+    expect(EXECUTABLE_ACTIONS.has('type')).toBe(false)
+  })
+
+  it('click and type are STILL in AWAITING_SAFETY_ACTIONS', () => {
+    expect(AWAITING_SAFETY_ACTIONS.has('click')).toBe(true)
+    expect(AWAITING_SAFETY_ACTIONS.has('type')).toBe(true)
+  })
+})
+
+describe('Phase 2F-A — proposeAction with safetyContext for verification', () => {
+  it('safetyContext with elementFingerprint can be proposed', () => {
+    resetAll()
+
+    const id = proposeAction(
+      { type: 'click', ref: '@e5' },
+      'agent',
+      'task_vfy',
+      'Click the submit button',
+      'desktop-visible',
+      {
+        originUrl: 'https://github.com/gu/trendradar/pull/42',
+        originTitle: 'PR #42',
+        targetDescription: "button 'Submit PR'",
+        targetRef: '@e5',
+        riskLevel: 'medium',
+        elementFingerprint: {
+          tagName: 'BUTTON',
+          textContent: 'Submit PR',
+          id: 'submit-btn',
+          name: null,
+          inputType: 'submit',
+          ariaLabel: null,
+          rect: { x: 200, y: 400, w: 120, h: 36 },
+        },
+      },
+    )
+
+    const pending = getPending(id)
+    expect(pending?.safetyContext?.elementFingerprint).toBeDefined()
+    expect(pending?.safetyContext?.elementFingerprint?.tagName).toBe('BUTTON')
   })
 })

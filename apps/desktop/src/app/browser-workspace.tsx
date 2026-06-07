@@ -560,6 +560,35 @@ export function BrowserWorkspace() {
                 } satisfies BrowserActionSafetyContext,
               )
             }} />
+            <DemoInjectButton
+              label="Click (no ctx)"
+              onClick={() => {
+                proposeAction(
+                  { type: 'click', ref: '@e99' },
+                  'agent', 'demo_task',
+                  'Agent wants to click but provided no safety context',
+                  'desktop-visible',
+                )
+              }}
+            />
+            <DemoInjectButton
+              label="Click (bad URL)"
+              onClick={() => {
+                proposeAction(
+                  { type: 'click', ref: '@e1' },
+                  'agent', 'demo_task',
+                  'Agent wants to click but originUrl will not match',
+                  'desktop-visible',
+                  {
+                    originUrl: 'https://not-the-current-page.com',
+                    originTitle: 'Wrong Page',
+                    targetDescription: 'A button that may not exist on the current page',
+                    targetRef: '@e1',
+                    riskLevel: 'medium',
+                  } satisfies BrowserActionSafetyContext,
+                )
+              }}
+            />
           </div>
           <BrowserActionGateway desktopBridge={bridge} />
         </div>

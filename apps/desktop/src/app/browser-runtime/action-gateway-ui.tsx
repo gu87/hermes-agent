@@ -53,11 +53,14 @@ import {
 import {
   type DesktopBrowserBridge,
   getDesktopSnapshot,
+  VERIFICATION_FAILURE_REASONS,
+  verifyDesktopActionTarget,
 } from './desktop-visible-provider'
 import type {
   BrowserActionRequest,
   BrowserActionResult,
   BrowserActionRiskLevel,
+  PreActionVerification,
 } from './types'
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -144,9 +147,102 @@ export function BrowserActionGateway({ desktopBridge }: { desktopBridge?: Deskto
       }
     }
 
-    // ── Read-only actions — mark executed (no side effects) ──────────
-    if (actionType === 'snapshot' || actionType === 'vision' || actionType === 'get_images' || actionType === 'console') {
-      return { status: 'executed' as const }
+    // ── Click/type — pre-action verification (Phase 2F-A) ────────────
+    if (actionType === 'click' || actionType === 'type') {
+      let preActionVerification: PreActionVerification | undefined
+
+      if (request.safetyContext && desktopBridge) {
+        try {
+          preActionVerification = await verifyDesktopActionTarget(
+            desktopBridge,
+            request.safetyContext,
+          )
+        } catch {
+          preActionVerification = undefined
+        }
+      } else if (!request.safetyContext) {
+        preActionVerification = {
+          verifiedAt: new Date().toISOString(),
+          currentUrl: '',
+          refValid: false,
+          invalidationReason: VERIFICATION_FAILURE_REASONS.missing_safety_context,
+          snapshot: desktopBridge
+            ? await getDesktopSnapshot(desktopBridge).catch(() => null as unknown as PreActionVerification['snapshot'])
+            : null as unknown as PreActionVerification['snapshot'],
+        }
+      }
+
+      // Phase 2F-A does NOT execute real click/type.
+      // The verification result is attached to the log for the user to inspect.
+      return {
+        status: 'failed' as const,
+        error: `"${actionType}" execution is not yet implemented (Phase 2F-A). `
+          + (preActionVerification?.refValid
+            ? 'Pre-action verification passed — target element found and matches safety context. Ready for Phase 2F-B executor.'
+            : `Pre-action verification failed: ${preActionVerification?.invalidationReason || 'unknown'}. `),
+        preActionVerification,
+      }
+    }
+
+    // ── Snapshot — actually capture a real snapshot ──────────────────
+    if (actionType === 'snapshot') {
+      if (!desktopBridge) {
+        return {
+          status: 'failed' as const,
+          error: 'Desktop browser bridge is unavailable — cannot capture snapshot.',
+        }
+      }
+
+      try {
+        return {
+          status: 'executed' as const,
+          postActionSnapshot: await getDesktopSnapshot(desktopBridge),
+        }
+      } catch (error) {
+        return {
+          status: 'failed' as const,
+          error: `Snapshot capture failed: ${error instanceof Error ? error.message : String(error)}`,
+        }
+      }
+    }
+
+    // ── Vision — capture screenshot (read-only, no AI analysis) ──────
+    if (actionType === 'vision') {
+      if (!desktopBridge) {
+        return {
+          status: 'failed' as const,
+          error: 'Desktop browser bridge is unavailable — cannot capture screenshot.',
+        }
+      }
+
+      try {
+        const screenshot = await desktopBridge.getScreenshot()
+
+        return {
+          status: 'executed' as const,
+          screenshotRef: screenshot?.dataURL || undefined,
+        }
+      } catch (error) {
+        return {
+          status: 'failed' as const,
+          error: `Screenshot capture failed: ${error instanceof Error ? error.message : String(error)}`,
+        }
+      }
+    }
+
+    // ── get_images / console — acknowledged but not implemented ──────
+    if (actionType === 'get_images') {
+      return {
+        status: 'failed' as const,
+        error: 'get_images is not available on the Desktop browser. Use snapshot to read page content.',
+      }
+    }
+
+    if (actionType === 'console') {
+      return {
+        status: 'failed' as const,
+        error: 'Console reading is not available on the Desktop browser.',
+      }
     }
 
     // ── Everything else: not executable ─────────────────────────────
@@ -486,6 +582,12 @@ function ActionLogEntry({ entry }: { entry: BrowserActionResultLike }) {
         ? 'bg-amber-500/10 text-amber-600'
         : 'bg-blue-500/10 text-blue-600'
 
+  const verificationLabel = entry.preActionVerification
+    ? (entry.preActionVerification.refValid
+      ? 'Verified'
+      : `Verify Failed: ${entry.preActionVerification.invalidationReason || 'unknown'}`)
+    : undefined
+
   return (
     <div className="rounded px-1.5 py-0.5 text-[0.625rem]">
       <div className="flex items-center gap-1.5">
@@ -498,7 +600,17 @@ function ActionLogEntry({ entry }: { entry: BrowserActionResultLike }) {
         <span className="min-w-0 truncate text-foreground/80">
           {entry.error || entry.executedBy.provider}
         </span>
-        <span className="shrink-0 tabular-nums text-muted-foreground/40">
+        {verificationLabel && (
+          <span className={cn(
+            'shrink-0 rounded-full px-1 py-0 text-[0.5rem] font-medium',
+            entry.preActionVerification?.refValid
+              ? 'bg-emerald-500/10 text-emerald-600'
+              : 'bg-red-500/10 text-red-600',
+          )}>
+            {verificationLabel}
+          </span>
+        )}
+        <span className="shrink-0 tabular-nums text-muted-foreground/40 ml-auto">
           {new Date(entry.executedAt).toLocaleTimeString()}
         </span>
       </div>
@@ -650,4 +762,15 @@ export type BrowserActionResultLike = {
   error?: string
   /** Action type for display (filled at log time). */
   actionType?: string
+  /** Phase 2F-A: Pre-action verification result. */
+  preActionVerification?: {
+    verifiedAt: string
+    refValid: boolean
+    invalidationReason?: string
+    currentUrl?: string
+    currentFingerprint?: {
+      tagName: string
+      textContent: string
+    }
+  }
 }

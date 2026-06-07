@@ -30,6 +30,7 @@ import type {
   BrowserSnapshotLimits,
   BrowserSnapshotSource,
   BrowserUserContext,
+  PreActionVerification,
 } from './types'
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -49,6 +50,8 @@ export interface DesktopBrowserBridge {
   getDomSummary(): Promise<DesktopBridgeDomSummary>
   getScreenshot(): Promise<DesktopBridgeScreenshot>
   getSelectedText(): Promise<DesktopBridgeSelectedText>
+  /** Phase 2F-A: Read-only target resolution IPC. */
+  verifyActionTarget?(payload: { targetRef: string; originUrl: string }): Promise<DesktopVerifyTargetResult>
 }
 
 interface DesktopBridgeState {
@@ -403,8 +406,206 @@ export async function getDesktopSnapshot(
 }
 
 // ═══════════════════════════════════════════════════════════════════════════
-// 5. Availability check
+// 5. Phase 2F-A: Read-only target verification
 // ═══════════════════════════════════════════════════════════════════════════
+
+/**
+ * Shape returned by the `hermes:browser:verify-action-target` IPC.
+ * Mirrors `DesktopVerifyTargetResult` in global.d.ts.
+ */
+export interface DesktopVerifyTargetResult {
+  found: boolean
+  reason: string | null
+  currentUrl: string
+  urlMatchesOrigin: boolean
+  elementFingerprint?: {
+    tagName: string
+    textContent: string
+    id: string | null
+    name: string | null
+    inputType: string | null
+    ariaLabel: string | null
+    rect: { x: number; y: number; w: number; h: number }
+  }
+  boundingBox?: { x: number; y: number; w: number; h: number }
+  visible?: boolean
+  disabled?: boolean
+  readOnly?: boolean
+  value?: string | null
+  placeholder?: string | null
+  tagName?: string
+  detail?: string
+}
+
+/**
+ * Known verification failure reasons (readable constants).
+ */
+export const VERIFICATION_FAILURE_REASONS = {
+  missing_safety_context: 'missing_safety_context',
+  invalid_target_ref: 'invalid_target_ref',
+  origin_url_mismatch: 'origin_url_mismatch',
+  target_not_found: 'target_not_found',
+  fingerprint_mismatch: 'fingerprint_mismatch',
+  target_not_visible: 'target_not_visible',
+  target_disabled: 'target_disabled',
+  target_readonly: 'target_readonly',
+  ipc_error: 'ipc_error',
+  bridge_unavailable: 'bridge_unavailable',
+} as const
+
+/**
+ * Run a read-only pre-action verification for click/type actions.
+ *
+ * Calls the `hermes:browser:verify-action-target` IPC to resolve the
+ * target ref against the live DOM.  Returns a PreActionVerification
+ * that the caller can attach to the BrowserActionResult.
+ *
+ * Does NOT click, type, focus, or mutate the page.
+ *
+ * @param bridge        The desktop browser bridge.
+ * @param safetyContext The action's safety context (must have targetRef + originUrl).
+ * @returns             A PreActionVerification with refValid and details.
+ */
+export async function verifyDesktopActionTarget(
+  bridge: DesktopBrowserBridge,
+  safetyContext: {
+    targetRef: string
+    originUrl: string
+    elementFingerprint?: {
+      tagName: string
+      textContent: string
+      id: string | null
+      name: string | null
+      inputType: string | null
+      ariaLabel: string | null
+    }
+  },
+): Promise<PreActionVerification> {
+  const verifiedAt = new Date().toISOString()
+
+  // ── Bridge guard ────────────────────────────────────────────────────
+  if (!bridge.verifyActionTarget) {
+    return {
+      verifiedAt,
+      currentUrl: '',
+      refValid: false,
+      invalidationReason: VERIFICATION_FAILURE_REASONS.bridge_unavailable,
+      snapshot: await getDesktopSnapshot(bridge).catch(() => ({
+        capturedAt: verifiedAt,
+        source: { provider: 'desktop-visible' as const, sessionKey: 'desktop-main', mode: 'read_only' as const },
+        activeTab: { url: '', title: '', isLoading: false, canGoBack: false, canGoForward: false, navigationSource: null },
+        dom: { ariaSnapshot: null, bodyText: null, metaDescription: null, headings: [] },
+        userContext: { selectedText: '', clipboardPreview: '' },
+        screenshot: { ref: null, width: 0, height: 0, sizeBytes: 0 },
+        console: null,
+        limits: { maxAriaSnapshotChars: 0, maxBodyTextChars: 0, maxSelectionChars: 0, maxClipboardChars: 0, maxTotalBytes: 0, actualTotalBytes: 0 },
+        errors: [{ field: 'snapshot', message: 'Bridge unavailable' }],
+      })),
+    }
+  }
+
+  let ipcResult: DesktopVerifyTargetResult
+
+  try {
+    ipcResult = await bridge.verifyActionTarget({
+      targetRef: safetyContext.targetRef,
+      originUrl: safetyContext.originUrl,
+    })
+  } catch (error) {
+    return {
+      verifiedAt,
+      currentUrl: '',
+      refValid: false,
+      invalidationReason: VERIFICATION_FAILURE_REASONS.ipc_error,
+      snapshot: await getDesktopSnapshot(bridge).catch(() => null as unknown as BrowserSnapshot),
+    }
+  }
+
+  const snapshot = await getDesktopSnapshot(bridge).catch(() => null as unknown as BrowserSnapshot)
+
+  // ── Invalid target ref ──────────────────────────────────────────────
+  if (!ipcResult.found) {
+    return {
+      verifiedAt,
+      currentUrl: ipcResult.currentUrl || '',
+      refValid: false,
+      invalidationReason: ipcResult.reason || VERIFICATION_FAILURE_REASONS.target_not_found,
+      snapshot,
+    }
+  }
+
+  // ── URL mismatch ────────────────────────────────────────────────────
+  if (!ipcResult.urlMatchesOrigin) {
+    return {
+      verifiedAt,
+      currentUrl: ipcResult.currentUrl,
+      refValid: false,
+      invalidationReason: VERIFICATION_FAILURE_REASONS.origin_url_mismatch,
+      currentFingerprint: ipcResult.elementFingerprint,
+      snapshot,
+    }
+  }
+
+  // ── Fingerprint mismatch ────────────────────────────────────────────
+  if (safetyContext.elementFingerprint && ipcResult.elementFingerprint) {
+    const expected = safetyContext.elementFingerprint
+    const actual = ipcResult.elementFingerprint
+
+    if (
+      expected.tagName.toLowerCase() !== actual.tagName.toLowerCase()
+      || expected.textContent !== actual.textContent
+      || expected.id !== actual.id
+      || expected.name !== actual.name
+      || expected.inputType !== actual.inputType
+    ) {
+      return {
+        verifiedAt,
+        currentUrl: ipcResult.currentUrl,
+        refValid: false,
+        invalidationReason: VERIFICATION_FAILURE_REASONS.fingerprint_mismatch,
+        currentFingerprint: actual,
+        snapshot,
+      }
+    }
+  }
+
+  // ── Visibility check ────────────────────────────────────────────────
+  if (ipcResult.visible === false) {
+    return {
+      verifiedAt,
+      currentUrl: ipcResult.currentUrl,
+      refValid: false,
+      invalidationReason: VERIFICATION_FAILURE_REASONS.target_not_visible,
+      currentFingerprint: ipcResult.elementFingerprint,
+      snapshot,
+    }
+  }
+
+  // ── Disabled check ──────────────────────────────────────────────────
+  if (ipcResult.disabled === true) {
+    return {
+      verifiedAt,
+      currentUrl: ipcResult.currentUrl,
+      refValid: false,
+      invalidationReason: VERIFICATION_FAILURE_REASONS.target_disabled,
+      currentFingerprint: ipcResult.elementFingerprint,
+      snapshot,
+    }
+  }
+
+  // ── Passed all checks ───────────────────────────────────────────────
+  return {
+    verifiedAt,
+    currentUrl: ipcResult.currentUrl,
+    refValid: true,
+    currentFingerprint: ipcResult.elementFingerprint,
+    snapshot,
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════════
+// 6. Availability check
+// ═══════════════════════════════════════════════════════════════════════
 
 /**
  * Check whether the DesktopVisibleProvider is available.
