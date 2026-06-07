@@ -90,6 +90,7 @@ declare global {
         getDomSummary: () => Promise<DesktopBrowserDomSummary>
         getScreenshot: () => Promise<DesktopBrowserScreenshot>
         getSelectedText: () => Promise<DesktopBrowserSelectedText>
+        verifyActionTarget: (payload: DesktopVerifyTargetInput) => Promise<DesktopVerifyTargetResult>
         navigate: (payload: DesktopBrowserNavigatePayload) => Promise<DesktopBrowserNavigateResult>
         reload: () => Promise<DesktopBrowserResult>
         stop: () => Promise<DesktopBrowserResult>
@@ -473,4 +474,35 @@ export interface DesktopBrowserNavigateResult {
   canGoBack?: boolean
   canGoForward?: boolean
   error?: string
+}
+
+// ── Phase 2F-A: Read-only target verification ─────────────────────────────
+
+export interface DesktopVerifyTargetInput {
+  targetRef: string
+  originUrl: string
+}
+
+export interface DesktopVerifyTargetResult {
+  found: boolean
+  reason: string | null
+  currentUrl: string
+  urlMatchesOrigin: boolean
+  elementFingerprint?: {
+    tagName: string
+    textContent: string
+    id: string | null
+    name: string | null
+    inputType: string | null
+    ariaLabel: string | null
+    rect: { x: number; y: number; w: number; h: number }
+  }
+  boundingBox?: { x: number; y: number; w: number; h: number }
+  visible?: boolean
+  disabled?: boolean
+  readOnly?: boolean
+  value?: string | null
+  placeholder?: string | null
+  tagName?: string
+  detail?: string
 }

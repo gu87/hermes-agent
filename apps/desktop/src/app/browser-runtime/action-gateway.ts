@@ -25,6 +25,7 @@ import type {
   BrowserActor,
   BrowserProviderId,
   BrowserSnapshot,
+  PreActionVerification,
 } from './types'
 
 // ═══════════════════════════════════════════════════════════════════════════
@@ -132,6 +133,10 @@ export type BrowserActionExecutor = (
   status: Extract<BrowserActionResultStatus, 'executed' | 'failed'>
   error?: string
   postActionSnapshot?: BrowserSnapshot
+  /** Phase 2F-A: Read-only pre-action verification result. */
+  preActionVerification?: PreActionVerification
+  /** Phase 2F-A: Screenshot ref (for vision action). */
+  screenshotRef?: string
 }>
 
 /**
@@ -158,6 +163,8 @@ export async function approveProposalWithExecutor(
       sessionKey,
       execution.error,
       execution.postActionSnapshot,
+      execution.preActionVerification,
+      execution.screenshotRef,
     )
   } catch (error) {
     return _resolveProposal(
@@ -298,6 +305,8 @@ function _resolveProposal(
   sessionKey: string,
   error?: string,
   postActionSnapshot?: BrowserSnapshot,
+  preActionVerification?: PreActionVerification,
+  screenshotRef?: string,
 ): BrowserActionResult | null {
   const pending = $pendingActions.get()
   const idx = pending.findIndex(r => r.requestId === requestId)
@@ -317,6 +326,8 @@ function _resolveProposal(
     status,
     error,
     postActionSnapshot,
+    preActionVerification,
+    screenshotRef,
     actionType: request.action.type,
   }
 
