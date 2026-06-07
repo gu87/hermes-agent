@@ -7,10 +7,13 @@ import {
   Globe,
   Loader2,
   RefreshCw,
+  Sparkles,
   X
 } from '@/lib/icons'
 import { cn } from '@/lib/utils'
 
+import { proposeAction } from './browser-runtime/action-gateway'
+import { BrowserActionGateway } from './browser-runtime/action-gateway-ui'
 import { WorkspaceLauncher } from './workspace-launcher'
 
 // ── Types ────────────────────────────────────────────────────────────────────
@@ -38,12 +41,15 @@ const COPY_FEEDBACK_MS = 1800
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
 function formatUrl(raw: string): string {
-  if (!raw || raw === 'about:blank') return ''
+  if (!raw || raw === 'about:blank') {return ''}
+
   try {
     const u = new URL(raw)
+
     if (u.protocol === 'https:' && u.hostname === 'www.') {
       return raw.slice(12) // strip https://www.
     }
+
     return u.protocol === 'https:' ? raw.slice(8) : raw
   } catch {
     return raw
@@ -52,13 +58,17 @@ function formatUrl(raw: string): string {
 
 function normalizeUrl(input: string): string {
   const trimmed = input.trim()
-  if (!trimmed) return ''
+
+  if (!trimmed) {return ''}
+
   // Already a full URL.
-  if (/^https?:\/\//i.test(trimmed)) return trimmed
+  if (/^https?:\/\//i.test(trimmed)) {return trimmed}
+
   // Looks like a domain with a TLD.
   if (/^[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}(\/.*)?$/.test(trimmed)) {
     return `https://${trimmed}`
   }
+
   // Treat as search query or single word — search on Google.
   return `https://www.google.com/search?q=${encodeURIComponent(trimmed)}`
 }
@@ -68,6 +78,7 @@ function normalizeUrl(input: string): string {
 export function BrowserWorkspace() {
   const [available, setAvailable] = useState<boolean | null>(null)
   const [launched, setLaunched] = useState(false)
+
   const [page, setPage] = useState<BrowserPageState>({
     url: '',
     title: '',
@@ -75,9 +86,11 @@ export function BrowserWorkspace() {
     canGoForward: false,
     isLoading: false
   })
+
   const [urlInput, setUrlInput] = useState('')
   const [copyLabel, setCopyLabel] = useState('Copy Context')
   const [copyDisabled, setCopyDisabled] = useState(false)
+  const [gatewayOpen, setGatewayOpen] = useState(false)
 
   const mountRef = useRef<HTMLDivElement>(null)
   const observerRef = useRef<ResizeObserver | null>(null)
@@ -90,8 +103,10 @@ export function BrowserWorkspace() {
   useEffect(() => {
     if (!bridge) {
       setAvailable(false)
+
       return
     }
+
     bridge.isAvailable().then(result => {
       setAvailable(result.available)
     })
@@ -100,7 +115,7 @@ export function BrowserWorkspace() {
   // ── Subscribe to page events ────────────────────────────────────────────
 
   useEffect(() => {
-    if (!bridge || !launched) return
+    if (!bridge || !launched) {return}
 
     const unsubs = [
       bridge.onPageTitleUpdated(({ title }) => {
@@ -119,6 +134,7 @@ export function BrowserWorkspace() {
       }),
       bridge.onDidStopLoading(async () => {
         setPage(prev => ({ ...prev, isLoading: false }))
+
         // Refresh navigation state after load completes.
         try {
           const state = await bridge.getState()
@@ -134,20 +150,22 @@ export function BrowserWorkspace() {
     ]
 
     return () => {
-      for (const unsub of unsubs) unsub()
+      for (const unsub of unsubs) {unsub()}
     }
   }, [bridge, launched])
 
   // ── ResizeObserver → setBounds ──────────────────────────────────────────
 
   useEffect(() => {
-    if (!launched || !bridge || !mountRef.current) return
+    if (!launched || !bridge || !mountRef.current) {return}
 
     const el = mountRef.current
+
     const syncBounds = () => {
       const rect = el.getBoundingClientRect()
+
       // Only send bounds when there's a real area to render into.
-      if (rect.width < 1 || rect.height < 1) return
+      if (rect.width < 1 || rect.height < 1) {return}
       bridge.setBounds({
         x: Math.round(rect.x),
         y: Math.round(rect.y),
@@ -174,8 +192,9 @@ export function BrowserWorkspace() {
   // ── Mount / unmount ──────────────────────────────────────────────────────
 
   const launch = useCallback(async () => {
-    if (!bridge || mountedRef.current) return
+    if (!bridge || mountedRef.current) {return}
     const result = await bridge.mount()
+
     if (result.ok) {
       mountedRef.current = true
       setLaunched(true)
@@ -185,7 +204,7 @@ export function BrowserWorkspace() {
   }, [bridge])
 
   const dismiss = useCallback(async () => {
-    if (!bridge) return
+    if (!bridge) {return}
     observerRef.current?.disconnect()
     observerRef.current = null
     await bridge.unmount()
@@ -209,44 +228,49 @@ export function BrowserWorkspace() {
 
   const navigate = useCallback(async (input: string) => {
     const url = normalizeUrl(input)
-    if (!url) return
-    if (!bridge) return
+
+    if (!url) {return}
+
+    if (!bridge) {return}
     const result = await bridge.navigate({ url, source: 'user' })
+
     if (result.ok && result.url) {
       setUrlInput(result.url)
     }
   }, [bridge])
 
   const goBack = useCallback(async () => {
-    if (!bridge) return
+    if (!bridge) {return}
     const result = await bridge.goBack()
+
     if (!result.error) {
       setPage(prev => ({ ...prev, canGoBack: result.canGoBack ?? prev.canGoBack }))
     }
   }, [bridge])
 
   const goForward = useCallback(async () => {
-    if (!bridge) return
+    if (!bridge) {return}
     const result = await bridge.goForward()
+
     if (!result.error) {
       setPage(prev => ({ ...prev, canGoForward: result.canGoForward ?? prev.canGoForward }))
     }
   }, [bridge])
 
   const reload = useCallback(async () => {
-    if (!bridge) return
+    if (!bridge) {return}
     await bridge.reload()
   }, [bridge])
 
   const stop = useCallback(async () => {
-    if (!bridge) return
+    if (!bridge) {return}
     await bridge.stop()
   }, [bridge])
 
   // ── Copy Context (renderer-only — no main process IPC) ─────────────────
 
   const copyContext = useCallback(async () => {
-    if (!bridge || copyDisabled) return
+    if (!bridge || copyDisabled) {return}
     setCopyDisabled(true)
     setCopyLabel('Copying…')
 
@@ -261,9 +285,13 @@ export function BrowserWorkspace() {
       // Build markdown summary for clipboard.
       const summaryParts: string[] = []
       const title = domSummary.title || page.title || ''
-      if (title) summaryParts.push(`**${title}**`)
-      if (pageUrl) summaryParts.push(pageUrl)
-      if (domSummary.description) summaryParts.push(`> ${domSummary.description}`)
+
+      if (title) {summaryParts.push(`**${title}**`)}
+
+      if (pageUrl) {summaryParts.push(pageUrl)}
+
+      if (domSummary.description) {summaryParts.push(`> ${domSummary.description}`)}
+
       if (domSummary.textPreview) {
         summaryParts.push('')
         summaryParts.push(domSummary.textPreview.slice(0, 500))
@@ -276,12 +304,15 @@ export function BrowserWorkspace() {
       if (screenshot.dataURL && screenshot.dataURL.startsWith('data:')) {
         try {
           const base64 = screenshot.dataURL.split(',')[1]
+
           if (base64) {
             const binaryString = atob(base64)
             const bytes = new Uint8Array(binaryString.length)
+
             for (let i = 0; i < binaryString.length; i++) {
               bytes[i] = binaryString.charCodeAt(i)
             }
+
             await window.hermesDesktop?.saveImageBuffer(bytes, '.png')
           }
         } catch {
@@ -407,6 +438,19 @@ export function BrowserWorkspace() {
           <span className="hidden sm:inline">{copyLabel}</span>
         </button>
 
+        {/* Agent action gateway toggle */}
+        <button
+          aria-label="Toggle agent action gateway"
+          className={cn(
+            'grid size-7 place-items-center rounded-md text-muted-foreground transition-colors hover:bg-(--ui-bg-secondary)/60 hover:text-foreground',
+            gatewayOpen && 'text-brand'
+          )}
+          onClick={() => setGatewayOpen(v => !v)}
+          type="button"
+        >
+          <Sparkles className="size-3.5" />
+        </button>
+
         {/* Close browser */}
         <button
           aria-label="Close browser workspace"
@@ -421,8 +465,8 @@ export function BrowserWorkspace() {
       {/* ── Browser viewport ──────────────────────────────────────────── */}
       <div className="relative min-h-0 flex-1">
         <div
-          ref={mountRef}
           className="absolute inset-0"
+          ref={mountRef}
           style={{ background: '#fff' }}
         />
 
@@ -446,6 +490,63 @@ export function BrowserWorkspace() {
           {page.title || formatUrl(page.url) || 'Hermes Browser'}
         </span>
       </div>
+
+      {/* ── Agent Action Gateway ────────────────────────────────────── */}
+      {gatewayOpen && (
+        <div className="shrink-0">
+          {/* Demo: inject sample action requests */}
+          <div className="flex items-center gap-1 border-t border-(--ui-stroke-secondary) px-2.5 py-1">
+            <span className="text-[0.5625rem] text-muted-foreground/40 mr-1">Demo inject:</span>
+            <DemoInjectButton label="Navigate" onClick={() => {
+              proposeAction(
+                { type: 'navigate', url: page.url && page.url !== 'about:blank' ? page.url : 'https://example.com' },
+                'agent', 'demo_task',
+                'Agent wants to navigate to a different page',
+                'desktop-visible',
+              )
+            }} />
+            <DemoInjectButton label="Snapshot" onClick={() => {
+              proposeAction(
+                { type: 'snapshot' },
+                'agent', 'demo_task',
+                'Agent wants to read the page content',
+                'desktop-visible',
+              )
+            }} />
+            <DemoInjectButton label="Click" onClick={() => {
+              proposeAction(
+                { type: 'click', ref: '@e5' },
+                'agent', 'demo_task',
+                'Agent wants to click a button on the page',
+                'desktop-visible',
+              )
+            }} />
+            <DemoInjectButton label="Type" onClick={() => {
+              proposeAction(
+                { type: 'type', ref: '@e3', text: 'search query' },
+                'agent', 'demo_task',
+                'Agent wants to type into a search field',
+                'desktop-visible',
+              )
+            }} />
+          </div>
+          <BrowserActionGateway desktopBridge={bridge} />
+        </div>
+      )}
     </div>
+  )
+}
+
+// ── Demo helper ──────────────────────────────────────────────────────────────
+
+function DemoInjectButton({ label, onClick }: { label: string; onClick: () => void }) {
+  return (
+    <button
+      className="rounded border border-(--ui-stroke-secondary) px-1.5 py-0 text-[0.5625rem] text-muted-foreground/50 hover:border-brand/30 hover:text-brand transition-colors"
+      onClick={onClick}
+      type="button"
+    >
+      {label}
+    </button>
   )
 }

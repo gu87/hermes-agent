@@ -11,7 +11,6 @@
  */
 
 const { session, WebContentsView } = require('electron')
-const path = require('node:path')
 
 // ── Constants ────────────────────────────────────────────────────────────────
 
@@ -102,31 +101,19 @@ function getBrowserView() {
   })
 
   // ── Download guard ──────────────────────────────────────────────────────
-  wc.session.on('will-download', (_event, _item) => {
-    _event.preventDefault()
+  wc.session.on('will-download', (event) => {
+    event.preventDefault()
   })
 
   // ── Permission guard ────────────────────────────────────────────────────
   // Deny all sensitive permissions for embedded web content.
-  sess.setPermissionRequestHandler((_wc, permission, callback) => {
-    const denied = new Set([
-      'camera',
-      'clipboard-read',
-      'clipboard-sanitized-write',
-      'fullscreen',
-      'geolocation',
-      'media',
-      'mediaKeySystem',
-      'midi',
-      'midiSysex',
-      'notifications',
-      'pointerLock',
-      'openExternal',
-    ])
-    callback(!denied.has(permission))
+  sess.setPermissionRequestHandler((webContents, permission, callback) => {
+    void webContents
+    void permission
+    callback(false)
   })
 
-  sess.setPermissionCheckHandler((_wc, permission) => {
+  sess.setPermissionCheckHandler(() => {
     // Only allow permissions we've explicitly granted above.
     return false
   })

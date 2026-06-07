@@ -15,6 +15,7 @@ import { $currentBranch, $currentCwd } from '@/store/session'
 
 import { SidebarPanelLabel } from '../shell/sidebar-label'
 
+import { BrowserTab } from './browser-persistent'
 import { ProjectTree } from './files/tree'
 import { useProjectTree } from './files/use-project-tree'
 import { $rightSidebarTab, $terminalTakeover, type RightSidebarTabId, setRightSidebarTab } from './store'
@@ -34,7 +35,8 @@ interface RightSidebarTab {
 
 const RIGHT_SIDEBAR_TABS: readonly RightSidebarTab[] = [
   { id: 'files', label: 'File system', icon: 'list-tree' },
-  { id: 'terminal', label: 'Terminal', icon: 'terminal' }
+  { id: 'terminal', label: 'Terminal', icon: 'terminal' },
+  { id: 'web', label: 'Browser', icon: 'globe' }
 ]
 
 export function RightSidebarPane({ onActivateFile, onActivateFolder, onChangeCwd }: RightSidebarPaneProps) {
@@ -65,7 +67,7 @@ export function RightSidebarPane({ onActivateFile, onActivateFolder, onChangeCwd
   } = useProjectTree(currentCwd)
 
   const canCollapse = Object.values(openState).some(Boolean)
-  const effectiveTab: RightSidebarTabId = terminalTakeover ? 'files' : activeTab
+  const effectiveTab: RightSidebarTabId = terminalTakeover && activeTab !== 'web' ? 'files' : activeTab
 
   const chooseFolder = async () => {
     const selected = await window.hermesDesktop?.selectPaths({
@@ -110,6 +112,8 @@ export function RightSidebarPane({ onActivateFile, onActivateFolder, onChangeCwd
 
       {effectiveTab === 'terminal' ? (
         <TerminalSlot />
+      ) : effectiveTab === 'web' ? (
+        <BrowserTab />
       ) : (
         <FilesystemTab
           canCollapse={canCollapse}

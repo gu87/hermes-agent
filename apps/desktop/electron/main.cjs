@@ -14,8 +14,7 @@ const {
   safeStorage,
   session,
   shell,
-  systemPreferences,
-  WebContentsView
+  systemPreferences
 } = require('electron')
 const crypto = require('node:crypto')
 const fs = require('node:fs')
@@ -89,9 +88,7 @@ try {
     const helperPath = path.join(ptyPkgRoot, 'prebuilds', `${process.platform}-${process.arch}`, 'spawn-helper')
     if (!fs.existsSync(helperPath)) return
     const stat = fs.statSync(helperPath)
-    // eslint-disable-next-line no-bitwise
     if (!(stat.mode & fs.constants.S_IXUSR)) {
-      // eslint-disable-next-line no-bitwise
       fs.chmodSync(helperPath, stat.mode | fs.constants.S_IXUSR | fs.constants.S_IXGRP | fs.constants.S_IXOTH)
       rememberLog(`[pty] made spawn-helper executable: ${helperPath}`)
     }
@@ -305,7 +302,6 @@ const terminalSessions = new Map()
 
 // ── Embedded browser state ────────────────────────────────────────────────────
 const browserPageEventCleanups = []
-let browserMounted = false
 
 function addBrowserCleanup(fn) {
   browserPageEventCleanups.push(fn)
@@ -316,7 +312,6 @@ function removeBrowserPageListeners() {
     try { cleanup() } catch { /* ignore */ }
   }
   browserPageEventCleanups.length = 0
-  browserMounted = false
 }
 
 function isHexColor(value) {
@@ -5464,7 +5459,6 @@ ipcMain.handle('hermes:browser:mount', async () => {
     removeBrowserPageListeners()
     const cleanup = registerBrowserPageEvents(view.webContents)
     addBrowserCleanup(cleanup)
-    browserMounted = true
 
     rememberLog('[browser] mounted WebContentsView')
     return { ok: true }
@@ -5498,8 +5492,8 @@ ipcMain.handle('hermes:browser:set-bounds', async (_event, bounds) => {
     view.setBounds({
       x: Math.round(bounds.x),
       y: Math.round(bounds.y),
-      width: Math.max(1, Math.round(bounds.width || 0)),
-      height: Math.max(1, Math.round(bounds.height || 0))
+      width: Math.max(0, Math.round(bounds.width || 0)),
+      height: Math.max(0, Math.round(bounds.height || 0))
     })
     return { ok: true }
   } catch (error) {
