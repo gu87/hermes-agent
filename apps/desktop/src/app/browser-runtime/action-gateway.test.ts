@@ -452,8 +452,8 @@ describe('Phase 2E — action classification sets', () => {
     expect(PERMANENTLY_DENIED_ACTIONS.has('navigate')).toBe(false)
   })
 
-  it('AWAITING_SAFETY_ACTIONS contains click and type', () => {
-    expect(AWAITING_SAFETY_ACTIONS.has('click')).toBe(true)
+  it('AWAITING_SAFETY_ACTIONS contains only type', () => {
+    expect(AWAITING_SAFETY_ACTIONS.has('type')).toBe(true)
     expect(AWAITING_SAFETY_ACTIONS.has('type')).toBe(true)
   })
 
@@ -462,9 +462,8 @@ describe('Phase 2E — action classification sets', () => {
     expect(AWAITING_SAFETY_ACTIONS.has('eval')).toBe(false)
   })
 
-  it('EXECUTABLE_ACTIONS only contains navigate', () => {
-    expect(EXECUTABLE_ACTIONS.has('navigate')).toBe(true)
-    expect(EXECUTABLE_ACTIONS.has('click')).toBe(false)
+  it('EXECUTABLE_ACTIONS contains click and navigate', () => {
+    expect(EXECUTABLE_ACTIONS.has('click')).toBe(true)
     expect(EXECUTABLE_ACTIONS.has('type')).toBe(false)
     expect(EXECUTABLE_ACTIONS.has('eval')).toBe(false)
     expect(EXECUTABLE_ACTIONS.has('snapshot')).toBe(false)
@@ -476,8 +475,8 @@ describe('Phase 2E — isActionExecutable', () => {
     expect(isActionExecutable('navigate')).toBe(true)
   })
 
-  it('returns false for click, type, eval, scroll, press_key', () => {
-    expect(isActionExecutable('click')).toBe(false)
+  it('returns true for click, false for type, eval, scroll, press_key', () => {
+    expect(isActionExecutable('click')).toBe(true)
     expect(isActionExecutable('type')).toBe(false)
     expect(isActionExecutable('eval')).toBe(false)
     expect(isActionExecutable('scroll')).toBe(false)
@@ -507,7 +506,7 @@ describe('Phase 2E — getBlockedActionReason', () => {
   })
 
   it('returns a reason for awaiting-safety actions', () => {
-    const reason = getBlockedActionReason('click')
+    const reason = getBlockedActionReason('type')
     expect(reason).toBeTruthy()
     expect(reason).toContain('Phase 2E')
     expect(reason).toContain('Phase 2F')
@@ -584,8 +583,8 @@ describe('Phase 2E — proposeAction accepts safetyContext', () => {
 })
 
 describe('Phase 2E — click/type non-execution contract', () => {
-  it('click is NOT in EXECUTABLE_ACTIONS', () => {
-    expect(EXECUTABLE_ACTIONS.has('click')).toBe(false)
+  it('click IS in EXECUTABLE_ACTIONS', () => {
+    expect(EXECUTABLE_ACTIONS.has('click')).toBe(true)
   })
 
   it('type is NOT in EXECUTABLE_ACTIONS', () => {
@@ -597,8 +596,8 @@ describe('Phase 2E — click/type non-execution contract', () => {
     expect(AWAITING_SAFETY_ACTIONS.has('eval')).toBe(false)
   })
 
-  it('navigate is the only executable action', () => {
-    expect([...EXECUTABLE_ACTIONS]).toEqual(['navigate'])
+  it('click and navigate are the only executable actions', () => {
+    expect([...EXECUTABLE_ACTIONS].sort()).toEqual(['click', 'navigate'])
   })
 })
 
@@ -640,17 +639,17 @@ describe('Phase 2F-A — read-only actions produce real data', () => {
 })
 
 describe('Phase 2F-A — EXECUTABLE_ACTIONS still only contains navigate', () => {
-  it('only navigate is directly executable', () => {
-    expect([...EXECUTABLE_ACTIONS].sort()).toEqual(['navigate'])
+  it('click and navigate are directly executable', () => {
+    expect([...EXECUTABLE_ACTIONS].sort()).toEqual(['click', 'navigate'])
   })
 
-  it('click and type are STILL not executable', () => {
-    expect(EXECUTABLE_ACTIONS.has('click')).toBe(false)
-    expect(EXECUTABLE_ACTIONS.has('type')).toBe(false)
+  it('type is STILL not executable', () => {
+    expect(EXECUTABLE_ACTIONS.has('click')).toBe(true)
+    expect(EXECUTABLE_ACTIONS.has('type')).toBe(false); expect(EXECUTABLE_ACTIONS.has('click')).toBe(true)
   })
 
-  it('click and type are STILL in AWAITING_SAFETY_ACTIONS', () => {
-    expect(AWAITING_SAFETY_ACTIONS.has('click')).toBe(true)
+  it('type is STILL in AWAITING_SAFETY_ACTIONS', () => {
+    expect(AWAITING_SAFETY_ACTIONS.has('type')).toBe(true)
     expect(AWAITING_SAFETY_ACTIONS.has('type')).toBe(true)
   })
 })
@@ -686,5 +685,45 @@ describe('Phase 2F-A — proposeAction with safetyContext for verification', () 
     const pending = getPending(id)
     expect(pending?.safetyContext?.elementFingerprint).toBeDefined()
     expect(pending?.safetyContext?.elementFingerprint?.tagName).toBe('BUTTON')
+  })
+})
+
+// ═══════════════════════════════════════════════════════════════════════
+// Phase 2F-B1 — Real click execution contract
+// ═══════════════════════════════════════════════════════════════════════
+
+describe('Phase 2F-B1 — click execution contract', () => {
+  it('EXECUTABLE_ACTIONS contains click', () => {
+    expect(EXECUTABLE_ACTIONS.has('click')).toBe(true)
+  })
+
+  it('EXECUTABLE_ACTIONS contains navigate', () => {
+    expect(EXECUTABLE_ACTIONS.has('navigate')).toBe(true)
+  })
+
+  it('EXECUTABLE_ACTIONS does NOT contain type', () => {
+    expect(EXECUTABLE_ACTIONS.has('type')).toBe(false)
+  })
+
+  it('AWAITING_SAFETY_ACTIONS only contains type', () => {
+    expect(AWAITING_SAFETY_ACTIONS.has('type')).toBe(true)
+    expect(AWAITING_SAFETY_ACTIONS.has('click')).toBe(false)
+  })
+
+  it('PERMANENTLY_DENIED_ACTIONS unchanged', () => {
+    expect(PERMANENTLY_DENIED_ACTIONS.has('eval')).toBe(true)
+    expect(PERMANENTLY_DENIED_ACTIONS.has('press_key')).toBe(true)
+    expect(PERMANENTLY_DENIED_ACTIONS.has('scroll')).toBe(true)
+    expect(PERMANENTLY_DENIED_ACTIONS.has('click')).toBe(false)
+  })
+
+  it('getBlockedActionReason returns null for click (executable)', () => {
+    expect(getBlockedActionReason('click')).toBeNull()
+  })
+
+  it('getBlockedActionReason returns a reason for type (awaiting)', () => {
+    const reason = getBlockedActionReason('type')
+    expect(reason).toBeTruthy()
+    expect(reason).toContain('type')
   })
 })

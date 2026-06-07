@@ -17,6 +17,7 @@
  */
 
 import type {
+  BrowserActionSafetyContext,
   BrowserActiveTabContext,
   BrowserCapability,
   BrowserConsoleSnapshot,
@@ -50,6 +51,10 @@ export interface DesktopBrowserBridge {
   getDomSummary(): Promise<DesktopBridgeDomSummary>
   getScreenshot(): Promise<DesktopBridgeScreenshot>
   getSelectedText(): Promise<DesktopBridgeSelectedText>
+  /** Phase 2F-A2: Enumerate interactive elements. */
+  getInteractiveSnapshot?(): Promise<DesktopInteractiveSnapshotResult>
+  /** Phase 2F-B1: Execute real click (re-verifies before clicking). */
+  executeClick?(payload: { targetRef: string; originUrl: string; expectedFingerprint?: Record<string, unknown> }): Promise<DesktopExecuteClickResult>
   /** Phase 2F-A: Read-only target resolution IPC. */
   verifyActionTarget?(payload: { targetRef: string; originUrl: string }): Promise<DesktopVerifyTargetResult>
 }
@@ -135,8 +140,9 @@ export const DESKTOP_VISIBLE_DEFAULT_POLICIES: BrowserPermissionPolicy[] = [
   { provider: 'desktop-visible', action: 'eval',        actor: 'agent', decision: 'deny' },
   { provider: 'desktop-visible', action: 'press_key',   actor: 'agent', decision: 'deny' },
   { provider: 'desktop-visible', action: 'scroll',      actor: 'agent', decision: 'deny' },
-  // Denied until Phase 2F safety implementation (will become approval_required):
-  { provider: 'desktop-visible', action: 'click',       actor: 'agent', decision: 'deny' },
+  // click — executable after approval (Phase 2F-B1):
+  { provider: 'desktop-visible', action: 'click',       actor: 'agent', decision: 'approval_required' },
+  // type — denied until Phase 2F-B2:
   { provider: 'desktop-visible', action: 'type',        actor: 'agent', decision: 'deny' },
   // Navigation — user must approve:
   { provider: 'desktop-visible', action: 'navigate',    actor: 'agent', decision: 'approval_required' },
@@ -157,7 +163,7 @@ export const DESKTOP_VISIBLE_DEFAULT_POLICIES: BrowserPermissionPolicy[] = [
   { provider: 'desktop-visible', action: 'eval',        actor: 'system', decision: 'deny' },
   { provider: 'desktop-visible', action: 'press_key',   actor: 'system', decision: 'deny' },
   { provider: 'desktop-visible', action: 'scroll',      actor: 'system', decision: 'deny' },
-  { provider: 'desktop-visible', action: 'click',       actor: 'system', decision: 'deny' },
+  { provider: 'desktop-visible', action: 'click',       actor: 'system', decision: 'approval_required' },
   { provider: 'desktop-visible', action: 'type',        actor: 'system', decision: 'deny' },
   { provider: 'desktop-visible', action: 'navigate',    actor: 'system', decision: 'approval_required' },
   { provider: 'desktop-visible', action: 'back',        actor: 'system', decision: 'approval_required' },
@@ -410,6 +416,49 @@ export async function getDesktopSnapshot(
 // ═══════════════════════════════════════════════════════════════════════════
 
 /**
+ * Shape returned by the `hermes:browser:get-interactive-snapshot` IPC.
+ * Mirrors `DesktopInteractiveSnapshotResult` in global.d.ts.
+ */
+export interface DesktopInteractiveSnapshotResult {
+  ok: boolean
+  capturedAt: string
+  currentUrl: string
+  elements: DesktopInteractiveSnapshotElement[]
+  error?: string
+}
+
+export interface DesktopInteractiveSnapshotElement {
+  ref: string
+  tagName: string
+  role: string | null
+  semanticRole: string
+  highRisk: boolean
+  isDestructive: boolean
+  isMediumRisk: boolean
+  textContent: string
+  ariaLabel: string | null
+  id: string | null
+  name: string | null
+  inputType: string | null
+  placeholder: string | null
+  valuePreview: string | null
+  href: string | null
+  boundingBox: { x: number; y: number; w: number; h: number }
+  visible: boolean
+  disabled: boolean
+  readOnly: boolean
+  fingerprint: {
+    tagName: string
+    textContent: string
+    id: string | null
+    name: string | null
+    inputType: string | null
+    ariaLabel: string | null
+    rect: { x: number; y: number; w: number; h: number }
+  }
+}
+
+/**
  * Shape returned by the `hermes:browser:verify-action-target` IPC.
  * Mirrors `DesktopVerifyTargetResult` in global.d.ts.
  */
@@ -435,6 +484,89 @@ export interface DesktopVerifyTargetResult {
   placeholder?: string | null
   tagName?: string
   detail?: string
+}
+
+/**
+ * Shape returned by the ``hermes:browser:execute-click`` IPC.
+ */
+export interface DesktopExecuteClickResult {
+  ok: boolean
+  reason?: string
+  detail?: string
+  currentUrl?: string
+  clickedAt?: { x: number; y: number }
+  verification?: {
+    refValid: boolean
+    invalidationReason?: string
+    currentUrl?: string
+    currentFingerprint?: {
+      tagName: string
+      textContent: string
+      id: string | null
+      name: string | null
+      inputType: string | null
+      ariaLabel: string | null
+    }
+  }
+}
+
+/**
+ * Pure function: compare an expected element fingerprint against an actual
+ * one.  Returns null when they match, or a mismatch reason string.
+ *
+ * IMPORTANT: uses ``!== undefined`` guards, NOT falsy checks — an empty
+ * string in the expected fingerprint MUST be compared, not skipped.
+ * Kept in sync with the equivalent logic in ``main.cjs`` execute-click.
+ */
+export function compareElementFingerprint(
+  expected: {
+    tagName?: string | null
+    textContent?: string | null
+    id?: string | null
+    name?: string | null
+    inputType?: string | null
+    ariaLabel?: string | null
+  },
+  actual: {
+    tagName?: string | null
+    textContent?: string | null
+    id?: string | null
+    name?: string | null
+    inputType?: string | null
+    ariaLabel?: string | null
+  },
+): string | null {
+  if (expected.tagName !== undefined && expected.tagName !== null
+      && (actual.tagName == null || expected.tagName.toLowerCase() !== String(actual.tagName).toLowerCase())) {
+    return 'tagName'
+  }
+
+  if (expected.textContent !== undefined && expected.textContent !== null
+      && expected.textContent !== String(actual.textContent ?? '')) {
+    return 'textContent'
+  }
+
+  if (expected.id !== undefined && expected.id !== null
+      && expected.id !== actual.id) {
+    return 'id'
+  }
+
+  if (expected.name !== undefined && expected.name !== null
+      && expected.name !== actual.name) {
+    return 'name'
+  }
+
+  if (expected.inputType !== undefined && expected.inputType !== null
+      && expected.inputType !== actual.inputType) {
+    return 'inputType'
+  }
+
+  if (expected.ariaLabel !== undefined && expected.ariaLabel !== null
+      && expected.ariaLabel !== actual.ariaLabel) {
+    return 'ariaLabel'
+  }
+
+  return null
 }
 
 /**
@@ -548,22 +680,18 @@ export async function verifyDesktopActionTarget(
 
   // ── Fingerprint mismatch ────────────────────────────────────────────
   if (safetyContext.elementFingerprint && ipcResult.elementFingerprint) {
-    const expected = safetyContext.elementFingerprint
-    const actual = ipcResult.elementFingerprint
+    const mismatchField = compareElementFingerprint(
+      safetyContext.elementFingerprint,
+      ipcResult.elementFingerprint,
+    )
 
-    if (
-      expected.tagName.toLowerCase() !== actual.tagName.toLowerCase()
-      || expected.textContent !== actual.textContent
-      || expected.id !== actual.id
-      || expected.name !== actual.name
-      || expected.inputType !== actual.inputType
-    ) {
+    if (mismatchField) {
       return {
         verifiedAt,
         currentUrl: ipcResult.currentUrl,
         refValid: false,
         invalidationReason: VERIFICATION_FAILURE_REASONS.fingerprint_mismatch,
-        currentFingerprint: actual,
+        currentFingerprint: ipcResult.elementFingerprint,
         snapshot,
       }
     }
@@ -603,7 +731,89 @@ export async function verifyDesktopActionTarget(
   }
 }
 
-// ═══════════════════════════════════════════════════════════════════════
+// ═══════════════════════════════════════════════════════════════════════════
+// 6. Execute click (Phase 2F-B1)
+// ═══════════════════════════════════════════════════════════════════════════
+
+/**
+ *
+ * Calls `hermes:browser:execute-click` which re-runs the interactive
+ * candidate enumeration and checks URL match, fingerprint match, visibility,
+ * and disabled status *in the main process* before sending mouseDown/mouseUp.
+ *
+ * Does NOT execute type, eval, press_key, or scroll.
+ *
+ * @param bridge        The desktop browser bridge.
+ * @param safetyContext The verified safety context (must have targetRef, originUrl, elementFingerprint).
+ * @returns             Partial BrowserActionResult fields for the gateway.
+ */
+export async function executeDesktopClick(
+  bridge: DesktopBrowserBridge,
+  safetyContext: {
+    targetRef: string
+    originUrl: string
+    elementFingerprint?: {
+      tagName: string
+      textContent: string
+      id: string | null
+      name: string | null
+      inputType: string | null
+      ariaLabel: string | null
+    }
+  },
+): Promise<{
+  ok: boolean
+  reason?: string
+  clickedAt?: { x: number; y: number }
+  currentUrl?: string
+  verification?: DesktopExecuteClickResult['verification']
+  postActionSnapshot?: BrowserSnapshot
+}> {
+  if (!bridge.executeClick) {
+    return { ok: false, reason: 'bridge_unavailable' }
+  }
+
+  let result: DesktopExecuteClickResult
+
+  try {
+    result = await bridge.executeClick({
+      targetRef: safetyContext.targetRef,
+      originUrl: safetyContext.originUrl,
+      expectedFingerprint: safetyContext.elementFingerprint as Record<string, unknown> | undefined,
+    })
+  } catch (error) {
+    return { ok: false, reason: `executeClick IPC failed: ${error instanceof Error ? error.message : String(error)}` }
+  }
+
+  if (!result.ok) {
+    return {
+      ok: false,
+      reason: result.reason || 'click_failed',
+      currentUrl: result.currentUrl,
+      verification: result.verification,
+    }
+  }
+
+  // Capture post-click snapshot
+  let postActionSnapshot: BrowserSnapshot | undefined
+
+  try {
+    postActionSnapshot = await getDesktopSnapshot(bridge)
+  } catch {
+    // best-effort
+  }
+
+  return {
+    ok: true,
+    clickedAt: result.clickedAt,
+    currentUrl: result.currentUrl,
+    verification: result.verification,
+    postActionSnapshot,
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// 7. Availability check
 // 6. Availability check
 // ═══════════════════════════════════════════════════════════════════════
 
@@ -623,5 +833,65 @@ export async function isDesktopVisibleAvailable(
     return await bridge.isAvailable()
   } catch (error) {
     return { available: false, reason: `isAvailable IPC failed: ${String(error)}` }
+  }
+}
+
+// ═══════════════════════════════════════════════════════════════════════════
+// 6b. Phase 2F-A2: Interactive snapshot helpers
+// ═══════════════════════════════════════════════════════════════════════════
+
+/**
+ * Get the interactive element snapshot from the Desktop browser.
+ *
+ * Calls the `hermes:browser:get-interactive-snapshot` IPC to enumerate
+ * all interactive elements on the current page with stable `@eN` refs.
+ * Returns null when the bridge or IPC is unavailable.
+ */
+export async function getDesktopInteractiveSnapshot(
+  bridge: DesktopBrowserBridge,
+): Promise<DesktopInteractiveSnapshotResult | null> {
+  if (!bridge.getInteractiveSnapshot) {return null}
+
+  try {
+    const result = await bridge.getInteractiveSnapshot()
+
+    if (!result.ok) {return null}
+
+    return result
+  } catch {
+    return null
+  }
+}
+
+/**
+ * Build a minimal BrowserActionSafetyContext from an interactive snapshot
+ * element, suitable for demo / testing.  Uses the element's fingerprint
+ * and metadata to populate the safety fields.
+ */
+export function buildSafetyContextFromElement(
+  el: DesktopInteractiveSnapshotElement,
+  originUrl: string,
+  originTitle: string,
+  actionType: 'click' | 'type',
+): BrowserActionSafetyContext {
+  const descriptionParts: string[] = []
+  descriptionParts.push(el.tagName)
+
+  if (el.inputType) {descriptionParts.push(`(type: ${el.inputType})`)}
+
+  if (el.id) {descriptionParts.push(`#${el.id}`)}
+
+  if (el.role) {descriptionParts.push(`role: ${el.role}`)}
+
+  if (el.textContent) {descriptionParts.push(`"${el.textContent.slice(0, 40)}"`)}
+
+  return {
+    originUrl,
+    originTitle,
+    targetDescription: descriptionParts.join(' '),
+    targetRef: el.ref,
+    typeText: actionType === 'type' ? (el.valuePreview || '') : undefined,
+    elementFingerprint: el.fingerprint,
+    riskLevel: 'medium',
   }
 }

@@ -5672,21 +5672,223 @@ ipcMain.handle('hermes:browser:is-available', async () => {
   }
 })
 
-// ── Phase 2F-A: Read-only target resolution ────────────────────────────
+// ── Phase 2F-A2: Shared interactive element enumeration ────────────────
 //
-// This handler performs a PURELY READ-ONLY DOM query to verify that a
-// target element matching the agent's safetyContext still exists on the
-// current page.  It uses a fixed internal script — no agent-supplied JS
-// is ever evaluated.  It does NOT click, focus, dispatchEvent, or set
-// any value.
+// Both `verify-action-target` and `get-interactive-snapshot` use the
+// SAME deterministic candidate enumeration logic.  `@e1` maps to
+// `candidates[0]`, `@e2` maps to `candidates[1]`, etc.
 //
-// Security:
-// - Fixed script string (not user/agent-provided).
-// - The only dynamic input is `targetRef`, validated against /^@e\d+$/.
-// - Returns element metadata only — no page mutation.
-// - No eval of arbitrary expressions.
+// Candidates are interactive elements in DOM order:
+//   button, a[href], input:not([type="hidden"]), textarea, select,
+//   [role="button"], [role="link"], [contenteditable="true"],
+//   [tabindex]:not([tabindex="-1"])
+//
+// This is a PURELY READ-ONLY query.  No mutation, no event dispatch.
+// The script is a fixed string — no user/agent input reaches it.
 //
 // @see docs/architecture/desktop-browser-agent-action-safety.md §5.1
+
+/** @returns {string} Fixed script that enumerates interactive candidates as JSON. */
+function getInteractiveEnumerationScript() {
+  // Inline so the script string is self-contained (no closure captures).
+  // The script is treated as trusted content: it was reviewed for safety.
+  // It does NOT mutate the DOM, dispatch events, or access storage.
+
+  return `(() => {
+    const SELECTORS = [
+      'button',
+      'a[href]',
+      'input:not([type="hidden"])',
+      'textarea',
+      'select',
+      '[role="button"]',
+      '[role="link"]',
+      '[contenteditable="true"]',
+      '[tabindex]:not([tabindex="-1"])',
+    ]
+
+    const seen = new Set()
+    const candidates = []
+
+    for (const sel of SELECTORS) {
+      try {
+        const nodes = document.querySelectorAll(sel)
+        for (let i = 0; i < nodes.length; i++) {
+          const el = nodes[i]
+          if (seen.has(el)) continue
+          seen.add(el)
+          candidates.push(el)
+        }
+      } catch (_) {
+        // Invalid selector (should never happen with fixed list) — skip
+      }
+    }
+
+    const currentUrl = window.location.href
+    const elements = []
+
+    for (let i = 0; i < candidates.length; i++) {
+      const el = candidates[i]
+      const tagName = el.tagName
+      const rect = el.getBoundingClientRect()
+      const style = window.getComputedStyle(el)
+
+      const visible = (
+        rect.width > 0 &&
+        rect.height > 0 &&
+        style.visibility !== 'hidden' &&
+        style.display !== 'none' &&
+        parseFloat(style.opacity) > 0
+      )
+
+      const disabled = (
+        el.disabled === true ||
+        el.getAttribute('aria-disabled') === 'true' ||
+        el.getAttribute('disabled') !== null
+      )
+
+      const readOnly = (
+        el.readOnly === true ||
+        el.getAttribute('aria-readonly') === 'true' ||
+        el.getAttribute('readonly') !== null
+      )
+
+      const inputType = (tagName === 'INPUT' || tagName === 'TEXTAREA' || tagName === 'SELECT')
+        ? (el.getAttribute('type') || 'text') : null
+
+      const textContent = (el.textContent || '').trim().slice(0, 200)
+      const ariaLabel = el.getAttribute('aria-label') || null
+      const id = el.id || null
+      const name = el.getAttribute('name') || null
+      const placeholder = el.getAttribute('placeholder') || null
+      const role = el.getAttribute('role') || null
+
+      // value preview for input-like elements (truncated)
+      const valuePreview = (el.value !== undefined && el.value !== null)
+        ? String(el.value).slice(0, 200) : null
+
+      // ── Semantic role classification ─────────────────────────────────
+      // Used by execute-click to reject high-risk targets.
+      const tag = tagName.toLowerCase()
+      const typeAttr = (el.getAttribute('type') || '').toLowerCase()
+      const text = (el.textContent || '').toLowerCase().trim()
+      const href = (el.getAttribute('href') || '').trim()
+      let semanticRole = 'generic'
+
+      if (tag === 'a' && href) {
+        const isInternal = href.startsWith('#') || href.startsWith('/') || href.startsWith(window.location.origin)
+        semanticRole = isInternal ? 'internal_link' : 'external_link'
+      } else if (tag === 'button') {
+        if (typeAttr === 'submit') semanticRole = 'submit_button'
+        else if (typeAttr === 'reset') semanticRole = 'reset_button'
+        else semanticRole = 'button'
+      } else if (tag === 'input') {
+        if (typeAttr === 'submit') semanticRole = 'submit_button'
+        else if (typeAttr === 'file') semanticRole = 'file_input'
+        else if (typeAttr === 'password') semanticRole = 'password_input'
+        else if (typeAttr === 'checkbox' || typeAttr === 'radio') semanticRole = 'toggle_input'
+        else semanticRole = 'text_input'
+      } else if (tag === 'textarea') {
+        semanticRole = 'text_input'
+      } else if (tag === 'select') {
+        semanticRole = 'select_input'
+      } else if (role === 'button' || role === 'link') {
+        semanticRole = role
+      }
+
+      // ── Destructive action detection ─────────────────────────────────
+      const DESTRUCTIVE_KEYWORDS = ['delete', 'remove', 'destroy', 'discard', 'clear all', 'reset all']
+      const isDestructive = DESTRUCTIVE_KEYWORDS.some(kw => text.includes(kw))
+      // ── Medium-risk: settings, preferences, admin, manage ────────────
+      const MEDIUM_RISK_KEYWORDS = ['settings', 'preferences', 'admin', 'manage', 'config', 'payment', 'billing']
+      const isMediumRisk = MEDIUM_RISK_KEYWORDS.some(kw => text.includes(kw))
+
+      // High-risk: submit, reset, file, password, destructive, external links
+      const highRisk = (
+        semanticRole === 'submit_button'
+        || semanticRole === 'reset_button'
+        || semanticRole === 'file_input'
+        || semanticRole === 'password_input'
+        || semanticRole === 'external_link'
+        || isDestructive
+      )
+
+      elements.push({
+        ref: '@e' + (i + 1),
+        tagName: tagName.toLowerCase(),
+        role: role,
+        semanticRole: semanticRole,
+        highRisk: highRisk,
+        isDestructive: isDestructive,
+        isMediumRisk: isMediumRisk,
+        textContent: textContent,
+        ariaLabel: ariaLabel,
+        id: id,
+        name: name,
+        inputType: inputType,
+        placeholder: placeholder,
+        valuePreview: valuePreview,
+        href: href || null,
+        boundingBox: {
+          x: Math.round(rect.x),
+          y: Math.round(rect.y),
+          w: Math.round(rect.width),
+          h: Math.round(rect.height),
+        },
+        visible: visible,
+        disabled: disabled,
+        readOnly: readOnly,
+        fingerprint: {
+          tagName: tagName.toLowerCase(),
+          textContent: textContent,
+          id: id,
+          name: name,
+          inputType: inputType,
+          ariaLabel: ariaLabel,
+          rect: {
+            x: Math.round(rect.x),
+            y: Math.round(rect.y),
+            w: Math.round(rect.width),
+            h: Math.round(rect.height),
+          },
+        },
+      })
+    }
+
+    return { currentUrl: currentUrl, elements: elements }
+  })()`
+}
+
+// ── Read-only: Get interactive snapshot ────────────────────────────────
+
+ipcMain.handle('hermes:browser:get-interactive-snapshot', async () => {
+  try {
+    const view = getBrowserView()
+    const wc = view.webContents
+    const result = await wc.executeJavaScript(getInteractiveEnumerationScript())
+    return {
+      ok: true,
+      capturedAt: new Date().toISOString(),
+      ...result,
+    }
+  } catch (error) {
+    return {
+      ok: false,
+      capturedAt: new Date().toISOString(),
+      currentUrl: '',
+      elements: [],
+      error: error?.message || String(error),
+    }
+  }
+})
+
+// ── Read-only: Verify action target ─────────────────────────────────────
+//
+// Resolves @eN by re-running the SAME interactive candidate enumeration
+// and picking candidates[N-1].  Falls back to data-agent-ref / aria-
+// describedby for pages that have their own snapshot-ref attributes (e.g.
+// agent-browser-driven CDP sessions), but the PRIMARY path is the
+// deterministic enumeration shared with get-interactive-snapshot.
 
 ipcMain.handle('hermes:browser:verify-action-target', async (_event, payload) => {
   try {
@@ -5703,29 +5905,53 @@ ipcMain.handle('hermes:browser:verify-action-target', async (_event, payload) =>
       }
     }
 
+    const targetIndex = Number.parseInt(targetRef.slice(2), 10) - 1
+    if (targetIndex < 0 || !Number.isFinite(targetIndex)) {
+      return {
+        found: false,
+        reason: 'invalid_target_ref',
+        currentUrl: '',
+        urlMatchesOrigin: false,
+      }
+    }
+
     const view = getBrowserView()
     const wc = view.webContents
 
-    // ── Resolve element by ref ──────────────────────────────────────────
-    // The ref @eN maps to an element with a data-agent-ref attribute or
-    // an aria attribute set by the accessibility snapshot system.
-    // We use a fixed script that queries the DOM without mutation.
-    const result = await wc.executeJavaScript(`
+    // ── Primary path: deterministic candidate enumeration ──────────────
+    const snapshot = await wc.executeJavaScript(getInteractiveEnumerationScript())
+    const candidates = snapshot?.elements || []
+    const currentUrl = snapshot?.currentUrl || wc.getURL()
+
+    if (targetIndex < candidates.length) {
+      const el = candidates[targetIndex]
+
+      return {
+        found: true,
+        reason: null,
+        currentUrl: currentUrl,
+        urlMatchesOrigin: currentUrl === originUrl,
+        elementFingerprint: el.fingerprint,
+        boundingBox: el.boundingBox,
+        visible: el.visible,
+        disabled: el.disabled,
+        readOnly: el.readOnly,
+        value: el.valuePreview,
+        placeholder: el.placeholder,
+        tagName: el.tagName,
+      }
+    }
+
+    // ── Fallback: data-agent-ref / aria-describedby (agent-browser CDP) ─
+    const fallback = await wc.executeJavaScript(`
       (() => {
         const ref = ${JSON.stringify(targetRef)}
         const origin = ${JSON.stringify(originUrl)}
         const currentUrl = window.location.href
 
-        // Try to find the element by data-agent-ref attribute
         let el = document.querySelector('[data-agent-ref="' + ref + '"]')
+            || document.querySelector('[aria-describedby="' + ref + '"]')
         if (!el) {
-          // Fallback: the snapshot system may use aria attributes
-          el = document.querySelector('[aria-describedby="' + ref + '"]')
-        }
-        if (!el) {
-          // Last resort: look for elements whose computed aria label
-          // contains the ref — the ref @e5 may be embedded in an
-          // aria attribute generated by the accessibility mapper.
           return {
             found: false,
             reason: 'target_not_found',
@@ -5734,25 +5960,20 @@ ipcMain.handle('hermes:browser:verify-action-target', async (_event, payload) =>
           }
         }
 
-        // ── Read element metadata (purely read-only) ──────────────────
         const rect = el.getBoundingClientRect()
         const style = window.getComputedStyle(el)
-        const tagName = el.tagName
+        const tagName = el.tagName.toLowerCase()
         const textContent = (el.textContent || '').trim().slice(0, 200)
         const id = el.id || null
         const name = el.getAttribute('name') || null
-        const inputType = (tagName === 'INPUT' || tagName === 'TEXTAREA' || tagName === 'SELECT')
+        const inputType = (tagName === 'input' || tagName === 'textarea' || tagName === 'select')
           ? (el.getAttribute('type') || 'text') : null
         const ariaLabel = el.getAttribute('aria-label') || null
         const value = (el.value !== undefined && el.value !== null) ? String(el.value).slice(0, 200) : null
         const placeholder = el.getAttribute('placeholder') || null
-
-        // Visibility checks
         const visible = (
-          rect.width > 0 &&
-          rect.height > 0 &&
-          style.visibility !== 'hidden' &&
-          style.display !== 'none' &&
+          rect.width > 0 && rect.height > 0 &&
+          style.visibility !== 'hidden' && style.display !== 'none' &&
           parseFloat(style.opacity) > 0
         )
         const disabled = (
@@ -5772,7 +5993,7 @@ ipcMain.handle('hermes:browser:verify-action-target', async (_event, payload) =>
           currentUrl: currentUrl,
           urlMatchesOrigin: currentUrl === origin,
           elementFingerprint: {
-            tagName: tagName.toLowerCase(),
+            tagName: tagName,
             textContent: textContent,
             id: id,
             name: name,
@@ -5786,18 +6007,258 @@ ipcMain.handle('hermes:browser:verify-action-target', async (_event, payload) =>
           readOnly: readOnly,
           value: value,
           placeholder: placeholder,
-          tagName: tagName.toLowerCase(),
+          tagName: tagName,
         }
       })()
     `)
 
-    return result
+    return fallback
   } catch (error) {
     return {
       found: false,
       reason: 'ipc_error',
       currentUrl: '',
       urlMatchesOrigin: false,
+      detail: error?.message || String(error),
+    }
+  }
+})
+
+// ── Phase 2F-B1: Execute click (read-only verify + input event) ─────────
+//
+// Executes a real mouse click on a verified interactive element.
+// Before clicking, it RE-RUNS the same interactive candidate enumeration
+// used by verify-action-target and re-checks ALL safety conditions.
+// The verification is NOT trust-the-renderer — main process re-verifies
+// independently.
+//
+// Click method: webContents.sendInputEvent({ type: 'mouseDown'/'mouseUp' })
+// at the element's boundingBox center.  We do NOT use el.click() because:
+//   1. sendInputEvent simulates a real user click (mouseDown + mouseUp).
+//   2. el.click() bypasses the event pipeline — it fires the click handler
+//      directly, which can behave differently from a real user click
+//      (e.g. popup blockers, focus handling, trusted-event checks).
+//   3. sendInputEvent is what Electron's own <webview> uses for
+//      programmatic clicks; it's the most faithful simulation.
+//
+// No focus(), no dispatchEvent(), no set value, no eval.
+
+ipcMain.handle('hermes:browser:execute-click', async (_event, payload) => {
+  try {
+    const targetRef = String(payload?.targetRef || '').trim()
+    const originUrl = String(payload?.originUrl || '').trim()
+    const expectedFingerprint = payload?.expectedFingerprint || null
+
+    // ── Validate targetRef shape ───────────────────────────────────────
+    if (!/^@e\d+$/.test(targetRef)) {
+      return {
+        ok: false,
+        reason: 'invalid_target_ref',
+        verification: { refValid: false, invalidationReason: 'invalid_target_ref' },
+      }
+    }
+
+    const targetIndex = Number.parseInt(targetRef.slice(2), 10) - 1
+    if (targetIndex < 0 || !Number.isFinite(targetIndex)) {
+      return {
+        ok: false,
+        reason: 'invalid_target_ref',
+        verification: { refValid: false, invalidationReason: 'invalid_target_ref' },
+      }
+    }
+
+    const view = getBrowserView()
+    const wc = view.webContents
+
+    // ── Re-enumerate interactive candidates (same script as verify) ────
+    const snapshot = await wc.executeJavaScript(getInteractiveEnumerationScript())
+    const candidates = snapshot?.elements || []
+    const currentUrl = snapshot?.currentUrl || wc.getURL()
+
+    // ── Check target exists ────────────────────────────────────────────
+    if (targetIndex >= candidates.length) {
+      return {
+        ok: false,
+        reason: 'target_not_found',
+        currentUrl,
+        verification: {
+          refValid: false,
+          invalidationReason: 'target_not_found',
+          currentUrl,
+        },
+      }
+    }
+
+    const el = candidates[targetIndex]
+
+    // ── Verify targetRef matches ───────────────────────────────────────
+    if (el.ref !== targetRef) {
+      return {
+        ok: false,
+        reason: 'ref_mismatch',
+        currentUrl,
+        verification: {
+          refValid: false,
+          invalidationReason: 'ref_mismatch',
+          currentUrl,
+          currentFingerprint: el.fingerprint,
+        },
+      }
+    }
+
+    // ── Verify URL ─────────────────────────────────────────────────────
+    if (currentUrl !== originUrl) {
+      return {
+        ok: false,
+        reason: 'origin_url_mismatch',
+        currentUrl,
+        verification: {
+          refValid: false,
+          invalidationReason: 'origin_url_mismatch',
+          currentUrl,
+          currentFingerprint: el.fingerprint,
+        },
+      }
+    }
+
+    // ── Verify fingerprint ─────────────────────────────────────────────
+    // Mirrors compareElementFingerprint() in desktop-visible-provider.ts.
+    // Uses !== undefined guards (NOT falsy checks) so empty strings and
+    // null are compared rather than skipped.
+    if (expectedFingerprint) {
+      const fp = expectedFingerprint
+      const af = el.fingerprint
+      let fpMismatch = false
+
+      if (fp.tagName !== undefined && fp.tagName !== null
+          && String(fp.tagName).toLowerCase() !== (af.tagName || '').toLowerCase()) {fpMismatch = true}
+      if (!fpMismatch && fp.textContent !== undefined && fp.textContent !== null
+          && String(fp.textContent) !== String(af.textContent || '')) {fpMismatch = true}
+      if (!fpMismatch && fp.id !== undefined && fp.id !== null
+          && fp.id !== af.id) {fpMismatch = true}
+      if (!fpMismatch && fp.name !== undefined && fp.name !== null
+          && fp.name !== af.name) {fpMismatch = true}
+      if (!fpMismatch && fp.inputType !== undefined && fp.inputType !== null
+          && fp.inputType !== af.inputType) {fpMismatch = true}
+      if (!fpMismatch && fp.ariaLabel !== undefined && fp.ariaLabel !== null
+          && fp.ariaLabel !== af.ariaLabel) {fpMismatch = true}
+
+      if (fpMismatch) {
+        return {
+          ok: false,
+          reason: 'fingerprint_mismatch',
+          currentUrl,
+          verification: {
+            refValid: false,
+            invalidationReason: 'fingerprint_mismatch',
+            currentUrl,
+            currentFingerprint: af,
+          },
+        }
+      }
+    }
+
+    // ── Verify visible ─────────────────────────────────────────────────
+    if (!el.visible) {
+      return {
+        ok: false,
+        reason: 'target_not_visible',
+        currentUrl,
+        verification: {
+          refValid: false,
+          invalidationReason: 'target_not_visible',
+          currentUrl,
+          currentFingerprint: el.fingerprint,
+        },
+      }
+    }
+
+    // ── Verify not disabled ────────────────────────────────────────────
+    if (el.disabled) {
+      return {
+        ok: false,
+        reason: 'target_disabled',
+        currentUrl,
+        verification: {
+          refValid: false,
+          invalidationReason: 'target_disabled',
+          currentUrl,
+          currentFingerprint: el.fingerprint,
+        },
+      }
+    }
+
+    // ── Semantic safety guard: reject high-risk targets ────────────────
+    if (el.highRisk) {
+      const blockedRoles = ['submit_button', 'reset_button', 'file_input', 'password_input', 'external_link']
+      const reason = blockedRoles.includes(el.semanticRole)
+        ? `Click rejected: target has semanticRole "${el.semanticRole}" which is blocked for safety.`
+        : `Click rejected: target "${el.textContent || el.tagName}" matches destructive keyword filter.`
+      return {
+        ok: false,
+        reason,
+        currentUrl,
+        verification: {
+          refValid: false,
+          invalidationReason: 'semantic_guard_blocked',
+          currentUrl,
+          currentFingerprint: el.fingerprint,
+        },
+      }
+    }
+
+    // ── Verify boundingBox ─────────────────────────────────────────────
+    const bb = el.boundingBox
+    if (!bb || bb.w <= 0 || bb.h <= 0) {
+      return {
+        ok: false,
+        reason: 'target_not_visible',
+        currentUrl,
+        verification: {
+          refValid: false,
+          invalidationReason: 'target_not_visible',
+          currentUrl,
+          currentFingerprint: el.fingerprint,
+        },
+      }
+    }
+
+    // ── Execute click via sendInputEvent ───────────────────────────────
+    const clickX = bb.x + Math.floor(bb.w / 2)
+    const clickY = bb.y + Math.floor(bb.h / 2)
+
+    try {
+      wc.sendInputEvent({ type: 'mouseDown', x: clickX, y: clickY, button: 'left', clickCount: 1 })
+      wc.sendInputEvent({ type: 'mouseUp', x: clickX, y: clickY, button: 'left', clickCount: 1 })
+    } catch (inputError) {
+      return {
+        ok: false,
+        reason: 'input_event_failed',
+        currentUrl,
+        detail: inputError?.message || String(inputError),
+        verification: {
+          refValid: true,
+          currentUrl,
+          currentFingerprint: el.fingerprint,
+        },
+      }
+    }
+
+    return {
+      ok: true,
+      currentUrl,
+      clickedAt: { x: clickX, y: clickY },
+      verification: {
+        refValid: true,
+        currentUrl,
+        currentFingerprint: el.fingerprint,
+      },
+    }
+  } catch (error) {
+    rememberLog(`[browser] execute-click IPC error: ${error?.message || String(error)}`)
+    return {
+      ok: false,
+      reason: 'ipc_error',
       detail: error?.message || String(error),
     }
   }

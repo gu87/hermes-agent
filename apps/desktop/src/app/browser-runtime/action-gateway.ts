@@ -243,7 +243,6 @@ export const PERMANENTLY_DENIED_ACTIONS: ReadonlySet<string> = new Set([
  * @see docs/architecture/desktop-browser-agent-action-safety.md §7.3
  */
 export const AWAITING_SAFETY_ACTIONS: ReadonlySet<string> = new Set([
-  'click',
   'type',
 ])
 
@@ -252,6 +251,7 @@ export const AWAITING_SAFETY_ACTIONS: ReadonlySet<string> = new Set([
  * approval (Phase 2C).
  */
 export const EXECUTABLE_ACTIONS: ReadonlySet<string> = new Set([
+  'click',
   'navigate',
 ])
 

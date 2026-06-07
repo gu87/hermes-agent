@@ -52,6 +52,7 @@ import {
 } from './action-gateway'
 import {
   type DesktopBrowserBridge,
+  executeDesktopClick,
   getDesktopSnapshot,
   VERIFICATION_FAILURE_REASONS,
   verifyDesktopActionTarget,
@@ -147,8 +148,59 @@ export function BrowserActionGateway({ desktopBridge }: { desktopBridge?: Deskto
       }
     }
 
-    // ── Click/type — pre-action verification (Phase 2F-A) ────────────
-    if (actionType === 'click' || actionType === 'type') {
+    // ── Click — real execution (Phase 2F-B1) ─────────────────────────
+    if (actionType === 'click') {
+      if (!desktopBridge) {
+        return {
+          status: 'failed' as const,
+          error: 'Desktop browser bridge is unavailable.',
+        }
+      }
+
+      if (!request.safetyContext) {
+        return {
+          status: 'failed' as const,
+          error: 'Missing safety context — cannot execute click.',
+        }
+      }
+
+      const result = await executeDesktopClick(desktopBridge, request.safetyContext)
+
+      if (!result.ok) {
+        return {
+          status: 'failed' as const,
+          error: `Click failed: ${result.reason || 'unknown'}.`,
+          postActionSnapshot: result.postActionSnapshot,
+          preActionVerification: result.verification
+            ? {
+              verifiedAt: new Date().toISOString(),
+              currentUrl: result.currentUrl || '',
+              refValid: result.verification.refValid,
+              invalidationReason: result.verification.invalidationReason,
+              currentFingerprint: result.verification.currentFingerprint as PreActionVerification['currentFingerprint'],
+              snapshot: result.postActionSnapshot || ({} as PreActionVerification['snapshot']),
+            }
+            : undefined,
+        }
+      }
+
+      return {
+        status: 'executed' as const,
+        postActionSnapshot: result.postActionSnapshot,
+        preActionVerification: result.verification
+          ? {
+            verifiedAt: new Date().toISOString(),
+            currentUrl: result.currentUrl || '',
+            refValid: result.verification.refValid,
+            currentFingerprint: result.verification.currentFingerprint as PreActionVerification['currentFingerprint'],
+            snapshot: result.postActionSnapshot || ({} as PreActionVerification['snapshot']),
+          }
+          : undefined,
+      }
+    }
+
+    // ── Type — pre-action verification only (Phase 2F-A) ─────────────
+    if (actionType === 'type') {
       let preActionVerification: PreActionVerification | undefined
 
       if (request.safetyContext && desktopBridge) {
@@ -172,13 +224,11 @@ export function BrowserActionGateway({ desktopBridge }: { desktopBridge?: Deskto
         }
       }
 
-      // Phase 2F-A does NOT execute real click/type.
-      // The verification result is attached to the log for the user to inspect.
       return {
         status: 'failed' as const,
-        error: `"${actionType}" execution is not yet implemented (Phase 2F-A). `
+        error: '"type" execution is not yet implemented (Phase 2F-A). '
           + (preActionVerification?.refValid
-            ? 'Pre-action verification passed — target element found and matches safety context. Ready for Phase 2F-B executor.'
+            ? 'Pre-action verification passed. Ready for Phase 2F-B2 executor.'
             : `Pre-action verification failed: ${preActionVerification?.invalidationReason || 'unknown'}. `),
         preActionVerification,
       }

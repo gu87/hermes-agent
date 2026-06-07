@@ -8,12 +8,15 @@
 import { describe, expect, it } from 'vitest'
 
 import {
+  buildSafetyContextFromElement,
   checkDesktopPermission,
   DESKTOP_VISIBLE_CAPABILITIES,
   DESKTOP_VISIBLE_DEFAULT_POLICIES,
   DESKTOP_VISIBLE_DESCRIPTOR,
   DESKTOP_VISIBLE_ID,
   type DesktopBrowserBridge,
+  executeDesktopClick,
+  getDesktopInteractiveSnapshot,
   getDesktopSnapshot,
   isDesktopActionAllowed,
   isDesktopActionApprovalRequired,
@@ -150,8 +153,8 @@ describe('DESKTOP_VISIBLE_DESCRIPTOR', () => {
 
 describe('policy invariants', () => {
   describe('agent actions', () => {
-    it('interactive agent actions (click, type, eval, press_key, scroll) are DENIED', () => {
-      const interactiveActions = ['click', 'type', 'eval', 'press_key', 'scroll']
+    it('interactive agent actions (type, eval, press_key, scroll) are DENIED', () => {
+      const interactiveActions = ['type', 'eval', 'press_key', 'scroll']
 
       for (const action of interactiveActions) {
         expect(checkDesktopPermission(action, 'agent')).toBe('deny')
@@ -197,8 +200,8 @@ describe('policy invariants', () => {
       expect(checkDesktopPermission('console', 'system')).toBe('allow')
     })
 
-    it('system interactive actions (click, type, eval) are denied', () => {
-      expect(checkDesktopPermission('click', 'system')).toBe('deny')
+    it('system interactive actions (type, eval) are denied (click is approval_required)', () => {
+      expect(checkDesktopPermission('click', 'system')).toBe('approval_required')
       expect(checkDesktopPermission('type', 'system')).toBe('deny')
       expect(checkDesktopPermission('eval', 'system')).toBe('deny')
     })
@@ -224,8 +227,8 @@ describe('checkDesktopPermission', () => {
     expect(checkDesktopPermission('back', 'user')).toBe('allow')
   })
 
-  it('agent cannot click, type, or eval', () => {
-    expect(checkDesktopPermission('click', 'agent')).toBe('deny')
+  it('agent cannot type or eval (click is approval_required)', () => {
+    expect(checkDesktopPermission('click', 'agent')).toBe('approval_required')
     expect(checkDesktopPermission('type', 'agent')).toBe('deny')
     expect(checkDesktopPermission('eval', 'agent')).toBe('deny')
   })
@@ -237,10 +240,10 @@ describe('checkDesktopPermission', () => {
     expect(checkDesktopPermission('console', 'agent')).toBe('allow')
   })
 
-  it('system can read but navigate requires approval', () => {
+  it('system can read, click requires approval, navigate requires approval', () => {
     expect(checkDesktopPermission('snapshot', 'system')).toBe('allow')
     expect(checkDesktopPermission('navigate', 'system')).toBe('approval_required')
-    expect(checkDesktopPermission('click', 'system')).toBe('deny')
+    expect(checkDesktopPermission('click', 'system')).toBe('approval_required')
   })
 
   it('returns deny for unknown agent action, allow for system (catch-all)', () => {
@@ -511,11 +514,390 @@ describe('Phase 2D — permanent deny policies', () => {
   })
 
   describe('click and type are denied (awaiting Phase 2F safety implementation)', () => {
-    it('agent click → deny (will become approval_required in Phase 2F)', () => {
-      expect(checkDesktopPermission('click', 'agent')).toBe('deny')
+    it('agent click → approval_required (Phase 2F-B1)', () => {
+      expect(checkDesktopPermission('click', 'agent')).toBe('approval_required')
     })
     it('agent type → deny (will become approval_required in Phase 2F)', () => {
       expect(checkDesktopPermission('type', 'agent')).toBe('deny')
     })
+  })
+})
+
+// ═══════════════════════════════════════════════════════════════════════
+// 9. Phase 2F-A2 — Stable ref mapping contract
+// ═══════════════════════════════════════════════════════════════════════
+
+describe('Phase 2F-A2 — stable ref mapping', () => {
+  it('buildSafetyContextFromElement produces valid safetyContext with targetRef', () => {
+    
+    const el = {
+      ref: '@e1',
+      tagName: 'button',
+      role: null,
+      semanticRole: 'submit_button' as const,
+      highRisk: true,
+      isDestructive: false,
+      isMediumRisk: false,
+      href: null,
+      textContent: 'Submit PR',
+      ariaLabel: null,
+      id: 'submit-btn',
+      name: null,
+      inputType: 'submit',
+      placeholder: null,
+      valuePreview: null,
+      boundingBox: { x: 100, y: 200, w: 120, h: 36 },
+      visible: true,
+      disabled: false,
+      readOnly: false,
+      fingerprint: {
+        tagName: 'button',
+        textContent: 'Submit PR',
+        id: 'submit-btn',
+        name: null,
+        inputType: 'submit',
+        ariaLabel: null,
+        rect: { x: 100, y: 200, w: 120, h: 36 },
+      },
+    }
+
+    const ctx = buildSafetyContextFromElement(
+      el,
+      'https://example.com',
+      'Example Page',
+      'click',
+    )
+
+    expect(ctx.targetRef).toBe('@e1')
+    expect(ctx.originUrl).toBe('https://example.com')
+    expect(ctx.targetDescription).toContain('button')
+    expect(ctx.targetDescription).toContain('Submit PR')
+    expect(ctx.riskLevel).toBe('medium')
+    expect(ctx.elementFingerprint).toEqual(el.fingerprint)
+    expect(ctx.typeText).toBeUndefined() // click, not type
+  })
+
+  it('buildSafetyContextFromElement includes typeText for type action', () => {
+    
+    const el = {
+      ref: '@e3',
+      tagName: 'input',
+      role: null,
+      semanticRole: 'text_input' as const,
+      highRisk: false,
+      isDestructive: false,
+      isMediumRisk: false,
+      href: null,
+      textContent: '',
+      ariaLabel: null,
+      id: null,
+      name: 'q',
+      inputType: 'text',
+      placeholder: 'Search…',
+      valuePreview: 'current query',
+      boundingBox: { x: 100, y: 200, w: 200, h: 28 },
+      visible: true,
+      disabled: false,
+      readOnly: false,
+      fingerprint: {
+        tagName: 'input',
+        textContent: '',
+        id: null,
+        name: 'q',
+        inputType: 'text',
+        ariaLabel: null,
+        rect: { x: 100, y: 200, w: 200, h: 28 },
+      },
+    }
+
+    const ctx = buildSafetyContextFromElement(
+      el,
+      'https://example.com',
+      'Example Page',
+      'type',
+    )
+
+    expect(ctx.targetRef).toBe('@e3')
+    expect(ctx.typeText).toBe('current query')
+  })
+})
+
+describe('Phase 2F-A2 — getDesktopInteractiveSnapshot', () => {
+  it('returns null when bridge has no getInteractiveSnapshot', async () => {
+    
+    const bridge = fakeBridge()
+    const result = await getDesktopInteractiveSnapshot(bridge)
+    expect(result).toBeNull()
+  })
+
+  it('returns null when IPC returns ok:false', async () => {
+    
+    const bridge = {
+      ...fakeBridge(),
+      getInteractiveSnapshot: async () => ({
+        ok: false,
+        capturedAt: new Date().toISOString(),
+        currentUrl: '',
+        elements: [],
+        error: 'not mounted',
+      }),
+    }
+
+    const result = await getDesktopInteractiveSnapshot(bridge)
+    expect(result).toBeNull()
+  })
+
+  it('returns snapshot when IPC succeeds', async () => {
+    
+    const el = {
+      ref: '@e1',
+      tagName: 'button',
+      role: null,
+      semanticRole: 'button' as const,
+      highRisk: false,
+      isDestructive: false,
+      isMediumRisk: false,
+      href: null,
+      textContent: 'Click me',
+      ariaLabel: null,
+      id: null,
+      name: null,
+      inputType: null,
+      placeholder: null,
+      valuePreview: null,
+      boundingBox: { x: 0, y: 0, w: 100, h: 40 },
+      visible: true,
+      disabled: false,
+      readOnly: false,
+      fingerprint: {
+        tagName: 'button',
+        textContent: 'Click me',
+        id: null,
+        name: null,
+        inputType: null,
+        ariaLabel: null,
+        rect: { x: 0, y: 0, w: 100, h: 40 },
+      },
+    }
+
+    const bridge = {
+      ...fakeBridge(),
+      getInteractiveSnapshot: async () => ({
+        ok: true,
+        capturedAt: new Date().toISOString(),
+        currentUrl: 'https://example.com',
+        elements: [el],
+      }),
+    }
+
+    const result = await getDesktopInteractiveSnapshot(bridge)
+    expect(result).not.toBeNull()
+    expect(result!.elements).toHaveLength(1)
+    expect(result!.elements[0].ref).toBe('@e1')
+    expect(result!.elements[0].tagName).toBe('button')
+  })
+})
+
+// ═══════════════════════════════════════════════════════════════════════
+// 10. Phase 2F-B — Semantic click safety guards
+// ═══════════════════════════════════════════════════════════════════════
+
+describe('Phase 2F-B — semantic click guards', () => {
+  const mockSnapshot = (overrides: Record<string, unknown> = {}) => ({
+    ok: true as const,
+    capturedAt: new Date().toISOString(),
+    currentUrl: 'https://example.com',
+    elements: [{
+      ref: '@e1',
+      tagName: 'button',
+      role: null,
+      semanticRole: 'button',
+      highRisk: false,
+      isDestructive: false,
+      isMediumRisk: false,
+      href: null,
+      textContent: 'Click me',
+      ariaLabel: null,
+      id: null,
+      name: null,
+      inputType: null,
+      placeholder: null,
+      valuePreview: null,
+      boundingBox: { x: 0, y: 0, w: 100, h: 40 },
+      visible: true,
+      disabled: false,
+      readOnly: false,
+      fingerprint: {
+        tagName: 'button',
+        textContent: 'Click me',
+        id: null,
+        name: null,
+        inputType: null,
+        ariaLabel: null,
+        rect: { x: 0, y: 0, w: 100, h: 40 },
+      },
+      ...overrides,
+    }],
+  })
+
+  it('executeClick rejects submit_button', async () => {
+    const bridge = {
+      ...fakeBridge(),
+      executeClick: async (payload: { targetRef: string }) => {
+        // Simulate IPC returning blocked for highRisk submit_button
+        return {
+          ok: false,
+          reason: `Click rejected: target has semanticRole "submit_button"`,
+          currentUrl: 'https://example.com',
+          verification: { refValid: false, invalidationReason: 'semantic_guard_blocked' },
+        }
+      },
+    }
+
+    const result = await executeDesktopClick(bridge, {
+      targetRef: '@e1',
+      originUrl: 'https://example.com',
+    })
+
+    expect(result.ok).toBe(false)
+    expect(result.reason).toContain('submit_button')
+  })
+
+  it('executeClick rejects destructive labels', async () => {
+    const bridge = {
+      ...fakeBridge(),
+      executeClick: async () => ({
+        ok: false,
+        reason: 'Click rejected: target "Delete account" matches destructive keyword filter.',
+        currentUrl: 'https://example.com',
+        verification: { refValid: false, invalidationReason: 'semantic_guard_blocked' },
+      }),
+    }
+
+    const result = await executeDesktopClick(bridge, {
+      targetRef: '@e2',
+      originUrl: 'https://example.com',
+    })
+
+    expect(result.ok).toBe(false)
+    expect(result.reason).toContain('destructive')
+  })
+
+  it('executeClick rejects file_input', async () => {
+    const bridge = {
+      ...fakeBridge(),
+      executeClick: async () => ({
+        ok: false,
+        reason: 'Click rejected: target has semanticRole "file_input" which is blocked for safety.',
+        currentUrl: 'https://example.com',
+        verification: { refValid: false, invalidationReason: 'semantic_guard_blocked' },
+      }),
+    }
+
+    const result = await executeDesktopClick(bridge, {
+      targetRef: '@e3',
+      originUrl: 'https://example.com',
+    })
+
+    expect(result.ok).toBe(false)
+    expect(result.reason).toContain('file_input')
+  })
+
+  it('executeClick rejects external_link', async () => {
+    const bridge = {
+      ...fakeBridge(),
+      executeClick: async () => ({
+        ok: false,
+        reason: 'Click rejected: target has semanticRole "external_link" which is blocked for safety.',
+        currentUrl: 'https://example.com',
+        verification: { refValid: false, invalidationReason: 'semantic_guard_blocked' },
+      }),
+    }
+
+    const result = await executeDesktopClick(bridge, {
+      targetRef: '@e4',
+      originUrl: 'https://example.com',
+    })
+
+    expect(result.ok).toBe(false)
+    expect(result.reason).toContain('external_link')
+  })
+
+  it('executeClick still rejects stale targetRef', async () => {
+    const bridge = {
+      ...fakeBridge(),
+      executeClick: async () => ({
+        ok: false,
+        reason: 'target_not_found',
+        currentUrl: 'https://example.com',
+        verification: { refValid: false, invalidationReason: 'target_not_found' },
+      }),
+    }
+
+    const result = await executeDesktopClick(bridge, {
+      targetRef: '@e99',
+      originUrl: 'https://example.com',
+    })
+
+    expect(result.ok).toBe(false)
+    expect(result.reason).toContain('target_not_found')
+  })
+
+  it('executeClick rejects invalid @e ref', async () => {
+    const bridge = {
+      ...fakeBridge(),
+      executeClick: async () => ({
+        ok: false,
+        reason: 'invalid_target_ref',
+        verification: { refValid: false, invalidationReason: 'invalid_target_ref' },
+      }),
+    }
+
+    const result = await executeDesktopClick(bridge, {
+      targetRef: 'bad-ref',
+      originUrl: 'https://example.com',
+    })
+
+    expect(result.ok).toBe(false)
+  })
+
+  it('executeClick rejects password_input', async () => {
+    const bridge = {
+      ...fakeBridge(),
+      executeClick: async () => ({
+        ok: false,
+        reason: 'Click rejected: target has semanticRole "password_input" which is blocked for safety.',
+        currentUrl: 'https://example.com',
+        verification: { refValid: false, invalidationReason: 'semantic_guard_blocked' },
+      }),
+    }
+
+    const result = await executeDesktopClick(bridge, {
+      targetRef: '@e5',
+      originUrl: 'https://example.com',
+    })
+
+    expect(result.ok).toBe(false)
+    expect(result.reason).toContain('password_input')
+  })
+
+  it('executeClick rejects reset_button', async () => {
+    const bridge = {
+      ...fakeBridge(),
+      executeClick: async () => ({
+        ok: false,
+        reason: 'Click rejected: target has semanticRole "reset_button" which is blocked for safety.',
+        currentUrl: 'https://example.com',
+        verification: { refValid: false, invalidationReason: 'semantic_guard_blocked' },
+      }),
+    }
+
+    const result = await executeDesktopClick(bridge, {
+      targetRef: '@e6',
+      originUrl: 'https://example.com',
+    })
+
+    expect(result.ok).toBe(false)
+    expect(result.reason).toContain('reset_button')
   })
 })

@@ -14,6 +14,10 @@ import { cn } from '@/lib/utils'
 
 import { proposeAction } from './browser-runtime/action-gateway'
 import { BrowserActionGateway } from './browser-runtime/action-gateway-ui'
+import {
+  buildSafetyContextFromElement,
+  getDesktopInteractiveSnapshot,
+} from './browser-runtime/desktop-visible-provider'
 import type { BrowserActionSafetyContext } from './browser-runtime/types'
 import { WorkspaceLauncher } from './workspace-launcher'
 
@@ -514,35 +518,69 @@ export function BrowserWorkspace() {
                 'desktop-visible',
               )
             }} />
-            <DemoInjectButton label="Click" onClick={() => {
+            <DemoInjectButton label="Load Targets" onClick={async () => {
+              if (!bridge) {return}
+              const snap = await getDesktopInteractiveSnapshot(bridge)
+
+              if (!snap || snap.elements.length === 0) {
+                // Propose a dummy click so the user can see "no target" in the UI
+                proposeAction(
+                  { type: 'click', ref: '@e1' },
+                  'agent', 'demo_task',
+                  'No interactive elements found on this page.',
+                  'desktop-visible',
+                )
+
+                return
+              }
+
+              // Use the first visible, non-disabled element
+              const el = snap.elements.find(e => e.visible && !e.disabled) || snap.elements[0]
+
+              const ctx = buildSafetyContextFromElement(
+                el, snap.currentUrl, page.title || 'Desktop Page', 'click',
+              )
+
               proposeAction(
-                { type: 'click', ref: '@e5' },
+                { type: 'click', ref: el.ref },
                 'agent', 'demo_task',
-                'Agent wants to click the Submit button on the PR form',
+                `Agent wants to click ${el.tagName} "${el.textContent.slice(0, 40)}"`,
                 'desktop-visible',
-                {
-                  originUrl: page.url || 'https://github.com/gu/trendradar/pull/42',
-                  originTitle: page.title || 'Pull Request #42',
-                  targetDescription: "button 'Submit PR' (tag: button, type: submit) near heading 'Create Pull Request'",
-                  targetRef: '@e5',
-                  riskLevel: 'medium',
-                } satisfies BrowserActionSafetyContext,
+                ctx,
               )
             }} />
-            <DemoInjectButton label="Type" onClick={() => {
+            <DemoInjectButton label="Type (1st input)" onClick={async () => {
+              if (!bridge) {return}
+              const snap = await getDesktopInteractiveSnapshot(bridge)
+
+              if (!snap) {return}
+
+              // Find the first visible, non-disabled input/textarea
+              const input = snap.elements.find(
+                e => e.visible && !e.disabled && (e.tagName === 'input' || e.tagName === 'textarea'),
+              )
+
+              if (!input) {
+                proposeAction(
+                  { type: 'type', ref: '@e1', text: '' },
+                  'agent', 'demo_task',
+                  'No input/textarea element found on this page.',
+                  'desktop-visible',
+                )
+
+                return
+              }
+
+              const ctx = buildSafetyContextFromElement(
+                input, snap.currentUrl, page.title || 'Desktop Page', 'type',
+              )
+
               proposeAction(
-                { type: 'type', ref: '@e3', text: 'fix: update dependencies to v3.2.1' },
+                { type: 'type', ref: input.ref, text: 'Hello from Hermes Agent' },
                 'agent', 'demo_task',
-                'Agent wants to fill in a PR title',
+                `Agent wants to type into ${input.tagName} ${input.placeholder || input.id || ''}`,
                 'desktop-visible',
-                {
-                  originUrl: page.url || 'https://github.com/gu/trendradar/pull/42',
-                  originTitle: page.title || 'Pull Request #42',
-                  targetDescription: "input field 'PR Title' (tag: input, type: text) inside form near heading 'Create Pull Request'",
-                  targetRef: '@e3',
-                  typeText: 'fix: update dependencies to v3.2.1',
-                  riskLevel: 'medium',
-                } satisfies BrowserActionSafetyContext,
+                ctx,
               )
             }} />
             <DemoInjectButton label="Eval (blocked)" onClick={() => {

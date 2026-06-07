@@ -90,6 +90,8 @@ declare global {
         getDomSummary: () => Promise<DesktopBrowserDomSummary>
         getScreenshot: () => Promise<DesktopBrowserScreenshot>
         getSelectedText: () => Promise<DesktopBrowserSelectedText>
+        getInteractiveSnapshot: () => Promise<DesktopInteractiveSnapshotResult>
+        executeClick: (payload: DesktopExecuteClickInput) => Promise<DesktopExecuteClickResult>
         verifyActionTarget: (payload: DesktopVerifyTargetInput) => Promise<DesktopVerifyTargetResult>
         navigate: (payload: DesktopBrowserNavigatePayload) => Promise<DesktopBrowserNavigateResult>
         reload: () => Promise<DesktopBrowserResult>
@@ -476,6 +478,47 @@ export interface DesktopBrowserNavigateResult {
   error?: string
 }
 
+// ── Phase 2F-A2: Interactive snapshot ──────────────────────────────────────
+
+export interface DesktopInteractiveSnapshotElement {
+  ref: string
+  tagName: string
+  role: string | null
+  semanticRole: string
+  highRisk: boolean
+  isDestructive: boolean
+  isMediumRisk: boolean
+  textContent: string
+  ariaLabel: string | null
+  id: string | null
+  name: string | null
+  inputType: string | null
+  placeholder: string | null
+  valuePreview: string | null
+  href: string | null
+  boundingBox: { x: number; y: number; w: number; h: number }
+  visible: boolean
+  disabled: boolean
+  readOnly: boolean
+  fingerprint: {
+    tagName: string
+    textContent: string
+    id: string | null
+    name: string | null
+    inputType: string | null
+    ariaLabel: string | null
+    rect: { x: number; y: number; w: number; h: number }
+  }
+}
+
+export interface DesktopInteractiveSnapshotResult {
+  ok: boolean
+  capturedAt: string
+  currentUrl: string
+  elements: DesktopInteractiveSnapshotElement[]
+  error?: string
+}
+
 // ── Phase 2F-A: Read-only target verification ─────────────────────────────
 
 export interface DesktopVerifyTargetInput {
@@ -505,4 +548,42 @@ export interface DesktopVerifyTargetResult {
   placeholder?: string | null
   tagName?: string
   detail?: string
+}
+
+// ── Phase 2F-B1: Execute click ─────────────────────────────────────────────
+
+export interface DesktopExecuteClickInput {
+  targetRef: string
+  originUrl: string
+  expectedFingerprint?: {
+    tagName: string
+    textContent: string
+    id: string | null
+    name: string | null
+    inputType: string | null
+    ariaLabel: string | null
+  }
+  reason?: string
+}
+
+export interface DesktopExecuteClickResult {
+  ok: boolean
+  reason?: string
+  detail?: string
+  currentUrl?: string
+  clickedAt?: { x: number; y: number }
+  verification?: {
+    refValid: boolean
+    invalidationReason?: string
+    currentUrl?: string
+    currentFingerprint?: {
+      tagName: string
+      textContent: string
+      id: string | null
+      name: string | null
+      inputType: string | null
+      ariaLabel: string | null
+      rect?: { x: number; y: number; w: number; h: number }
+    }
+  }
 }
