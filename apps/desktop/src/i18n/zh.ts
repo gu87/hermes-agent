@@ -312,6 +312,22 @@ export const zh: Translations = {
     subtitle: 'Agent 编制、运行时活动与系统健康。',
     roster: '编制',
     system: '系统',
+    taskFlow: '链路',
+    taskFlowEmptyTitle: '暂无任务链路',
+    taskFlowEmptyDesc: '派发子代理后，执行链路会在此显示。',
+    taskFlowQueued: '排队中',
+    taskFlowRunning: '执行中',
+    taskFlowDone: '已完成',
+    taskFlowFailed: '失败',
+    taskFlowToolCount: count => `${count} 个工具`,
+    taskFlowFileOps: (r, w) => {
+      const parts: string[] = []
+      if (r > 0) parts.push(`读 ${r}`)
+      if (w > 0) parts.push(`写 ${w}`)
+      return parts.join(' · ')
+    },
+    taskFlowTokensK: k => `${k}k 词元`,
+    taskFlowTokens: value => `${value} 词元`,
     rosterEmpty: '未找到 Agent 配置，请确认 config/agent-registry.json 存在。',
     loading: '加载中…',
     permissionReadOnly: '只读',

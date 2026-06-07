@@ -229,6 +229,22 @@ export const en: Translations = {
     subtitle: 'Agent roster, runtime activity, and system health.',
     roster: 'Roster',
     system: 'System',
+    taskFlow: 'Task Flow',
+    taskFlowEmptyTitle: 'No task flow yet',
+    taskFlowEmptyDesc: 'When subagents are dispatched, their execution chain will appear here.',
+    taskFlowQueued: 'Queued',
+    taskFlowRunning: 'Running',
+    taskFlowDone: 'Done',
+    taskFlowFailed: 'Failed',
+    taskFlowToolCount: count => `${count} tools`,
+    taskFlowFileOps: (r, w) => {
+      const parts: string[] = []
+      if (r > 0) parts.push(`${r} read`)
+      if (w > 0) parts.push(`${w} wrote`)
+      return parts.join(' · ')
+    },
+    taskFlowTokensK: k => `${k}k tok`,
+    taskFlowTokens: value => `${value} tok`,
     rosterEmpty: 'No agents in registry. Ensure config/agent-registry.json exists.',
     loading: 'Loading…',
     permissionReadOnly: 'read only',

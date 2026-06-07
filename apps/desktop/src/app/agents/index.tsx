@@ -27,7 +27,7 @@ import { OverlayView } from '../overlays/overlay-view'
 
 // ── Tab type ─────────────────────────────────────────────────────────────────
 
-type AgentsTab = 'roster' | 'running' | 'system'
+type AgentsTab = 'roster' | 'taskFlow' | 'running' | 'system'
 
 // ── Subagent glyph / stream helpers (unchanged from original) ────────────────
 
@@ -86,8 +86,9 @@ interface AgentsViewProps {
   onClose: () => void
 }
 
-const TABS: readonly { id: AgentsTab; labelKey: 'roster' | 'running' | 'system' }[] = [
+const TABS: readonly { id: AgentsTab; labelKey: 'roster' | 'taskFlow' | 'running' | 'system' }[] = [
   { id: 'roster', labelKey: 'roster' },
+  { id: 'taskFlow', labelKey: 'taskFlow' },
   { id: 'running', labelKey: 'running' },
   { id: 'system', labelKey: 'system' }
 ]
@@ -189,6 +190,8 @@ export function AgentsView({ onClose }: AgentsViewProps) {
 
       {tab === 'roster' ? (
         <RosterTab agents={roster} error={rosterError} loading={rosterLoading} />
+      ) : tab === 'taskFlow' ? (
+        <TaskFlowTab tree={tree} />
       ) : tab === 'running' ? (
         <SubagentTree tree={tree} />
       ) : (
@@ -201,6 +204,126 @@ export function AgentsView({ onClose }: AgentsViewProps) {
         />
       )}
     </OverlayView>
+  )
+}
+
+// ── Task Flow tab ─────────────────────────────────────────────────────────────
+
+const STATUS_LABEL_KEYS: Record<SubagentStatus, 'taskFlowDone' | 'taskFlowFailed' | 'taskFlowQueued' | 'taskFlowRunning'> = {
+  queued: 'taskFlowQueued',
+  running: 'taskFlowRunning',
+  completed: 'taskFlowDone',
+  failed: 'taskFlowFailed',
+  interrupted: 'taskFlowFailed'
+}
+
+function TaskFlowTab({ tree }: { tree: SubagentNode[] }) {
+  const { t } = useI18n()
+  const a = t.agents
+
+  const flat = useMemo(() => {
+    const out: SubagentNode[] = []
+    const walk = (nodes: readonly SubagentNode[]) => {
+      for (const n of nodes) {
+        out.push(n)
+        walk(n.children)
+      }
+    }
+    walk(tree)
+    // Sort by taskIndex so the task flow reads in execution order.
+    out.sort((x, y) => x.taskIndex - y.taskIndex || x.startedAt - y.startedAt)
+    return out
+  }, [tree])
+
+  if (flat.length === 0) {
+    return (
+      <div className="grid place-items-center gap-3 py-12 text-center">
+        <Sparkles className="size-6 text-muted-foreground/60" />
+        <p className="text-sm font-medium text-foreground/90">{a.taskFlowEmptyTitle}</p>
+        <p className="max-w-md text-xs leading-relaxed text-muted-foreground/75">{a.taskFlowEmptyDesc}</p>
+      </div>
+    )
+  }
+
+  return (
+    <div className="min-h-0 min-w-0 flex-1 overflow-x-hidden overflow-y-auto overscroll-contain pr-1">
+      <div className="grid gap-1.5">
+        {flat.map((node, i) => {
+          const isRunning = node.status === 'running' || node.status === 'queued'
+          const isFailed = node.status === 'failed' || node.status === 'interrupted'
+          const statusLabel = a[STATUS_LABEL_KEYS[node.status]]
+          const fileOps = node.filesRead.length + node.filesWritten.length
+          const totalTokens = (node.inputTokens ?? 0) + (node.outputTokens ?? 0)
+
+          return (
+            <div
+              className={cn(
+                'flex items-center gap-3 rounded-md px-3 py-2',
+                isRunning && 'bg-primary/5',
+                isFailed && 'bg-destructive/5'
+              )}
+              key={node.id}
+            >
+              {/* Step number */}
+              <span className="w-5 shrink-0 text-center text-[0.65rem] font-mono text-muted-foreground/60">
+                {i + 1}
+              </span>
+
+              {/* Status glyph */}
+              <span className="flex h-[1.1rem] shrink-0 items-center">
+                {isRunning ? (
+                  <BrailleSpinner
+                    ariaLabel={statusLabel}
+                    className="size-3.5 text-[0.95rem] text-muted-foreground/80"
+                    spinner="breathe"
+                  />
+                ) : isFailed ? (
+                  <AlertCircle aria-label={statusLabel} className="size-3.5 text-destructive" />
+                ) : (
+                  <CheckCircle2 aria-label={statusLabel} className="size-3.5 text-emerald-600/85 dark:text-emerald-400/85" />
+                )}
+              </span>
+
+              {/* Main info */}
+              <div className="min-w-0 flex-1">
+                <span className={cn(
+                  'truncate text-[0.78rem] font-medium',
+                  isRunning ? 'text-foreground/80' : 'text-foreground/90'
+                )}>
+                  {node.goal}
+                </span>
+                <div className="mt-0.5 flex flex-wrap items-center gap-x-2 gap-y-0.5 text-[0.62rem] text-muted-foreground/65">
+                  {node.model && (
+                    <span className="font-mono text-[0.6rem]">{node.model}</span>
+                  )}
+                  {node.toolCount != null && node.toolCount > 0 && (
+                    <span>{a.taskFlowToolCount(node.toolCount)}</span>
+                  )}
+                  {fileOps > 0 && (
+                    <span>{a.taskFlowFileOps(node.filesRead.length, node.filesWritten.length)}</span>
+                  )}
+                  {totalTokens > 0 && (
+                    <span>{totalTokens >= 1000 ? a.taskFlowTokensK((totalTokens / 1000).toFixed(1)) : a.taskFlowTokens(totalTokens)}</span>
+                  )}
+                </div>
+              </div>
+
+              {/* Status badge */}
+              <span
+                className={cn(
+                  'shrink-0 rounded px-1.5 py-0.5 text-[0.6rem] font-medium',
+                  isRunning && 'bg-sky-500/10 text-sky-600 dark:text-sky-400',
+                  isFailed && 'bg-destructive/10 text-destructive',
+                  !isRunning && !isFailed && 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400'
+                )}
+              >
+                {statusLabel}
+              </span>
+            </div>
+          )
+        })}
+      </div>
+    </div>
   )
 }
 

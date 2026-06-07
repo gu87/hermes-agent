@@ -213,6 +213,17 @@ export interface Translations {
     subtitle: string
     roster: string
     system: string
+    taskFlow: string
+    taskFlowEmptyTitle: string
+    taskFlowEmptyDesc: string
+    taskFlowQueued: string
+    taskFlowRunning: string
+    taskFlowDone: string
+    taskFlowFailed: string
+    taskFlowToolCount: (count: number) => string
+    taskFlowFileOps: (read: number, wrote: number) => string
+    taskFlowTokensK: (k: string) => string
+    taskFlowTokens: (value: number) => string
     rosterEmpty: string
     loading: string
     permissionReadOnly: string
