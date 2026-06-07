@@ -244,7 +244,6 @@ export const PERMANENTLY_DENIED_ACTIONS: ReadonlySet<string> = new Set([
  */
 export const AWAITING_SAFETY_ACTIONS: ReadonlySet<string> = new Set([
   'click',
-  'type',
 ])
 
 /**
@@ -253,6 +252,7 @@ export const AWAITING_SAFETY_ACTIONS: ReadonlySet<string> = new Set([
  */
 export const EXECUTABLE_ACTIONS: ReadonlySet<string> = new Set([
   'navigate',
+  'type',
 ])
 
 /**

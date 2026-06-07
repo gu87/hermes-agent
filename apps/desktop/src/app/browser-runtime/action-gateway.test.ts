@@ -452,9 +452,10 @@ describe('Phase 2E — action classification sets', () => {
     expect(PERMANENTLY_DENIED_ACTIONS.has('navigate')).toBe(false)
   })
 
-  it('AWAITING_SAFETY_ACTIONS contains click and type', () => {
+  it('AWAITING_SAFETY_ACTIONS contains click (type moved to executable in Phase 3)', () => {
     expect(AWAITING_SAFETY_ACTIONS.has('click')).toBe(true)
-    expect(AWAITING_SAFETY_ACTIONS.has('type')).toBe(true)
+    // Phase 3: type is now in EXECUTABLE_ACTIONS, not AWAITING_SAFETY_ACTIONS
+    expect(AWAITING_SAFETY_ACTIONS.has('type')).toBe(false)
   })
 
   it('AWAITING_SAFETY_ACTIONS does NOT contain navigate or eval', () => {
@@ -462,10 +463,11 @@ describe('Phase 2E — action classification sets', () => {
     expect(AWAITING_SAFETY_ACTIONS.has('eval')).toBe(false)
   })
 
-  it('EXECUTABLE_ACTIONS only contains navigate', () => {
+  it('EXECUTABLE_ACTIONS contains navigate and type (Phase 3)', () => {
     expect(EXECUTABLE_ACTIONS.has('navigate')).toBe(true)
+    // Phase 3: type is now directly executable via OS-level keyboard input
+    expect(EXECUTABLE_ACTIONS.has('type')).toBe(true)
     expect(EXECUTABLE_ACTIONS.has('click')).toBe(false)
-    expect(EXECUTABLE_ACTIONS.has('type')).toBe(false)
     expect(EXECUTABLE_ACTIONS.has('eval')).toBe(false)
     expect(EXECUTABLE_ACTIONS.has('snapshot')).toBe(false)
   })
@@ -476,9 +478,10 @@ describe('Phase 2E — isActionExecutable', () => {
     expect(isActionExecutable('navigate')).toBe(true)
   })
 
-  it('returns false for click, type, eval, scroll, press_key', () => {
+  it('returns false for click, eval, scroll, press_key; true for type (Phase 3)', () => {
     expect(isActionExecutable('click')).toBe(false)
-    expect(isActionExecutable('type')).toBe(false)
+    // Phase 3: type is now executable via OS-level keyboard input
+    expect(isActionExecutable('type')).toBe(true)
     expect(isActionExecutable('eval')).toBe(false)
     expect(isActionExecutable('scroll')).toBe(false)
     expect(isActionExecutable('press_key')).toBe(false)
@@ -588,8 +591,9 @@ describe('Phase 2E — click/type non-execution contract', () => {
     expect(EXECUTABLE_ACTIONS.has('click')).toBe(false)
   })
 
-  it('type is NOT in EXECUTABLE_ACTIONS', () => {
-    expect(EXECUTABLE_ACTIONS.has('type')).toBe(false)
+  it('type IS in EXECUTABLE_ACTIONS (Phase 3)', () => {
+    // Phase 3: type is directly executable via OS-level keyboard input
+    expect(EXECUTABLE_ACTIONS.has('type')).toBe(true)
   })
 
   it('eval is PERMANENTLY denied, not just awaiting safety', () => {
@@ -597,8 +601,8 @@ describe('Phase 2E — click/type non-execution contract', () => {
     expect(AWAITING_SAFETY_ACTIONS.has('eval')).toBe(false)
   })
 
-  it('navigate is the only executable action', () => {
-    expect([...EXECUTABLE_ACTIONS]).toEqual(['navigate'])
+  it('navigate and type are the executable actions (Phase 3)', () => {
+    expect([...EXECUTABLE_ACTIONS].sort()).toEqual(['navigate', 'type'])
   })
 })
 
@@ -639,19 +643,21 @@ describe('Phase 2F-A — read-only actions produce real data', () => {
   })
 })
 
-describe('Phase 2F-A — EXECUTABLE_ACTIONS still only contains navigate', () => {
-  it('only navigate is directly executable', () => {
-    expect([...EXECUTABLE_ACTIONS].sort()).toEqual(['navigate'])
+describe('Phase 3 — EXECUTABLE_ACTIONS contains navigate and type', () => {
+  it('navigate and type are directly executable', () => {
+    expect([...EXECUTABLE_ACTIONS].sort()).toEqual(['navigate', 'type'])
   })
 
-  it('click and type are STILL not executable', () => {
+  it('click is not executable; type IS executable (Phase 3)', () => {
     expect(EXECUTABLE_ACTIONS.has('click')).toBe(false)
-    expect(EXECUTABLE_ACTIONS.has('type')).toBe(false)
+    // Phase 3: type is directly executable via OS-level keyboard input
+    expect(EXECUTABLE_ACTIONS.has('type')).toBe(true)
   })
 
-  it('click and type are STILL in AWAITING_SAFETY_ACTIONS', () => {
+  it('click is STILL in AWAITING_SAFETY_ACTIONS; type is not (Phase 3)', () => {
     expect(AWAITING_SAFETY_ACTIONS.has('click')).toBe(true)
-    expect(AWAITING_SAFETY_ACTIONS.has('type')).toBe(true)
+    // Phase 3: type moved from AWAITING_SAFETY_ACTIONS to EXECUTABLE_ACTIONS
+    expect(AWAITING_SAFETY_ACTIONS.has('type')).toBe(false)
   })
 })
 

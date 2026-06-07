@@ -243,10 +243,47 @@ class _SlashWorker:
     def _drain_stdout(self):
         for line in self.proc.stdout or []:
             try:
-                self.stdout_queue.put(json.loads(line))
+                msg = json.loads(line)
             except json.JSONDecodeError:
                 continue
+            # Intercept visible-browser proposals emitted by the slash-worker
+            # (via ``visible_browser_gateway._make_slash_worker_notify``).
+            # Forward them to the Desktop app over the TUI WebSocket and write
+            # the response back to the temp file the slash-worker is polling.
+            if msg.get("__vb_proposal__"):
+                self._handle_vb_proposal(msg)
+                continue
+            self.stdout_queue.put(msg)
         self.stdout_queue.put(None)
+
+    def _handle_vb_proposal(self, msg: dict) -> None:
+        """Forward a slash-worker visible-browser proposal to the Desktop.
+
+        The Desktop response comes back through ``browser.action.respond``,
+        which writes the result to a temp file (because the in-process
+        ``handle_respond`` won't find the proposal registered in this process).
+        """
+        try:
+            proposal_id = msg.get("proposal_id", "")
+            # Find the WebSocket session that owns this slash_worker.
+            sid = None
+            with _sessions_lock:
+                for _sid, _sess in _sessions.items():
+                    if _sess.get("slash_worker") is self:
+                        sid = _sid
+                        break
+            if sid is None:
+                logger.warning("vb_proposal: no session found for slash_worker")
+                return
+            # Push the proposal to the Desktop app.
+            _emit("browser.action.proposed", sid, {
+                "proposal_id": proposal_id,
+                "action_type": msg.get("action_type", ""),
+                "action_params": msg.get("action_params", {}),
+                "reason": msg.get("reason"),
+            })
+        except Exception:
+            logger.exception("vb_proposal: failed to forward to Desktop")
 
     def _drain_stderr(self):
         for line in self.proc.stderr or []:
@@ -364,6 +401,12 @@ def _teardown_session(session: dict | None) -> None:
         from tools.approval import unregister_gateway_notify
 
         unregister_gateway_notify(session["session_key"])
+    except Exception:
+        pass
+    try:
+        from tools.visible_browser_gateway import unregister_notify as _vb_unregister_notify
+
+        _vb_unregister_notify(session["session_key"])
     except Exception:
         pass
     try:
@@ -678,6 +721,7 @@ def _start_agent_build(sid: str, session: dict) -> None:
 
         worker = None
         notify_registered = False
+        visible_browser_notify_registered = False
         home_token = None
         profile_home = current.get("profile_home")
         try:
@@ -723,6 +767,26 @@ def _start_agent_build(sid: str, session: dict) -> None:
             except Exception:
                 pass
 
+            try:
+                from tools.visible_browser_gateway import register_notify as _vb_register_notify
+
+                _vb_register_notify(
+                    key,
+                    lambda entry: _emit(
+                        "browser.action.proposed",
+                        sid,
+                        {
+                            "proposal_id": entry.proposal_id,
+                            "action_type": entry.action_type,
+                            "action_params": entry.action_params,
+                            "reason": entry.reason,
+                        },
+                    ),
+                )
+                visible_browser_notify_registered = True
+            except Exception:
+                pass
+
             _wire_callbacks(sid)
             with _sessions_lock:
                 if sid in _sessions:
@@ -754,6 +818,13 @@ def _start_agent_build(sid: str, session: dict) -> None:
                         from tools.approval import unregister_gateway_notify
 
                         unregister_gateway_notify(key)
+                    except Exception:
+                        pass
+                if visible_browser_notify_registered:
+                    try:
+                        from tools.visible_browser_gateway import unregister_notify as _vb_unregister_notify
+
+                        _vb_unregister_notify(key)
                     except Exception:
                         pass
             ready.set()
@@ -5258,7 +5329,53 @@ def _(rid, params: dict) -> dict:
         return _err(rid, 5004, str(e))
 
 
+def _write_vb_slash_worker_response(proposal_id: str, approved: bool, result: str = "") -> None:
+    """Write a visible-browser response to the temp file a slash_worker polls.
+
+    Called when ``browser.action.respond`` finds no in-process proposal
+    (the agent is running in a ``tui_gateway.slash_worker`` subprocess).
+    """
+    import json as _json_wr
+    import os as _os_wr
+    try:
+        from tools.visible_browser_gateway import _VB_RESPONSE_DIR
+        _os_wr.makedirs(_VB_RESPONSE_DIR, exist_ok=True)
+        resp_path = _os_wr.path.join(
+            _VB_RESPONSE_DIR, f"resp_{proposal_id}.json"
+        )
+        with open(resp_path, "w") as fh:
+            _json_wr.dump({
+                "proposal_id": proposal_id,
+                "approved": approved,
+                "result": result or "",
+            }, fh)
+    except Exception:
+        logger.exception("Failed to write vb slash_worker response for %s", proposal_id)
+
+
 # ── Methods: config ──────────────────────────────────────────────────
+
+
+@method("browser.action.respond")
+def _(rid, params: dict) -> dict:
+    """Resolve a pending visible-browser action proposal."""
+    proposal_id = str(params.get("proposal_id", ""))
+    approved = bool(params.get("approved", False))
+    if not proposal_id:
+        return _err(rid, 4002, "proposal_id required")
+    try:
+        from tools.visible_browser_gateway import handle_respond as _vb_resp
+        result = str(params.get("result") or "")
+        ok = _vb_resp(proposal_id, approved, result)
+        if not ok:
+            # Proposal not found in-process — the agent is running in a
+            # slash_worker subprocess.  Write the response to the temp
+            # file that the slash_worker's ``_make_slash_worker_notify``
+            # callback is polling.
+            _write_vb_slash_worker_response(proposal_id, approved, result)
+        return _ok(rid, {"resolved": ok})
+    except Exception as e:
+        return _err(rid, 5004, str(e))
 
 
 @method("config.set")

@@ -21,9 +21,7 @@ import { Globe, Loader2 } from '@/lib/icons'
 
 import { $pendingBrowserAction, setPendingBrowserAction } from '@/store/browser-actions'
 import { $gateway } from '@/store/gateway'
-import { proposeAction, $actionLog, approveProposalWithExecutor, denyProposal } from '@/app/browser-runtime/action-gateway'
 import { getDesktopSnapshot } from '@/app/browser-runtime/desktop-visible-provider'
-import type { BrowserActionKind } from '@/app/browser-runtime/types'
 
 // ── Slot registry ────────────────────────────────────────────────────────────
 
@@ -60,6 +58,7 @@ export function BrowserTab() {
   const [canGoForward, setCanGoForward] = useState(false)
   const [copyLabel, setCopyLabel] = useState('Copy')
   const [copyDisabled, setCopyDisabled] = useState(false)
+  const [pageError, setPageError] = useState<string | null>(null)
 
   const bridge = window.hermesDesktop?.browser
 
@@ -204,6 +203,13 @@ export function BrowserTab() {
         </form>
         <button aria-label="Copy page context" className="shrink-0 rounded px-1.5 py-0.5 text-[0.625rem] text-muted-foreground hover:bg-(--ui-bg-secondary)/60 hover:text-foreground disabled:opacity-40" disabled={copyDisabled} onClick={copyContext} type="button">{copyLabel}</button>
       </div>
+      {pageError ? (
+        <div className="flex items-center gap-2 border-b border-destructive/30 bg-destructive/10 px-3 py-1.5 text-[0.65rem] text-destructive">
+          <span className="shrink-0">⚠</span>
+          <span className="min-w-0 truncate">{pageError}</span>
+          <button aria-label="Dismiss" className="ml-auto shrink-0 text-muted-foreground/70 hover:text-foreground" onClick={() => setPageError(null)} type="button">✕</button>
+        </div>
+      ) : null}
 
       {/* Viewport — WebContentsView covers this area only (toolbar above is DOM) */}
       <div className="relative min-h-0 flex-1 bg-white" ref={viewportRef}>
@@ -237,112 +243,120 @@ export function BrowserTab() {
 
 // ── Browser Action Gateway Panel (injected into BrowserTab) ─────────────────
 
-/** Maps agent proposal IDs to the request IDs from proposeAction. */
-const proposalToActionMap = new Map<string, string>()
-
 function BrowserActionGatewayPanel() {
   const pendingAction = useStore($pendingBrowserAction)
   const gateway = useStore($gateway)
-  const actionLog = useStore($actionLog)
 
-  // When a browser.action.proposed event arrives, call proposeAction to
-  // surface it in the Action Gateway UI.
+  // Local Desktop mode: execute visible-browser proposals directly. This app
+  // runs on the user's own machine, and the old approval queue was too easy to
+  // miss, causing the agent to wait until the 2-minute timeout.
   useEffect(() => {
-    if (!pendingAction) {return}
+    if (!pendingAction || !gateway) {return}
 
-    const { proposalId, actionType, actionParams, reason } = pendingAction
+    const { proposalId, actionType, actionParams } = pendingAction
+    const bridge = window.hermesDesktop?.browser
 
-    // Build the BrowserActionKind from the proposal
-    let action: BrowserActionKind
-    if (actionType === 'navigate') {
-      action = { type: 'navigate', url: String(actionParams.url ?? 'about:blank') }
-    } else if (actionType === 'click') {
-      action = { type: 'click', ref: String(actionParams.ref ?? '') }
-    } else if (actionType === 'type') {
-      action = { type: 'type', ref: String(actionParams.ref ?? ''), text: String(actionParams.text ?? '') }
-    } else if (actionType === 'snapshot') {
-      action = { type: 'snapshot' }
-    } else {
-      return  // unknown action type — skip
-    }
-
-    const requestId = proposeAction(
-      action,
-      'agent',
-      proposalId,
-      reason,
-      'desktop-visible',
-    )
-
-    // Record mapping so we can send response when resolved
-    proposalToActionMap.set(requestId, proposalId)
-
-    // Clear the pending action atom so we don't re-trigger
-    setPendingBrowserAction(null)
-
-    // ── Auto-resolve snapshot (read-only, no user approval needed) ────
-    if (actionType === 'snapshot') {
-      const bridge = window.hermesDesktop?.browser
-
-      if (bridge) {
-        // Fire-and-forget: get snapshot, approve with executor, response
-        // will be sent when actionLog updates are detected below.
-        void (async () => {
-          try {
-            const snapshot = await getDesktopSnapshot(bridge)
-            await approveProposalWithExecutor(
-              requestId,
-              async () => ({ status: 'executed', postActionSnapshot: snapshot }),
-            )
-          } catch (err) {
-            denyProposal(
-              requestId,
-              err instanceof Error ? err.message : 'Snapshot failed',
-            )
-          }
-        })()
-      } else {
-        denyProposal(requestId, 'Desktop browser bridge is unavailable')
-      }
-    }
-  }, [pendingAction])
-
-  // Watch action log for completion of agent-initiated actions and send
-  // browser.action.respond back to the Python gateway.
-  const sentRef = useRef<Set<string>>(new Set())
-
-  useEffect(() => {
-    if (!gateway) {return}
-
-    for (const result of actionLog) {
-      if (sentRef.current.has(result.requestId)) {continue}
-      const proposalId = proposalToActionMap.get(result.requestId)
-      if (!proposalId) {continue}
-
-      sentRef.current.add(result.requestId)
-
-      // Build result payload — for snapshots, include the full snapshot data
-      const resultPayload: Record<string, unknown> = {
-        status: result.status,
-        error: result.error,
-        url: result.postActionSnapshot?.url,
-        title: result.postActionSnapshot?.title,
-      }
-
-      if (result.postActionSnapshot?.dom) {
-        resultPayload.bodyText = result.postActionSnapshot.dom.bodyText
-        resultPayload.headings = result.postActionSnapshot.dom.headings
-        resultPayload.metaDescription = result.postActionSnapshot.dom.metaDescription
-      }
-
-      void gateway.request<{ resolved?: boolean }>('browser.action.respond', {
+    const respond = async (approved: boolean, result: Record<string, unknown>) => {
+      await gateway.request<{ resolved?: boolean }>('browser.action.respond', {
         proposal_id: proposalId,
-        result: JSON.stringify(resultPayload),
-      }).catch(() => {
-        // Best-effort — if the gateway is gone, the agent will time out
+        approved,
+        result: JSON.stringify(result),
       })
     }
-  }, [actionLog, gateway])
+
+    setPendingBrowserAction(null)
+
+    void (async () => {
+      if (!bridge) {
+        await respond(false, { status: 'failed', error: 'Desktop browser bridge is unavailable' })
+
+        return
+      }
+
+      try {
+        if (actionType === 'navigate') {
+          const url = String(actionParams.url ?? 'about:blank')
+          const nav = await bridge.navigate({ url, source: 'user' })
+
+          if (!nav.ok) {
+            await respond(false, {
+              status: 'failed',
+              error: nav.error || 'Desktop navigation failed',
+              url: nav.url || url,
+            })
+
+            return
+          }
+
+          const snapshot = await getDesktopSnapshot(bridge)
+
+          await respond(true, {
+            status: 'executed',
+            url: nav.url || snapshot.url,
+            title: snapshot.title,
+            bodyText: snapshot.dom.bodyText,
+            headings: snapshot.dom.headings,
+            metaDescription: snapshot.dom.metaDescription,
+          })
+
+          return
+        }
+
+        if (actionType === 'snapshot') {
+          const snapshot = await getDesktopSnapshot(bridge)
+
+          await respond(true, {
+            status: 'executed',
+            url: snapshot.url,
+            title: snapshot.title,
+            bodyText: snapshot.dom.bodyText,
+            headings: snapshot.dom.headings,
+            metaDescription: snapshot.dom.metaDescription,
+          })
+
+          return
+        }
+
+        if (actionType === 'type') {
+          const text = String(actionParams.text ?? '')
+          if (!text) {
+            await respond(false, { status: 'failed', error: 'text is required for type action' })
+            return
+          }
+
+          const typeResult = await bridge.typeText({ text, ref: typeof actionParams.ref === 'string' ? actionParams.ref : undefined })
+          if (!typeResult.ok) {
+            await respond(false, { status: 'failed', error: typeResult.error || 'Desktop type failed' })
+            return
+          }
+
+          const snapshot = await getDesktopSnapshot(bridge)
+          await respond(true, {
+            status: 'executed',
+            url: snapshot.url,
+            title: snapshot.title,
+            bodyText: snapshot.dom.bodyText,
+            headings: snapshot.dom.headings,
+            metaDescription: snapshot.dom.metaDescription,
+          })
+
+          return
+        }
+
+        await respond(false, {
+          status: 'failed',
+          error: `Desktop visible browser ${actionType} is not implemented yet`,
+        })
+      } catch (error) {
+        await respond(false, {
+          status: 'failed',
+          error: error instanceof Error ? error.message : String(error),
+        })
+      }
+    })().catch(error => {
+      console.error('[browser] visible action failed:', error)
+    })
+  }, [gateway, pendingAction])
 
   return null
 }
@@ -358,17 +372,31 @@ export function PersistentBrowser() {
   useEffect(() => {
     if (!bridge) {return}
     let cancelled = false
-    bridge.mount().then(r => {
-      if (!cancelled && !r.ok) {
-        console.warn('[browser] mount failed:', r.error)
-      }
-    })
-
-    return () => {
-      cancelled = true
-      // Only unmount when the app quits (PersistentBrowser unmounts).
-      bridge.unmount().catch(() => {})
+    // Defer until the slot container is present so WebContentsView
+    // has valid initial bounds — avoids a 0×0 round-trip.
+    const tryMount = () => {
+      if (cancelled) return
+      bridge.mount().then(r => {
+        if (!cancelled && !r.ok) {
+          console.warn('[browser] mount failed:', r.error)
+        }
+      })
     }
+    // If slot is already in the DOM, mount immediately.
+    if (slot) { tryMount(); return }
+    // Otherwise poll briefly for the slot to appear.
+    let attempts = 0
+    const id = setInterval(() => {
+      attempts++
+      if (slot) { clearInterval(id); tryMount(); return }
+      if (attempts > 20) { clearInterval(id) }
+    }, 100)
+    return () => { cancelled = true; clearInterval(id) }
+  }, [bridge, slot])
+
+  // Unmount on final cleanup — app quit only.
+  useEffect(() => () => {
+    bridge?.unmount().catch(() => {})
   }, [bridge])
 
   // ── Track slot rect → setBounds ────────────────────────────────────────

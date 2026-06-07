@@ -91,6 +91,7 @@ declare global {
         getScreenshot: () => Promise<DesktopBrowserScreenshot>
         getSelectedText: () => Promise<DesktopBrowserSelectedText>
         verifyActionTarget: (payload: DesktopVerifyTargetInput) => Promise<DesktopVerifyTargetResult>
+        typeText: (payload: { text: string; ref?: string }) => Promise<DesktopBrowserResult>
         navigate: (payload: DesktopBrowserNavigatePayload) => Promise<DesktopBrowserNavigateResult>
         reload: () => Promise<DesktopBrowserResult>
         stop: () => Promise<DesktopBrowserResult>

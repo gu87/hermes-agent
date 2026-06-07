@@ -17,6 +17,7 @@ import { coerceGatewayText, coerceThinkingText, normalizePersonalityValue } from
 import { triggerHaptic } from '@/lib/haptics'
 import { isProviderSetupErrorMessage } from '@/lib/provider-setup-errors'
 import { setPendingBrowserAction } from '@/store/browser-actions'
+import { setRightSidebarTab } from '@/app/right-sidebar/store'
 import { setClarifyRequest } from '@/store/clarify'
 import { notify } from '@/store/notifications'
 import { requestDesktopOnboarding } from '@/store/onboarding'
@@ -907,6 +908,7 @@ export function useMessageStream({
             reason: typeof payload?.reason === 'string' ? payload.reason : undefined,
             sessionId: sessionId ?? null,
           })
+          setRightSidebarTab('web')
 
           if (sessionId) {
             updateSessionState(sessionId, state => ({ ...state, needsInput: true }))

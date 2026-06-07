@@ -9154,6 +9154,20 @@ async def post_plugin_visibility(request: Request, name: str, body: _PluginVisib
     return {"ok": True, "name": name, "hidden": body.hidden}
 
 
+# ── Browser visible action respond ──────────────────────────────────────
+
+class BrowserActionRespond(BaseModel):
+    proposal_id: str
+    approved: bool
+
+@app.post("/api/browser/action/respond")
+async def browser_action_respond(body: BrowserActionRespond):
+    """Resolve a pending visible-browser action proposal from the Desktop."""
+    from tools.visible_browser_gateway import handle_respond as _vb_resp
+    ok = _vb_resp(body.proposal_id, body.approved)
+    return {"ok": ok}
+
+
 @app.get("/dashboard-plugins/{plugin_name}/{file_path:path}")
 async def serve_plugin_asset(plugin_name: str, file_path: str):
     """Serve static assets from a dashboard plugin directory.

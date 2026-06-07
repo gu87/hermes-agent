@@ -177,6 +177,11 @@ export interface BrowserSnapshot {
   /** ISO 8601 timestamp of capture. */
   capturedAt: string
 
+  /** Current page URL. */
+  url?: string
+  /** Current page title. */
+  title?: string
+
   /** Which provider produced this snapshot and how. */
   source: BrowserSnapshotSource
 
@@ -667,9 +672,9 @@ export const BUILTIN_CAPABILITIES = {
     canScreenshot: true,
     canNavigate: true,
     canClick: false,
-    canType: false,
+    canType: true,
     canEval: false,
-    requiresApprovalForAgentAction: true,
+    requiresApprovalForAgentAction: false,
     supportsFastHeadless: false,
   },
 

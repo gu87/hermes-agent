@@ -52,12 +52,12 @@ describe('BUILTIN_CAPABILITIES', () => {
     }
   })
 
-  it('desktop-visible is the only provider requiring agent action approval', () => {
+  it('all providers use direct execution (Phase 3: desktop-visible no longer requires approval)', () => {
+    // Phase 3: desktop-visible now executes directly on the user's own machine
     const desktopVisible = BUILTIN_CAPABILITIES['desktop-visible']
-    expect(desktopVisible.requiresApprovalForAgentAction).toBe(true)
+    expect(desktopVisible.requiresApprovalForAgentAction).toBe(false)
 
     for (const id of BUILTIN_PROVIDER_IDS) {
-      if (id === 'desktop-visible') {continue}
       const caps = BUILTIN_CAPABILITIES[id as keyof typeof BUILTIN_CAPABILITIES]
       expect(caps.requiresApprovalForAgentAction).toBe(false)
     }
@@ -360,7 +360,8 @@ describe('BrowserProviderDescriptor', () => {
 
     expect(desc.id).toBe('desktop-visible')
     expect(desc.capabilities.visible).toBe(true)
-    expect(desc.capabilities.requiresApprovalForAgentAction).toBe(true)
+    // Phase 3: desktop-visible no longer requires agent action approval
+    expect(desc.capabilities.requiresApprovalForAgentAction).toBe(false)
     expect(desc.defaultPolicies).toHaveLength(3)
   })
 

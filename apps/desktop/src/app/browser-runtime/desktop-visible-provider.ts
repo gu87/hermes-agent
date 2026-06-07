@@ -52,6 +52,8 @@ export interface DesktopBrowserBridge {
   getSelectedText(): Promise<DesktopBridgeSelectedText>
   /** Phase 2F-A: Read-only target resolution IPC. */
   verifyActionTarget?(payload: { targetRef: string; originUrl: string }): Promise<DesktopVerifyTargetResult>
+  /** Local-machine type-text (no @e ref required). */
+  typeText(payload: { text: string; ref?: string }): Promise<{ ok: boolean; error?: string }>
 }
 
 interface DesktopBridgeState {
@@ -104,9 +106,9 @@ export const DESKTOP_VISIBLE_CAPABILITIES: BrowserCapability = {
   canScreenshot: true,
   canNavigate: true,
   canClick: false,
-  canType: false,
+  canType: true,
   canEval: false,
-  requiresApprovalForAgentAction: true,
+  requiresApprovalForAgentAction: false,
   supportsFastHeadless: false,
 }
 
@@ -137,7 +139,8 @@ export const DESKTOP_VISIBLE_DEFAULT_POLICIES: BrowserPermissionPolicy[] = [
   { provider: 'desktop-visible', action: 'scroll',      actor: 'agent', decision: 'deny' },
   // Denied until Phase 2F safety implementation (will become approval_required):
   { provider: 'desktop-visible', action: 'click',       actor: 'agent', decision: 'deny' },
-  { provider: 'desktop-visible', action: 'type',        actor: 'agent', decision: 'deny' },
+  // Type is now allowed for agent — local-machine simple input path:
+  { provider: 'desktop-visible', action: 'type',        actor: 'agent', decision: 'allow' },
   // Navigation — user must approve:
   { provider: 'desktop-visible', action: 'navigate',    actor: 'agent', decision: 'approval_required' },
   { provider: 'desktop-visible', action: 'back',        actor: 'agent', decision: 'approval_required' },
@@ -158,7 +161,7 @@ export const DESKTOP_VISIBLE_DEFAULT_POLICIES: BrowserPermissionPolicy[] = [
   { provider: 'desktop-visible', action: 'press_key',   actor: 'system', decision: 'deny' },
   { provider: 'desktop-visible', action: 'scroll',      actor: 'system', decision: 'deny' },
   { provider: 'desktop-visible', action: 'click',       actor: 'system', decision: 'deny' },
-  { provider: 'desktop-visible', action: 'type',        actor: 'system', decision: 'deny' },
+  { provider: 'desktop-visible', action: 'type',        actor: 'system', decision: 'allow' },
   { provider: 'desktop-visible', action: 'navigate',    actor: 'system', decision: 'approval_required' },
   { provider: 'desktop-visible', action: 'back',        actor: 'system', decision: 'approval_required' },
   { provider: 'desktop-visible', action: '*',           actor: 'system', decision: 'allow' },

@@ -96,6 +96,11 @@ function fakeBridge(overrides: Partial<{
 
       return { ...DEFAULT_SELECTION, ...overrides.selectedText }
     },
+    typeText: async () => {
+      if (shouldReject) {throw shouldReject}
+
+      return { ok: true }
+    },
   }
 }
 
@@ -123,9 +128,10 @@ describe('DESKTOP_VISIBLE_DESCRIPTOR', () => {
     expect(DESKTOP_VISIBLE_CAPABILITIES.hasLoginState).toBe(true)
   })
 
-  it('does NOT advertise interactive capabilities', () => {
+  it('advertises type capability (Phase 3), click and eval still unsupported', () => {
     expect(DESKTOP_VISIBLE_CAPABILITIES.canClick).toBe(false)
-    expect(DESKTOP_VISIBLE_CAPABILITIES.canType).toBe(false)
+    // Phase 3: type is now supported via OS-level keyboard input
+    expect(DESKTOP_VISIBLE_CAPABILITIES.canType).toBe(true)
     expect(DESKTOP_VISIBLE_CAPABILITIES.canEval).toBe(false)
   })
 
@@ -135,8 +141,9 @@ describe('DESKTOP_VISIBLE_DESCRIPTOR', () => {
     expect(DESKTOP_VISIBLE_CAPABILITIES.canNavigate).toBe(true)
   })
 
-  it('requires agent action approval', () => {
-    expect(DESKTOP_VISIBLE_CAPABILITIES.requiresApprovalForAgentAction).toBe(true)
+  it('does NOT require agent action approval (Phase 3: local machine direct execution)', () => {
+    // Phase 3: Desktop is the user's own machine; navigate/snapshot/type execute directly
+    expect(DESKTOP_VISIBLE_CAPABILITIES.requiresApprovalForAgentAction).toBe(false)
   })
 
   it('is not a fast headless provider', () => {
@@ -150,12 +157,14 @@ describe('DESKTOP_VISIBLE_DESCRIPTOR', () => {
 
 describe('policy invariants', () => {
   describe('agent actions', () => {
-    it('interactive agent actions (click, type, eval, press_key, scroll) are DENIED', () => {
-      const interactiveActions = ['click', 'type', 'eval', 'press_key', 'scroll']
+    it('interactive agent actions (click, eval, press_key, scroll) are DENIED; type is ALLOWED (Phase 3)', () => {
+      const deniedActions = ['click', 'eval', 'press_key', 'scroll']
 
-      for (const action of interactiveActions) {
+      for (const action of deniedActions) {
         expect(checkDesktopPermission(action, 'agent')).toBe('deny')
       }
+      // Phase 3: type is allowed — Desktop runs on user's own machine
+      expect(checkDesktopPermission('type', 'agent')).toBe('allow')
     })
 
     it('navigation agent actions (navigate, back) require APPROVAL', () => {
@@ -170,14 +179,17 @@ describe('policy invariants', () => {
       expect(checkDesktopPermission('console', 'agent')).toBe('allow')
     })
 
-    it('no policy explicitly sets agent decision to allow for interactive or nav actions', () => {
-      const restrictedActions = new Set(['click', 'type', 'eval', 'press_key', 'scroll', 'navigate', 'back'])
+    it('no policy explicitly sets agent decision to allow for click, eval, press_key, scroll, nav (type IS allowed in Phase 3)', () => {
+      const restrictedActions = new Set(['click', 'eval', 'press_key', 'scroll', 'navigate', 'back'])
 
       for (const p of DESKTOP_VISIBLE_DEFAULT_POLICIES) {
         if (p.actor === 'agent' && restrictedActions.has(p.action as string)) {
           expect(p.decision).not.toBe('allow')
         }
       }
+      // Phase 3: type is explicitly 'allow' for agent — OS-level keyboard input
+      const typePolicy = DESKTOP_VISIBLE_DEFAULT_POLICIES.find(p => p.actor === 'agent' && p.action === 'type')
+      expect(typePolicy?.decision).toBe('allow')
     })
   })
 
@@ -197,9 +209,10 @@ describe('policy invariants', () => {
       expect(checkDesktopPermission('console', 'system')).toBe('allow')
     })
 
-    it('system interactive actions (click, type, eval) are denied', () => {
+    it('system interactive actions (click, eval) are denied; type is allowed (Phase 3)', () => {
       expect(checkDesktopPermission('click', 'system')).toBe('deny')
-      expect(checkDesktopPermission('type', 'system')).toBe('deny')
+      // Phase 3: type is allowed for system — OS-level keyboard input
+      expect(checkDesktopPermission('type', 'system')).toBe('allow')
       expect(checkDesktopPermission('eval', 'system')).toBe('deny')
     })
 
@@ -224,9 +237,10 @@ describe('checkDesktopPermission', () => {
     expect(checkDesktopPermission('back', 'user')).toBe('allow')
   })
 
-  it('agent cannot click, type, or eval', () => {
+  it('agent cannot click or eval; type is allowed (Phase 3)', () => {
     expect(checkDesktopPermission('click', 'agent')).toBe('deny')
-    expect(checkDesktopPermission('type', 'agent')).toBe('deny')
+    // Phase 3: type is allowed — Desktop runs on user's own machine
+    expect(checkDesktopPermission('type', 'agent')).toBe('allow')
     expect(checkDesktopPermission('eval', 'agent')).toBe('deny')
   })
 
@@ -510,12 +524,13 @@ describe('Phase 2D — permanent deny policies', () => {
     })
   })
 
-  describe('click and type are denied (awaiting Phase 2F safety implementation)', () => {
-    it('agent click → deny (will become approval_required in Phase 2F)', () => {
+  describe('click is denied; type is allowed (Phase 3)', () => {
+    it('agent click → deny (awaiting safety implementation)', () => {
       expect(checkDesktopPermission('click', 'agent')).toBe('deny')
     })
-    it('agent type → deny (will become approval_required in Phase 2F)', () => {
-      expect(checkDesktopPermission('type', 'agent')).toBe('deny')
+    it('agent type → allow (Phase 3: OS-level keyboard input)', () => {
+      // Phase 3: type is directly executable via OS-level keyboard input on local machine
+      expect(checkDesktopPermission('type', 'agent')).toBe('allow')
     })
   })
 })

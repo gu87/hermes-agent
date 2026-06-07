@@ -126,6 +126,7 @@ contextBridge.exposeInMainWorld('hermesDesktop', {
     getScreenshot: () => ipcRenderer.invoke('hermes:browser:get-screenshot'),
     getSelectedText: () => ipcRenderer.invoke('hermes:browser:get-selected-text'),
     verifyActionTarget: payload => ipcRenderer.invoke('hermes:browser:verify-action-target', payload),
+    typeText: payload => ipcRenderer.invoke('hermes:browser:type-text', payload),
     navigate: payload => ipcRenderer.invoke('hermes:browser:navigate', payload),
     reload: () => ipcRenderer.invoke('hermes:browser:reload', { source: 'user' }),
     stop: () => ipcRenderer.invoke('hermes:browser:stop', { source: 'user' }),

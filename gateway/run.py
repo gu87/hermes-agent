@@ -18061,6 +18061,31 @@ class GatewayRunner:
 
             agent.clarify_callback = _clarify_callback_sync
 
+            # ── Visible browser callback ──────────────────────────────────
+            # When the agent calls a visible_browser_* tool, the notify hook
+            # fires so the gateway can forward the proposal to the Desktop
+            # client (via the TUI gateway WebSocket).  The Desktop shows an
+            # approval card; the user's response comes back through
+            # ``browser.action.respond`` (handled by ``tui_gateway.server``).
+            from tools import visible_browser_gateway as _vb_mod
+            _vb_mod.register_notify(
+                session_key or "",
+                lambda entry: merge_pending_message_event(
+                    _status_adapter._pending_messages,
+                    session_key,
+                    {
+                        "type": "browser.action.proposed",
+                        "payload": {
+                            "proposal_id": entry.proposal_id,
+                            "action_type": entry.action_type,
+                            "action_params": entry.action_params,
+                            "reason": entry.reason,
+                        },
+                    },
+                )
+            )
+
+
             # Store agent reference for interrupt support
             agent_holder[0] = agent
             # Capture the full tool definitions for transcript logging

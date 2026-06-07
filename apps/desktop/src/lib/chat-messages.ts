@@ -43,6 +43,11 @@ export type GatewayEventPayload = {
   provider?: string
   reasoning_effort?: string
   service_tier?: string
+  // Phase 3 visible browser fields
+  proposal_id?: string
+  action_type?: string
+  action_params?: Record<string, unknown>
+  reason?: string
   fast?: boolean
   yolo?: boolean
   running?: boolean

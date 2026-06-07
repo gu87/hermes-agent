@@ -774,3 +774,82 @@ export type BrowserActionResultLike = {
     }
   }
 }
+
+
+// ── Visible Browser Action Approval Card ──────────────────────────────────────
+
+import { $pendingBrowserAction, setPendingBrowserAction } from '@/store/browser-actions'
+
+export function VisibleBrowserApprovalCard() {
+  const pendingAction = useStore($pendingBrowserAction)
+  const gateway = null
+
+  if (!pendingAction) return null
+
+  const actionLabel = pendingAction.actionType === 'navigate'
+    ? `Navigate to ${String(pendingAction.actionParams?.url ?? '')}`
+    : pendingAction.actionType === 'click'
+    ? `Click element ${String(pendingAction.actionParams?.element_ref ?? '')}`
+    : pendingAction.actionType === 'type'
+    ? `Type into ${String(pendingAction.actionParams?.element_ref ?? '')}`
+    : pendingAction.actionType === 'snapshot'
+    ? 'Take page snapshot'
+    : pendingAction.actionType
+
+  async function approve() {
+    try {
+      await window.hermesDesktop.api({ path: '/api/browser/action/respond', method: 'POST', body: JSON.stringify({
+        proposal_id: pendingAction!.proposalId,
+        approved: true,
+        note: 'approved',
+      })})
+      setPendingBrowserAction(null)
+    } catch (err) {
+      console.error('[browser] approve failed:', err)
+    }
+  }
+
+  async function deny() {
+    try {
+      await window.hermesDesktop.api({ path: '/api/browser/action/respond', method: 'POST', body: JSON.stringify({
+        proposal_id: pendingAction!.proposalId,
+        approved: false,
+        note: 'denied by user',
+      })})
+      setPendingBrowserAction(null)
+    } catch (err) {
+      console.error('[browser] deny failed:', err)
+    }
+  }
+
+  return (
+    <div className="mb-3 rounded-lg border border-amber-500/30 bg-amber-500/10 p-3">
+      <div className="flex items-start gap-2">
+        <span className="mt-0.5 text-sm">🤖</span>
+        <div className="min-w-0 flex-1">
+          <p className="text-xs font-medium text-amber-200">Agent wants to use your browser</p>
+          <p className="mt-1 text-[0.68rem] text-amber-300/80">{actionLabel}</p>
+          {pendingAction.reason && (
+            <p className="mt-0.5 text-[0.65rem] text-muted-foreground">{pendingAction.reason}</p>
+          )}
+        </div>
+      </div>
+      <div className="mt-2 flex gap-2">
+        <button
+          className="rounded bg-emerald-600 px-3 py-1 text-[0.68rem] font-medium text-white hover:bg-emerald-500"
+          onClick={approve}
+          type="button"
+        >
+          Approve
+        </button>
+        <button
+          className="rounded bg-destructive/20 px-3 py-1 text-[0.68rem] font-medium text-destructive hover:bg-destructive/30"
+          onClick={deny}
+          type="button"
+        >
+          Deny
+        </button>
+      </div>
+    </div>
+  )
+}

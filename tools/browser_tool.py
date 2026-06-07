@@ -3866,15 +3866,14 @@ registry.register(
 # Visible Browser Tools (Desktop Electron WebContentsView)
 # ═══════════════════════════════════════════════════════════════════════════════
 #
-# These tools propose actions on the user's visible Desktop browser (the
-# Electron WebContentsView rendered in the right sidebar).  They block the
-# agent thread until the user approves or denies the action in the Desktop UI.
+# These tools act on the user's visible Desktop browser (the Electron
+# WebContentsView rendered in the right sidebar).  On this local Desktop build,
+# supported actions execute directly and return the page result to the agent.
 #
 # ── Security model ──
-#   * Every click/type/navigate requires user approval (Allow/Deny in Desktop)
-#   * Desktop re-verifies the target element identity independently (main.cjs)
-#   * eval, press_key, and scroll are permanently denied on Desktop
-#   * Timeout after 120s returns a "user did not respond" sentinel
+#   * navigate and snapshot execute directly in the local Desktop browser
+#   * click/type currently return an explicit unsupported result
+#   * eval, press_key, and scroll are not exposed through this visible toolset
 # ──────────────────────────────────────────────────────────────────────────────
 
 import uuid as _uuid
@@ -3883,10 +3882,10 @@ VISIBLE_BROWSER_SCHEMAS = [
     {
         "name": "visible_browser_navigate",
         "description": (
-            "Navigate the visible Desktop browser to a URL. Requires user "
-            "approval in the Desktop app. Use this when you need the user to "
-            "see and interact with a page in their visible browser window "
-            "(not headless). Returns the new page URL on success."
+            "Navigate the visible Desktop browser to a URL on this local "
+            "machine. This is not headless: the user sees the page in the "
+            "Desktop browser pane. Returns the new page URL and page content "
+            "summary on success."
         ),
         "parameters": {
             "type": "object",
@@ -3897,7 +3896,7 @@ VISIBLE_BROWSER_SCHEMAS = [
                 },
                 "reason": {
                     "type": "string",
-                    "description": "Why you need to navigate. Shown to the user in the approval UI."
+                    "description": "Why you need to navigate."
                 },
             },
             "required": ["url"],
@@ -3906,9 +3905,9 @@ VISIBLE_BROWSER_SCHEMAS = [
     {
         "name": "visible_browser_click",
         "description": (
-            "Click an element in the visible Desktop browser. Requires user "
-            "approval. The Desktop verifies the target independently before "
-            "executing. Use visible_browser_snapshot first to find element refs."
+            "Click an element in the visible Desktop browser. This local "
+            "Desktop build does not implement click execution yet; use "
+            "visible_browser_snapshot first to inspect refs."
         ),
         "parameters": {
             "type": "object",
@@ -3919,7 +3918,7 @@ VISIBLE_BROWSER_SCHEMAS = [
                 },
                 "reason": {
                     "type": "string",
-                    "description": "Why you need to click this element. Shown in approval UI."
+                    "description": "Why you need to click this element."
                 },
             },
             "required": ["ref"],
@@ -3928,16 +3927,22 @@ VISIBLE_BROWSER_SCHEMAS = [
     {
         "name": "visible_browser_type",
         "description": (
-            "Type text into an input field in the visible Desktop browser. "
-            "Requires user approval. The Desktop verifies the target field "
-            "independently before typing."
+            "Type text into the visible Desktop browser. "
+            "Automatically finds the current focused element (if it is an "
+            "editable input/textarea/contenteditable) or the first visible "
+            "editable element on the page. Does NOT require an @e ref — "
+            "the Desktop will locate the target element on its own. "
+            "Use this for simple text input on pages like ChatGPT where "
+            "aria-snapshot refs may not resolve correctly."
         ),
         "parameters": {
             "type": "object",
             "properties": {
                 "ref": {
                     "type": "string",
-                    "description": "Element reference like '@e3' from visible_browser_snapshot"
+                    "description": "Optional. Element reference like '@e3' from visible_browser_snapshot. "
+                        "If omitted or the ref is invalid, the Desktop automatically finds "
+                        "the first visible editable element on the page."
                 },
                 "text": {
                     "type": "string",
@@ -3945,10 +3950,10 @@ VISIBLE_BROWSER_SCHEMAS = [
                 },
                 "reason": {
                     "type": "string",
-                    "description": "Why you need to type this. Shown in approval UI."
+                    "description": "Why you need to type this. Shown in approval UI if enabled."
                 },
             },
-            "required": ["ref", "text"],
+            "required": ["text"],
         },
     },
     {
@@ -3973,6 +3978,11 @@ VISIBLE_BROWSER_SCHEMAS = [
 ]
 
 
+def _visible_browser_session_key(session_key: Optional[str]) -> str:
+    """Resolve the Desktop session key across in-process and slash-worker runs."""
+    return (session_key or os.environ.get("HERMES_SESSION_KEY") or "").strip()
+
+
 def _visible_browser_navigate(
     url: str,
     reason: Optional[str] = None,
@@ -3988,9 +3998,10 @@ def _visible_browser_navigate(
     )
 
     proposal_id = _uuid.uuid4().hex[:12]
+    resolved_session_key = _visible_browser_session_key(session_key)
     entry = vb_register(
         proposal_id=proposal_id,
-        session_key=session_key or "",
+        session_key=resolved_session_key,
         action_type="navigate",
         action_params={"url": url},
         reason=reason,
@@ -4032,9 +4043,10 @@ def _visible_browser_click(
     )
 
     proposal_id = _uuid.uuid4().hex[:12]
+    resolved_session_key = _visible_browser_session_key(session_key)
     entry = vb_register(
         proposal_id=proposal_id,
-        session_key=session_key or "",
+        session_key=resolved_session_key,
         action_type="click",
         action_params={"ref": ref},
         reason=reason,
@@ -4076,9 +4088,10 @@ def _visible_browser_type(
     )
 
     proposal_id = _uuid.uuid4().hex[:12]
+    resolved_session_key = _visible_browser_session_key(session_key)
     entry = vb_register(
         proposal_id=proposal_id,
-        session_key=session_key or "",
+        session_key=resolved_session_key,
         action_type="type",
         action_params={"ref": ref, "text": text},
         reason=reason,
@@ -4123,9 +4136,10 @@ def _visible_browser_snapshot(
     )
 
     proposal_id = _uuid.uuid4().hex[:12]
+    resolved_session_key = _visible_browser_session_key(session_key)
     entry = vb_register(
         proposal_id=proposal_id,
-        session_key=session_key or "",
+        session_key=resolved_session_key,
         action_type="snapshot",
         action_params={"full": full},
         reason="Agent requested page snapshot",
@@ -4157,6 +4171,20 @@ def _check_visible_browser_requirements() -> bool:
 
 _VISIBLE_BROWSER_SCHEMA_MAP = {s["name"]: s for s in VISIBLE_BROWSER_SCHEMAS}
 
+def _resolve_visible_session_key(kw: dict) -> str:
+    """Resolve the gateway session key for visible-browser tools.
+
+    Priority: ``session_id`` from dispatch (the gateway session key),
+    then ``task_id``, then the ``HERMES_SESSION_KEY`` env var (set by
+    slash_worker and CLI paths).
+    """
+    return (
+        kw.get("session_id")
+        or kw.get("session_key")
+        or kw.get("task_id")
+        or os.environ.get("HERMES_SESSION_KEY", "")
+    )
+
 registry.register(
     name="visible_browser_navigate",
     toolset="browser",
@@ -4164,7 +4192,7 @@ registry.register(
     handler=lambda args, **kw: _visible_browser_navigate(
         url=args.get("url", ""),
         reason=args.get("reason"),
-        session_key=kw.get("session_key"),
+        session_key=_resolve_visible_session_key(kw),
     ),
     check_fn=_check_visible_browser_requirements,
     emoji="🖥️",
@@ -4176,7 +4204,7 @@ registry.register(
     handler=lambda args, **kw: _visible_browser_click(
         ref=args.get("ref", ""),
         reason=args.get("reason"),
-        session_key=kw.get("session_key"),
+        session_key=_resolve_visible_session_key(kw),
     ),
     check_fn=_check_visible_browser_requirements,
     emoji="👆",
@@ -4189,7 +4217,7 @@ registry.register(
         ref=args.get("ref", ""),
         text=args.get("text", ""),
         reason=args.get("reason"),
-        session_key=kw.get("session_key"),
+        session_key=_resolve_visible_session_key(kw),
     ),
     check_fn=_check_visible_browser_requirements,
     emoji="⌨️",
@@ -4200,7 +4228,7 @@ registry.register(
     schema=_VISIBLE_BROWSER_SCHEMA_MAP["visible_browser_snapshot"],
     handler=lambda args, **kw: _visible_browser_snapshot(
         full=args.get("full", False),
-        session_key=kw.get("session_key"),
+        session_key=_resolve_visible_session_key(kw),
     ),
     check_fn=_check_visible_browser_requirements,
     emoji="📸",

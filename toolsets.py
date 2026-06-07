@@ -44,6 +44,9 @@ _HERMES_CORE_TOOLS = [
     "browser_type", "browser_scroll", "browser_back",
     "browser_press", "browser_get_images",
     "browser_vision", "browser_console", "browser_cdp", "browser_dialog",
+    # Visible browser automation (Desktop Electron)
+    "visible_browser_navigate", "visible_browser_click",
+    "visible_browser_type", "visible_browser_snapshot",
     # Text-to-speech
     "text_to_speech",
     # Planning & memory

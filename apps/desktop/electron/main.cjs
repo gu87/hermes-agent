@@ -90,11 +90,11 @@ try {
     const stat = fs.statSync(helperPath)
     if (!(stat.mode & fs.constants.S_IXUSR)) {
       fs.chmodSync(helperPath, stat.mode | fs.constants.S_IXUSR | fs.constants.S_IXGRP | fs.constants.S_IXOTH)
-      rememberLog(`[pty] made spawn-helper executable: ${helperPath}`)
+      console.log(`[hermes] [pty] made spawn-helper executable: ${helperPath}`)
     }
   } catch (error) {
     // Non-fatal — terminal:start will surface a diagnostic error downstream.
-    rememberLog(`[pty] could not ensure spawn-helper is executable: ${error.message}`)
+    console.warn(`[hermes] [pty] could not ensure spawn-helper is executable: ${error.message}`)
   }
 })()
 
@@ -113,6 +113,14 @@ const IS_MAC = process.platform === 'darwin'
 const IS_WINDOWS = process.platform === 'win32'
 const IS_WSL = isWslEnvironment()
 const APP_ROOT = app.getAppPath()
+const PACKAGED_SOURCE_REPO_ROOT = (() => {
+  if (!app.isPackaged || !process.resourcesPath) return null
+  // Local `electron-builder --dir` output lives under:
+  // apps/desktop/release/mac-*/Hermes.app/Contents/Resources/app.asar
+  // Walk back to the workspace root so local dirty builds use the checkout
+  // they were built from instead of trying to bootstrap an unpublished commit.
+  return path.resolve(process.resourcesPath, '../../../../../../..')
+})()
 
 // Remote displays (SSH X11 forwarding, VNC, RDP) make Chromium's GPU
 // compositor flicker — accelerated layers can't be presented cleanly over the
@@ -1969,6 +1977,15 @@ function resolveHermesBackend(dashboardArgs) {
   //    (In dev with no checkout, SOURCE_REPO_ROOT won't pass isHermesSourceRoot.)
   if (!IS_PACKAGED && isHermesSourceRoot(SOURCE_REPO_ROOT)) {
     const backend = createPythonBackend(SOURCE_REPO_ROOT, `Hermes source at ${SOURCE_REPO_ROOT}`, dashboardArgs)
+    if (backend) return backend
+  }
+
+  if (IS_PACKAGED && PACKAGED_SOURCE_REPO_ROOT && isHermesSourceRoot(PACKAGED_SOURCE_REPO_ROOT)) {
+    const backend = createPythonBackend(
+      PACKAGED_SOURCE_REPO_ROOT,
+      `Hermes source at ${PACKAGED_SOURCE_REPO_ROOT}`,
+      dashboardArgs
+    )
     if (backend) return backend
   }
 
@@ -5672,6 +5689,94 @@ ipcMain.handle('hermes:browser:is-available', async () => {
   }
 })
 
+// ── Local-machine type-text (no @e ref required) ─────────────────────────
+// Finds the current activeElement (if editable) or the first visible
+// input/textarea/contenteditable on the page, focuses it, and inserts
+// the supplied text via webContents.insertText().  This bypasses React
+// synthetic event issues and does not depend on @e ref resolution.
+//
+// Payload: { text: string }
+// Returns: { ok: true } | { ok: false, error: string }
+
+ipcMain.handle('hermes:browser:type-text', async (_event, payload) => {
+  const text = String(payload?.text ?? '')
+  if (!text) return { ok: false, error: 'text is required' }
+
+  try {
+    const view = getBrowserView()
+    const wc = view.webContents
+
+    // Step 1 — find & focus an editable element in the page.
+    const focusResult = await wc.executeJavaScript(`
+      (() => {
+        const EDITABLE_SEL = 'textarea, '
+          + 'input:not([type="hidden"]):not([disabled]):not([readonly]), '
+          + '[contenteditable="true"], [role="textbox"]'
+
+        function isVisible(el) {
+          if (!el) return false
+          const r = el.getBoundingClientRect()
+          if (r.width === 0 || r.height === 0) return false
+          const cs = getComputedStyle(el)
+          return cs.display !== 'none' && cs.visibility !== 'hidden' && cs.opacity !== '0'
+        }
+
+        function isEditable(el) {
+          if (!el) return false
+          if (el.isContentEditable) return true
+          const t = (el.tagName || '').toLowerCase()
+          if (t === 'textarea') return !el.disabled && !el.readOnly
+          if (t === 'input') {
+            const type = (el.type || 'text').toLowerCase()
+            const blocked = ['hidden','submit','reset','button','image','checkbox','radio','file','color','range']
+            return !blocked.includes(type) && !el.disabled && !el.readOnly
+          }
+          return false
+        }
+
+        // Prefer the current activeElement if it is editable + visible.
+        const ae = document.activeElement
+        if (isEditable(ae) && isVisible(ae)) {
+          ae.focus()
+          return { found: true, tag: ae.tagName.toLowerCase() }
+        }
+
+        // Otherwise scan the page for the first visible editable element.
+        const candidates = document.querySelectorAll(EDITABLE_SEL)
+        for (const el of candidates) {
+          if (isEditable(el) && isVisible(el)) {
+            el.focus()
+            return { found: true, tag: el.tagName.toLowerCase() }
+          }
+        }
+
+        return { found: false, tag: null }
+      })()
+    `)
+
+    if (!focusResult.found) {
+      return { ok: false, error: 'no visible editable element found on the page' }
+    }
+
+    // Step 2 — insert text at the OS level (bypasses React synthetic events).
+    wc.insertText(text)
+
+    // Step 3 — dispatch a synthetic input event so SPA frameworks notice.
+    await wc.executeJavaScript(`
+      (() => {
+        const el = document.activeElement
+        if (!el) return
+        el.dispatchEvent(new InputEvent('input', { bubbles: true, composed: true, data: ${JSON.stringify(text)} }))
+        el.dispatchEvent(new Event('change', { bubbles: true }))
+      })()
+    `)
+
+    return { ok: true }
+  } catch (error) {
+    return { ok: false, error: error.message }
+  }
+})
+
 // ── Phase 2F-A: Read-only target resolution ────────────────────────────
 //
 // This handler performs a PURELY READ-ONLY DOM query to verify that a
@@ -5859,23 +5964,29 @@ ipcMain.handle('hermes:version', async () => ({
   hermesRoot: resolveUpdateRoot()
 }))
 
-app.whenReady().then(() => {
-  if (IS_MAC) {
-    Menu.setApplicationMenu(buildApplicationMenu())
-  } else {
-    Menu.setApplicationMenu(null)
-  }
-  installMediaPermissions()
-  registerMediaProtocol()
-  ensureWslWindowsFonts()
-  configureSpellChecker()
-  registerPowerResumeListeners()
-  createWindow()
+app.whenReady()
+  .then(() => {
+    rememberLog('[app] Electron ready; initializing desktop shell')
+    if (IS_MAC) {
+      Menu.setApplicationMenu(buildApplicationMenu())
+    } else {
+      Menu.setApplicationMenu(null)
+    }
+    installMediaPermissions()
+    registerMediaProtocol()
+    ensureWslWindowsFonts()
+    configureSpellChecker()
+    registerPowerResumeListeners()
+    createWindow()
 
-  app.on('activate', () => {
-    if (BrowserWindow.getAllWindows().length === 0) createWindow()
+    app.on('activate', () => {
+      if (BrowserWindow.getAllWindows().length === 0) createWindow()
+    })
   })
-})
+  .catch(error => {
+    rememberLog(`[app] ready initialization failed: ${error?.stack || error?.message || error}`)
+    flushDesktopLogBufferSync()
+  })
 
 // Seed Chromium's spellchecker with the system locale (falling back to en-US).
 // On macOS Electron uses the native spellchecker which ignores this list, but

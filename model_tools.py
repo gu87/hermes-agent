@@ -1074,6 +1074,7 @@ def handle_function_call(
                         function_name, next_args,
                         task_id=task_id,
                         enabled_tools=sandbox_enabled,
+                        session_id=session_id,
                     )
             else:
                 def _dispatch(next_args: Dict[str, Any]) -> Any:
@@ -1081,6 +1082,7 @@ def handle_function_call(
                         function_name, next_args,
                         task_id=task_id,
                         user_task=user_task,
+                        session_id=session_id,
                     )
             result = _dispatch(function_args)
         finally:
