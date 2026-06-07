@@ -211,6 +211,24 @@ export interface Translations {
     close: string
     title: string
     subtitle: string
+    roster: string
+    system: string
+    rosterEmpty: string
+    loading: string
+    permissionReadOnly: string
+    permissionAsk: string
+    modelRef: string
+    riskLevel: string
+    skills: string
+    tools: string
+    gatewayRunning: string
+    gatewayStopped: string
+    gatewayInfo: (version: string, sessions: number) => string
+    recentLogs: string
+    noLogs: string
+    systemNoData: string
+    refresh: string
+    refreshing: string
     emptyTitle: string
     emptyDesc: string
     running: string

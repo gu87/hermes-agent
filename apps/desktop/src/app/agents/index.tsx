@@ -1,5 +1,5 @@
 import { useStore } from '@nanostores/react'
-import { type ReactNode, useEffect, useMemo, useState } from 'react'
+import { type ReactNode, useCallback, useEffect, useMemo, useState } from 'react'
 
 import { useElapsedSeconds } from '@/components/chat/activity-timer'
 import { ActivityTimerText } from '@/components/chat/activity-timer-text'
@@ -18,10 +18,19 @@ import {
   type SubagentStreamEntry
 } from '@/store/subagents'
 
+import { getAgentRoster, getLogs, getStatus } from '@/hermes'
+import type { AgentRosterEntry, StatusResponse } from '@/hermes'
+
+import { OverlayActionButton } from '../overlays/overlay-chrome'
+import { OverlayCard } from '../overlays/overlay-chrome'
 import { OverlayView } from '../overlays/overlay-view'
 
-// Mirrors statusGlyph() in tool-fallback.tsx so subagent rows speak the
-// same visual vocabulary as the chat tool blocks.
+// ── Tab type ─────────────────────────────────────────────────────────────────
+
+type AgentsTab = 'roster' | 'running' | 'system'
+
+// ── Subagent glyph / stream helpers (unchanged from original) ────────────────
+
 function statusGlyph(status: SubagentStatus, a: Translations['agents']): ReactNode {
   if (status === 'running' || status === 'queued') {
     return (
@@ -71,12 +80,25 @@ function streamGlyph(entry: SubagentStreamEntry): ReactNode {
   return <span aria-hidden className="mt-0.5 size-1 shrink-0 rounded-full bg-muted-foreground/55" />
 }
 
+// ── AgentsView entry ─────────────────────────────────────────────────────────
+
 interface AgentsViewProps {
   onClose: () => void
 }
 
+const TABS: readonly { id: AgentsTab; labelKey: 'roster' | 'running' | 'system' }[] = [
+  { id: 'roster', labelKey: 'roster' },
+  { id: 'running', labelKey: 'running' },
+  { id: 'system', labelKey: 'system' }
+]
+
 export function AgentsView({ onClose }: AgentsViewProps) {
   const { t } = useI18n()
+  const a = t.agents
+  const [tab, setTab] = useState<AgentsTab>('roster')
+
+  // ── Running tab data (existing subagent tree) ────────────────────────────
+
   const activeSessionId = useStore($activeSessionId)
   const subagentsBySession = useStore($subagentsBySession)
 
@@ -87,21 +109,344 @@ export function AgentsView({ onClose }: AgentsViewProps) {
 
   const tree = useMemo(() => buildSubagentTree(activeSubagents), [activeSubagents])
 
+  // ── Roster tab data ──────────────────────────────────────────────────────
+
+  const [roster, setRoster] = useState<AgentRosterEntry[]>([])
+  const [rosterLoading, setRosterLoading] = useState(false)
+  const [rosterError, setRosterError] = useState('')
+
+  useEffect(() => {
+    setRosterLoading(true)
+    setRosterError('')
+    getAgentRoster()
+      .then(r => setRoster(r.agents))
+      .catch(e => setRosterError(e instanceof Error ? e.message : String(e)))
+      .finally(() => setRosterLoading(false))
+  }, [])
+
+  // ── System tab data ──────────────────────────────────────────────────────
+
+  const [status, setStatus] = useState<StatusResponse | null>(null)
+  const [logs, setLogs] = useState<string[]>([])
+  const [systemLoading, setSystemLoading] = useState(false)
+  const [systemError, setSystemError] = useState('')
+
+  const refreshSystem = useCallback(async () => {
+    setSystemLoading(true)
+    setSystemError('')
+    try {
+      const [nextStatus, nextLogs] = await Promise.all([
+        getStatus(),
+        getLogs({ file: 'agent', lines: 60 })
+      ])
+      setStatus(nextStatus)
+      setLogs(nextLogs.lines)
+    } catch (error) {
+      setSystemError(error instanceof Error ? error.message : String(error))
+    } finally {
+      setSystemLoading(false)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (tab === 'system' && !status && !systemLoading) {
+      void refreshSystem()
+    }
+  }, [tab, status, systemLoading, refreshSystem])
+
+  // ── Render ───────────────────────────────────────────────────────────────
+
   return (
     <OverlayView
-      closeLabel={t.agents.close}
-      contentClassName="px-5 pt-5 pb-4 sm:px-6"
+      closeLabel={a.close}
+      contentClassName="px-5 pt-4 pb-4 sm:px-6"
       onClose={onClose}
       rootClassName="mx-auto max-w-3xl"
     >
       <header className="mb-3 shrink-0">
-        <h2 className="text-sm font-semibold text-foreground">{t.agents.title}</h2>
-        <p className="text-xs text-muted-foreground/80">{t.agents.subtitle}</p>
+        <h2 className="text-sm font-semibold text-foreground">{a.title}</h2>
+        <p className="text-xs text-muted-foreground/80">{a.subtitle}</p>
+        <nav className="mt-3 flex gap-1" role="tablist">
+          {TABS.map(({ id, labelKey }) => (
+            <button
+              aria-selected={tab === id}
+              className={cn(
+                'rounded-md px-3 py-1 text-xs font-medium transition-colors',
+                tab === id
+                  ? 'bg-foreground text-background'
+                  : 'text-muted-foreground hover:bg-muted/40 hover:text-foreground'
+              )}
+              key={id}
+              onClick={() => setTab(id)}
+              role="tab"
+              type="button"
+            >
+              {a[labelKey]}
+            </button>
+          ))}
+        </nav>
       </header>
-      <SubagentTree tree={tree} />
+
+      {tab === 'roster' ? (
+        <RosterTab agents={roster} error={rosterError} loading={rosterLoading} />
+      ) : tab === 'running' ? (
+        <SubagentTree tree={tree} />
+      ) : (
+        <SystemTab
+          error={systemError}
+          loading={systemLoading}
+          logs={logs}
+          onRefresh={() => void refreshSystem()}
+          status={status}
+        />
+      )}
     </OverlayView>
   )
 }
+
+// ── Roster tab ──────────────────────────────────────────────────────────────
+
+function RosterTab({
+  agents,
+  error,
+  loading
+}: {
+  agents: AgentRosterEntry[]
+  error: string
+  loading: boolean
+}) {
+  const { t } = useI18n()
+  const a = t.agents
+
+  if (loading) {
+    return (
+      <div className="grid place-items-center gap-2 py-12 text-center">
+        <BrailleSpinner ariaLabel={a.loading} className="size-5 text-muted-foreground/60" spinner="breathe" />
+        <p className="text-xs text-muted-foreground/75">{a.loading}</p>
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="grid place-items-center gap-2 py-12 text-center">
+        <AlertCircle className="size-5 text-destructive" />
+        <p className="text-xs text-destructive">{error}</p>
+      </div>
+    )
+  }
+
+  if (agents.length === 0) {
+    return (
+      <div className="grid place-items-center gap-2 py-12 text-center">
+        <Sparkles className="size-5 text-muted-foreground/60" />
+        <p className="text-xs text-muted-foreground/75">{a.rosterEmpty}</p>
+      </div>
+    )
+  }
+
+  return (
+    <div className="min-h-0 min-w-0 flex-1 overflow-x-hidden overflow-y-auto overscroll-contain pr-1">
+      <div className="grid gap-2">
+        {agents.map(agent => (
+          <AgentRosterRow agent={agent} key={agent.id} />
+        ))}
+      </div>
+    </div>
+  )
+}
+
+// ── Runtime label helpers ────────────────────────────────────────────────────
+
+const RUNTIME_LABELS: Record<string, string> = {
+  claude_code_cli: 'Claude Code CLI',
+  codex_cli: 'Codex CLI',
+  deepseek_tui_cli: 'DeepSeek TUI CLI',
+  opencode_cli: 'OpenCode CLI'
+}
+
+function runtimeLabel(runtime: string): string {
+  return RUNTIME_LABELS[runtime] || runtime || 'internal'
+}
+
+function isExternalRuntime(runtime: string): boolean {
+  return runtime in RUNTIME_LABELS
+}
+
+// ── Agent roster row ────────────────────────────────────────────────────────
+
+function AgentRosterRow({ agent }: { agent: AgentRosterEntry }) {
+  const { t } = useI18n()
+  const a = t.agents
+
+  const permission = agent.permission || 'ask'
+  const isReadOnly = permission === 'read_only'
+  const runtime = agent.runtime || ''
+  const external = isExternalRuntime(runtime)
+  const maxRisk = agent.risk_allowed.length > 0 ? agent.risk_allowed[agent.risk_allowed.length - 1] : ''
+
+  return (
+    <OverlayCard className="grid gap-2 p-3">
+      {/* Top line: name + permission badge + runtime badge */}
+      <div className="flex min-w-0 items-center gap-2">
+        <span
+          className={cn(
+            'size-2 shrink-0 rounded-full',
+            isReadOnly ? 'bg-amber-500' : 'bg-sky-500'
+          )}
+          title={isReadOnly ? a.permissionReadOnly : a.permissionAsk}
+        />
+        <span className="min-w-0 truncate text-[0.82rem] font-medium text-foreground/90">
+          {agent.display_name}
+        </span>
+        <span
+          className={cn(
+            'shrink-0 rounded px-1.5 py-0.5 text-[0.6rem] font-medium',
+            isReadOnly
+              ? 'bg-amber-500/10 text-amber-600 dark:text-amber-400'
+              : 'bg-sky-500/10 text-sky-600 dark:text-sky-400'
+          )}
+        >
+          {isReadOnly ? a.permissionReadOnly : a.permissionAsk}
+        </span>
+        {external && (
+          <span className="shrink-0 rounded bg-violet-500/10 px-1.5 py-0.5 text-[0.6rem] font-medium text-violet-600 dark:text-violet-400">
+            {runtimeLabel(runtime)}
+          </span>
+        )}
+        {runtime && !external && (
+          <span className="shrink-0 rounded bg-muted/50 px-1.5 py-0.5 text-[0.6rem] text-muted-foreground">
+            {runtime}
+          </span>
+        )}
+      </div>
+
+      {/* Role summary */}
+      <p className="text-[0.72rem] leading-relaxed text-muted-foreground/80">
+        {agent.role_summary}
+      </p>
+
+      {/* Bottom metadata row */}
+      <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[0.65rem] text-muted-foreground/65">
+        <span className="inline-flex items-center gap-1">
+          <span className="font-medium text-muted-foreground/70">{a.modelRef}:</span>
+          <span className="font-mono text-[0.62rem]">{agent.model_ref || '—'}</span>
+        </span>
+        {maxRisk && (
+          <span className="inline-flex items-center gap-1">
+            <span className="font-medium text-muted-foreground/70">{a.riskLevel}:</span>
+            <span className="font-mono text-[0.62rem]">{agent.risk_allowed.join(' ')}</span>
+          </span>
+        )}
+        {agent.skills.length > 0 && (
+          <span className="inline-flex items-center gap-1">
+            <span className="font-medium text-muted-foreground/70">{a.skills}:</span>
+            <span className="font-mono text-[0.62rem]">{agent.skills.length}</span>
+          </span>
+        )}
+        {agent.tools.length > 0 && (
+          <span className="inline-flex items-center gap-1">
+            <span className="font-medium text-muted-foreground/70">{a.tools}:</span>
+            <span className="font-mono text-[0.62rem]">{agent.tools.join(', ')}</span>
+          </span>
+        )}
+      </div>
+    </OverlayCard>
+  )
+}
+
+// ── System tab ──────────────────────────────────────────────────────────────
+
+function SystemTab({
+  error,
+  loading,
+  logs,
+  onRefresh,
+  status
+}: {
+  error: string
+  loading: boolean
+  logs: string[]
+  onRefresh: () => void
+  status: StatusResponse | null
+}) {
+  const { t } = useI18n()
+  const a = t.agents
+
+  return (
+    <div className="grid min-h-0 min-w-0 flex-1 grid-rows-[auto_minmax(0,1fr)] gap-3 overflow-hidden">
+      {/* Gateway status card */}
+      <OverlayCard className="p-3">
+        {status ? (
+          <div className="grid gap-2">
+            <div className="flex items-start justify-between gap-3">
+              <div className="min-w-0">
+                <div className="flex items-center gap-2">
+                  <span
+                    className={cn(
+                      'size-2 rounded-full',
+                      status.gateway_running ? 'bg-emerald-500' : 'bg-amber-500'
+                    )}
+                  />
+                  <span className="text-[0.82rem] font-medium text-foreground">
+                    {status.gateway_running ? a.gatewayRunning : a.gatewayStopped}
+                  </span>
+                </div>
+                <div className="mt-1 text-[0.65rem] text-muted-foreground/75">
+                  {a.gatewayInfo(status.version, status.active_sessions)} · {status.hermes_home}
+                </div>
+              </div>
+              <OverlayActionButton className="h-7 px-2.5 text-xs" onClick={onRefresh}>
+                {loading ? a.refreshing : a.refresh}
+              </OverlayActionButton>
+            </div>
+
+            {status.gateway_platforms && Object.keys(status.gateway_platforms).length > 0 && (
+              <div className="flex flex-wrap gap-1.5">
+                {Object.entries(status.gateway_platforms).map(([key, p]) => (
+                  <span
+                    className={cn(
+                      'rounded px-1.5 py-0.5 text-[0.6rem] font-medium',
+                      p.state === 'connected' ? 'bg-emerald-500/10 text-emerald-600 dark:text-emerald-400' : 'bg-muted/50 text-muted-foreground'
+                    )}
+                    key={key}
+                  >
+                    {key}
+                  </span>
+                ))}
+              </div>
+            )}
+          </div>
+        ) : loading ? (
+          <div className="flex items-center gap-2 text-xs text-muted-foreground">
+            <BrailleSpinner ariaLabel={a.loading} className="size-3.5" spinner="breathe" />
+            {a.loading}
+          </div>
+        ) : (
+          <div className="text-xs text-muted-foreground">{a.systemNoData}</div>
+        )}
+      </OverlayCard>
+
+      {/* Error banner */}
+      {error && (
+        <div className="flex items-center gap-2 rounded-md bg-destructive/10 px-3 py-2 text-xs text-destructive">
+          <AlertCircle className="size-3.5 shrink-0" />
+          {error}
+        </div>
+      )}
+
+      {/* Recent logs */}
+      <OverlayCard className="min-h-0 overflow-hidden p-2">
+        <div className="mb-1.5 text-[0.7rem] font-medium text-muted-foreground">{a.recentLogs}</div>
+        <pre className="h-full min-h-0 overflow-auto whitespace-pre-wrap wrap-break-word font-mono text-[0.62rem] leading-relaxed text-muted-foreground/80">
+          {logs.length ? logs.slice(-40).join('\n') : a.noLogs}
+        </pre>
+      </OverlayCard>
+    </div>
+  )
+}
+
+// ── Subagent tree (unchanged from original) ──────────────────────────────────
 
 const fmtDuration = (seconds: number | undefined, a: Translations['agents']) => {
   if (!seconds || seconds <= 0) {

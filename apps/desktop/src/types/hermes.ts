@@ -584,6 +584,25 @@ export interface ActionStatusResponse {
   running: boolean
 }
 
+export interface AgentRosterEntry {
+  capabilities: string[]
+  display_name: string
+  id: string
+  model_ref: string
+  permission: string
+  risk_allowed: string[]
+  role_summary: string
+  runtime: string
+  skills: string[]
+  tools: string[]
+  type: string
+}
+
+export interface AgentRosterResponse {
+  agents: AgentRosterEntry[]
+  error?: string
+}
+
 export interface AuxiliaryTaskAssignment {
   base_url: string
   model: string

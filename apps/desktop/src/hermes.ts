@@ -3,6 +3,8 @@ import { JsonRpcGatewayClient } from '@hermes/shared'
 import type {
   ActionResponse,
   ActionStatusResponse,
+  AgentRosterEntry,
+  AgentRosterResponse,
   AnalyticsResponse,
   AudioSpeakResponse,
   AudioTranscriptionResponse,
@@ -45,6 +47,8 @@ const DEFAULT_GATEWAY_REQUEST_TIMEOUT_MS = 30_000
 export type {
   ActionResponse,
   ActionStatusResponse,
+  AgentRosterEntry,
+  AgentRosterResponse,
   AnalyticsDailyEntry,
   AnalyticsModelEntry,
   AnalyticsResponse,
@@ -392,6 +396,12 @@ export function getSkills(): Promise<SkillInfo[]> {
   return window.hermesDesktop.api<SkillInfo[]>({
     ...profileScoped(),
     path: '/api/skills'
+  })
+}
+
+export function getAgentRoster(): Promise<AgentRosterResponse> {
+  return window.hermesDesktop.api<AgentRosterResponse>({
+    path: '/api/agents/roster'
   })
 }
 

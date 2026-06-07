@@ -1944,6 +1944,38 @@ async def get_schema():
     return {"fields": CONFIG_SCHEMA, "category_order": _CATEGORY_ORDER}
 
 
+@app.get("/api/agents/roster")
+async def get_agent_roster():
+    """Return the read-only agent roster from config/agent-registry.json."""
+    try:
+        registry_path = get_hermes_home() / "config" / "agent-registry.json"
+        if not registry_path.exists():
+            return {"agents": []}
+        with open(registry_path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+        agents_dict = data.get("agents", {})
+        roster: list[dict] = []
+        for agent_id, agent in agents_dict.items():
+            sp = agent.get("subagent_profile", {})
+            roster.append({
+                "id": agent.get("id", agent_id),
+                "display_name": agent.get("display_name", agent_id),
+                "type": agent.get("type", ""),
+                "role_summary": agent.get("role_summary", ""),
+                "runtime": sp.get("runtime") or agent.get("runtime", ""),
+                "model_ref": agent.get("model_ref", ""),
+                "permission": sp.get("permission_mode", ""),
+                "risk_allowed": agent.get("risk_allowed", []),
+                "capabilities": agent.get("capabilities", []),
+                "skills": sp.get("skills", []),
+                "tools": sp.get("toolsets", [])
+            })
+        return {"agents": roster}
+    except Exception:
+        _log.exception("GET /api/agents/roster failed")
+        return JSONResponse({"agents": [], "error": "Failed to read agent registry"}, status_code=500)
+
+
 _EMPTY_MODEL_INFO: dict = {
     "model": "",
     "provider": "",
