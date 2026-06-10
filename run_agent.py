@@ -4790,11 +4790,14 @@ class AIAgent:
         finally:
             self._executing_tools = False
 
-    def _dispatch_delegate_task(self, function_args: dict) -> str:
+    def _dispatch_delegate_task(self, function_args: dict, tool_call_id: Optional[str] = None) -> str:
         """Single call site for delegate_task dispatch.
 
         New DELEGATE_TASK_SCHEMA fields only need to be added here to reach all
         invocation paths (concurrent, sequential, inline).
+
+        Phase 2B: tool_call_id propagated from LLM tool_call.id via all three
+        paths (sequential, concurrent, registry handler).
         """
         from tools.delegate_tool import delegate_task as _delegate_task
         return _delegate_task(
@@ -4807,6 +4810,7 @@ class AIAgent:
             acp_args=function_args.get("acp_args"),
             role=function_args.get("role"),
             parent_agent=self,
+            tool_call_id=tool_call_id,
         )
 
     def _invoke_tool(self, function_name: str, function_args: dict, effective_task_id: str,

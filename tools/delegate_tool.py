@@ -17,6 +17,7 @@ never the child's intermediate tool calls or reasoning.
 """
 
 import enum
+import fcntl
 import json
 import logging
 
@@ -28,7 +29,8 @@ from concurrent.futures import (
     ThreadPoolExecutor,
     TimeoutError as FuturesTimeoutError,
 )
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List, Optional, Tuple
+from pathlib import Path
 
 from toolsets import TOOLSETS
 
@@ -870,6 +872,105 @@ def _build_child_progress_callback(
     return _callback
 
 
+# ---------------------------------------------------------------------------
+# Delegation Journal — Phase 2B
+# ---------------------------------------------------------------------------
+# Writes duck-typed JSONL records per delegate_task child run.
+# Location: ~/.hermes/delegations/{parent_session_id}.jsonl
+# Protocol: O_APPEND + flock(LOCK_EX) + single write + flush + fsync
+
+_JOURNAL_SCHEMA_VERSION = "delegate_v1"
+
+
+def _now_iso() -> str:
+    """ISO-8601 UTC timestamp for journal records."""
+    from datetime import datetime, timezone
+    return datetime.now(timezone.utc).isoformat()
+
+
+def _journal_dir() -> Path:
+    """Delegation journal directory, respecting HERMES_HOME."""
+    hermes_home = os.environ.get("HERMES_HOME", os.path.expanduser("~/.hermes"))
+    return Path(hermes_home) / "delegations"
+
+
+def _write_journal_record(parent_session_id: str, record: Dict[str, Any]) -> None:
+    """Append one delegation journal record with flock+fsync.
+
+    Journal write failures are logged but never raised — they must not
+    affect the original delegate_task behaviour (§4 protocol).
+    """
+    try:
+        _journal_dir().mkdir(parents=True, exist_ok=True)
+        path = _journal_dir() / f"{parent_session_id}.jsonl"
+        line = json.dumps(record, ensure_ascii=False, default=str) + "\n"
+        data = line.encode("utf-8")
+        with open(path, "ab") as fh:
+            fcntl.flock(fh.fileno(), fcntl.LOCK_EX)
+            try:
+                os.write(fh.fileno(), data)
+                os.fsync(fh.fileno())
+            finally:
+                fcntl.flock(fh.fileno(), fcntl.LOCK_UN)
+    except Exception:
+        logger.warning(
+            "Delegation journal write failed for parent_session=%s "
+            "delegate_call=%s task=%s — continuing without journal",
+            parent_session_id,
+            record.get("delegate_call_id", "?"),
+            record.get("task_index", "?"),
+            exc_info=True,
+        )
+
+
+def _make_delegate_task_id(subagent_session_id: str, delegate_call_id: str, task_index: int) -> str:
+    """Deterministic Task ID — matches §5.2 formula."""
+    return f"delegate:{subagent_session_id}:task:{delegate_call_id}:{task_index}"
+
+
+def _make_delegate_run_id(subagent_session_id: str, delegate_call_id: str, task_index: int) -> str:
+    """Deterministic Run ID — matches §5.2 formula."""
+    return f"delegate:{subagent_session_id}:run:{delegate_call_id}:{task_index}"
+
+
+def _build_delegate_tool_trace(
+    messages: Optional[List[Dict[str, Any]]],
+) -> List[Dict[str, Any]]:
+    """Build tool trace summary for journal from conversation messages."""
+    tool_trace: List[Dict[str, Any]] = []
+    if not isinstance(messages, list):
+        return tool_trace
+    trace_by_id: Dict[str, Dict[str, Any]] = {}
+    for msg in messages:
+        if not isinstance(msg, dict):
+            continue
+        if msg.get("role") == "assistant":
+            for tc in msg.get("tool_calls") or []:
+                fn = tc.get("function", {})
+                entry_t = {
+                    "tool": fn.get("name", "unknown"),
+                    "args_bytes": len(fn.get("arguments", "")),
+                }
+                tool_trace.append(entry_t)
+                tc_id = tc.get("id")
+                if tc_id:
+                    trace_by_id[tc_id] = entry_t
+        elif msg.get("role") == "tool":
+            content = msg.get("content", "")
+            is_error = _looks_like_error_output(content)
+            result_meta = {
+                "result_bytes": len(content),
+                "status": "error" if is_error else "ok",
+            }
+            tc_id = msg.get("tool_call_id")
+            target = trace_by_id.get(tc_id) if tc_id else None
+            if target is not None:
+                target.update(result_meta)
+            elif tool_trace:
+                tool_trace[-1].update(result_meta)
+    return tool_trace
+
+
 def _build_child_agent(
     task_index: int,
     goal: str,
@@ -891,6 +992,11 @@ def _build_child_agent(
     # 'leaf' (default) cannot; 'orchestrator' retains the delegation
     # toolset subject to depth/kill-switch bounds applied below.
     role: str = "leaf",
+    # Phase 2B — explicit delegation identity
+    parent_delegate_task_id: Optional[str] = None,
+    parent_delegate_run_id: Optional[str] = None,
+    root_task_id: Optional[str] = None,
+    delegate_call_id: Optional[str] = None,
 ):
     """
     Build a child AIAgent on the main thread (thread-safe construction).
@@ -1147,6 +1253,29 @@ def _build_child_agent(
     # Stash subagent identity for nested-delegation event propagation and
     # for _run_single_child / interrupt_subagent to look up by id.
     child._subagent_id = subagent_id
+    # Phase 2B — explicit delegation identity for journal and projection
+    child._delegate_call_id = delegate_call_id
+    child._delegate_task_index = task_index
+    child._parent_delegate_task_id = parent_delegate_task_id
+    child._parent_delegate_run_id = parent_delegate_run_id
+    # Compute child's own delegate identity (deterministic).
+    # Uses child.session_id (generated inside AIAgent.__init__) + delegate_call_id + task_index.
+    if delegate_call_id and getattr(child, "session_id", None):
+        child._my_delegate_task_id = _make_delegate_task_id(
+            child.session_id, delegate_call_id, task_index
+        )
+        child._my_delegate_run_id = _make_delegate_run_id(
+            child.session_id, delegate_call_id, task_index
+        )
+        if root_task_id is not None:
+            child._root_task_id = root_task_id
+        else:
+            # Top-level: root is self (§6.5 structure)
+            child._root_task_id = child._my_delegate_task_id
+    else:
+        child._my_delegate_task_id = None
+        child._my_delegate_run_id = None
+        child._root_task_id = None
     child._parent_subagent_id = parent_subagent_id
     child._subagent_goal = goal
     child._parent_turn_id = getattr(parent_agent, "_current_turn_id", "") or ""
@@ -1342,6 +1471,7 @@ def _run_single_child(
     goal: str,
     child=None,
     parent_agent=None,
+    delegate_call_id: Optional[str] = None,
     **_kwargs,
 ) -> Dict[str, Any]:
     """
@@ -1349,6 +1479,69 @@ def _run_single_child(
     Returns a structured result dict.
     """
     child_start = time.monotonic()
+
+    # Phase 2B — journal state tracking
+    _parent_session_id: Optional[str] = getattr(parent_agent, "session_id", None) if parent_agent else None
+    _child_session_id: Optional[str] = getattr(child, "session_id", None) if child else None
+    _journal_terminal: Optional[Dict[str, Any]] = None
+    _journal_started_at: Optional[str] = None
+
+    def _write_started() -> None:
+        """Write run_started journal record before child execution."""
+        if not _parent_session_id or not delegate_call_id or not _child_session_id:
+            logger.debug(
+                "Skipping delegation journal started — missing identity "
+                "(parent_session=%s delegate_call=%s child_session=%s)",
+                _parent_session_id or "?",
+                delegate_call_id or "?",
+                _child_session_id or "?",
+            )
+            return
+        started_at = _now_iso()
+        record = {
+            "schema_version": _JOURNAL_SCHEMA_VERSION,
+            "phase": "run_started",
+            "parent_session_id": _parent_session_id,
+            "delegate_call_id": delegate_call_id,
+            "task_index": task_index,
+            "subagent_session_id": _child_session_id,
+            "parent_delegate_task_id": getattr(child, "_parent_delegate_task_id", None) if child else None,
+            "parent_delegate_run_id": getattr(child, "_parent_delegate_run_id", None) if child else None,
+            "root_task_id": getattr(child, "_root_task_id", None) if child else None,
+            "depth": getattr(child, "_delegate_depth", 1) if child else 1,
+            "role": getattr(child, "_delegate_role", "leaf") if child else "leaf",
+            "goal": goal,
+            "toolsets": getattr(child, "enabled_toolsets", None) if child else None,
+            "model": getattr(child, "model", None) if child else None,
+            "started_at": started_at,
+        }
+        _write_journal_record(_parent_session_id, record)
+
+    def _write_terminal(terminal: Dict[str, Any]) -> None:
+        """Write run_finished journal record."""
+        if not _parent_session_id or not delegate_call_id or not _child_session_id:
+            logger.debug(
+                "Skipping delegation journal terminal — missing identity "
+                "(parent_session=%s delegate_call=%s child_session=%s)",
+                _parent_session_id or "?",
+                delegate_call_id or "?",
+                _child_session_id or "?",
+            )
+            return
+        record = {
+            "schema_version": _JOURNAL_SCHEMA_VERSION,
+            "phase": "run_finished",
+            "parent_session_id": _parent_session_id,
+            "delegate_call_id": delegate_call_id,
+            "task_index": task_index,
+            "subagent_session_id": _child_session_id,
+            "parent_delegate_task_id": getattr(child, "_parent_delegate_task_id", None) if child else None,
+            "parent_delegate_run_id": getattr(child, "_parent_delegate_run_id", None) if child else None,
+            "root_task_id": getattr(child, "_root_task_id", None) if child else None,
+            "depth": getattr(child, "_delegate_depth", 1) if child else 1,
+            **terminal,
+        }
+        _write_journal_record(_parent_session_id, record)
 
     # Get the progress callback from the child agent
     child_progress_cb = getattr(child, "tool_progress_callback", None)
@@ -1486,6 +1679,8 @@ def _run_single_child(
 
     try:
         _heartbeat_thread.start()
+        # Phase 2B — write journal run_started before child execution
+        _write_started()
         if child_progress_cb:
             try:
                 child_progress_cb("subagent.start", preview=goal)
@@ -1611,12 +1806,27 @@ def _run_single_child(
             else:
                 _err = str(_timeout_exc)
 
+            _terminal_status = "timeout" if is_timeout else "error"
+            _journal_terminal = {
+                "status": _terminal_status,
+                "summary": None,
+                "exit_reason": _terminal_status,
+                "api_calls": child_api_calls,
+                "duration_seconds": duration,
+                "tokens": {"input": 0, "output": 0},
+                "cost_usd": 0.0,
+                "tool_trace": [],
+                "files_written": [],
+                "files_read": [],
+                "error": _err,
+                "ended_at": _now_iso(),
+            }
             return {
                 "task_index": task_index,
-                "status": "timeout" if is_timeout else "error",
+                "status": _terminal_status,
                 "summary": None,
                 "error": _err,
-                "exit_reason": "timeout" if is_timeout else "error",
+                "exit_reason": _terminal_status,
                 "api_calls": child_api_calls,
                 "duration_seconds": duration,
                 "_child_role": getattr(child, "_delegate_role", None),
@@ -1832,6 +2042,26 @@ def _run_single_child(
             except Exception as e:
                 logger.debug("Progress callback completion failed: %s", e)
 
+        # Phase 2B — set journal terminal before success return
+        _journal_terminal = {
+            "status": status,
+            "summary": summary[:500] if summary else None,
+            "exit_reason": exit_reason,
+            "api_calls": api_calls,
+            "duration_seconds": duration,
+            "tokens": {
+                "input": int(_input_tokens) if isinstance(_input_tokens, (int, float)) else 0,
+                "output": int(_output_tokens) if isinstance(_output_tokens, (int, float)) else 0,
+            },
+            "cost_usd": float(getattr(child, "session_estimated_cost_usd", 0.0) or 0.0)
+            if isinstance(getattr(child, "session_estimated_cost_usd", 0.0), (int, float))
+            else 0.0,
+            "tool_trace": tool_trace,
+            "files_written": _files_written,
+            "files_read": _files_read,
+            "error": None,
+            "ended_at": _now_iso(),
+        }
         return entry
 
     except Exception as exc:
@@ -1848,6 +2078,21 @@ def _run_single_child(
                 )
             except Exception as e:
                 logger.debug("Progress callback failure relay failed: %s", e)
+        # Phase 2B — journal terminal for exception
+        _journal_terminal = {
+            "status": "error",
+            "summary": None,
+            "exit_reason": "error",
+            "api_calls": 0,
+            "duration_seconds": duration,
+            "tokens": {"input": 0, "output": 0},
+            "cost_usd": 0.0,
+            "tool_trace": [],
+            "files_written": [],
+            "files_read": [],
+            "error": str(exc),
+            "ended_at": _now_iso(),
+        }
         return {
             "task_index": task_index,
             "status": "error",
@@ -1859,6 +2104,10 @@ def _run_single_child(
         }
 
     finally:
+        # Phase 2B — flush journal terminal record unconditionally
+        if _journal_terminal is not None:
+            _write_terminal(_journal_terminal)
+
         # Stop the heartbeat thread so it doesn't keep touching parent activity
         # after the child has finished (or failed).  Guard the join: .start()
         # now lives inside the try block, so if it raised (OS thread
@@ -1944,6 +2193,7 @@ def delegate_task(
     acp_args: Optional[List[str]] = None,
     role: Optional[str] = None,
     parent_agent=None,
+    tool_call_id: Optional[str] = None,
 ) -> str:
     """
     Spawn one or more child agents to handle delegated tasks.
@@ -2078,6 +2328,10 @@ def delegate_task(
             # Per-task role beats top-level; normalise again so unknown
             # per-task values warn and degrade to leaf uniformly.
             effective_role = _normalize_role(t.get("role") or top_role)
+            # Phase 2B — determine parent identity for nested delegation
+            _parent_task_id = getattr(parent_agent, "_my_delegate_task_id", None)
+            _parent_run_id = getattr(parent_agent, "_my_delegate_run_id", None)
+            _root_id = getattr(parent_agent, "_root_task_id", None)
             child = _build_child_agent(
                 task_index=i,
                 goal=t["goal"],
@@ -2100,6 +2354,10 @@ def delegate_task(
                     else (acp_args if acp_args is not None else creds.get("args"))
                 ),
                 role=effective_role,
+                parent_delegate_task_id=_parent_task_id,
+                parent_delegate_run_id=_parent_run_id,
+                root_task_id=_root_id,
+                delegate_call_id=tool_call_id,
             )
             # Override with correct parent tool names (before child construction mutated global)
             child._delegate_saved_tool_names = _parent_tool_names
@@ -2111,7 +2369,7 @@ def delegate_task(
     if n_tasks == 1:
         # Single task -- run directly (no thread pool overhead)
         _i, _t, child = children[0]
-        result = _run_single_child(0, _t["goal"], child, parent_agent)
+        result = _run_single_child(0, _t["goal"], child, parent_agent, delegate_call_id=tool_call_id)
         results.append(result)
     else:
         # Batch -- run in parallel with per-task progress lines
@@ -2127,6 +2385,7 @@ def delegate_task(
                     goal=t["goal"],
                     child=child,
                     parent_agent=parent_agent,
+                    delegate_call_id=tool_call_id,
                 )
                 futures[future] = i
 
@@ -2822,6 +3081,7 @@ registry.register(
         acp_args=args.get("acp_args"),
         role=args.get("role"),
         parent_agent=kw.get("parent_agent"),
+        tool_call_id=kw.get("tool_call_id"),
     ),
     check_fn=check_delegate_requirements,
     emoji="🔀",
