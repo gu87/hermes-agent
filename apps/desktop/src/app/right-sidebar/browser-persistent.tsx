@@ -17,11 +17,10 @@ import { useStore } from '@nanostores/react'
 import { atom } from 'nanostores'
 import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 
+import { getDesktopSnapshot } from '@/app/browser-runtime/desktop-visible-provider'
 import { Globe, Loader2 } from '@/lib/icons'
-
 import { $pendingBrowserAction, setPendingBrowserAction } from '@/store/browser-actions'
 import { $gateway } from '@/store/gateway'
-import { getDesktopSnapshot } from '@/app/browser-runtime/desktop-visible-provider'
 
 // ── Slot registry ────────────────────────────────────────────────────────────
 
@@ -319,14 +318,18 @@ function BrowserActionGatewayPanel() {
 
         if (actionType === 'type') {
           const text = String(actionParams.text ?? '')
+
           if (!text) {
             await respond(false, { status: 'failed', error: 'text is required for type action' })
+
             return
           }
 
           const typeResult = await bridge.typeText({ text, ref: typeof actionParams.ref === 'string' ? actionParams.ref : undefined })
+
           if (!typeResult.ok) {
             await respond(false, { status: 'failed', error: typeResult.error || 'Desktop type failed' })
+
             return
           }
 
@@ -372,25 +375,36 @@ export function PersistentBrowser() {
   useEffect(() => {
     if (!bridge) {return}
     let cancelled = false
+
     // Defer until the slot container is present so WebContentsView
     // has valid initial bounds — avoids a 0×0 round-trip.
     const tryMount = () => {
-      if (cancelled) return
+      if (cancelled) {return}
       bridge.mount().then(r => {
         if (!cancelled && !r.ok) {
           console.warn('[browser] mount failed:', r.error)
         }
       })
     }
+
     // If slot is already in the DOM, mount immediately.
-    if (slot) { tryMount(); return }
+    if (slot) { tryMount();
+
+ return }
+
     // Otherwise poll briefly for the slot to appear.
     let attempts = 0
+
     const id = setInterval(() => {
       attempts++
-      if (slot) { clearInterval(id); tryMount(); return }
+
+      if (slot) { clearInterval(id); tryMount();
+
+ return }
+
       if (attempts > 20) { clearInterval(id) }
     }, 100)
+
     return () => { cancelled = true; clearInterval(id) }
   }, [bridge, slot])
 

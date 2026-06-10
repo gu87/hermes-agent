@@ -1,6 +1,7 @@
 import type { QueryClient } from '@tanstack/react-query'
 import { type MutableRefObject, useCallback, useEffect, useRef } from 'react'
 
+import { setRightSidebarTab } from '@/app/right-sidebar/store'
 import {
   appendAssistantTextPart,
   appendReasoningPart,
@@ -17,7 +18,6 @@ import { coerceGatewayText, coerceThinkingText, normalizePersonalityValue } from
 import { triggerHaptic } from '@/lib/haptics'
 import { isProviderSetupErrorMessage } from '@/lib/provider-setup-errors'
 import { setPendingBrowserAction } from '@/store/browser-actions'
-import { setRightSidebarTab } from '@/app/right-sidebar/store'
 import { setClarifyRequest } from '@/store/clarify'
 import { notify } from '@/store/notifications'
 import { requestDesktopOnboarding } from '@/store/onboarding'

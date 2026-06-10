@@ -44,6 +44,8 @@ interface GatewayBootOptions {
   refreshSessions: () => Promise<void>
 }
 
+const RECONNECT_ERROR_THRESHOLD = 6
+
 export function useGatewayBoot({
   handleGatewayEvent,
   onConnectionReady,
@@ -153,6 +155,8 @@ export function useGatewayBoot({
         if (!cancelled && isGatewayReauthRequired(err) && !reauthNotified) {
           reauthNotified = true
           notifyError(err, translateNow('boot.errors.gatewaySignInRequired'))
+        } else if (!cancelled && reconnectAttempt >= RECONNECT_ERROR_THRESHOLD && !$desktopBoot.get().error) {
+          failDesktopBoot('Could not reconnect to Hermes gateway.')
         }
       } finally {
         reconnecting = false
@@ -218,6 +222,10 @@ export function useGatewayBoot({
         reconnectAttempt = 0
         reauthNotified = false
         clearReconnectTimer()
+
+        if (bootCompleted && $desktopBoot.get().error) {
+          completeDesktopBoot()
+        }
       } else if (bootCompleted && (st === 'closed' || st === 'error')) {
         // The socket dropped after a healthy boot (typically sleep/wake). Try
         // to bring it back instead of leaving the composer stuck disabled.

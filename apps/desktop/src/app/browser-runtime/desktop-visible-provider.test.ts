@@ -163,6 +163,7 @@ describe('policy invariants', () => {
       for (const action of deniedActions) {
         expect(checkDesktopPermission(action, 'agent')).toBe('deny')
       }
+
       // Phase 3: type is allowed — Desktop runs on user's own machine
       expect(checkDesktopPermission('type', 'agent')).toBe('allow')
     })
@@ -187,6 +188,7 @@ describe('policy invariants', () => {
           expect(p.decision).not.toBe('allow')
         }
       }
+
       // Phase 3: type is explicitly 'allow' for agent — OS-level keyboard input
       const typePolicy = DESKTOP_VISIBLE_DEFAULT_POLICIES.find(p => p.actor === 'agent' && p.action === 'type')
       expect(typePolicy?.decision).toBe('allow')

@@ -784,7 +784,7 @@ export function VisibleBrowserApprovalCard() {
   const pendingAction = useStore($pendingBrowserAction)
   const gateway = null
 
-  if (!pendingAction) return null
+  if (!pendingAction) {return null}
 
   const actionLabel = pendingAction.actionType === 'navigate'
     ? `Navigate to ${String(pendingAction.actionParams?.url ?? '')}`

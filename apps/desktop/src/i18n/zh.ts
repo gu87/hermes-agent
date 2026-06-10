@@ -322,8 +322,11 @@ export const zh: Translations = {
     taskFlowToolCount: count => `${count} 个工具`,
     taskFlowFileOps: (r, w) => {
       const parts: string[] = []
-      if (r > 0) parts.push(`读 ${r}`)
-      if (w > 0) parts.push(`写 ${w}`)
+
+      if (r > 0) {parts.push(`读 ${r}`)}
+
+      if (w > 0) {parts.push(`写 ${w}`)}
+
       return parts.join(' · ')
     },
     taskFlowTokensK: k => `${k}k 词元`,

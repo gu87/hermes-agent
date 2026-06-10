@@ -64,8 +64,8 @@ export function WorkspaceLauncher({
       <div className="w-full max-w-[21rem] rounded-2xl border border-(--ui-stroke-secondary) bg-(--ui-bg-card)/60 p-2 shadow-sm">
         {CARDS.map(card => (
           <LauncherCardItem
-            key={card.title}
             card={card}
+            key={card.title}
             onOpenBrowser={onOpenBrowser}
           />
         ))}
@@ -100,7 +100,7 @@ function LauncherCardItem({
       )}
       disabled={!isClickable}
       onClick={() => {
-        if (isBrowser && onOpenBrowser) onOpenBrowser()
+        if (isBrowser && onOpenBrowser) {onOpenBrowser()}
       }}
       type="button"
     >

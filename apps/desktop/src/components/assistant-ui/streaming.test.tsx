@@ -641,9 +641,6 @@ describe('assistant-ui streaming renderer', () => {
 
   it('renders an incomplete streaming reasoning fenced code block as a code card', async () => {
     const { container } = render(<RunningReasoningHarness />)
-    const ui = within(container)
-
-    fireEvent.click(ui.getByRole('button', { name: /thinking/i }))
 
     await waitFor(() => {
       expect(container.querySelector('[data-slot="code-card"]')).toBeTruthy()

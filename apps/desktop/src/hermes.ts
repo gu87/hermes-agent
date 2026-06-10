@@ -3,7 +3,6 @@ import { JsonRpcGatewayClient } from '@hermes/shared'
 import type {
   ActionResponse,
   ActionStatusResponse,
-  AgentRosterEntry,
   AgentRosterResponse,
   AnalyticsResponse,
   AudioSpeakResponse,

@@ -239,8 +239,11 @@ export const en: Translations = {
     taskFlowToolCount: count => `${count} tools`,
     taskFlowFileOps: (r, w) => {
       const parts: string[] = []
-      if (r > 0) parts.push(`${r} read`)
-      if (w > 0) parts.push(`${w} wrote`)
+
+      if (r > 0) {parts.push(`${r} read`)}
+
+      if (w > 0) {parts.push(`${w} wrote`)}
+
       return parts.join(' · ')
     },
     taskFlowTokensK: k => `${k}k tok`,

@@ -5,6 +5,8 @@ import { useElapsedSeconds } from '@/components/chat/activity-timer'
 import { ActivityTimerText } from '@/components/chat/activity-timer-text'
 import { BrailleSpinner } from '@/components/ui/braille-spinner'
 import { FadeText } from '@/components/ui/fade-text'
+import { getAgentRoster, getLogs, getStatus } from '@/hermes'
+import type { AgentRosterEntry, StatusResponse } from '@/hermes'
 import { type Translations, useI18n } from '@/i18n'
 import { AlertCircle, CheckCircle2, Sparkles } from '@/lib/icons'
 import { useEnterAnimation } from '@/lib/use-enter-animation'
@@ -17,9 +19,6 @@ import {
   type SubagentStatus,
   type SubagentStreamEntry
 } from '@/store/subagents'
-
-import { getAgentRoster, getLogs, getStatus } from '@/hermes'
-import type { AgentRosterEntry, StatusResponse } from '@/hermes'
 
 import { OverlayActionButton } from '../overlays/overlay-chrome'
 import { OverlayCard } from '../overlays/overlay-chrome'
@@ -135,11 +134,13 @@ export function AgentsView({ onClose }: AgentsViewProps) {
   const refreshSystem = useCallback(async () => {
     setSystemLoading(true)
     setSystemError('')
+
     try {
       const [nextStatus, nextLogs] = await Promise.all([
         getStatus(),
         getLogs({ file: 'agent', lines: 60 })
       ])
+
       setStatus(nextStatus)
       setLogs(nextLogs.lines)
     } catch (error) {
@@ -223,15 +224,18 @@ function TaskFlowTab({ tree }: { tree: SubagentNode[] }) {
 
   const flat = useMemo(() => {
     const out: SubagentNode[] = []
+
     const walk = (nodes: readonly SubagentNode[]) => {
       for (const n of nodes) {
         out.push(n)
         walk(n.children)
       }
     }
+
     walk(tree)
     // Sort by taskIndex so the task flow reads in execution order.
     out.sort((x, y) => x.taskIndex - y.taskIndex || x.startedAt - y.startedAt)
+
     return out
   }, [tree])
 

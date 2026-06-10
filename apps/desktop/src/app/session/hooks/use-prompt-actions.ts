@@ -543,6 +543,7 @@ export function usePromptActions({
               session_id: sessionId,
               title: arg
             })
+
             const finalTitle = (result?.title || arg).trim()
             const queued = result?.pending === true
 

@@ -9,8 +9,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger
 } from '@/components/ui/dropdown-menu'
-import { Eye, EyeOff, ExternalLink, Trash2 } from '@/lib/icons'
 import { triggerHaptic } from '@/lib/haptics'
+import { ExternalLink, Eye, EyeOff, Trash2 } from '@/lib/icons'
 import { cn } from '@/lib/utils'
 
 interface EnvVarActionsMenuProps
