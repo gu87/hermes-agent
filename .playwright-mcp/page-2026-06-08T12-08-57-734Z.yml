@@ -1,0 +1,353 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - generic:
+      - link "跳到主要内容" [ref=e2] [cursor=pointer]
+      - link "无障碍功能帮助" [ref=e3] [cursor=pointer]:
+        - /url: https://support.google.com/websearch/answer/181196?hl=zh-CN
+  - generic [ref=e8]:
+    - search [ref=e9]:
+      - generic [ref=e11]:
+        - link "Google 首页" [ref=e13] [cursor=pointer]:
+          - /url: https://www.google.com/webhp?hl=zh-CN&sa=X&ved=0ahUKEwiQnOv_zfeUAxXYHkQIHeiDC-IQPAgI
+          - img [ref=e14]
+        - generic [ref=e21]:
+          - generic [ref=e22]:
+            - combobox "搜索" [ref=e25]: 阿迪达斯 世界杯 2026 阿迪达斯 世界杯 2026
+            - generic [ref=e26]:
+              - button "清除" [ref=e28] [cursor=pointer]:
+                - img [ref=e30]
+              - generic [ref=e33]:
+                - button "按语音搜索" [ref=e34] [cursor=pointer]:
+                  - img [ref=e35]
+                - button "按图搜索" [ref=e37] [cursor=pointer]:
+                  - img [ref=e38]
+          - button "搜索" [ref=e40] [cursor=pointer]:
+            - img [ref=e43]
+    - generic [ref=e46]:
+      - button "Google 应用" [ref=e48] [cursor=pointer]:
+        - img [ref=e49]
+      - button "Google 账号： 谷如洋 (guruyang77@gmail.com)" [ref=e53] [cursor=pointer]:
+        - img [ref=e54]
+  - generic [ref=e56]:
+    - navigation [ref=e62]:
+      - generic [ref=e68]:
+        - list [ref=e69]:
+          - listitem [ref=e70]:
+            - link "AI 模式" [ref=e73] [cursor=pointer]:
+              - /url: /search?q=%E9%98%BF%E8%BF%AA%E8%BE%BE%E6%96%AF+%E4%B8%96%E7%95%8C%E6%9D%AF+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n6RaNDvfDRdjJaVBLi2hmdwIR4Olw:1780920536981&udm=50&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVtSi6kM5ZjADb03gRVWnenfhJMtO4x41VfNir3SjdVdjNySDoWBETGvn67PVJl1x3TQqXNOmHcpB2RN2TcscC87WXFoQqufGNS7CWx6cinBPdremGuWnqL7ZVCK7PcF38E7SQQhNrJL6yNZT4ci1Au0iLycJ9yALwMPU-FYogkW1yntXtivqGjzmOD4IFhW1SguyYug&aep=1&ntc=1&sa=X&ved=2ahUKEwiQnOv_zfeUAxXYHkQIHeiDC-IQ2J8OegQIDxAD
+              - generic [ref=e76]: AI 模式
+          - listitem [ref=e77]:
+            - link "全部" [disabled] [ref=e78]:
+              - generic [ref=e80]: 全部
+          - listitem [ref=e81]:
+            - link "购物" [ref=e82] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n6RaNDvfDRdjJaVBLi2hmdwIR4Olw:1780920536981&udm=28&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVtSi6kM5ZjADb03gRVWnenfhJMtO4x41VfNir3SjdVdjNySDoWBETGvn67PVJl1x3TQqXNOmHcpB2RN2TcscC87WXFoQqufGNS7CWx6cinBPdremGuWnqL7ZVCK7PcF38E7SQQhNrJL6yNZT4ci1Au0iLycJ9yALwMPU-FYogkW1yntXtivqGjzmOD4IFhW1SguyYug&q=%E9%98%BF%E8%BF%AA%E8%BE%BE%E6%96%AF+%E4%B8%96%E7%95%8C%E6%9D%AF+2026&ved=1t:220175&ictx=111
+              - generic [ref=e84]: 购物
+          - listitem [ref=e85]:
+            - link "图片" [ref=e86] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n6RaNDvfDRdjJaVBLi2hmdwIR4Olw:1780920536981&udm=2&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVtSi6kM5ZjADb03gRVWnenfhJMtO4x41VfNir3SjdVdjNySDoWBETGvn67PVJl1x3TQqXNOmHcpB2RN2TcscC87WXFoQqufGNS7CWx6cinBPdremGuWnqL7ZVCK7PcF38E7SQQhNrJL6yNZT4ci1Au0iLycJ9yALwMPU-FYogkW1yntXtivqGjzmOD4IFhW1SguyYug&q=%E9%98%BF%E8%BF%AA%E8%BE%BE%E6%96%AF+%E4%B8%96%E7%95%8C%E6%9D%AF+2026&sa=X&ved=2ahUKEwiQnOv_zfeUAxXYHkQIHeiDC-IQtKgLegQIFBAB
+              - generic [ref=e88]: 图片
+          - listitem [ref=e89]:
+            - link "短视频" [ref=e90] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n6RaNDvfDRdjJaVBLi2hmdwIR4Olw:1780920536981&udm=39&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVtSi6kM5ZjADb03gRVWnenfhJMtO4x41VfNir3SjdVdjNySDoWBETGvn67PVJl1x3TQqXNOmHcpB2RN2TcscC87WXFoQqufGNS7CWx6cinBPdremGuWnqL7ZVCK7PcF38E7SQQhNrJL6yNZT4ci1Au0iLycJ9yALwMPU-FYogkW1yntXtivqGjzmOD4IFhW1SguyYug&q=%E9%98%BF%E8%BF%AA%E8%BE%BE%E6%96%AF+%E4%B8%96%E7%95%8C%E6%9D%AF+2026&sa=X&ved=2ahUKEwiQnOv_zfeUAxXYHkQIHeiDC-IQs6gLegQIExAB
+              - generic [ref=e92]: 短视频
+          - listitem [ref=e93]:
+            - link "视频" [ref=e94] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n6RaNDvfDRdjJaVBLi2hmdwIR4Olw:1780920536981&udm=7&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVtSi6kM5ZjADb03gRVWnenfhJMtO4x41VfNir3SjdVdjNySDoWBETGvn67PVJl1x3TQqXNOmHcpB2RN2TcscC87WXFoQqufGNS7CWx6cinBPdremGuWnqL7ZVCK7PcF38E7SQQhNrJL6yNZT4ci1Au0iLycJ9yALwMPU-FYogkW1yntXtivqGjzmOD4IFhW1SguyYug&q=%E9%98%BF%E8%BF%AA%E8%BE%BE%E6%96%AF+%E4%B8%96%E7%95%8C%E6%9D%AF+2026&sa=X&ved=2ahUKEwiQnOv_zfeUAxXYHkQIHeiDC-IQtKgLegQIEhAB
+              - generic [ref=e96]: 视频
+          - listitem [ref=e97]:
+            - link "新闻" [ref=e98] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n6RaNDvfDRdjJaVBLi2hmdwIR4Olw:1780920536981&q=%E9%98%BF%E8%BF%AA%E8%BE%BE%E6%96%AF+%E4%B8%96%E7%95%8C%E6%9D%AF+2026&tbm=nws&source=lnms&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVtSi6kM5ZjADb03gRVWnenfhJMtO4x41VfNir3SjdVdjNySDoWBETGvn67PVJl1x3TQqXNOmHcpB2RN2TcscC87WXFoQqufGNS7CWx6cinBPdremGuWnqL7ZVCK7PcF38E7SQQhNrJL6yNZT4ci1Au0iLycJ9yALwMPU-FYogkW1yntXtivqGjzmOD4IFhW1SguyYug&sa=X&ved=2ahUKEwiQnOv_zfeUAxXYHkQIHeiDC-IQ0pQJegQIERAB
+              - generic [ref=e100]: 新闻
+          - listitem [ref=e101]:
+            - button "更多过滤条件" [ref=e102] [cursor=pointer]:
+              - generic "更多过滤条件" [ref=e103]:
+                - generic [ref=e104]:
+                  - generic [ref=e105]: 更多
+                  - img [ref=e107]
+        - button "工具" [ref=e110] [cursor=pointer]:
+          - generic [ref=e112]:
+            - generic [ref=e113]: 工具
+            - img [ref=e115]
+    - heading "搜索结果" [level=1] [ref=e117]
+    - main [ref=e123]:
+      - generic [ref=e127]:
+        - generic [ref=e130]:
+          - heading "网页搜索结果" [level=2] [ref=e131]
+          - generic [ref=e132]:
+            - generic [ref=e135]:
+              - link "世界杯2026|Nike多方联乘/adidas+美斯+Kith等联名 ... 香港01 https://global.hk01.com › 艺文格物 › 一物" [ref=e137] [cursor=pointer]:
+                - /url: https://global.hk01.com/%E4%B8%80%E7%89%A9/60356301/%E4%B8%96%E7%95%8C%E6%9D%AF2026-nike%E5%A4%9A%E6%96%B9%E8%81%94%E4%B9%98-adidas-%E7%BE%8E%E6%96%AF-kith%E7%AD%89%E8%81%94%E5%90%8D-blockcore%E5%BF%85%E5%A4%87
+                - heading "世界杯2026|Nike多方联乘/adidas+美斯+Kith等联名 ..." [level=3] [ref=e138]
+                - generic [ref=e143]:
+                  - generic [ref=e145]: 香港01
+                  - generic [ref=e147]: https://global.hk01.com › 艺文格物 › 一物
+              - button "关于这条结果的详细信息" [ref=e148] [cursor=pointer]:
+                - img [ref=e151]
+            - generic [ref=e154]:
+              - generic [ref=e155]:
+                - generic [ref=e156]: 48分钟前
+                - text: —
+              - generic [ref=e157]:
+                - text: 设计细节上，
+                - emphasis [ref=e158]: adidas
+                - text: 将阿根廷队徽与《Thrasher》标志性的烈火字体（Flame logo）重新解构，物料上采用提花布（Jacquard fabric）物料制成，摸上去有微凸的精致纹理，比一般平滑的 ...
+        - generic [ref=e162]:
+          - generic [ref=e165]:
+            - link "三重浪”让“中国智造”闪耀全球 中华网 https://hea.china.com › 20260608 › 202606081888813" [ref=e167] [cursor=pointer]:
+              - /url: https://hea.china.com/articles/20260608/202606081888813.html
+              - heading "三重浪”让“中国智造”闪耀全球" [level=3] [ref=e168]
+              - generic [ref=e173]:
+                - generic [ref=e175]: 中华网
+                - generic [ref=e177]: https://hea.china.com › 20260608 › 202606081888813
+            - button "关于这条结果的详细信息" [ref=e178] [cursor=pointer]:
+              - img [ref=e181]
+          - generic [ref=e184]:
+            - generic [ref=e185]:
+              - generic [ref=e186]: 1小时前
+              - text: —
+            - generic [ref=e187]:
+              - text: 2025年10月，
+              - emphasis [ref=e188]: 阿迪达斯
+              - text: 正式发布
+              - emphasis [ref=e189]: "2026"
+              - text: 年FIFA
+              - emphasis [ref=e190]: 世界杯
+              - text: 官方比赛用球——“三重浪”。球体采用全新四片式拼接结构与流动几何设计。
+              - emphasis [ref=e191]: 阿迪达斯
+              - text: 足球总经理Sam Handy称其为“工艺品”，其 ...
+        - generic [ref=e195]:
+          - generic [ref=e198]:
+            - link "阿迪达斯更新世界杯壁纸 新浪网 https://www.sina.cn › 文章页 › 龗馥" [ref=e200] [cursor=pointer]:
+              - /url: https://www.sina.cn/news/detail/5307579230061694.html
+              - heading "阿迪达斯更新世界杯壁纸" [level=3] [ref=e201]
+              - generic [ref=e206]:
+                - generic [ref=e208]: 新浪网
+                - generic [ref=e210]: https://www.sina.cn › 文章页 › 龗馥
+            - button "关于这条结果的详细信息" [ref=e211] [cursor=pointer]:
+              - img [ref=e214]
+          - generic [ref=e217]:
+            - generic [ref=e218]:
+              - generic [ref=e219]: 3小时前
+              - text: —
+            - generic [ref=e220]:
+              - text: "#"
+              - emphasis [ref=e221]: 阿迪达斯
+              - text: 助人类马拉松首次破二#
+              - emphasis [ref=e222]: "2026"
+              - text: 伦敦马拉松见证了体育史上最伟大的 ...
+              - emphasis [ref=e223]: "2026"
+              - text: 年
+              - emphasis [ref=e224]: 世界杯
+              - text: 开幕，只剩一周时间。史上比赛场次最多的
+              - emphasis [ref=e225]: 世界杯
+              - text: 小组赛，这些场次，您 ...
+        - generic [ref=e229]:
+          - generic [ref=e232]:
+            - link "世界杯历代用球盘点：从飞火流星到三重浪，哪颗是你的至爱 雷速 https://www.leisu.com › news › view-641313" [ref=e234] [cursor=pointer]:
+              - /url: https://www.leisu.com/news/view-641313
+              - heading "世界杯历代用球盘点：从飞火流星到三重浪，哪颗是你的至爱" [level=3] [ref=e235]
+              - generic [ref=e240]:
+                - generic [ref=e242]: 雷速
+                - generic [ref=e244]: https://www.leisu.com › news › view-641313
+            - button "关于这条结果的详细信息" [ref=e245] [cursor=pointer]:
+              - img [ref=e248]
+          - generic [ref=e251]:
+            - generic [ref=e252]:
+              - generic [ref=e253]: 3小时前
+              - text: —
+            - generic [ref=e254]:
+              - text: 2025年10月2日，
+              - emphasis [ref=e255]: 阿迪达斯
+              - text: TRIONDA正式面世，成为
+              - emphasis [ref=e256]: "2026"
+              - text: 美加墨
+              - emphasis [ref=e257]: 世界杯
+              - text: 的官方指定用球。 “TRIONDA”在西班牙语中可翻译为“三股浪潮”。这款足球采用红、绿、蓝三色交织的动感 ...
+        - generic [ref=e261]:
+          - generic [ref=e264]:
+            - link "adidas x DEICHMANN联名款来了！世界杯周边白菜价 北美省钱快报 https://www.dealmoon.com › post" [ref=e266] [cursor=pointer]:
+              - /url: https://www.dealmoon.com/post/3226554
+              - heading "adidas x DEICHMANN联名款来了！世界杯周边白菜价" [level=3] [ref=e267]
+              - generic [ref=e272]:
+                - generic [ref=e274]: 北美省钱快报
+                - generic [ref=e276]: https://www.dealmoon.com › post
+            - button "关于这条结果的详细信息" [ref=e277] [cursor=pointer]:
+              - img [ref=e280]
+          - generic [ref=e283]:
+            - generic [ref=e284]: 11小时前 —
+            - generic [ref=e285]:
+              - text: 姐妹们，
+              - emphasis [ref=e286]: 世界杯
+              - text: 还没开踢，联名款已经卷起来了！⚽ 欧洲最大的鞋类零售商DEICHMANN（戴希曼）跟
+              - emphasis [ref=e287]: adidas
+              - text: 搞了个24款的
+              - emphasis [ref=e288]: 世界杯
+              - text: 胶囊系列，5月25日已经在部分门店和网店上架了，比开赛 ...
+        - generic [ref=e292]:
+          - generic [ref=e295]:
+            - link "fathom | Go back in time and explore the world of football at ... Instagram · fathom.magazine 被赞过 1 次" [ref=e297] [cursor=pointer]:
+              - /url: https://www.instagram.com/reel/DZUr0xJJm19/
+              - heading "fathom | Go back in time and explore the world of football at ..." [level=3] [ref=e298]
+              - generic [ref=e303]:
+                - generic [ref=e305]: Instagram · fathom.magazine
+                - generic [ref=e307]: 被赞过 1 次
+            - button "关于这条结果的详细信息" [ref=e308] [cursor=pointer]:
+              - img [ref=e311]
+          - generic [ref=e315]:
+            - emphasis [ref=e316]: 在2026年FIFA
+            - text: 世界杯中，共有48队参与，而Adidas则设计了24个队伍的球衣，今次在快闪活动则以大马人熟悉的mamak档，还有报摊形式展示品牌为今届世界杯5个国家队所设计的球衣， ...
+        - generic [ref=e320]:
+          - generic [ref=e323]:
+            - link "2026世界盃｜史上最大規模FIFA 足球賽，眾多傳奇球星最後 ... GQ Taiwan https://www.gq.com.tw › article › all-y..." [ref=e325] [cursor=pointer]:
+              - /url: https://www.gq.com.tw/article/all-you-need-to-know-about-fifa-world-cup-2026
+              - heading "2026世界盃｜史上最大規模FIFA 足球賽，眾多傳奇球星最後 ..." [level=3] [ref=e326]
+              - generic [ref=e331]:
+                - generic [ref=e333]: GQ Taiwan
+                - generic [ref=e335]: https://www.gq.com.tw › article › all-y...
+            - generic [ref=e336]:
+              - generic [ref=e337]: ·
+              - link "转为简体网页" [ref=e338] [cursor=pointer]:
+                - /url: https://www.gq.com.tw/article/all-you-need-to-know-about-fifa-world-cup-2026
+            - button "关于这条结果的详细信息" [ref=e339] [cursor=pointer]:
+              - img [ref=e342]
+          - generic [ref=e345]:
+            - generic [ref=e346]:
+              - generic [ref=e347]: 2小时前
+              - text: —
+            - generic [ref=e348]:
+              - text: 【
+              - emphasis [ref=e349]: "2026"
+              - text: 世界盃】
+              - emphasis [ref=e350]: Adidas
+              - text: 世界盃形象曝光：甜茶、Bad Bunny、梅西同框登場，超 ...
+              - emphasis [ref=e351]: "2026"
+              - text: FIFA
+              - emphasis [ref=e352]: 世界杯
+              - text: 足球賽即將開踢！想穿最帥的球衣為支持球隊加油，就照著這份購物 ...
+        - generic [ref=e356]:
+          - generic [ref=e359]:
+            - link "【#利記傳奇】adidas world cup... Threads https://www.threads.com › post › 利記..." [ref=e361] [cursor=pointer]:
+              - /url: https://www.threads.com/@scousers.weare3/post/DZUqBvAE60h/%E5%88%A9%E8%A8%98%E5%82%B3%E5%A5%87adidas-world-cup
+              - heading "【#利記傳奇】adidas world cup..." [level=3] [ref=e362]
+              - generic [ref=e367]:
+                - generic [ref=e369]: Threads
+                - generic [ref=e371]: https://www.threads.com › post › 利記...
+            - generic [ref=e372]:
+              - generic [ref=e373]: ·
+              - link "转为简体网页" [ref=e374] [cursor=pointer]:
+                - /url: https://www.threads.com/@scousers.weare3/post/DZUqBvAE60h/%E5%88%A9%E8%A8%98%E5%82%B3%E5%A5%87adidas-world-cup
+            - button "关于这条结果的详细信息" [ref=e375] [cursor=pointer]:
+              - img [ref=e378]
+          - generic [ref=e381]:
+            - generic [ref=e382]:
+              - generic [ref=e383]: 57分钟前
+              - text: —
+            - generic [ref=e384]:
+              - emphasis [ref=e385]: 世界杯
+              - text: 倒數中，大家睇好邊隊奪冠呢？
+        - generic [ref=e389]:
+          - generic [ref=e392]:
+            - link "2026美加墨世界杯营销合规指南：企业如何借势不“侵权”？ 中伦律师事务所 https://www.zhonglun.com › research › articles" [ref=e394] [cursor=pointer]:
+              - /url: https://www.zhonglun.com/research/articles/56249.html
+              - heading "2026美加墨世界杯营销合规指南：企业如何借势不“侵权”？" [level=3] [ref=e395]
+              - generic [ref=e400]:
+                - generic [ref=e402]: 中伦律师事务所
+                - generic [ref=e404]: https://www.zhonglun.com › research › articles
+            - button "关于这条结果的详细信息" [ref=e405] [cursor=pointer]:
+              - img [ref=e408]
+          - generic [ref=e411]:
+            - generic [ref=e412]:
+              - generic [ref=e413]: 2小时前
+              - text: —
+            - generic [ref=e414]:
+              - emphasis [ref=e415]: "2026"
+              - text: 年国际足联
+              - emphasis [ref=e416]: 世界杯
+              - text: 将于
+              - emphasis [ref=e417]: "2026"
+              - text: 年6月11日至
+              - emphasis [ref=e418]: "2026"
+              - text: 年7月19日在美国、加拿大及墨西哥三国举行。作为四年一届的全球足球盛会，本届
+              - emphasis [ref=e419]: 世界杯
+              - text: 首次扩容至48支参赛球队，必将进一步 ...
+        - generic [ref=e423]:
+          - generic [ref=e426]:
+            - link "阿迪达斯发布梅西广告 新浪网 https://www.sina.cn › 文章页 › 朵咩多咩" [ref=e428] [cursor=pointer]:
+              - /url: https://www.sina.cn/news/detail/5307594698656930.html
+              - heading "阿迪达斯发布梅西广告" [level=3] [ref=e429]
+              - generic [ref=e434]:
+                - generic [ref=e436]: 新浪网
+                - generic [ref=e438]: https://www.sina.cn › 文章页 › 朵咩多咩
+            - button "关于这条结果的详细信息" [ref=e439] [cursor=pointer]:
+              - img [ref=e442]
+          - generic [ref=e445]:
+            - generic [ref=e446]:
+              - generic [ref=e447]: 2小时前
+              - text: —
+            - generic [ref=e448]:
+              - emphasis [ref=e449]: 阿迪达斯
+              - text: 更新ins，展示PRED、F50和梅西所在的队， ... 现在这年纪了也还在赛场猛冲，
+              - emphasis [ref=e450]: 2026世界杯
+              - text: 最后一舞，就等着看他精彩的表现啦⚽️ ...
+      - navigation [ref=e453]:
+        - heading "网页导航" [level=1] [ref=e454]
+        - text: "1"
+        - link "Page 2" [ref=e457] [cursor=pointer]:
+          - /url: /search?q=%E9%98%BF%E8%BF%AA%E8%BE%BE%E6%96%AF+%E4%B8%96%E7%95%8C%E6%9D%AF+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n6RaNDvfDRdjJaVBLi2hmdwIR4Olw:1780920536981&ei=2LAmapDQO9i9kPIP6IeukA4&start=10&sa=N&sstk=AU9db-CMnsHPw7Jlk3wvTzkm6t4rMk8YRyt4aBAY46unrgVK-0SfqgpkFePBmLogscsk94EHgbUCk6kBLqdAFJ0Ok-GvI78u9Qowcw&ved=2ahUKEwiQnOv_zfeUAxXYHkQIHeiDC-IQ8tMDegQIIhAE
+          - text: "2"
+        - link "Page 3" [ref=e459] [cursor=pointer]:
+          - /url: /search?q=%E9%98%BF%E8%BF%AA%E8%BE%BE%E6%96%AF+%E4%B8%96%E7%95%8C%E6%9D%AF+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n6RaNDvfDRdjJaVBLi2hmdwIR4Olw:1780920536981&ei=2LAmapDQO9i9kPIP6IeukA4&start=20&sa=N&sstk=AU9db-CMnsHPw7Jlk3wvTzkm6t4rMk8YRyt4aBAY46unrgVK-0SfqgpkFePBmLogscsk94EHgbUCk6kBLqdAFJ0Ok-GvI78u9Qowcw&ved=2ahUKEwiQnOv_zfeUAxXYHkQIHeiDC-IQ8tMDegQIIhAG
+          - text: "3"
+        - link "Page 4" [ref=e461] [cursor=pointer]:
+          - /url: /search?q=%E9%98%BF%E8%BF%AA%E8%BE%BE%E6%96%AF+%E4%B8%96%E7%95%8C%E6%9D%AF+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n6RaNDvfDRdjJaVBLi2hmdwIR4Olw:1780920536981&ei=2LAmapDQO9i9kPIP6IeukA4&start=30&sa=N&sstk=AU9db-CMnsHPw7Jlk3wvTzkm6t4rMk8YRyt4aBAY46unrgVK-0SfqgpkFePBmLogscsk94EHgbUCk6kBLqdAFJ0Ok-GvI78u9Qowcw&ved=2ahUKEwiQnOv_zfeUAxXYHkQIHeiDC-IQ8tMDegQIIhAI
+          - text: "4"
+        - link "Page 5" [ref=e463] [cursor=pointer]:
+          - /url: /search?q=%E9%98%BF%E8%BF%AA%E8%BE%BE%E6%96%AF+%E4%B8%96%E7%95%8C%E6%9D%AF+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n6RaNDvfDRdjJaVBLi2hmdwIR4Olw:1780920536981&ei=2LAmapDQO9i9kPIP6IeukA4&start=40&sa=N&sstk=AU9db-CMnsHPw7Jlk3wvTzkm6t4rMk8YRyt4aBAY46unrgVK-0SfqgpkFePBmLogscsk94EHgbUCk6kBLqdAFJ0Ok-GvI78u9Qowcw&ved=2ahUKEwiQnOv_zfeUAxXYHkQIHeiDC-IQ8tMDegQIIhAK
+          - text: "5"
+        - link "Page 6" [ref=e465] [cursor=pointer]:
+          - /url: /search?q=%E9%98%BF%E8%BF%AA%E8%BE%BE%E6%96%AF+%E4%B8%96%E7%95%8C%E6%9D%AF+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n6RaNDvfDRdjJaVBLi2hmdwIR4Olw:1780920536981&ei=2LAmapDQO9i9kPIP6IeukA4&start=50&sa=N&sstk=AU9db-CMnsHPw7Jlk3wvTzkm6t4rMk8YRyt4aBAY46unrgVK-0SfqgpkFePBmLogscsk94EHgbUCk6kBLqdAFJ0Ok-GvI78u9Qowcw&ved=2ahUKEwiQnOv_zfeUAxXYHkQIHeiDC-IQ8tMDegQIIhAM
+          - text: "6"
+        - link "Page 7" [ref=e467] [cursor=pointer]:
+          - /url: /search?q=%E9%98%BF%E8%BF%AA%E8%BE%BE%E6%96%AF+%E4%B8%96%E7%95%8C%E6%9D%AF+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n6RaNDvfDRdjJaVBLi2hmdwIR4Olw:1780920536981&ei=2LAmapDQO9i9kPIP6IeukA4&start=60&sa=N&sstk=AU9db-CMnsHPw7Jlk3wvTzkm6t4rMk8YRyt4aBAY46unrgVK-0SfqgpkFePBmLogscsk94EHgbUCk6kBLqdAFJ0Ok-GvI78u9Qowcw&ved=2ahUKEwiQnOv_zfeUAxXYHkQIHeiDC-IQ8tMDegQIIhAO
+          - text: "7"
+        - link "Page 8" [ref=e469] [cursor=pointer]:
+          - /url: /search?q=%E9%98%BF%E8%BF%AA%E8%BE%BE%E6%96%AF+%E4%B8%96%E7%95%8C%E6%9D%AF+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n6RaNDvfDRdjJaVBLi2hmdwIR4Olw:1780920536981&ei=2LAmapDQO9i9kPIP6IeukA4&start=70&sa=N&sstk=AU9db-CMnsHPw7Jlk3wvTzkm6t4rMk8YRyt4aBAY46unrgVK-0SfqgpkFePBmLogscsk94EHgbUCk6kBLqdAFJ0Ok-GvI78u9Qowcw&ved=2ahUKEwiQnOv_zfeUAxXYHkQIHeiDC-IQ8tMDegQIIhAQ
+          - text: "8"
+        - link "Page 9" [ref=e471] [cursor=pointer]:
+          - /url: /search?q=%E9%98%BF%E8%BF%AA%E8%BE%BE%E6%96%AF+%E4%B8%96%E7%95%8C%E6%9D%AF+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n6RaNDvfDRdjJaVBLi2hmdwIR4Olw:1780920536981&ei=2LAmapDQO9i9kPIP6IeukA4&start=80&sa=N&sstk=AU9db-CMnsHPw7Jlk3wvTzkm6t4rMk8YRyt4aBAY46unrgVK-0SfqgpkFePBmLogscsk94EHgbUCk6kBLqdAFJ0Ok-GvI78u9Qowcw&ved=2ahUKEwiQnOv_zfeUAxXYHkQIHeiDC-IQ8tMDegQIIhAS
+          - text: "9"
+        - link "Page 10" [ref=e473] [cursor=pointer]:
+          - /url: /search?q=%E9%98%BF%E8%BF%AA%E8%BE%BE%E6%96%AF+%E4%B8%96%E7%95%8C%E6%9D%AF+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n6RaNDvfDRdjJaVBLi2hmdwIR4Olw:1780920536981&ei=2LAmapDQO9i9kPIP6IeukA4&start=90&sa=N&sstk=AU9db-CMnsHPw7Jlk3wvTzkm6t4rMk8YRyt4aBAY46unrgVK-0SfqgpkFePBmLogscsk94EHgbUCk6kBLqdAFJ0Ok-GvI78u9Qowcw&ved=2ahUKEwiQnOv_zfeUAxXYHkQIHeiDC-IQ8tMDegQIIhAU
+          - text: "10"
+        - heading "下一页" [level=2] [ref=e475]:
+          - link "下一页" [ref=e476] [cursor=pointer]:
+            - /url: /search?q=%E9%98%BF%E8%BF%AA%E8%BE%BE%E6%96%AF+%E4%B8%96%E7%95%8C%E6%9D%AF+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n6RaNDvfDRdjJaVBLi2hmdwIR4Olw:1780920536981&ei=2LAmapDQO9i9kPIP6IeukA4&start=10&sa=N&sstk=AU9db-CMnsHPw7Jlk3wvTzkm6t4rMk8YRyt4aBAY46unrgVK-0SfqgpkFePBmLogscsk94EHgbUCk6kBLqdAFJ0Ok-GvI78u9Qowcw&ved=2ahUKEwiQnOv_zfeUAxXYHkQIHeiDC-IQ8NMDegQIIhAW
+            - generic [ref=e478]: 下一页
+      - navigation
+    - contentinfo [ref=e479]:
+      - heading "页脚链接" [level=1] [ref=e480]
+      - generic [ref=e484]:
+        - generic [ref=e487]:
+          - generic [ref=e488]: 是个性化搜索结果
+          - generic [ref=e489]: "-"
+          - link "尝试不使用个性化功能" [ref=e491] [cursor=pointer]:
+            - /url: https://www.google.com/search?q=%E9%98%BF%E8%BF%AA%E8%BE%BE%E6%96%AF+%E4%B8%96%E7%95%8C%E6%9D%AF+2026&tbs=qdr:d&hl=zh-CN&peek_pws=0&sxsrf=ANbL-n6RaNDvfDRdjJaVBLi2hmdwIR4Olw:1780920536981
+            - generic [ref=e492]: 尝试不使用个性化功能
+        - generic [ref=e496]:
+          - button "加利福尼亚 - 根据您的活动记录" [ref=e498] [cursor=pointer]:
+            - generic [ref=e499]: 加利福尼亚
+            - generic [ref=e501]:
+              - text: "-"
+              - generic [ref=e502]: 根据您的活动记录
+          - text: "-"
+          - button "更新位置信息" [ref=e504] [cursor=pointer]: 更新位置信息
+        - generic [ref=e507]:
+          - link "帮助" [ref=e508] [cursor=pointer]:
+            - /url: https://support.google.com/websearch/?p=ws_results_help&hl=zh-CN&fg=1
+          - link "发送反馈" [ref=e509] [cursor=pointer]:
+            - /url: "#"
+          - link "隐私权" [ref=e510] [cursor=pointer]:
+            - /url: https://policies.google.com/privacy?hl=zh-CN&fg=1
+          - link "条款" [ref=e511] [cursor=pointer]:
+            - /url: https://policies.google.com/terms?hl=zh-CN&fg=1

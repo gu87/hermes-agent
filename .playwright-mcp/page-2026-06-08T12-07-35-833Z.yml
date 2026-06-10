@@ -1,0 +1,365 @@
+- generic [ref=e1]:
+  - banner [ref=e2]:
+    - generic [ref=e3]:
+      - link "返回到必应搜索" [ref=e4] [cursor=pointer]:
+        - /url: /?FORM=Z9FD1
+        - heading "返回到必应搜索" [level=1] [ref=e5]
+      - search [ref=e6]:
+        - searchbox "在此处输入你的搜索 — 输入时会显示搜索建议" [ref=e7]: 蒙牛 世界杯 营销 2026
+        - button "语音搜索" [ref=e505] [cursor=pointer]
+        - button "使用图像搜索" [ref=e13] [cursor=pointer]
+        - button "搜索" [ref=e17] [cursor=pointer]
+    - complementary "帐户奖励和偏好设置" [ref=e18]:
+      - button "Microsoft Rewards" [ref=e19] [cursor=pointer]:
+        - generic [ref=e506]:
+          - generic [ref=e507]: "30"
+          - img [ref=e509]
+      - link "登录" [ref=e36] [cursor=pointer]:
+        - /url: javascript:void(0)
+        - button "登录" [ref=e39]
+      - button "设置和快速链接" [ref=e40] [cursor=pointer]
+    - navigation "主菜单" [ref=e41]:
+      - list [ref=e42]:
+        - listitem [ref=e43]:
+          - link "全部" [ref=e44] [cursor=pointer]:
+            - /url: /search?q=%e8%92%99%e7%89%9b+%e4%b8%96%e7%95%8c%e6%9d%af+%e8%90%a5%e9%94%80+2026&FORM=HDRSC1
+        - listitem [ref=e45]:
+          - link "搜索" [ref=e46] [cursor=pointer]:
+            - /url: /copilotsearch?q=%e8%92%99%e7%89%9b+%e4%b8%96%e7%95%8c%e6%9d%af+%e8%90%a5%e9%94%80+2026&FORM=CSSCOP
+            - img [ref=e47]
+            - text: 搜索
+        - listitem [ref=e49]:
+          - link "图片" [ref=e50] [cursor=pointer]:
+            - /url: /images/search?q=%e8%92%99%e7%89%9b+%e4%b8%96%e7%95%8c%e6%9d%af+%e8%90%a5%e9%94%80+2026&FORM=HDRSC3
+        - listitem [ref=e51]:
+          - link "视频" [ref=e52] [cursor=pointer]:
+            - /url: /videos/search?q=%e8%92%99%e7%89%9b+%e4%b8%96%e7%95%8c%e6%9d%af+%e8%90%a5%e9%94%80+2026&FORM=HDRSC4
+        - listitem [ref=e53]:
+          - link "地图" [ref=e54] [cursor=pointer]:
+            - /url: /maps?q=%e8%92%99%e7%89%9b+%e4%b8%96%e7%95%8c%e6%9d%af+%e8%90%a5%e9%94%80+2026&FORM=HDRSC6
+        - listitem [ref=e55]:
+          - link "资讯" [ref=e56] [cursor=pointer]:
+            - /url: /news/search?q=Top+stories&FORM=HDRSC7
+        - listitem [ref=e57]:
+          - link "Copilot" [ref=e58] [cursor=pointer]:
+            - /url: /chat?prompt=%e8%92%99%e7%89%9b+%e4%b8%96%e7%95%8c%e6%9d%af+%e8%90%a5%e9%94%80+2026&sendquery=1&FORM=SCCODX
+        - listitem [ref=e59]:
+          - button "更多" [ref=e60] [cursor=pointer]:
+            - img [ref=e62]
+            - text: 更多
+  - generic [ref=e64]:
+    - tabpanel [ref=e65]:
+      - navigation "类别栏" [ref=e66]:
+        - tablist [ref=e67]:
+          - tab "搜索有关 Top stories 的新闻" [ref=e69] [cursor=pointer]:
+            - generic "Top stories" [ref=e70]:
+              - img [ref=e71]
+            - generic [ref=e73]: Top stories
+          - tab "搜索有关 Sports 的新闻" [ref=e75] [cursor=pointer]:
+            - generic "Sports" [ref=e76]:
+              - img [ref=e77]
+            - generic [ref=e79]: Sports
+          - tab "搜索有关 U.S. 的新闻" [ref=e81] [cursor=pointer]:
+            - generic "U.S." [ref=e82]:
+              - img [ref=e83]
+            - generic [ref=e85]: U.S.
+          - tab "搜索有关 Local 的新闻" [ref=e87] [cursor=pointer]:
+            - generic "Local" [ref=e88]:
+              - img [ref=e89]
+            - generic [ref=e91]: Local
+          - tab "搜索有关 World 的新闻" [ref=e93] [cursor=pointer]:
+            - generic "World" [ref=e94]:
+              - img [ref=e95]
+            - generic [ref=e97]: World
+          - tab "搜索有关 Science 的新闻" [ref=e99] [cursor=pointer]:
+            - generic "Science" [ref=e100]:
+              - img [ref=e101]
+            - generic [ref=e103]: Science
+          - tab "搜索有关 Technology 的新闻" [ref=e105] [cursor=pointer]:
+            - generic "Technology" [ref=e106]:
+              - img [ref=e107]
+            - generic [ref=e111]: Technology
+          - tab "搜索有关 Entertainment 的新闻" [ref=e113] [cursor=pointer]:
+            - generic "Entertainment" [ref=e114]:
+              - img [ref=e115]
+            - generic [ref=e117]: Entertainment
+          - tab "搜索有关 Business 的新闻" [ref=e119] [cursor=pointer]:
+            - generic "Business" [ref=e120]:
+              - img [ref=e121]
+            - generic [ref=e123]: Business
+          - tab "More" [ref=e125] [cursor=pointer]:
+            - img [ref=e127]
+    - generic [ref=e132]:
+      - generic [ref=e133]:
+        - generic [ref=e135]:
+          - list:
+            - listitem [ref=e136] [cursor=pointer]:
+              - button "时间不限" [expanded] [active] [ref=e137]: 时间不限
+              - list [ref=e534]:
+                - listitem [ref=e535]:
+                  - link "过去 1 小时" [ref=e536]:
+                    - /url: /news/search?q=%e8%92%99%e7%89%9b+%e4%b8%96%e7%95%8c%e6%9d%af+%e8%90%a5%e9%94%80+2026&qft=interval%3d%224%22&form=PTFTNR
+                - listitem [ref=e537]:
+                  - link "过去 24 小时" [ref=e538]:
+                    - /url: /news/search?q=%e8%92%99%e7%89%9b+%e4%b8%96%e7%95%8c%e6%9d%af+%e8%90%a5%e9%94%80+2026&qft=interval%3d%227%22&form=PTFTNR
+                - listitem [ref=e539]:
+                  - link "过去 7 天" [ref=e540]:
+                    - /url: /news/search?q=%e8%92%99%e7%89%9b+%e4%b8%96%e7%95%8c%e6%9d%af+%e8%90%a5%e9%94%80+2026&qft=interval%3d%228%22&form=PTFTNR
+                - listitem [ref=e541]:
+                  - link "过去 30 天" [ref=e542]:
+                    - /url: /news/search?q=%e8%92%99%e7%89%9b+%e4%b8%96%e7%95%8c%e6%9d%af+%e8%90%a5%e9%94%80+2026&qft=interval%3d%229%22&form=PTFTNR
+            - listitem [ref=e139] [cursor=pointer]:
+              - button "最佳匹配" [ref=e140]: 最佳匹配
+        - main [ref=e143]:
+          - main "资讯" [ref=e144]:
+            - generic "从“天生要强”的蒙牛，看体育营销对品牌的持续增益" [ref=e145]:
+              - generic [ref=e148] [cursor=pointer]:
+                - generic [ref=e149]:
+                  - generic [ref=e150]:
+                    - link "搜索 新浪网 中的新闻" [ref=e151]:
+                      - /url: /news/search?q=site%3afinance.sina.com.cn&FORM=NWBCLM
+                      - text: 新浪网
+                    - generic [ref=e153]: ·
+                    - generic "4/8/2026" [ref=e154]:
+                      - generic [ref=e155]: 2 个月
+                  - link "从“天生要强”的蒙牛，看体育营销对品牌的持续增益" [ref=e156]:
+                    - /url: https://finance.sina.com.cn/wm/2026-04-08/doc-inhtuixz9599231.shtml
+                    - heading "从“天生要强”的蒙牛，看体育营销对品牌的持续增益" [level=2] [ref=e157]
+                - generic "“我不是天生强大，我只是天生要强”，这句广告语最初源于2018年俄罗斯世界杯，由蒙牛携手其代言人梅西推出。随后，它迅速超越了商业宣传范畴，成为一句广为人知的励志格言。 此后多年，蒙牛将“天生要强”的品牌精神深度融入体育营销，逐步构建起 ..." [ref=e158]
+            - generic "从“百城马拉松”到“百年世界杯”：蒙牛深绑体育背后的价值逻辑" [ref=e159]:
+              - generic [ref=e162] [cursor=pointer]:
+                - generic [ref=e163]:
+                  - generic [ref=e164]:
+                    - link "搜索 人民网 中的新闻" [ref=e165]:
+                      - /url: /news/search?q=site%3aent.people.com.cn&FORM=NWBCLM
+                      - text: 人民网
+                    - generic [ref=e167]: ·
+                    - generic "4/17/2026" [ref=e168]:
+                      - generic [ref=e169]: 1 个月
+                  - link "从“百城马拉松”到“百年世界杯”：蒙牛深绑体育背后的价值逻辑" [ref=e170]:
+                    - /url: https://ent.people.com.cn/n1/2026/0417/c1012-40703465.html
+                    - heading "从“百城马拉松”到“百年世界杯”：蒙牛深绑体育背后的价值逻辑" [level=2] [ref=e171]
+                - generic "当一家乳业巨头决定将“体育”写入自己的长期品牌战略时，它押注的绝不仅仅是品牌曝光。 4月12日，蒙牛赞助的北京半程马拉松正式鸣枪开跑，2.2万名跑者迎着春光冲出起点。同一天，蒙牛作为FIFA世界杯全球官方赞助商，发起“和蒙牛一起踢球吧”倡议 ..." [ref=e172]
+      - complementary "必应热门资讯" [ref=e173]:
+        - heading "今日热点" [level=2] [ref=e175]
+        - generic [ref=e178]:
+          - button [ref=e179]
+          - button "单击以向右滚动" [ref=e521] [cursor=pointer]
+          - list "请使用箭头键进行导航" [ref=e188]:
+            - listitem [ref=e189]:
+              - link "搜索有关 ISR strikes Iran after attack 的新闻" [ref=e191] [cursor=pointer]:
+                - /url: /news/topicview?q=Israel+hits+back+at+Iran+after+missile+attack&filters=tnTID%3d%22PE_5827F3F1-6807-4640-98C7-484A7C9FB1C1%22+tnVersion%3d%226715024%22+Segment%3d%22popularnow.carousel%22+tnCol%3d%220%22+tnOrder%3d%22f6d1bb41-5934-43e3-91d0-14a187be7ab9%22&nvaug=%5bNewsVertical+topicviewtype%3d"2"%5d&form=NWBTTC
+                - img [ref=e193]
+                - img [ref=e196]
+                - generic [ref=e197]: ISR strikes Iran after attack
+            - listitem [ref=e198]:
+              - link "搜索有关 US student found dead in Japan 的新闻" [ref=e200] [cursor=pointer]:
+                - /url: /news/topicview?q=Missing+Auburn+University+student+found+dead+in+Japan&filters=tnTID%3d%22PE_B3079F2D-057B-40FF-820D-C88393C7CB7C%22+tnVersion%3d%226715024%22+Segment%3d%22popularnow.carousel%22+tnCol%3d%221%22+tnOrder%3d%22f6d1bb41-5934-43e3-91d0-14a187be7ab9%22&nvaug=%5bNewsVertical+topicviewtype%3d"2"%5d&form=NWBTTC
+                - img [ref=e202]
+                - img [ref=e205]
+                - generic [ref=e206]: US student found dead in Japan
+            - listitem [ref=e207]:
+              - link "搜索有关 Kennedy Center suit tossed 的新闻" [ref=e209] [cursor=pointer]:
+                - /url: /news/topicview?q=Kennedy+Center+lawsuit+tossed&filters=tnTID%3d%22PE_F39FD30A-4ACD-4011-B636-10051A9E6A4B%22+tnVersion%3d%226715024%22+Segment%3d%22popularnow.carousel%22+tnCol%3d%222%22+tnOrder%3d%22f6d1bb41-5934-43e3-91d0-14a187be7ab9%22&nvaug=%5bNewsVertical+topicviewtype%3d"2"%5d&form=NWBTTC
+                - img [ref=e211]
+                - img [ref=e214]
+                - generic [ref=e215]: Kennedy Center suit tossed
+            - listitem [ref=e216]:
+              - link "搜索有关 'Scary Movie' tops box office 的新闻" [ref=e218] [cursor=pointer]:
+                - /url: /news/topicview?q=%27Scary+Movie%27+cruises+to+No.+1+at+box+office&filters=tnTID%3d%22PE_D1E9D7CD-9CE3-40A3-BD59-EA4BAA170374%22+tnVersion%3d%226715024%22+Segment%3d%22popularnow.carousel%22+tnCol%3d%223%22+tnOrder%3d%22f6d1bb41-5934-43e3-91d0-14a187be7ab9%22&nvaug=%5bNewsVertical+topicviewtype%3d"2"%5d&form=NWBTTC
+                - img [ref=e220]
+                - img [ref=e223]
+                - generic [ref=e224]: "'Scary Movie' tops box office"
+            - listitem [ref=e225]:
+              - link "搜索有关 Trump on Iran peace deal 的新闻" [ref=e227] [cursor=pointer]:
+                - /url: /news/topicview?q=Trump+on+Iran+peace+deal&filters=tnTID%3d%22PE_5428F0F0-B1FC-40CE-9BA9-C4996D1FE943%22+tnVersion%3d%226715024%22+Segment%3d%22popularnow.carousel%22+tnCol%3d%224%22+tnOrder%3d%22f6d1bb41-5934-43e3-91d0-14a187be7ab9%22&nvaug=%5bNewsVertical+topicviewtype%3d"2"%5d&form=NWBTTC
+                - img [ref=e229]
+                - img [ref=e232]
+                - generic [ref=e233]: Trump on Iran peace deal
+            - listitem [ref=e234]:
+              - link "搜索有关 Texas man sneaks onto flight 的新闻" [ref=e236] [cursor=pointer]:
+                - /url: /news/topicview?q=Texas+man+sneaks+on+United+flight+in+California&filters=tnTID%3d%22PE_3F4FEC36-1761-4D3D-9915-3149BE298509%22+tnVersion%3d%226715024%22+Segment%3d%22popularnow.carousel%22+tnCol%3d%225%22+tnOrder%3d%22f6d1bb41-5934-43e3-91d0-14a187be7ab9%22&nvaug=%5bNewsVertical+topicviewtype%3d"2"%5d&form=NWBTTC
+                - img [ref=e238]
+                - img [ref=e241]
+                - generic [ref=e242]: Texas man sneaks onto flight
+            - listitem [ref=e243]:
+              - link "搜索有关 Wins Memorial Tournament 的新闻" [ref=e245] [cursor=pointer]:
+                - /url: /news/topicview?q=J.T.+Poston+wins+Memorial+Tournament&filters=tnTID%3d%22PE_5ADDC908-4CFE-4876-AF0B-BDD5DF80F3D3%22+tnVersion%3d%226715024%22+Segment%3d%22popularnow.carousel%22+tnCol%3d%226%22+tnOrder%3d%22f6d1bb41-5934-43e3-91d0-14a187be7ab9%22&nvaug=%5bNewsVertical+topicviewtype%3d"2"%5d&form=NWBTTC
+                - img [ref=e247]
+                - img [ref=e250]
+                - generic [ref=e251]: Wins Memorial Tournament
+            - listitem [ref=e252]:
+              - link "搜索有关 2026 Tony Awards winners 的新闻" [ref=e254] [cursor=pointer]:
+                - /url: /news/topicview?q=2026+Tony+Awards%3a+Winners+list&filters=tnTID%3d%22PE_9FCA6BEB-01CF-4DFF-920A-2DA1CC48AEA9%22+tnVersion%3d%226715024%22+Segment%3d%22popularnow.carousel%22+tnCol%3d%227%22+tnOrder%3d%22f6d1bb41-5934-43e3-91d0-14a187be7ab9%22&nvaug=%5bNewsVertical+topicviewtype%3d"2"%5d&form=NWBTTC
+                - img [ref=e256]
+                - img [ref=e259]
+                - generic [ref=e260]: 2026 Tony Awards winners
+            - listitem [ref=e261]:
+              - link "搜索有关 Denny Hamlin ties Kyle Busch 的新闻" [ref=e263] [cursor=pointer]:
+                - /url: /news/topicview?q=Denny+Hamlin+ties+Kyle+Busch+on+NASCAR%27s+all-time+wins+list&filters=tnTID%3d%22PE_B8A9A861-93A1-4A1A-B6B0-44386BA6A3BF%22+tnVersion%3d%226715024%22+Segment%3d%22popularnow.carousel%22+tnCol%3d%228%22+tnOrder%3d%22f6d1bb41-5934-43e3-91d0-14a187be7ab9%22&nvaug=%5bNewsVertical+topicviewtype%3d"2"%5d&form=NWBTTC
+                - img [ref=e265]
+                - img [ref=e268]
+                - generic [ref=e269]: Denny Hamlin ties Kyle Busch
+            - listitem [ref=e270]:
+              - link "搜索有关 Strong quake hits Philippines 的新闻" [ref=e272] [cursor=pointer]:
+                - /url: /news/topicview?q=7.8+magnitude+earthquake+shakes+part+of+southern+Philippines&filters=tnTID%3d%22PE_C1E41827-B696-440F-A8F2-2C194B454A8F%22+tnVersion%3d%226715024%22+Segment%3d%22popularnow.carousel%22+tnCol%3d%229%22+tnOrder%3d%22f6d1bb41-5934-43e3-91d0-14a187be7ab9%22&nvaug=%5bNewsVertical+topicviewtype%3d"2"%5d&form=NWBTTC
+                - img [ref=e524]
+                - img [ref=e525]
+                - generic [ref=e278]: Strong quake hits Philippines
+            - listitem [ref=e279]:
+              - link "搜索有关 Psychiatrist Coles dies at 97 的新闻" [ref=e281] [cursor=pointer]:
+                - /url: /news/topicview?q=Psychiatrist+Robert+Coles+dies+at+97&filters=tnTID%3d%22PE_9B0B3C39-DF96-4129-B7CB-45C55C85835F%22+tnVersion%3d%226715024%22+Segment%3d%22popularnow.carousel%22+tnCol%3d%2210%22+tnOrder%3d%22f6d1bb41-5934-43e3-91d0-14a187be7ab9%22&nvaug=%5bNewsVertical+topicviewtype%3d"2"%5d&form=NWBTTC
+                - img [ref=e283]
+                - img [ref=e286]
+                - generic [ref=e287]: Psychiatrist Coles dies at 97
+            - listitem [ref=e288]:
+              - link "搜索有关 Suit aims to stop UFC fight 的新闻" [ref=e290] [cursor=pointer]:
+                - /url: /news/topicview?q=Lawsuit+aims+to+stop+UFC+fight+at+the+White+House&filters=tnTID%3d%22PE_9E9FD0AC-4692-4BC5-BB1B-5ED57834EA7C%22+tnVersion%3d%226715024%22+Segment%3d%22popularnow.carousel%22+tnCol%3d%2211%22+tnOrder%3d%22f6d1bb41-5934-43e3-91d0-14a187be7ab9%22&nvaug=%5bNewsVertical+topicviewtype%3d"2"%5d&form=NWBTTC
+                - img [ref=e292]
+                - img [ref=e295]
+                - generic [ref=e296]: Suit aims to stop UFC fight
+            - listitem [ref=e297]:
+              - link "搜索有关 Former Oregon senator dies 的新闻" [ref=e299] [cursor=pointer]:
+                - /url: /news/topicview?q=Bob+Packwood+dies+at+93&filters=tnTID%3d%22PE_EBC12934-4069-4EAD-940C-81AE6F018DC7%22+tnVersion%3d%226715024%22+Segment%3d%22popularnow.carousel%22+tnCol%3d%2212%22+tnOrder%3d%22f6d1bb41-5934-43e3-91d0-14a187be7ab9%22&nvaug=%5bNewsVertical+topicviewtype%3d"2"%5d&form=NWBTTC
+                - img [ref=e301]
+                - img [ref=e304]
+                - generic [ref=e305]: Former Oregon senator dies
+            - listitem [ref=e306]:
+              - link "搜索有关 Wins US Women’s Open title 的新闻" [ref=e308] [cursor=pointer]:
+                - /url: /news/topicview?q=Nelly+Korda+wins+US+Women%e2%80%99s+Open+title&filters=tnTID%3d%22PE_D43B4820-20A2-4C56-93AE-2BE1DC2968C6%22+tnVersion%3d%226715024%22+Segment%3d%22popularnow.carousel%22+tnCol%3d%2213%22+tnOrder%3d%22f6d1bb41-5934-43e3-91d0-14a187be7ab9%22&nvaug=%5bNewsVertical+topicviewtype%3d"2"%5d&form=NWBTTC
+                - img [ref=e526]
+                - img [ref=e527]
+                - generic [ref=e314]: Wins US Women’s Open title
+            - listitem [ref=e315]:
+              - link "搜索有关 Man opens fire in central ISR 的新闻" [ref=e317] [cursor=pointer]:
+                - /url: /news/topicview?q=Man+opens+fire+in+central+Israel&filters=tnTID%3d%22PE_778703B9-06F5-4116-B713-396C90BADE4E%22+tnVersion%3d%226715024%22+Segment%3d%22popularnow.carousel%22+tnCol%3d%2214%22+tnOrder%3d%22f6d1bb41-5934-43e3-91d0-14a187be7ab9%22&nvaug=%5bNewsVertical+topicviewtype%3d"2"%5d&form=NWBTTC
+                - img [ref=e528]
+                - img [ref=e529]
+                - generic [ref=e323]: Man opens fire in central ISR
+            - listitem [ref=e324]:
+              - link "搜索有关 Ukraine targets St. Petersburg 的新闻" [ref=e326] [cursor=pointer]:
+                - /url: /news/topicview?q=Ukraine+targets+Russian+navy+base+near+St.+Petersburg&filters=tnTID%3d%22PE_C498621A-B7F6-4F5C-8EDD-42F9A0CBF5ED%22+tnVersion%3d%226715024%22+Segment%3d%22popularnow.carousel%22+tnCol%3d%2215%22+tnOrder%3d%22f6d1bb41-5934-43e3-91d0-14a187be7ab9%22&nvaug=%5bNewsVertical+topicviewtype%3d"2"%5d&form=NWBTTC
+                - img [ref=e328]
+                - img [ref=e331]
+                - generic [ref=e332]: Ukraine targets St. Petersburg
+            - listitem [ref=e333]:
+              - link "搜索有关 3-time NBA champion dies 的新闻" [ref=e335] [cursor=pointer]:
+                - /url: /news/topicview?q=Stacey+King+dies&filters=tnTID%3d%22PE_8D01F0E4-C118-4400-8B65-48DAF1594254%22+tnVersion%3d%226715024%22+Segment%3d%22popularnow.carousel%22+tnCol%3d%2216%22+tnOrder%3d%22f6d1bb41-5934-43e3-91d0-14a187be7ab9%22&nvaug=%5bNewsVertical+topicviewtype%3d"2"%5d&form=NWBTTC
+                - img [ref=e337]
+                - img [ref=e340]
+                - generic [ref=e341]: 3-time NBA champion dies
+            - listitem [ref=e342]:
+              - link "搜索有关 Germany beats US in warmup 的新闻" [ref=e344] [cursor=pointer]:
+                - /url: /news/topicview?q=San%c3%a9%2c+Havertz+score+as+Germany+beats+US+2-1&filters=tnTID%3d%22PE_45982FDF-732B-4860-8DD8-FAB9BF4C528A%22+tnVersion%3d%226715024%22+Segment%3d%22popularnow.carousel%22+tnCol%3d%2217%22+tnOrder%3d%22f6d1bb41-5934-43e3-91d0-14a187be7ab9%22&nvaug=%5bNewsVertical+topicviewtype%3d"2"%5d&form=NWBTTC
+                - img [ref=e346]
+                - img [ref=e349]
+                - generic [ref=e350]: Germany beats US in warmup
+            - listitem [ref=e351]:
+              - link "搜索有关 Baby wipes recalled 的新闻" [ref=e353] [cursor=pointer]:
+                - /url: /news/topicview?q=Baby+wipes+recalled&filters=tnTID%3d%22PE_1CE4EC31-BEAE-4859-B9F1-19E493B07D9B%22+tnVersion%3d%226715024%22+Segment%3d%22popularnow.carousel%22+tnCol%3d%2218%22+tnOrder%3d%22f6d1bb41-5934-43e3-91d0-14a187be7ab9%22&nvaug=%5bNewsVertical+topicviewtype%3d"2"%5d&form=NWBTTC
+                - img [ref=e355]
+                - img [ref=e358]
+                - generic [ref=e359]: Baby wipes recalled
+            - listitem [ref=e360]:
+              - link "搜索有关 Andreeva wins French Open 的新闻" [ref=e362] [cursor=pointer]:
+                - /url: /news/topicview?q=Mirra+Andreeva+captures+first+grand+slam+title&filters=tnTID%3d%22PE_1EA9297C-8CF2-49FC-98D6-DFB38C768330%22+tnVersion%3d%226715024%22+Segment%3d%22popularnow.carousel%22+tnCol%3d%2219%22+tnOrder%3d%22f6d1bb41-5934-43e3-91d0-14a187be7ab9%22&nvaug=%5bNewsVertical+topicviewtype%3d"2"%5d&form=NWBTTC
+                - img [ref=e364]
+                - img [ref=e367]
+                - generic [ref=e368]: Andreeva wins French Open
+            - listitem [ref=e369]:
+              - 'link "搜索有关 UKR: RU strikes near Chernobyl 的新闻" [ref=e371] [cursor=pointer]':
+                - /url: /news/topicview?q=Ukraine+says+Russian+drone+hits+nuclear+fuel+facility+near+Chernobyl&filters=tnTID%3d%22PE_8468797B-04FC-4E95-A95B-26C1C6CA180F%22+tnVersion%3d%226715024%22+Segment%3d%22popularnow.carousel%22+tnCol%3d%2220%22+tnOrder%3d%22f6d1bb41-5934-43e3-91d0-14a187be7ab9%22&nvaug=%5bNewsVertical+topicviewtype%3d"2"%5d&form=NWBTTC
+                - img [ref=e373]
+                - img [ref=e376]
+                - generic [ref=e377]: "UKR: RU strikes near Chernobyl"
+            - listitem [ref=e378]:
+              - link "搜索有关 Claims 1st Grand Slam title 的新闻" [ref=e380] [cursor=pointer]:
+                - /url: /news/topicview?q=Alexander+Zverev+wins+French+Open+to+claim+1st+Grand+Slam+title&filters=tnTID%3d%22PE_678A848D-A314-4B61-A17E-7885C2F47DC6%22+tnVersion%3d%226715024%22+Segment%3d%22popularnow.carousel%22+tnCol%3d%2221%22+tnOrder%3d%22f6d1bb41-5934-43e3-91d0-14a187be7ab9%22&nvaug=%5bNewsVertical+topicviewtype%3d"2"%5d&form=NWBTTC
+                - img [ref=e382]
+                - img [ref=e385]
+                - generic [ref=e386]: Claims 1st Grand Slam title
+            - listitem [ref=e387]:
+              - link "搜索有关 Biles reveals health scare 的新闻" [ref=e389] [cursor=pointer]:
+                - /url: /news/topicview?q=Simone+Biles+reveals+she+had+a+health+scare&filters=tnTID%3d%22PE_BB7EE4C6-D68D-44FB-990B-EFDC94245C94%22+tnVersion%3d%226715024%22+Segment%3d%22popularnow.carousel%22+tnCol%3d%2222%22+tnOrder%3d%22f6d1bb41-5934-43e3-91d0-14a187be7ab9%22&nvaug=%5bNewsVertical+topicviewtype%3d"2"%5d&form=NWBTTC
+                - img [ref=e391]
+                - img [ref=e394]
+                - generic [ref=e395]: Biles reveals health scare
+            - listitem [ref=e396]:
+              - link "搜索有关 Funding restrictions halted 的新闻" [ref=e398] [cursor=pointer]:
+                - /url: /news/topicview?q=Judge+halts+Trump+administration+efforts+to+impose+conditions+on+SNAP&filters=tnTID%3d%22PE_338263FB-B563-4239-8385-5DD502A2595F%22+tnVersion%3d%226715024%22+Segment%3d%22popularnow.carousel%22+tnCol%3d%2223%22+tnOrder%3d%22f6d1bb41-5934-43e3-91d0-14a187be7ab9%22&nvaug=%5bNewsVertical+topicviewtype%3d"2"%5d&form=NWBTTC
+                - img [ref=e530]
+                - img [ref=e531]
+                - generic [ref=e404]: Funding restrictions halted
+            - listitem [ref=e405]:
+              - link "搜索有关 Xi Jinping visits North Korea 的新闻" [ref=e407] [cursor=pointer]:
+                - /url: /news/topicview?q=Xi+Jinping+visits+North+Korea&filters=tnTID%3d%22PE_CC972995-470B-40C5-8664-9C02AD6C585D%22+tnVersion%3d%226715024%22+Segment%3d%22popularnow.carousel%22+tnCol%3d%2224%22+tnOrder%3d%22f6d1bb41-5934-43e3-91d0-14a187be7ab9%22&nvaug=%5bNewsVertical+topicviewtype%3d"2"%5d&form=NWBTTC
+                - img [ref=e409]
+                - img [ref=e412]
+                - generic [ref=e413]: Xi Jinping visits North Korea
+            - listitem [ref=e414]:
+              - link "搜索有关 Pope Leo XIV visits Spain 的新闻" [ref=e416] [cursor=pointer]:
+                - /url: /news/topicview?q=Pope+Leo+XIV+in+Spain+for+first+papal+visit+in+15+years&filters=tnTID%3d%22PE_97674023-E28D-4508-84D4-D6A0F02F2B27%22+tnVersion%3d%226715024%22+Segment%3d%22popularnow.carousel%22+tnCol%3d%2225%22+tnOrder%3d%22f6d1bb41-5934-43e3-91d0-14a187be7ab9%22&nvaug=%5bNewsVertical+topicviewtype%3d"2"%5d&form=NWBTTC
+                - img [ref=e532]
+                - img [ref=e533]
+                - generic [ref=e422]: Pope Leo XIV visits Spain
+            - listitem [ref=e423]:
+              - link "搜索有关 Belmont Stakes winner 的新闻" [ref=e425] [cursor=pointer]:
+                - /url: /news/topicview?q=Golden+Tempo+wins+Belmont+Stakes&filters=tnTID%3d%22PE_7FA3E5E1-8F5B-4A4A-AB65-48DD24A779B5%22+tnVersion%3d%226715024%22+Segment%3d%22popularnow.carousel%22+tnCol%3d%2226%22+tnOrder%3d%22f6d1bb41-5934-43e3-91d0-14a187be7ab9%22&nvaug=%5bNewsVertical+topicviewtype%3d"2"%5d&form=NWBTTC
+                - img [ref=e427]
+                - img [ref=e430]
+                - generic [ref=e431]: Belmont Stakes winner
+            - listitem [ref=e432]:
+              - link "搜索有关 5 stabbed at Penn Station 的新闻" [ref=e434] [cursor=pointer]:
+                - /url: /news/topicview?q=5+people+stabbed+at+New+York%e2%80%99s+Penn+Station&filters=tnTID%3d%22PE_0D6907A5-5725-4452-904D-9B360DE2E0EB%22+tnVersion%3d%226715024%22+Segment%3d%22popularnow.carousel%22+tnCol%3d%2227%22+tnOrder%3d%22f6d1bb41-5934-43e3-91d0-14a187be7ab9%22&nvaug=%5bNewsVertical+topicviewtype%3d"2"%5d&form=NWBTTC
+                - img [ref=e436]
+                - img [ref=e439]
+                - generic [ref=e440]: 5 stabbed at Penn Station
+            - listitem [ref=e441]:
+              - link "搜索有关 Former French first lady dies 的新闻" [ref=e443] [cursor=pointer]:
+                - /url: /news/topicview?q=Bernadette+Chirac+dies+at+93&filters=tnTID%3d%22PE_1CE39305-2E80-45ED-A0DE-4E91CD0AFAAB%22+tnVersion%3d%226715024%22+Segment%3d%22popularnow.carousel%22+tnCol%3d%2228%22+tnOrder%3d%22f6d1bb41-5934-43e3-91d0-14a187be7ab9%22&nvaug=%5bNewsVertical+topicviewtype%3d"2"%5d&form=NWBTTC
+                - img [ref=e445]
+                - img [ref=e448]
+                - generic [ref=e449]: Former French first lady dies
+            - listitem [ref=e450]:
+              - link "搜索有关 2nd screwworm case confirmed 的新闻" [ref=e452] [cursor=pointer]:
+                - /url: /news/topicview?q=US+confirms+second+Texas+screwworm+case&filters=tnTID%3d%22PE_C2B3803A-FAB4-49CF-A922-B25827426018%22+tnVersion%3d%226715024%22+Segment%3d%22popularnow.carousel%22+tnCol%3d%2229%22+tnOrder%3d%22f6d1bb41-5934-43e3-91d0-14a187be7ab9%22&nvaug=%5bNewsVertical+topicviewtype%3d"2"%5d&form=NWBTTC
+                - img [ref=e454]
+                - img [ref=e457]
+                - generic [ref=e458]: 2nd screwworm case confirmed
+            - listitem [ref=e459]:
+              - link "搜索有关 Conscious after collapsing 的新闻" [ref=e461] [cursor=pointer]:
+                - /url: /news/topicview?q=Christian+Eriksen+conscious+after+on-pitch+collapse&filters=tnTID%3d%22PE_75B4AC9B-5006-436B-8F20-D7AF4358A2E0%22+tnVersion%3d%226715024%22+Segment%3d%22popularnow.carousel%22+tnCol%3d%2230%22+tnOrder%3d%22f6d1bb41-5934-43e3-91d0-14a187be7ab9%22&nvaug=%5bNewsVertical+topicviewtype%3d"2"%5d&form=NWBTTC
+                - img [ref=e463]
+                - img [ref=e466]
+                - generic [ref=e467]: Conscious after collapsing
+            - listitem [ref=e468]:
+              - link "搜索有关 West Ham co-chair steps down 的新闻" [ref=e470] [cursor=pointer]:
+                - /url: /news/topicview?q=David+Sullivan+steps+down&filters=tnTID%3d%22PE_10D69351-2982-4AA0-8415-C61D176A499A%22+tnVersion%3d%226715024%22+Segment%3d%22popularnow.carousel%22+tnCol%3d%2231%22+tnOrder%3d%22f6d1bb41-5934-43e3-91d0-14a187be7ab9%22&nvaug=%5bNewsVertical+topicviewtype%3d"2"%5d&form=NWBTTC
+                - img [ref=e472]
+                - img [ref=e475]
+                - generic [ref=e476]: West Ham co-chair steps down
+            - listitem [ref=e477]:
+              - link "搜索有关 Trump pardons Stephen Buyer 的新闻" [ref=e479] [cursor=pointer]:
+                - /url: /news/topicview?q=Trump+issued+pardon+to+former+Republican+congressman+convicted+of+insider+trading&filters=tnTID%3d%22PE_C95CCBC8-9CD5-46DA-8E6C-608079AE1555%22+tnVersion%3d%226715024%22+Segment%3d%22popularnow.carousel%22+tnCol%3d%2232%22+tnOrder%3d%22f6d1bb41-5934-43e3-91d0-14a187be7ab9%22&nvaug=%5bNewsVertical+topicviewtype%3d"2"%5d&form=NWBTTC
+                - img [ref=e481]
+                - img [ref=e484]
+                - generic [ref=e485]: Trump pardons Stephen Buyer
+            - listitem [ref=e486]:
+              - link "搜索有关 'Ever After' actor dies at 93 的新闻" [ref=e488] [cursor=pointer]:
+                - /url: /news/topicview?q=Patrick+Godfrey+dies&filters=tnTID%3d%22PE_704909F6-2D64-41F0-AFA8-BDB469998024%22+tnVersion%3d%226715024%22+Segment%3d%22popularnow.carousel%22+tnCol%3d%2233%22+tnOrder%3d%22f6d1bb41-5934-43e3-91d0-14a187be7ab9%22&nvaug=%5bNewsVertical+topicviewtype%3d"2"%5d&form=NWBTTC
+                - img [ref=e490]
+                - img [ref=e493]
+                - generic [ref=e494]: "'Ever After' actor dies at 93"
+  - button "反馈" [ref=e497] [cursor=pointer]:
+    - generic:
+      - img
+    - generic [ref=e498]: 反馈
+  - contentinfo [ref=e499]:
+    - generic [ref=e500]:
+      - list:
+        - listitem [ref=e501]:
+          - link "隐私" [ref=e502] [cursor=pointer]:
+            - /url: http://go.microsoft.com/fwlink/?LinkId=521839
+        - listitem [ref=e503]:
+          - link "条款" [ref=e504] [cursor=pointer]:
+            - /url: http://go.microsoft.com/fwlink/?LinkID=246338

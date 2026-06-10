@@ -1,0 +1,364 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - generic:
+      - link "跳到主要内容" [ref=e2] [cursor=pointer]
+      - link "无障碍功能帮助" [ref=e3] [cursor=pointer]:
+        - /url: https://support.google.com/websearch/answer/181196?hl=zh-CN
+  - generic [ref=e8]:
+    - search [ref=e9]:
+      - generic [ref=e11]:
+        - link "Google 首页" [ref=e13] [cursor=pointer]:
+          - /url: https://www.google.com/webhp?hl=zh-CN&sa=X&ved=0ahUKEwiUwMX1zfeUAxXtl-4BHS_bDUoQPAgI
+          - img [ref=e14]
+        - generic [ref=e21]:
+          - generic [ref=e22]:
+            - combobox "搜索" [ref=e25]: vivo 世界杯 营销 2026 vivo 世界杯 营销 2026
+            - generic [ref=e26]:
+              - button "清除" [ref=e28] [cursor=pointer]:
+                - img [ref=e30]
+              - generic [ref=e33]:
+                - button "按语音搜索" [ref=e34] [cursor=pointer]:
+                  - img [ref=e35]
+                - button "按图搜索" [ref=e37] [cursor=pointer]:
+                  - img [ref=e38]
+          - button "搜索" [ref=e40] [cursor=pointer]:
+            - img [ref=e43]
+    - generic [ref=e46]:
+      - button "Google 应用" [ref=e48] [cursor=pointer]:
+        - img [ref=e49]
+      - button "Google 账号： 谷如洋 (guruyang77@gmail.com)" [ref=e53] [cursor=pointer]:
+        - img [ref=e54]
+  - generic [ref=e56]:
+    - navigation [ref=e62]:
+      - generic [ref=e68]:
+        - list [ref=e69]:
+          - listitem [ref=e70]:
+            - link "AI 模式" [ref=e73] [cursor=pointer]:
+              - /url: /search?q=vivo+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n7cIu76VfUUnh3kVyRQGFdEFeCqMA:1780920515392&udm=50&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVNvV7jKtLqzLZ63dd2zPtrqHHkR5VFoT0wXSdRjSpyP0eqsfwWvqvzSXmAHL3HD5WEFJ0WyZuBEIa7SQcsO4KNSi3e5aSfkGU8n253rjd5e6zAhLd16-73llWk3wAUrTAUJAEaQtfC23D1LsT7ElGKWKMgTVXH5VW26ddIDdXLKVKD9T-vRiGfnHAi42sAGJHDyhPbQ&aep=1&ntc=1&sa=X&ved=2ahUKEwiUwMX1zfeUAxXtl-4BHS_bDUoQ2J8OegQIDxAD
+              - generic [ref=e76]: AI 模式
+          - listitem [ref=e77]:
+            - link "全部" [disabled] [ref=e78]:
+              - generic [ref=e80]: 全部
+          - listitem [ref=e81]:
+            - link "图片" [ref=e82] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n7cIu76VfUUnh3kVyRQGFdEFeCqMA:1780920515392&udm=2&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVNvV7jKtLqzLZ63dd2zPtrqHHkR5VFoT0wXSdRjSpyP0eqsfwWvqvzSXmAHL3HD5WEFJ0WyZuBEIa7SQcsO4KNSi3e5aSfkGU8n253rjd5e6zAhLd16-73llWk3wAUrTAUJAEaQtfC23D1LsT7ElGKWKMgTVXH5VW26ddIDdXLKVKD9T-vRiGfnHAi42sAGJHDyhPbQ&q=vivo+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sa=X&ved=2ahUKEwiUwMX1zfeUAxXtl-4BHS_bDUoQtKgLegQIFRAB
+              - generic [ref=e84]: 图片
+          - listitem [ref=e85]:
+            - link "购物" [ref=e86] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n7cIu76VfUUnh3kVyRQGFdEFeCqMA:1780920515392&udm=28&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVNvV7jKtLqzLZ63dd2zPtrqHHkR5VFoT0wXSdRjSpyP0eqsfwWvqvzSXmAHL3HD5WEFJ0WyZuBEIa7SQcsO4KNSi3e5aSfkGU8n253rjd5e6zAhLd16-73llWk3wAUrTAUJAEaQtfC23D1LsT7ElGKWKMgTVXH5VW26ddIDdXLKVKD9T-vRiGfnHAi42sAGJHDyhPbQ&q=vivo+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&ved=1t:220175&ictx=111
+              - generic [ref=e88]: 购物
+          - listitem [ref=e89]:
+            - link "视频" [ref=e90] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n7cIu76VfUUnh3kVyRQGFdEFeCqMA:1780920515392&udm=7&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVNvV7jKtLqzLZ63dd2zPtrqHHkR5VFoT0wXSdRjSpyP0eqsfwWvqvzSXmAHL3HD5WEFJ0WyZuBEIa7SQcsO4KNSi3e5aSfkGU8n253rjd5e6zAhLd16-73llWk3wAUrTAUJAEaQtfC23D1LsT7ElGKWKMgTVXH5VW26ddIDdXLKVKD9T-vRiGfnHAi42sAGJHDyhPbQ&q=vivo+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sa=X&ved=2ahUKEwiUwMX1zfeUAxXtl-4BHS_bDUoQtKgLegQIEhAB
+              - generic [ref=e92]: 视频
+          - listitem [ref=e93]:
+            - link "新闻" [ref=e94] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n7cIu76VfUUnh3kVyRQGFdEFeCqMA:1780920515392&q=vivo+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&tbm=nws&source=lnms&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVNvV7jKtLqzLZ63dd2zPtrqHHkR5VFoT0wXSdRjSpyP0eqsfwWvqvzSXmAHL3HD5WEFJ0WyZuBEIa7SQcsO4KNSi3e5aSfkGU8n253rjd5e6zAhLd16-73llWk3wAUrTAUJAEaQtfC23D1LsT7ElGKWKMgTVXH5VW26ddIDdXLKVKD9T-vRiGfnHAi42sAGJHDyhPbQ&sa=X&ved=2ahUKEwiUwMX1zfeUAxXtl-4BHS_bDUoQ0pQJegQIExAB
+              - generic [ref=e96]: 新闻
+          - listitem [ref=e97]:
+            - link "短视频" [ref=e98] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n7cIu76VfUUnh3kVyRQGFdEFeCqMA:1780920515392&udm=39&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVNvV7jKtLqzLZ63dd2zPtrqHHkR5VFoT0wXSdRjSpyP0eqsfwWvqvzSXmAHL3HD5WEFJ0WyZuBEIa7SQcsO4KNSi3e5aSfkGU8n253rjd5e6zAhLd16-73llWk3wAUrTAUJAEaQtfC23D1LsT7ElGKWKMgTVXH5VW26ddIDdXLKVKD9T-vRiGfnHAi42sAGJHDyhPbQ&q=vivo+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sa=X&ved=2ahUKEwiUwMX1zfeUAxXtl-4BHS_bDUoQs6gLegQIERAB
+              - generic [ref=e100]: 短视频
+          - listitem [ref=e101]:
+            - button "更多过滤条件" [ref=e102] [cursor=pointer]:
+              - generic "更多过滤条件" [ref=e103]:
+                - generic [ref=e104]:
+                  - generic [ref=e105]: 更多
+                  - img [ref=e107]
+        - button "工具" [ref=e110] [cursor=pointer]:
+          - generic [ref=e112]:
+            - generic [ref=e113]: 工具
+            - img [ref=e115]
+    - heading "搜索结果" [level=1] [ref=e117]
+    - main [ref=e123]:
+      - generic [ref=e127]:
+        - generic [ref=e130]:
+          - heading "网页搜索结果" [level=2] [ref=e131]
+          - generic [ref=e132]:
+            - generic [ref=e135]:
+              - link "全球最赚钱的世界杯，为什么没人举办了？ 手机网易网 https://www.163.com › article" [ref=e137] [cursor=pointer]:
+                - /url: https://www.163.com/dy/article/KUSRLCEK0556BP66.html
+                - heading "全球最赚钱的世界杯，为什么没人举办了？" [level=3] [ref=e138]
+                - generic [ref=e143]:
+                  - generic [ref=e145]: 手机网易网
+                  - generic [ref=e147]: https://www.163.com › article
+              - button "关于这条结果的详细信息" [ref=e148] [cursor=pointer]:
+                - img [ref=e151]
+            - generic [ref=e154]:
+              - generic [ref=e155]: 12小时前 —
+              - generic [ref=e156]:
+                - text: 2018年
+                - emphasis [ref=e157]: 世界杯
+                - text: 有4个国家竞标，2022年5个，到了
+                - emphasis [ref=e158]: "2026"
+                - text: 年只剩2个，再往后2030和2034两届——加起来只有2个申办方。 FIFA甚至在2023年：把两届
+                - emphasis [ref=e159]: 世界杯
+                - text: 的申办流程同时启动，理由既然是"双 ...
+        - generic [ref=e163]:
+          - generic [ref=e166]:
+            - link "办世界杯竟成烫手山芋，2030年仅两个申办国，为啥没人抢？ 手机网易网 https://www.163.com › article" [ref=e168] [cursor=pointer]:
+              - /url: https://www.163.com/dy/article/KUTIO4AK05563OYC.html
+              - heading "办世界杯竟成烫手山芋，2030年仅两个申办国，为啥没人抢？" [level=3] [ref=e169]
+              - generic [ref=e174]:
+                - generic [ref=e176]: 手机网易网
+                - generic [ref=e178]: https://www.163.com › article
+            - button "关于这条结果的详细信息" [ref=e179] [cursor=pointer]:
+              - img [ref=e182]
+          - generic [ref=e185]:
+            - generic [ref=e186]:
+              - generic [ref=e187]: 6小时前
+              - text: —
+            - generic [ref=e188]:
+              - text: ...
+              - emphasis [ref=e189]: 世界杯
+              - text: 相关的转播、
+              - emphasis [ref=e190]: 营销
+              - text: 、赞助和门票收入。这个商业巨兽要一直做大，只能不断给
+              - emphasis [ref=e191]: 世界杯
+              - text: 扩容提要求。
+              - emphasis [ref=e192]: "2026"
+              - text: 年
+              - emphasis [ref=e193]: 世界杯
+              - text: ...
+              - emphasis [ref=e194]: vivo
+              - text: 四家，总赞助金额达到13.95亿美元，是美国企业 ...
+        - generic [ref=e198]:
+          - generic [ref=e201]:
+            - link "全市场费率最低的家电ETF华夏（515640）午后微调 新浪财经 https://finance.sina.com.cn › jjxw › doc-iniasscn8699286" [ref=e203] [cursor=pointer]:
+              - /url: https://finance.sina.com.cn/jjxw/2026-06-08/doc-iniasscn8699286.shtml
+              - heading "全市场费率最低的家电ETF华夏（515640）午后微调" [level=3] [ref=e204]
+              - generic [ref=e209]:
+                - generic [ref=e211]: 新浪财经
+                - generic [ref=e213]: https://finance.sina.com.cn › jjxw › doc-iniasscn8699286
+            - button "关于这条结果的详细信息" [ref=e214] [cursor=pointer]:
+              - img [ref=e217]
+          - generic [ref=e220]:
+            - generic [ref=e221]:
+              - generic [ref=e222]: 6小时前
+              - text: —
+            - generic [ref=e223]:
+              - text: 从收益能力看，截至
+              - emphasis [ref=e224]: "2026"
+              - text: 年6月5日，家电ETF华夏自成立以来，最长连涨涨幅为2.44%，月盈利概率为60.00%。 费率方面，家电ETF华夏管理费率为0.15%，托管费率为0.05%，费率在可比基金 ...
+        - generic [ref=e228]:
+          - generic [ref=e231]:
+            - link "市场营销 - 增长黑客 growthhk.cn https://www.growthhk.cn › 首席增长官" [ref=e233] [cursor=pointer]:
+              - /url: https://www.growthhk.cn/cgo/market
+              - heading "市场营销 - 增长黑客" [level=3] [ref=e234]
+              - generic [ref=e239]:
+                - generic [ref=e241]: growthhk.cn
+                - generic [ref=e243]: https://www.growthhk.cn › 首席增长官
+            - button "关于这条结果的详细信息" [ref=e244] [cursor=pointer]:
+              - img [ref=e247]
+          - generic [ref=e250]:
+            - generic [ref=e251]:
+              - generic [ref=e252]: 7小时前
+              - text: —
+            - generic [ref=e253]:
+              - text: 市场
+              - emphasis [ref=e254]: 营销
+              - text: (Marketing)以顾客需要为出发点,通过创造并同他人交换产品和价值,以满足需求与欲望的过程；市场
+              - emphasis [ref=e255]: 营销
+              - text: 是增长黑客标签库中的热门标签；旨在帮助市场
+              - emphasis [ref=e256]: 营销
+              - text: 爱好者更好 ...
+        - generic [ref=e260]:
+          - generic [ref=e263]:
+            - link "全市场费率最低的家电ETF华夏（515640）午后微调 AASTOCKS.com http://www.aastocks.com › china-hot-topic-content" [ref=e265] [cursor=pointer]:
+              - /url: http://www.aastocks.com/sc/stocks/analysis/china-hot-topic-content.aspx?id=YLC6179692N&catg=4&source=YOULIAN
+              - heading "全市场费率最低的家电ETF华夏（515640）午后微调" [level=3] [ref=e266]
+              - generic [ref=e271]:
+                - generic [ref=e273]: AASTOCKS.com
+                - generic [ref=e275]: http://www.aastocks.com › china-hot-topic-content
+            - button "关于这条结果的详细信息" [ref=e276] [cursor=pointer]:
+              - img [ref=e279]
+          - generic [ref=e282]:
+            - generic [ref=e283]:
+              - generic [ref=e284]: 6小时前
+              - text: —
+            - generic [ref=e285]:
+              - text: 其中，BOE(京东方)与创维共同揭牌成立“极光联合实验室”，双方围绕“产品、技术、
+              - emphasis [ref=e286]: 营销
+              - text: ”三大维度展开全面合作。与此同时，BOE(京东方)与
+              - emphasis [ref=e287]: vivo
+              - text: 正式揭牌“北极星联合实验室”，双方聚焦 ...
+        - generic [ref=e291]:
+          - heading "图片" [level=2] [ref=e295]
+          - generic [ref=e299]:
+            - generic [ref=e303] [cursor=pointer]:
+              - link "Unifi TV 获2026 年世界杯转播权！配套售价RM50 起，球迷可畅享 ... TechNave - 马来西亚手机网":
+                - /url: https://cn.technave.com/2026/06/08/unifi-tv-%E8%8E%B7-2026-%E5%B9%B4%E4%B8%96%E7%95%8C%E6%9D%AF%E8%BD%AC%E6%92%AD%E6%9D%83%EF%BC%81%E9%85%8D%E5%A5%97%E5%94%AE%E4%BB%B7-rm50-%E8%B5%B7%EF%BC%8C%E7%90%83%E8%BF%B7%E5%8F%AF%E7%95%85/
+              - button "Unifi TV 获2026 年世界杯转播权！配套售价RM50 起，球迷可畅享 ... 2 小时前" [ref=e305]:
+                - img "Unifi TV 获2026 年世界杯转播权！配套售价RM50 起，球迷可畅享 ..." [ref=e308]
+                - generic [ref=e309]:
+                  - generic:
+                    - generic: 2 小时前
+              - generic [ref=e311]:
+                - generic [ref=e313]: Unifi TV 获2026 年世界杯转播权！配套售价RM50 起，球迷可畅享 ...
+                - generic [ref=e314]:
+                  - generic [ref=e321]: TechNave - 马来西亚手机网
+                  - button "关于这条结果的详细信息" [ref=e324]:
+                    - img [ref=e327]
+            - generic [ref=e332] [cursor=pointer]:
+              - link "Unifi TV 获2026 年世界杯转播权！配套售价RM50 起，球迷可畅享 ... TechNave - 马来西亚手机网":
+                - /url: https://cn.technave.com/2026/06/08/unifi-tv-%E8%8E%B7-2026-%E5%B9%B4%E4%B8%96%E7%95%8C%E6%9D%AF%E8%BD%AC%E6%92%AD%E6%9D%83%EF%BC%81%E9%85%8D%E5%A5%97%E5%94%AE%E4%BB%B7-rm50-%E8%B5%B7%EF%BC%8C%E7%90%83%E8%BF%B7%E5%8F%AF%E7%95%85/
+              - button "Unifi TV 获2026 年世界杯转播权！配套售价RM50 起，球迷可畅享 ... 2 小时前" [ref=e334]:
+                - img "Unifi TV 获2026 年世界杯转播权！配套售价RM50 起，球迷可畅享 ..." [ref=e337]
+                - generic [ref=e338]:
+                  - generic:
+                    - generic: 2 小时前
+              - generic [ref=e340]:
+                - generic [ref=e342]: Unifi TV 获2026 年世界杯转播权！配套售价RM50 起，球迷可畅享 ...
+                - generic [ref=e343]:
+                  - generic [ref=e350]: TechNave - 马来西亚手机网
+                  - button "关于这条结果的详细信息" [ref=e353]:
+                    - img [ref=e356]
+            - generic [ref=e361] [cursor=pointer]:
+              - link "Unifi TV 获2026 年世界杯转播权！配套售价RM50 起，球迷可畅享 ... TechNave - 马来西亚手机网":
+                - /url: https://cn.technave.com/2026/06/08/unifi-tv-%E8%8E%B7-2026-%E5%B9%B4%E4%B8%96%E7%95%8C%E6%9D%AF%E8%BD%AC%E6%92%AD%E6%9D%83%EF%BC%81%E9%85%8D%E5%A5%97%E5%94%AE%E4%BB%B7-rm50-%E8%B5%B7%EF%BC%8C%E7%90%83%E8%BF%B7%E5%8F%AF%E7%95%85/
+              - button "Unifi TV 获2026 年世界杯转播权！配套售价RM50 起，球迷可畅享 ... 2 小时前" [ref=e363]:
+                - img "Unifi TV 获2026 年世界杯转播权！配套售价RM50 起，球迷可畅享 ..." [ref=e366]
+                - generic [ref=e367]:
+                  - generic:
+                    - generic: 2 小时前
+              - generic [ref=e369]:
+                - generic [ref=e371]: Unifi TV 获2026 年世界杯转播权！配套售价RM50 起，球迷可畅享 ...
+                - generic [ref=e372]:
+                  - generic [ref=e379]: TechNave - 马来西亚手机网
+                  - button "关于这条结果的详细信息" [ref=e382]:
+                    - img [ref=e385]
+          - button "显示更多图片" [ref=e388] [cursor=pointer]:
+            - separator [ref=e389]
+            - generic [ref=e390]:
+              - generic [ref=e391]: 显示更多图片
+              - img [ref=e393]
+        - generic [ref=e397]:
+          - heading "网页搜索结果" [level=2] [ref=e398]
+          - generic [ref=e399]:
+            - generic [ref=e402]:
+              - link "基于流式信令矩阵与高斯控频的企微外部群自动化群发架构 ... 掘金 https://juejin.cn › 开发工具" [ref=e404] [cursor=pointer]:
+                - /url: https://juejin.cn/post/7648547359661424667
+                - heading "基于流式信令矩阵与高斯控频的企微外部群自动化群发架构 ..." [level=3] [ref=e405]
+                - generic [ref=e410]:
+                  - generic [ref=e412]: 掘金
+                  - generic [ref=e414]: https://juejin.cn › 开发工具
+              - button "关于这条结果的详细信息" [ref=e415] [cursor=pointer]:
+                - img [ref=e418]
+            - generic [ref=e421]:
+              - generic [ref=e422]: 10小时前 —
+              - generic [ref=e423]:
+                - text: 实时
+                - emphasis [ref=e424]: 营销
+                - text: 引擎在
+                - emphasis [ref=e425]: vivo营销
+                - text: 自动化中的实践| 引擎篇04 · 重点分析介绍在
+                - emphasis [ref=e426]: 营销
+                - text: 自动化业务中实时
+                - emphasis [ref=e427]: 营销
+                - text: 场景的背景价值、实时
+                - emphasis [ref=e428]: 营销
+                - text: 引擎架构以及项目开发过程中如何利用动态队列做好 ...
+        - generic [ref=e432]:
+          - generic [ref=e435]:
+            - link "2026除甲醛空气净化器十个选购指南及品牌实测 - 新闻中心 中关村在线 https://news.zol.com.cn › ..." [ref=e437] [cursor=pointer]:
+              - /url: https://news.zol.com.cn/1195/11955474.html
+              - heading "2026除甲醛空气净化器十个选购指南及品牌实测 - 新闻中心" [level=3] [ref=e438]
+              - generic [ref=e443]:
+                - generic [ref=e445]: 中关村在线
+                - generic [ref=e447]: https://news.zol.com.cn › ...
+            - button "关于这条结果的详细信息" [ref=e448] [cursor=pointer]:
+              - img [ref=e451]
+          - generic [ref=e454]:
+            - generic [ref=e455]:
+              - generic [ref=e456]: 9小时前
+              - text: —
+            - generic [ref=e457]:
+              - text: 但纵观
+              - emphasis [ref=e458]: "2026"
+              - text: 年净化器市场，产品赛道分化愈发明显，从被动吸附活性炭机型、HEPA 滤网物理拦截机型，到锰基催化、铂系分解、常温无光触媒等化学分解新技术机型全线铺开，上千个 ...
+        - generic [ref=e462]:
+          - generic [ref=e465]:
+            - link "桑巴軍團再次啟航！ 內馬爾最後一次衝擊世界盃冠軍 Instagram https://www.instagram.com › reel" [ref=e467] [cursor=pointer]:
+              - /url: https://www.instagram.com/reel/DZSY-VNh65Z/
+              - heading "桑巴軍團再次啟航！ 內馬爾最後一次衝擊世界盃冠軍" [level=3] [ref=e468]
+              - generic [ref=e473]:
+                - generic [ref=e475]: Instagram
+                - generic [ref=e477]: https://www.instagram.com › reel
+            - button "关于这条结果的详细信息" [ref=e478] [cursor=pointer]:
+              - img [ref=e481]
+          - generic [ref=e485]:
+            - text: 巴西
+            - emphasis [ref=e486]: 2026世界杯
+            - text: 大名单出炉内马尔时隔944天回归巴西队美加墨
+            - emphasis [ref=e487]: 世界杯
+            - text: . 巴西队
+            - emphasis [ref=e488]: "2026"
+            - text: 年
+            - emphasis [ref=e489]: 世界杯
+            - text: "大名单门将: 阿利松（利物浦）、 埃德森（费内巴切）、 丰弟顿（格雷米奥） 四西"
+            - emphasis [ref=e490]: 2026世界杯
+            - text: ...
+        - generic [ref=e494]:
+          - generic [ref=e497]:
+            - link "IODJ Digital Asset Hub B1 Reviews - Jobsuche der BA Bundesagentur für Arbeit https://www.arbeitsagentur.de › jobsuche › suche" [ref=e499] [cursor=pointer]:
+              - /url: https://www.arbeitsagentur.de/jobsuche/suche?wo=IODJ%20Digital%20Asset%20Hub%20B1%20Reviews
+              - heading "IODJ Digital Asset Hub B1 Reviews - Jobsuche der BA" [level=3] [ref=e500]
+              - generic [ref=e505]:
+                - generic [ref=e507]: Bundesagentur für Arbeit
+                - generic [ref=e509]: https://www.arbeitsagentur.de › jobsuche › suche
+            - button "关于这条结果的详细信息" [ref=e510] [cursor=pointer]:
+              - img [ref=e513]
+          - generic [ref=e516]:
+            - generic [ref=e517]:
+              - generic [ref=e518]: 2小时前
+              - text: —
+            - text: Alle Stellenangebote in IODJ Digital Asset Hub B1 Reviews in der Jobsuche der Bundesagentur für Arbeit. Hier Suche nach neusten Jobs oder Ausbildungsplätzen ...
+      - navigation [ref=e521]:
+        - heading "网页导航" [level=1] [ref=e522]
+        - text: "1"
+        - link "Page 2" [ref=e525] [cursor=pointer]:
+          - /url: /search?q=vivo+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n7cIu76VfUUnh3kVyRQGFdEFeCqMA:1780920515392&ei=w7AmatTSF-2vur8Pr7a30AQ&start=10&sa=N&sstk=AU9db-BkPcOxLWn58RnAYO3KZVd0rxK8kOtJ_SA36_D0OTnWkiHIsSPE89ofIxnmUYGrHWSrB3dT6ywkLhDRS_uTu4Wj7QW3FnSM9g&ved=2ahUKEwiUwMX1zfeUAxXtl-4BHS_bDUoQ8tMDegQIMxAE
+          - text: "2"
+        - link "Page 3" [ref=e527] [cursor=pointer]:
+          - /url: /search?q=vivo+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n7cIu76VfUUnh3kVyRQGFdEFeCqMA:1780920515392&ei=w7AmatTSF-2vur8Pr7a30AQ&start=20&sa=N&sstk=AU9db-BkPcOxLWn58RnAYO3KZVd0rxK8kOtJ_SA36_D0OTnWkiHIsSPE89ofIxnmUYGrHWSrB3dT6ywkLhDRS_uTu4Wj7QW3FnSM9g&ved=2ahUKEwiUwMX1zfeUAxXtl-4BHS_bDUoQ8tMDegQIMxAG
+          - text: "3"
+        - link "Page 4" [ref=e529] [cursor=pointer]:
+          - /url: /search?q=vivo+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n7cIu76VfUUnh3kVyRQGFdEFeCqMA:1780920515392&ei=w7AmatTSF-2vur8Pr7a30AQ&start=30&sa=N&sstk=AU9db-BkPcOxLWn58RnAYO3KZVd0rxK8kOtJ_SA36_D0OTnWkiHIsSPE89ofIxnmUYGrHWSrB3dT6ywkLhDRS_uTu4Wj7QW3FnSM9g&ved=2ahUKEwiUwMX1zfeUAxXtl-4BHS_bDUoQ8tMDegQIMxAI
+          - text: "4"
+        - link "Page 5" [ref=e531] [cursor=pointer]:
+          - /url: /search?q=vivo+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n7cIu76VfUUnh3kVyRQGFdEFeCqMA:1780920515392&ei=w7AmatTSF-2vur8Pr7a30AQ&start=40&sa=N&sstk=AU9db-BkPcOxLWn58RnAYO3KZVd0rxK8kOtJ_SA36_D0OTnWkiHIsSPE89ofIxnmUYGrHWSrB3dT6ywkLhDRS_uTu4Wj7QW3FnSM9g&ved=2ahUKEwiUwMX1zfeUAxXtl-4BHS_bDUoQ8tMDegQIMxAK
+          - text: "5"
+        - link "Page 6" [ref=e533] [cursor=pointer]:
+          - /url: /search?q=vivo+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n7cIu76VfUUnh3kVyRQGFdEFeCqMA:1780920515392&ei=w7AmatTSF-2vur8Pr7a30AQ&start=50&sa=N&sstk=AU9db-BkPcOxLWn58RnAYO3KZVd0rxK8kOtJ_SA36_D0OTnWkiHIsSPE89ofIxnmUYGrHWSrB3dT6ywkLhDRS_uTu4Wj7QW3FnSM9g&ved=2ahUKEwiUwMX1zfeUAxXtl-4BHS_bDUoQ8tMDegQIMxAM
+          - text: "6"
+        - heading "下一页" [level=2] [ref=e535]:
+          - link "下一页" [ref=e536] [cursor=pointer]:
+            - /url: /search?q=vivo+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n7cIu76VfUUnh3kVyRQGFdEFeCqMA:1780920515392&ei=w7AmatTSF-2vur8Pr7a30AQ&start=10&sa=N&sstk=AU9db-BkPcOxLWn58RnAYO3KZVd0rxK8kOtJ_SA36_D0OTnWkiHIsSPE89ofIxnmUYGrHWSrB3dT6ywkLhDRS_uTu4Wj7QW3FnSM9g&ved=2ahUKEwiUwMX1zfeUAxXtl-4BHS_bDUoQ8NMDegQIMxAO
+            - generic [ref=e538]: 下一页
+      - navigation
+    - contentinfo [ref=e539]:
+      - heading "页脚链接" [level=1] [ref=e540]
+      - generic [ref=e544]:
+        - generic [ref=e547]:
+          - generic [ref=e548]: 是个性化搜索结果
+          - generic [ref=e549]: "-"
+          - link "尝试不使用个性化功能" [ref=e551] [cursor=pointer]:
+            - /url: https://www.google.com/search?q=vivo+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&tbs=qdr:d&hl=zh-CN&peek_pws=0&sxsrf=ANbL-n7cIu76VfUUnh3kVyRQGFdEFeCqMA:1780920515392
+            - generic [ref=e552]: 尝试不使用个性化功能
+        - generic [ref=e556]:
+          - button "加利福尼亚 - 根据您的活动记录" [ref=e558] [cursor=pointer]:
+            - generic [ref=e559]: 加利福尼亚
+            - generic [ref=e561]:
+              - text: "-"
+              - generic [ref=e562]: 根据您的活动记录
+          - text: "-"
+          - button "更新位置信息" [ref=e564] [cursor=pointer]: 更新位置信息
+        - generic [ref=e567]:
+          - link "帮助" [ref=e568] [cursor=pointer]:
+            - /url: https://support.google.com/websearch/?p=ws_results_help&hl=zh-CN&fg=1
+          - link "发送反馈" [ref=e569] [cursor=pointer]:
+            - /url: "#"
+          - link "隐私权" [ref=e570] [cursor=pointer]:
+            - /url: https://policies.google.com/privacy?hl=zh-CN&fg=1
+          - link "条款" [ref=e571] [cursor=pointer]:
+            - /url: https://policies.google.com/terms?hl=zh-CN&fg=1

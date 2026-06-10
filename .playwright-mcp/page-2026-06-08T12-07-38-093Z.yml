@@ -1,0 +1,311 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - generic:
+      - link "跳到主要内容" [ref=e2] [cursor=pointer]
+      - link "无障碍功能帮助" [ref=e3] [cursor=pointer]:
+        - /url: https://support.google.com/websearch/answer/181196?hl=zh-CN
+  - generic [ref=e8]:
+    - search [ref=e9]:
+      - generic [ref=e11]:
+        - link "Google 首页" [ref=e13] [cursor=pointer]:
+          - /url: https://www.google.com/webhp?hl=zh-CN&sa=X&ved=0ahUKEwjT26LZzfeUAxWDJkQIHTtsCqIQPAgI
+          - img [ref=e14]
+        - generic [ref=e21]:
+          - generic [ref=e22]:
+            - combobox "搜索" [ref=e25]: 直播吧 世界杯 营销 2026 直播吧 世界杯 营销 2026
+            - generic [ref=e26]:
+              - button "清除" [ref=e28] [cursor=pointer]:
+                - img [ref=e30]
+              - generic [ref=e33]:
+                - button "按语音搜索" [ref=e34] [cursor=pointer]:
+                  - img [ref=e35]
+                - button "按图搜索" [ref=e37] [cursor=pointer]:
+                  - img [ref=e38]
+          - button "搜索" [ref=e40] [cursor=pointer]:
+            - img [ref=e43]
+    - generic [ref=e46]:
+      - button "Google 应用" [ref=e48] [cursor=pointer]:
+        - img [ref=e49]
+      - button "Google 账号： 谷如洋 (guruyang77@gmail.com)" [ref=e53] [cursor=pointer]:
+        - img [ref=e54]
+  - generic [ref=e56]:
+    - navigation [ref=e62]:
+      - generic [ref=e68]:
+        - list [ref=e69]:
+          - listitem [ref=e70]:
+            - link "AI 模式" [ref=e73] [cursor=pointer]:
+              - /url: /search?q=%E7%9B%B4%E6%92%AD%E5%90%A7+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&lr=lang_zh-CN&sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n6MqR9-BXoJTMLL1uyyPIt8MnD-hA:1780920456101&udm=50&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVrl2pKVsOrAGyrx9IK5ONTshNMjE5PZCaAuOHwFZmwGt85OiAswUWVTEAzQ6xQey42klZ3hKc3TBxFr4UBW357GCuFwxVWIYbjObc-mEYlxqxX7PgVJJVJc5covb38G3lh5WbsR0WOeLfxJ3WkdZblz3OpZpHwicSNVXOXuSxgnAbUQputyejqIHbxkI6yK2AVFp8gw&aep=1&ntc=1&sa=X&ved=2ahUKEwjT26LZzfeUAxWDJkQIHTtsCqIQ2J8OegQIEBAD
+              - generic [ref=e76]: AI 模式
+          - listitem [ref=e77]:
+            - link "全部" [disabled] [ref=e78]:
+              - generic [ref=e80]: 全部
+          - listitem [ref=e81]:
+            - link "新闻" [ref=e82] [cursor=pointer]:
+              - /url: /search?lr=lang_zh-CN&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=lr:lang_1zh-CN&sxsrf=ANbL-n6MqR9-BXoJTMLL1uyyPIt8MnD-hA:1780920456101&q=%E7%9B%B4%E6%92%AD%E5%90%A7+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&tbm=nws&source=lnms&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVrl2pKVsOrAGyrx9IK5ONTshNMjE5PZCaAuOHwFZmwGt85OiAswUWVTEAzQ6xQey42klZ3hKc3TBxFr4UBW357GCuFwxVWIYbjObc-mEYlxqxX7PgVJJVJc5covb38G3lh5WbsR0WOeLfxJ3WkdZblz3OpZpHwicSNVXOXuSxgnAbUQputyejqIHbxkI6yK2AVFp8gw&sa=X&ved=2ahUKEwjT26LZzfeUAxWDJkQIHTtsCqIQ0pQJegQIFhAB
+              - generic [ref=e84]: 新闻
+          - listitem [ref=e85]:
+            - link "视频" [ref=e86] [cursor=pointer]:
+              - /url: /search?lr=lang_zh-CN&sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n6MqR9-BXoJTMLL1uyyPIt8MnD-hA:1780920456101&udm=7&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVrl2pKVsOrAGyrx9IK5ONTshNMjE5PZCaAuOHwFZmwGt85OiAswUWVTEAzQ6xQey42klZ3hKc3TBxFr4UBW357GCuFwxVWIYbjObc-mEYlxqxX7PgVJJVJc5covb38G3lh5WbsR0WOeLfxJ3WkdZblz3OpZpHwicSNVXOXuSxgnAbUQputyejqIHbxkI6yK2AVFp8gw&q=%E7%9B%B4%E6%92%AD%E5%90%A7+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sa=X&ved=2ahUKEwjT26LZzfeUAxWDJkQIHTtsCqIQtKgLegQIFBAB
+              - generic [ref=e88]: 视频
+          - listitem [ref=e89]:
+            - link "购物" [ref=e90] [cursor=pointer]:
+              - /url: /search?lr=lang_zh-CN&sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n6MqR9-BXoJTMLL1uyyPIt8MnD-hA:1780920456101&udm=28&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVrl2pKVsOrAGyrx9IK5ONTshNMjE5PZCaAuOHwFZmwGt85OiAswUWVTEAzQ6xQey42klZ3hKc3TBxFr4UBW357GCuFwxVWIYbjObc-mEYlxqxX7PgVJJVJc5covb38G3lh5WbsR0WOeLfxJ3WkdZblz3OpZpHwicSNVXOXuSxgnAbUQputyejqIHbxkI6yK2AVFp8gw&q=%E7%9B%B4%E6%92%AD%E5%90%A7+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&ved=1t:220175&ictx=111
+              - generic [ref=e92]: 购物
+          - listitem [ref=e93]:
+            - link "图片" [ref=e94] [cursor=pointer]:
+              - /url: /search?lr=lang_zh-CN&sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n6MqR9-BXoJTMLL1uyyPIt8MnD-hA:1780920456101&udm=2&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVrl2pKVsOrAGyrx9IK5ONTshNMjE5PZCaAuOHwFZmwGt85OiAswUWVTEAzQ6xQey42klZ3hKc3TBxFr4UBW357GCuFwxVWIYbjObc-mEYlxqxX7PgVJJVJc5covb38G3lh5WbsR0WOeLfxJ3WkdZblz3OpZpHwicSNVXOXuSxgnAbUQputyejqIHbxkI6yK2AVFp8gw&q=%E7%9B%B4%E6%92%AD%E5%90%A7+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sa=X&ved=2ahUKEwjT26LZzfeUAxWDJkQIHTtsCqIQtKgLegQIFRAB
+              - generic [ref=e96]: 图片
+          - listitem [ref=e97]:
+            - link "短视频" [ref=e98] [cursor=pointer]:
+              - /url: /search?lr=lang_zh-CN&sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n6MqR9-BXoJTMLL1uyyPIt8MnD-hA:1780920456101&udm=39&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVrl2pKVsOrAGyrx9IK5ONTshNMjE5PZCaAuOHwFZmwGt85OiAswUWVTEAzQ6xQey42klZ3hKc3TBxFr4UBW357GCuFwxVWIYbjObc-mEYlxqxX7PgVJJVJc5covb38G3lh5WbsR0WOeLfxJ3WkdZblz3OpZpHwicSNVXOXuSxgnAbUQputyejqIHbxkI6yK2AVFp8gw&q=%E7%9B%B4%E6%92%AD%E5%90%A7+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sa=X&ved=2ahUKEwjT26LZzfeUAxWDJkQIHTtsCqIQs6gLegQIEhAB
+              - generic [ref=e100]: 短视频
+          - listitem [ref=e101]:
+            - button "更多过滤条件" [ref=e102] [cursor=pointer]:
+              - generic "更多过滤条件" [ref=e103]:
+                - generic [ref=e104]:
+                  - generic [ref=e105]: 更多
+                  - img [ref=e107]
+        - button "工具" [ref=e110] [cursor=pointer]:
+          - generic [ref=e112]:
+            - generic [ref=e113]: 工具
+            - img [ref=e115]
+    - heading "搜索结果" [level=1] [ref=e117]
+    - main [ref=e123]:
+      - generic [ref=e127]:
+        - generic [ref=e130]:
+          - heading "网页搜索结果" [level=2] [ref=e131]
+          - generic [ref=e132]:
+            - generic [ref=e135]:
+              - link "中国赞助商，重新打量世界杯 懂球帝 https://www.dongqiudi.com › article" [ref=e137] [cursor=pointer]:
+                - /url: https://www.dongqiudi.com/article/5847271
+                - heading "中国赞助商，重新打量世界杯" [level=3] [ref=e138]
+                - generic [ref=e143]:
+                  - generic [ref=e145]: 懂球帝
+                  - generic [ref=e147]: https://www.dongqiudi.com › article
+              - button "关于这条结果的详细信息" [ref=e148] [cursor=pointer]:
+                - img [ref=e151]
+            - generic [ref=e154]:
+              - generic [ref=e155]: 2026年5月15日 —
+              - generic [ref=e156]:
+                - emphasis [ref=e157]: "2026"
+                - text: 年
+                - emphasis [ref=e158]: 世界杯
+                - text: 的赞助商名单中仅有联想、蒙牛和海信三家中国企业，vivo在 ... 伊利方面则选择控制
+                - emphasis [ref=e159]: 营销
+                - text: 预算，并未在
+                - emphasis [ref=e160]: 世界杯
+                - text: 有过多投放，只与部分国家 ...
+        - generic [ref=e171]:
+          - heading "正在搜索 再多想一会儿" [level=2] [ref=e175]:
+            - generic [ref=e176]:
+              - generic [ref=e178]: 正在搜索
+              - generic [ref=e188]: 再多想一会儿
+          - progressbar [ref=e190]
+        - generic [ref=e234]:
+          - heading "网页搜索结果" [level=2] [ref=e235]
+          - generic [ref=e236]:
+            - generic [ref=e239]:
+              - link "四年一届的世界杯，究竟是门多大的生意？｜湃客Talk ThePaper.cn https://m.thepaper.cn › newsDetail_forward_33171671" [ref=e241] [cursor=pointer]:
+                - /url: https://m.thepaper.cn/newsDetail_forward_33171671
+                - heading "四年一届的世界杯，究竟是门多大的生意？｜湃客Talk" [level=3] [ref=e242]
+                - generic [ref=e247]:
+                  - generic [ref=e249]: ThePaper.cn
+                  - generic [ref=e251]: https://m.thepaper.cn › newsDetail_forward_33171671
+              - button "关于这条结果的详细信息" [ref=e252] [cursor=pointer]:
+                - img [ref=e255]
+            - generic [ref=e258]:
+              - generic [ref=e259]: 2026年5月14日 —
+              - generic [ref=e260]:
+                - text: 湃客Talk：这届
+                - emphasis [ref=e261]: 世界杯
+                - text: ，FIFA和TikTok签约，允许媒体合作伙伴在TikTok上
+                - emphasis [ref=e262]: 直播
+                - text: 部分比赛片段。流媒体闯入转播新赛道，电视台议价能力会受冲击吗？ 杨仲华：过去几年， ...
+        - generic [ref=e266]:
+          - generic [ref=e269]:
+            - link "如何看待2026年央视拒绝美加墨世界杯的天价转播费？ 知乎 https://www.zhihu.com › question › answer" [ref=e271] [cursor=pointer]:
+              - /url: https://www.zhihu.com/question/2035259052784103479/answer/2036801494574437517
+              - heading "如何看待2026年央视拒绝美加墨世界杯的天价转播费？" [level=3] [ref=e272]
+              - generic [ref=e277]:
+                - generic [ref=e279]: 知乎
+                - generic [ref=e281]: https://www.zhihu.com › question › answer
+            - button "关于这条结果的详细信息" [ref=e282] [cursor=pointer]:
+              - img [ref=e285]
+          - generic [ref=e288]:
+            - generic [ref=e289]: 2026年5月5日 —
+            - generic [ref=e290]:
+              - text: 如果来不及，现场报道和内容制作水平势必大打折扣；相关节目的排期、策划悬而未决，广告
+              - emphasis [ref=e291]: 营销
+              - text: 更无从谈起；央视那边谈不妥，二次分销自然没影，其他平台又该如何 ...
+        - generic [ref=e295]:
+          - generic [ref=e298]:
+            - link "央视“放弃”世界杯，那些天价赞助的品牌怎么办？ 搜狐网 https://www.sohu.com › 搜狐文章页 › 钛媒体APP" [ref=e300] [cursor=pointer]:
+              - /url: https://www.sohu.com/a/1022989273_116132
+              - heading "央视“放弃”世界杯，那些天价赞助的品牌怎么办？" [level=3] [ref=e301]
+              - generic [ref=e306]:
+                - generic [ref=e308]: 搜狐网
+                - generic [ref=e310]: https://www.sohu.com › 搜狐文章页 › 钛媒体APP
+            - button "关于这条结果的详细信息" [ref=e311] [cursor=pointer]:
+              - img [ref=e314]
+          - generic [ref=e317]:
+            - generic [ref=e318]: 2026年5月15日 —
+            - generic [ref=e319]:
+              - text: 尤其是
+              - emphasis [ref=e320]: "2026"
+              - text: 年
+              - emphasis [ref=e321]: 世界杯
+              - text: ，本身就被视为史上商业化程度最高的一届。 这是首次 ... 吴昱霖透露，很多品牌从去年秋天开始，就已经提前规划
+              - emphasis [ref=e322]: 世界杯营销
+              - text: 。
+        - generic [ref=e326]:
+          - generic [ref=e329]:
+            - link "足球在北美日益流行对2026 年世界杯赞助商意味着什么 Nielsen https://www.nielsen.com › 洞察力" [ref=e331] [cursor=pointer]:
+              - /url: https://www.nielsen.com/zh/insights/2022/footballs-growing-popularity-in-north-america-and-the-2026-world-cup/
+              - heading "足球在北美日益流行对2026 年世界杯赞助商意味着什么" [level=3] [ref=e332]
+              - generic [ref=e337]:
+                - generic [ref=e339]: Nielsen
+                - generic [ref=e341]: https://www.nielsen.com › 洞察力
+            - button "关于这条结果的详细信息" [ref=e342] [cursor=pointer]:
+              - img [ref=e345]
+          - generic [ref=e349]:
+            - text: 除了赞助商在电视
+            - emphasis [ref=e350]: 直播
+            - text: 和社交媒体上获得显著的屏幕受众曝光率外，尼尔森的2021 年广告信任度研究还发现，体育赛事中的品牌赞助仅次于亲朋好友的推荐，81% 的消费者表示完全信任 ...
+        - generic [ref=e354]:
+          - generic [ref=e357]:
+            - link "2026世界杯营销：预算少怎么玩？这些品牌用“巧劲”抢了30亿 ... 手机网易网 https://www.163.com › article" [ref=e359] [cursor=pointer]:
+              - /url: https://www.163.com/dy/article/KUJIHL62055628L3.html
+              - heading "2026世界杯营销：预算少怎么玩？这些品牌用“巧劲”抢了30亿 ..." [level=3] [ref=e360]
+              - generic [ref=e365]:
+                - generic [ref=e367]: 手机网易网
+                - generic [ref=e369]: https://www.163.com › article
+            - button "关于这条结果的详细信息" [ref=e370] [cursor=pointer]:
+              - img [ref=e373]
+          - generic [ref=e376]:
+            - generic [ref=e377]: 4天前 —
+            - generic [ref=e378]:
+              - emphasis [ref=e379]: 2026世界杯营销
+              - text: ：预算少怎么玩？这些品牌用“巧劲”抢了30亿流量 · 一、这届品牌学精了：不拼钱，拼“懂球”. 1. 阿迪达斯：情怀杀到天花板。 · 二、以小博大：三个 ...
+        - generic [ref=e383]:
+          - generic [ref=e386]:
+            - link "2026世界杯，为什么小红书买了，抖音没买？ 36Kr https://m.36kr.com › ..." [ref=e388] [cursor=pointer]:
+              - /url: https://m.36kr.com/p/3828747231335302
+              - heading "2026世界杯，为什么小红书买了，抖音没买？" [level=3] [ref=e389]
+              - generic [ref=e394]:
+                - generic [ref=e396]: 36Kr
+                - generic [ref=e398]: https://m.36kr.com › ...
+            - button "关于这条结果的详细信息" [ref=e399] [cursor=pointer]:
+              - img [ref=e402]
+          - generic [ref=e405]:
+            - generic [ref=e406]: 2026年5月28日 —
+            - generic [ref=e407]:
+              - text: 5月28日，小红书官宣获得
+              - emphasis [ref=e408]: "2026"
+              - text: 年美加墨
+              - emphasis [ref=e409]: 世界杯
+              - text: 持权转播商身份，成为除中央广播电视总台和咪咕之外，唯一拥有
+              - emphasis [ref=e410]: 直播
+              - text: 、转播、短视频全套版权的平台。
+        - generic [ref=e414]:
+          - generic [ref=e417]:
+            - link "小红书，赌一把“世界杯” 搜狐网 https://m.sohu.com › 搜狐文章页 › 钛媒体APP" [ref=e419] [cursor=pointer]:
+              - /url: https://m.sohu.com/a/1031582208_116132?scm=10001.325_13-325_13.0.0-0-0-0-0.5_1334
+              - heading "小红书，赌一把“世界杯”" [level=3] [ref=e420]
+              - generic [ref=e425]:
+                - generic [ref=e427]: 搜狐网
+                - generic [ref=e429]: https://m.sohu.com › 搜狐文章页 › 钛媒体APP
+            - button "关于这条结果的详细信息" [ref=e430] [cursor=pointer]:
+              - img [ref=e433]
+          - generic [ref=e436]:
+            - generic [ref=e437]: 5天前 —
+            - generic [ref=e438]:
+              - text: 文| 伯虎财经，作者| 楷楷. 近日，小红书官宣成为
+              - emphasis [ref=e439]: "2026"
+              - text: 年美加墨
+              - emphasis [ref=e440]: 世界杯
+              - text: 持权转播商，
+              - emphasis [ref=e441]: 世界杯
+              - text: 全部赛事
+              - emphasis [ref=e442]: 直播
+              - text: 、回看和精彩瞬间，均可在小红书免费观看。
+        - generic [ref=e446]:
+          - generic [ref=e449]:
+            - link "2026美加墨世界杯转播权涨到3亿美元，央视选择拒绝 凤凰网 https://h5.ifeng.com › vivoArticle" [ref=e451] [cursor=pointer]:
+              - /url: https://h5.ifeng.com/c/vivoArticle/v002HpNO4-_gYqMYfEmfkybScuNmo8KimWLWXp1wKvTvBgAo__?vivoBusiness=hiboardnews
+              - heading "2026美加墨世界杯转播权涨到3亿美元，央视选择拒绝" [level=3] [ref=e452]
+              - generic [ref=e454]:
+                - img [ref=e458]
+                - generic [ref=e460]:
+                  - generic [ref=e462]: 凤凰网
+                  - generic [ref=e464]: https://h5.ifeng.com › vivoArticle
+            - button "关于这条结果的详细信息" [ref=e465] [cursor=pointer]:
+              - img [ref=e468]
+          - generic [ref=e472]:
+            - text: 长期以来，
+            - emphasis [ref=e473]: 世界杯
+            - text: 作为全球影响力最大的体育IP，始终被视为广告
+            - emphasis [ref=e474]: 营销
+            - text: 行业的“流量金矿”。 ... 体育内容的消费场景正在变得更加多元：短视频平台、社交媒体、
+            - emphasis [ref=e475]: 直播
+            - text: 解说以及多 ...
+      - navigation [ref=e478]:
+        - heading "网页导航" [level=1] [ref=e479]
+        - text: "1"
+        - link "Page 2" [ref=e482] [cursor=pointer]:
+          - /url: /search?q=%E7%9B%B4%E6%92%AD%E5%90%A7+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&lr=lang_zh-CN&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=lr:lang_1zh-CN&sxsrf=ANbL-n6MqR9-BXoJTMLL1uyyPIt8MnD-hA:1780920456101&ei=iLAmatP3BYPNkPIPu9ipkAo&start=10&sa=N&sstk=AU9db-BZgATml0q8GRjNhvv8Gc4TcIVlTOx7dumu_TYdxKXegbTafrAAkKgTZDAD2U1M7SOLIDseDbWXWlmsyq2Li4_RAzDdLAXWSg&ved=2ahUKEwjT26LZzfeUAxWDJkQIHTtsCqIQ8tMDegQIHRAE
+          - text: "2"
+        - link "Page 3" [ref=e484] [cursor=pointer]:
+          - /url: /search?q=%E7%9B%B4%E6%92%AD%E5%90%A7+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&lr=lang_zh-CN&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=lr:lang_1zh-CN&sxsrf=ANbL-n6MqR9-BXoJTMLL1uyyPIt8MnD-hA:1780920456101&ei=iLAmatP3BYPNkPIPu9ipkAo&start=20&sa=N&sstk=AU9db-BZgATml0q8GRjNhvv8Gc4TcIVlTOx7dumu_TYdxKXegbTafrAAkKgTZDAD2U1M7SOLIDseDbWXWlmsyq2Li4_RAzDdLAXWSg&ved=2ahUKEwjT26LZzfeUAxWDJkQIHTtsCqIQ8tMDegQIHRAG
+          - text: "3"
+        - link "Page 4" [ref=e486] [cursor=pointer]:
+          - /url: /search?q=%E7%9B%B4%E6%92%AD%E5%90%A7+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&lr=lang_zh-CN&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=lr:lang_1zh-CN&sxsrf=ANbL-n6MqR9-BXoJTMLL1uyyPIt8MnD-hA:1780920456101&ei=iLAmatP3BYPNkPIPu9ipkAo&start=30&sa=N&sstk=AU9db-BZgATml0q8GRjNhvv8Gc4TcIVlTOx7dumu_TYdxKXegbTafrAAkKgTZDAD2U1M7SOLIDseDbWXWlmsyq2Li4_RAzDdLAXWSg&ved=2ahUKEwjT26LZzfeUAxWDJkQIHTtsCqIQ8tMDegQIHRAI
+          - text: "4"
+        - link "Page 5" [ref=e488] [cursor=pointer]:
+          - /url: /search?q=%E7%9B%B4%E6%92%AD%E5%90%A7+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&lr=lang_zh-CN&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=lr:lang_1zh-CN&sxsrf=ANbL-n6MqR9-BXoJTMLL1uyyPIt8MnD-hA:1780920456101&ei=iLAmatP3BYPNkPIPu9ipkAo&start=40&sa=N&sstk=AU9db-BZgATml0q8GRjNhvv8Gc4TcIVlTOx7dumu_TYdxKXegbTafrAAkKgTZDAD2U1M7SOLIDseDbWXWlmsyq2Li4_RAzDdLAXWSg&ved=2ahUKEwjT26LZzfeUAxWDJkQIHTtsCqIQ8tMDegQIHRAK
+          - text: "5"
+        - link "Page 6" [ref=e490] [cursor=pointer]:
+          - /url: /search?q=%E7%9B%B4%E6%92%AD%E5%90%A7+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&lr=lang_zh-CN&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=lr:lang_1zh-CN&sxsrf=ANbL-n6MqR9-BXoJTMLL1uyyPIt8MnD-hA:1780920456101&ei=iLAmatP3BYPNkPIPu9ipkAo&start=50&sa=N&sstk=AU9db-BZgATml0q8GRjNhvv8Gc4TcIVlTOx7dumu_TYdxKXegbTafrAAkKgTZDAD2U1M7SOLIDseDbWXWlmsyq2Li4_RAzDdLAXWSg&ved=2ahUKEwjT26LZzfeUAxWDJkQIHTtsCqIQ8tMDegQIHRAM
+          - text: "6"
+        - link "Page 7" [ref=e492] [cursor=pointer]:
+          - /url: /search?q=%E7%9B%B4%E6%92%AD%E5%90%A7+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&lr=lang_zh-CN&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=lr:lang_1zh-CN&sxsrf=ANbL-n6MqR9-BXoJTMLL1uyyPIt8MnD-hA:1780920456101&ei=iLAmatP3BYPNkPIPu9ipkAo&start=60&sa=N&sstk=AU9db-BZgATml0q8GRjNhvv8Gc4TcIVlTOx7dumu_TYdxKXegbTafrAAkKgTZDAD2U1M7SOLIDseDbWXWlmsyq2Li4_RAzDdLAXWSg&ved=2ahUKEwjT26LZzfeUAxWDJkQIHTtsCqIQ8tMDegQIHRAO
+          - text: "7"
+        - link "Page 8" [ref=e494] [cursor=pointer]:
+          - /url: /search?q=%E7%9B%B4%E6%92%AD%E5%90%A7+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&lr=lang_zh-CN&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=lr:lang_1zh-CN&sxsrf=ANbL-n6MqR9-BXoJTMLL1uyyPIt8MnD-hA:1780920456101&ei=iLAmatP3BYPNkPIPu9ipkAo&start=70&sa=N&sstk=AU9db-BZgATml0q8GRjNhvv8Gc4TcIVlTOx7dumu_TYdxKXegbTafrAAkKgTZDAD2U1M7SOLIDseDbWXWlmsyq2Li4_RAzDdLAXWSg&ved=2ahUKEwjT26LZzfeUAxWDJkQIHTtsCqIQ8tMDegQIHRAQ
+          - text: "8"
+        - link "Page 9" [ref=e496] [cursor=pointer]:
+          - /url: /search?q=%E7%9B%B4%E6%92%AD%E5%90%A7+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&lr=lang_zh-CN&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=lr:lang_1zh-CN&sxsrf=ANbL-n6MqR9-BXoJTMLL1uyyPIt8MnD-hA:1780920456101&ei=iLAmatP3BYPNkPIPu9ipkAo&start=80&sa=N&sstk=AU9db-BZgATml0q8GRjNhvv8Gc4TcIVlTOx7dumu_TYdxKXegbTafrAAkKgTZDAD2U1M7SOLIDseDbWXWlmsyq2Li4_RAzDdLAXWSg&ved=2ahUKEwjT26LZzfeUAxWDJkQIHTtsCqIQ8tMDegQIHRAS
+          - text: "9"
+        - link "Page 10" [ref=e498] [cursor=pointer]:
+          - /url: /search?q=%E7%9B%B4%E6%92%AD%E5%90%A7+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&lr=lang_zh-CN&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=lr:lang_1zh-CN&sxsrf=ANbL-n6MqR9-BXoJTMLL1uyyPIt8MnD-hA:1780920456101&ei=iLAmatP3BYPNkPIPu9ipkAo&start=90&sa=N&sstk=AU9db-BZgATml0q8GRjNhvv8Gc4TcIVlTOx7dumu_TYdxKXegbTafrAAkKgTZDAD2U1M7SOLIDseDbWXWlmsyq2Li4_RAzDdLAXWSg&ved=2ahUKEwjT26LZzfeUAxWDJkQIHTtsCqIQ8tMDegQIHRAU
+          - text: "10"
+        - heading "下一页" [level=2] [ref=e500]:
+          - link "下一页" [ref=e501] [cursor=pointer]:
+            - /url: /search?q=%E7%9B%B4%E6%92%AD%E5%90%A7+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&lr=lang_zh-CN&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=lr:lang_1zh-CN&sxsrf=ANbL-n6MqR9-BXoJTMLL1uyyPIt8MnD-hA:1780920456101&ei=iLAmatP3BYPNkPIPu9ipkAo&start=10&sa=N&sstk=AU9db-BZgATml0q8GRjNhvv8Gc4TcIVlTOx7dumu_TYdxKXegbTafrAAkKgTZDAD2U1M7SOLIDseDbWXWlmsyq2Li4_RAzDdLAXWSg&ved=2ahUKEwjT26LZzfeUAxWDJkQIHTtsCqIQ8NMDegQIHRAW
+            - generic [ref=e503]: 下一页
+      - navigation
+    - contentinfo [ref=e504]:
+      - heading "页脚链接" [level=1] [ref=e505]
+      - generic [ref=e509]:
+        - generic [ref=e512]:
+          - generic [ref=e513]: 是个性化搜索结果
+          - generic [ref=e514]: "-"
+          - link "尝试不使用个性化功能" [ref=e516] [cursor=pointer]:
+            - /url: https://www.google.com/search?q=%E7%9B%B4%E6%92%AD%E5%90%A7+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&hl=zh-CN&lr=lang_zh-CN&peek_pws=0&sxsrf=ANbL-n6MqR9-BXoJTMLL1uyyPIt8MnD-hA:1780920456101
+            - generic [ref=e517]: 尝试不使用个性化功能
+        - generic [ref=e521]:
+          - button "加利福尼亚 - 根据您的活动记录" [ref=e523] [cursor=pointer]:
+            - generic [ref=e524]: 加利福尼亚
+            - generic [ref=e526]:
+              - text: "-"
+              - generic [ref=e527]: 根据您的活动记录
+          - text: "-"
+          - button "更新位置信息" [ref=e529] [cursor=pointer]: 更新位置信息
+        - generic [ref=e532]:
+          - link "帮助" [ref=e533] [cursor=pointer]:
+            - /url: https://support.google.com/websearch/?p=ws_results_help&hl=zh-CN&fg=1
+          - link "发送反馈" [ref=e534] [cursor=pointer]:
+            - /url: "#"
+          - link "隐私权" [ref=e535] [cursor=pointer]:
+            - /url: https://policies.google.com/privacy?hl=zh-CN&fg=1
+          - link "条款" [ref=e536] [cursor=pointer]:
+            - /url: https://policies.google.com/terms?hl=zh-CN&fg=1

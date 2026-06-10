@@ -1,0 +1,371 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - button "跳至内容" [ref=e4] [cursor=pointer]:
+      - generic [ref=e6]: 跳至内容
+    - button "辅助功能反馈" [ref=e7] [cursor=pointer]:
+      - generic [ref=e9]: 辅助功能反馈
+    - generic [ref=e10]:
+      - link "返回到必应搜索" [ref=e11] [cursor=pointer]:
+        - /url: /?FORM=Z9FD1
+        - heading "返回到必应搜索" [level=1] [ref=e12]
+      - search [ref=e13]:
+        - button "搜索" [ref=e16] [cursor=pointer]
+        - searchbox "在此处输入你的搜索 — 输入时会显示搜索建议" [ref=e17]: 懂球帝 世界杯 营销 广告
+    - complementary "帐户奖励和偏好设置" [ref=e21]:
+      - button "Microsoft Rewards" [ref=e22] [cursor=pointer]:
+        - generic [ref=e24]:
+          - generic [ref=e25]: Rewards
+          - img [ref=e27]
+      - link "登录" [ref=e39] [cursor=pointer]:
+        - /url: javascript:void(0)
+        - generic "登录" [ref=e40]
+    - generic:
+      - generic "国内版" [ref=e41]
+      - generic "国际版" [ref=e42] [cursor=pointer]
+    - navigation "主菜单" [ref=e43]:
+      - list [ref=e44]:
+        - listitem [ref=e45]:
+          - link "网页" [ref=e46] [cursor=pointer]:
+            - /url: /?scope=web&FORM=HDRSC1
+        - listitem [ref=e47]:
+          - link "图片" [ref=e48] [cursor=pointer]:
+            - /url: /images/search?q=%e6%87%82%e7%90%83%e5%b8%9d+%e4%b8%96%e7%95%8c%e6%9d%af+%e8%90%a5%e9%94%80+%e5%b9%bf%e5%91%8a&FORM=HDRSC2
+        - listitem [ref=e49]:
+          - link "视频" [ref=e50] [cursor=pointer]:
+            - /url: /videos/search?q=%e6%87%82%e7%90%83%e5%b8%9d+%e4%b8%96%e7%95%8c%e6%9d%af+%e8%90%a5%e9%94%80+%e5%b9%bf%e5%91%8a&FORM=HDRSC3
+        - listitem [ref=e51]:
+          - link "学术" [ref=e52] [cursor=pointer]:
+            - /url: /academic/search?q=%e6%87%82%e7%90%83%e5%b8%9d+%e4%b8%96%e7%95%8c%e6%9d%af+%e8%90%a5%e9%94%80+%e5%b9%bf%e5%91%8a&FORM=HDRSC4
+        - listitem [ref=e53]:
+          - link "词典" [ref=e54] [cursor=pointer]:
+            - /url: /dict/search?q=%e6%87%82%e7%90%83%e5%b8%9d+%e4%b8%96%e7%95%8c%e6%9d%af+%e8%90%a5%e9%94%80+%e5%b9%bf%e5%91%8a&FORM=HDRSC6
+        - listitem [ref=e55]:
+          - link "地图" [ref=e56] [cursor=pointer]:
+            - /url: /maps?q=%e6%87%82%e7%90%83%e5%b8%9d+%e4%b8%96%e7%95%8c%e6%9d%af+%e8%90%a5%e9%94%80+%e5%b9%bf%e5%91%8a&FORM=HDRSC7
+        - listitem [ref=e57]:
+          - button "更多" [ref=e58] [cursor=pointer]:
+            - img [ref=e60]
+            - text: 更多
+  - generic [ref=e62]:
+    - main "搜索结果" [ref=e63]:
+      - generic [ref=e65]:
+        - button "按照 时间不限 筛选, 一周内" [ref=e67] [cursor=pointer]: 一周内
+        - button "在新选项卡中打开链接" [pressed] [ref=e70] [cursor=pointer]:
+          - generic [ref=e71]: 在新选项卡中打开链接
+          - img [ref=e73]
+        - generic [ref=e76]:
+          - generic [ref=e77]:
+            - generic [ref=e78]: 必应国家/地区设置为
+            - generic [ref=e79]:
+              - img [ref=e80]
+              - generic [ref=e83]: 中国
+          - link "更改国家/地区" [ref=e85] [cursor=pointer]:
+            - /url: /account/general?ru=%2fsearch%3fq%3d%25E6%2587%2582%25E7%2590%2583%25E5%25B8%259D%2b%25E4%25B8%2596%25E7%2595%258C%25E6%259D%25AF%2b%25E8%2590%25A5%25E9%2594%2580%2b%25E5%25B9%25BF%25E5%2591%258A%26setlang%3dzh-Hans%26cc%3dcn%26filters%3dex1%253A%2522ez2%2522&FORM=O2HV65&id=region_section#region-section
+      - list [ref=e86]:
+        - listitem [ref=e87]:
+          - link "腾讯网" [ref=e89] [cursor=pointer]:
+            - /url: https://news.qq.com/rain/a/20260603A08LTB00
+            - generic [ref=e94]:
+              - generic [ref=e95]: 腾讯网
+              - generic [ref=e98]: https://news.qq.com › rain
+          - heading "世界杯上的广告，都是AI做的？_腾讯新闻" [level=2] [ref=e99]:
+            - link "世界杯上的广告，都是AI做的？_腾讯新闻" [ref=e100] [cursor=pointer]:
+              - /url: https://news.qq.com/rain/a/20260603A08LTB00
+              - strong [ref=e101]: 世界杯
+              - text: 上的
+              - strong [ref=e102]: 广告
+              - text: ，都是AI做的？_腾讯新闻
+          - paragraph [ref=e104]: 前段时间，脉动官宣成为阿根廷国家队中国区赞助商，并推出了一支包含梅西、德保罗等出镜的全新广告片——值得关注的是，片中的 …
+        - listitem [ref=e105]:
+          - link "新浪财经网" [ref=e107] [cursor=pointer]:
+            - /url: https://t.cj.sina.com.cn/articles/view/5633596000/v14fc9da6000103llko
+            - generic [ref=e112]:
+              - generic [ref=e113]: 新浪财经网
+              - generic [ref=e116]: https://t.cj.sina.com.cn › articles › view
+          - heading "世界杯营销花活大盘点：梅罗卷入咖啡大战 球赛迎来AI裁判" [level=2] [ref=e117]:
+            - link "世界杯营销花活大盘点：梅罗卷入咖啡大战 球赛迎来AI裁判" [ref=e118] [cursor=pointer]:
+              - /url: https://t.cj.sina.com.cn/articles/view/5633596000/v14fc9da6000103llko
+              - strong [ref=e119]: 世界杯营销
+              - text: 花活大盘点：梅罗卷入咖啡大战 球赛迎来AI裁判
+          - paragraph [ref=e121]: 据悉，中国有海信、蒙牛、万达、联想等4家大企业赞助了美加墨世界 杯，海信和蒙牛两家联手拍摄TVC《青春不过几届世界杯2.0》 …
+        - listitem [ref=e122]:
+          - link "虎嗅网" [ref=e124] [cursor=pointer]:
+            - /url: https://www.huxiu.com/article/4864250.html
+            - generic [ref=e129]:
+              - generic [ref=e130]: 虎嗅网
+              - generic [ref=e133]: https://www.huxiu.com › article
+          - heading "世界杯上的广告，都是AI做的？ - 虎嗅网" [level=2] [ref=e134]:
+            - link "世界杯上的广告，都是AI做的？ - 虎嗅网" [ref=e135] [cursor=pointer]:
+              - /url: https://www.huxiu.com/article/4864250.html
+              - strong [ref=e136]: 世界杯
+              - text: 上的
+              - strong [ref=e137]: 广告
+              - text: ，都是AI做的？ - 虎嗅网
+          - paragraph [ref=e139]: 本文以脉动成为阿根廷国家队赞助商并利用生成式AI制作梅西广告为例，分析AI对体育营销在成本、效率和权益体系上的影响，并探讨 …
+        - listitem [ref=e140]:
+          - link "抖音" [ref=e142] [cursor=pointer]:
+            - /url: https://www.douyin.com/user/MS4wLjABAAAAe62OnCbvvlvrVOzhqyrpqQnpQSK9pX3YUPcrRv4ULSXhvC6Yv-MKYGBkgfz-wBEa
+            - generic [ref=e147]:
+              - generic [ref=e148]: 抖音
+              - generic [ref=e151]: https://www.douyin.com › user
+          - heading "FIFA世界杯的抖音 - 抖音" [level=2] [ref=e152]:
+            - link "FIFA世界杯的抖音 - 抖音" [ref=e153] [cursor=pointer]:
+              - /url: https://www.douyin.com/user/MS4wLjABAAAAe62OnCbvvlvrVOzhqyrpqQnpQSK9pX3YUPcrRv4ULSXhvC6Yv-MKYGBkgfz-wBEa
+              - text: FIFA
+              - strong [ref=e154]: 世界杯
+              - text: 的抖音 - 抖音
+          - paragraph [ref=e156]: 4 天之前 · 【官方】中央广播电视总台确认为2026年和2030年国际足联世界杯的中国官方转播商 两届国际足联世界杯和女足世界杯的 …
+        - listitem [ref=e157]:
+          - link "同花顺财经" [ref=e159] [cursor=pointer]:
+            - /url: https://stock.10jqka.com.cn/20260605/c677240692.shtml
+            - generic [ref=e164]:
+              - generic [ref=e165]: 同花顺财经
+              - generic [ref=e168]: https://stock.10jqka.com.cn
+          - heading "世界杯营销战提前打响 品牌借社媒情绪与场景抢占先机" [level=2] [ref=e169]:
+            - link "世界杯营销战提前打响 品牌借社媒情绪与场景抢占先机" [ref=e170] [cursor=pointer]:
+              - /url: https://stock.10jqka.com.cn/20260605/c677240692.shtml
+              - strong [ref=e171]: 世界杯营销
+              - text: 战提前打响 品牌借社媒情绪与场景抢占先机
+          - paragraph [ref=e173]: 据蓝瀚互动BlueVision消息，随着2026年世界杯进入倒计时，全球社交媒体注意力已开始向赛事聚集。 品牌营销战役同步提前打响， …
+        - listitem [ref=e174]:
+          - link "新民网" [ref=e176] [cursor=pointer]:
+            - /url: https://paper.xinmin.cn/html/dfsports/2026-06-05/A02/72080.html
+            - generic [ref=e181]:
+              - generic [ref=e182]: 新民网
+              - generic [ref=e185]: https://paper.xinmin.cn › html › dfsports › ...
+          - heading "AI广告能为世界杯带来什么 - 电子报详情页" [level=2] [ref=e186]:
+            - link "AI广告能为世界杯带来什么 - 电子报详情页" [ref=e187] [cursor=pointer]:
+              - /url: https://paper.xinmin.cn/html/dfsports/2026-06-05/A02/72080.html
+              - text: AI
+              - strong [ref=e188]: 广告
+              - text: 能为
+              - strong [ref=e189]: 世界杯
+              - text: 带来什么 - 电子报详情页
+          - paragraph [ref=e191]: 传统球星代言需要协调明星档期、搭建实景拍摄、投入大量后期剪辑，整体成本高、落地周期长，创意表达也常常受到限制。 相比之 …
+        - listitem [ref=e192]:
+          - link "新浪娱乐" [ref=e194] [cursor=pointer]:
+            - /url: https://ent.sina.cn/2026-06-02/detail-inhzxrnh3707482.d.html?vt=4
+            - generic [ref=e199]:
+              - generic [ref=e200]: 新浪娱乐
+              - generic [ref=e203]: https://ent.sina.cn
+          - heading "网友对蒙牛这次世界杯短片和苏醒的表演有哪些有趣的反馈和 ..." [level=2] [ref=e204]:
+            - link "网友对蒙牛这次世界杯短片和苏醒的表演有哪些有趣的反馈和 ..." [ref=e205] [cursor=pointer]:
+              - /url: https://ent.sina.cn/2026-06-02/detail-inhzxrnh3707482.d.html?vt=4
+              - text: 网友对蒙牛这次
+              - strong [ref=e206]: 世界杯
+              - text: 短片和苏醒的表演有哪些有趣的反馈和 ...
+          - paragraph [ref=e208]: 蒙牛在2026年世界杯推出的剧情推理短片《无论谁赢球都来找蒙牛》，邀请艺人苏醒化身“影帝”演绎多角悬疑剧情，引发网友热烈玩梗 …
+        - listitem [ref=e209]:
+          - link "哔哩哔哩" [ref=e211] [cursor=pointer]:
+            - /url: https://www.bilibili.com/video/BV1AV7m6DEig/
+            - generic [ref=e216]:
+              - generic [ref=e217]: 哔哩哔哩
+              - generic [ref=e220]: https://www.bilibili.com › video
+          - heading "撕毁剧本广告深挖：看似群星乱战，全是球迷才懂的隐藏梗" [level=2] [ref=e221]:
+            - link "撕毁剧本广告深挖：看似群星乱战，全是球迷才懂的隐藏梗" [ref=e222] [cursor=pointer]:
+              - /url: https://www.bilibili.com/video/BV1AV7m6DEig/
+              - text: 撕毁剧本
+              - strong [ref=e223]: 广告
+              - text: 深挖：看似群星乱战，全是球迷才
+              - strong [ref=e224]: 懂
+              - text: 的隐藏梗
+          - generic [ref=e226]:
+            - 'link "撕毁剧本广告深挖：看似群星乱战，全是球迷才懂的隐藏梗 · 时长: 6 分钟38 秒 · 单击以播放。" [ref=e233] [cursor=pointer]':
+              - /url: https://www.bilibili.com/video/BV1AV7m6DEig/
+              - generic [ref=e243]: 6:38
+            - paragraph [ref=e244]: 2 天之前 · 撕毁剧本广告深挖：看似群星乱战，全是球迷才懂的隐藏梗, 视频播放量 2381、弹幕量 9、点 …
+            - generic [ref=e246]:
+              - list [ref=e247]:
+                - listitem [ref=e248]:
+                  - generic [ref=e249]: "作者: 足球司机韩"
+              - list [ref=e250]:
+                - listitem [ref=e251]:
+                  - generic [ref=e252]: 查看次数 2,381
+        - listitem [ref=e253]:
+          - link "网易" [ref=e255] [cursor=pointer]:
+            - /url: https://www.163.com/dy/article/KUGL6TR405568TE5.html
+            - generic [ref=e260]:
+              - generic [ref=e261]: 网易
+              - generic [ref=e264]: https://www.163.com › dy › article
+          - heading "手机党世界杯蹲球攻略：三大平台横评，哪一款最懂你的观赛 ..." [level=2] [ref=e265]:
+            - link "手机党世界杯蹲球攻略：三大平台横评，哪一款最懂你的观赛 ..." [ref=e266] [cursor=pointer]:
+              - /url: https://www.163.com/dy/article/KUGL6TR405568TE5.html
+              - text: 手机党
+              - strong [ref=e267]: 世界杯
+              - text: 蹲
+              - strong [ref=e268]: 球
+              - text: 攻略：三大平台横评，哪一款最
+              - strong [ref=e269]: 懂
+              - text: 你的观赛 ...
+          - paragraph [ref=e271]: 今天，我们就聚焦手机党最常用的三个平台——黑白体育直播、懂球帝直播和腾讯体育，结合真实实测数据，为你拆解不同球迷的观 …
+        - listitem [ref=e272]:
+          - link "青瓜传媒" [ref=e274] [cursor=pointer]:
+            - /url: https://www.opp2.com/382137.html
+            - generic [ref=e279]:
+              - generic [ref=e280]: 青瓜传媒
+              - generic [ref=e283]: https://www.opp2.com
+          - heading "世界杯上的广告，都是AI做的？ | 青瓜传媒" [level=2] [ref=e284]:
+            - link "世界杯上的广告，都是AI做的？ | 青瓜传媒" [ref=e285] [cursor=pointer]:
+              - /url: https://www.opp2.com/382137.html
+              - strong [ref=e286]: 世界杯
+              - text: 上的
+              - strong [ref=e287]: 广告
+              - text: ，都是AI做的？ | 青瓜传媒
+          - paragraph [ref=e289]: 一位体育AI专家告诉体育产业生态圈： 「所有的广告内容都可以分为术与道，前者是渠道和传播，AI的加入丰富甚至颠覆了‘术’；后者 …
+        - listitem [ref=e290]:
+          - generic [ref=e291]:
+            - heading "深入了解 懂球帝 世界杯 营销 广告" [level=2] [ref=e292]:
+              - text: 深入了解
+              - strong [ref=e293]: 懂球帝 世界杯 营销 广告
+            - list [ref=e294]:
+              - listitem [ref=e295]:
+                - link "懂球帝无广告版" [ref=e296] [cursor=pointer]:
+                  - /url: /search?q=%e6%87%82%e7%90%83%e5%b8%9d%e6%97%a0%e5%b9%bf%e5%91%8a%e7%89%88&FORM=QSRE1
+                  - generic [ref=e298]:
+                    - strong [ref=e299]: 懂球帝
+                    - text: 无
+                    - strong [ref=e300]: 广告
+                    - text: 版
+              - listitem [ref=e301]:
+                - link "懂球帝无广告版下载" [ref=e302] [cursor=pointer]:
+                  - /url: /search?q=%e6%87%82%e7%90%83%e5%b8%9d%e6%97%a0%e5%b9%bf%e5%91%8a%e7%89%88%e4%b8%8b%e8%bd%bd&FORM=QSRE2
+                  - generic [ref=e304]:
+                    - strong [ref=e305]: 懂球帝
+                    - text: 无
+                    - strong [ref=e306]: 广告
+                    - text: 版下载
+              - listitem [ref=e307]:
+                - link "懂球帝广告无法关闭" [ref=e308] [cursor=pointer]:
+                  - /url: /search?q=%e6%87%82%e7%90%83%e5%b8%9d%e5%b9%bf%e5%91%8a%e6%97%a0%e6%b3%95%e5%85%b3%e9%97%ad&FORM=QSRE3
+                  - generic [ref=e310]:
+                    - strong [ref=e311]: 懂球帝广告
+                    - text: 无法关闭
+              - listitem [ref=e312]:
+                - link "懂球帝8.2.5去广告" [ref=e313] [cursor=pointer]:
+                  - /url: /search?q=%e6%87%82%e7%90%83%e5%b8%9d8.2.5%e5%8e%bb%e5%b9%bf%e5%91%8a&FORM=QSRE4
+                  - generic [ref=e315]:
+                    - strong [ref=e316]: 懂球帝
+                    - text: 8.2.5去
+                    - strong [ref=e317]: 广告
+              - listitem [ref=e318]:
+                - link "懂球帝广告太容易误触了" [ref=e319] [cursor=pointer]:
+                  - /url: /search?q=%e6%87%82%e7%90%83%e5%b8%9d%e5%b9%bf%e5%91%8a%e5%a4%aa%e5%ae%b9%e6%98%93%e8%af%af%e8%a7%a6%e4%ba%86&FORM=QSRE5
+                  - generic [ref=e321]:
+                    - strong [ref=e322]: 懂球帝广告
+                    - text: 太容易误触了
+              - listitem [ref=e323]:
+                - link "懂球帝怎么关闭一摇广告" [ref=e324] [cursor=pointer]:
+                  - /url: /search?q=%e6%87%82%e7%90%83%e5%b8%9d%e6%80%8e%e4%b9%88%e5%85%b3%e9%97%ad%e4%b8%80%e6%91%87%e5%b9%bf%e5%91%8a&FORM=QSRE6
+                  - generic [ref=e326]:
+                    - strong [ref=e327]: 懂球帝
+                    - text: 怎么关闭一摇
+                    - strong [ref=e328]: 广告
+              - listitem [ref=e329]:
+                - link "懂球帝关闭广告" [ref=e330] [cursor=pointer]:
+                  - /url: /search?q=%e6%87%82%e7%90%83%e5%b8%9d%e5%85%b3%e9%97%ad%e5%b9%bf%e5%91%8a&FORM=QSRE7
+                  - generic [ref=e332]:
+                    - strong [ref=e333]: 懂球帝
+                    - text: 关闭
+                    - strong [ref=e334]: 广告
+              - listitem [ref=e335]:
+                - link "懂球帝摇一摇广告" [ref=e336] [cursor=pointer]:
+                  - /url: /search?q=%e6%87%82%e7%90%83%e5%b8%9d%e6%91%87%e4%b8%80%e6%91%87%e5%b9%bf%e5%91%8a&FORM=QSRE8
+                  - generic [ref=e338]:
+                    - strong [ref=e339]: 懂球帝
+                    - text: 摇一摇
+                    - strong [ref=e340]: 广告
+        - listitem [ref=e341]:
+          - link "某些结果已被删除" [ref=e342] [cursor=pointer]:
+            - /url: http://go.microsoft.com/fwlink/?LinkID=617350
+        - listitem [ref=e343]:
+          - navigation "懂球帝 世界杯 营销 广告 的更多搜索结果":
+            - list:
+              - listitem [ref=e344]:
+                - generic "第 1 页" [ref=e345]: "1"
+              - listitem [ref=e346]:
+                - link "第 2 页" [ref=e347] [cursor=pointer]:
+                  - /url: /search?q=%e6%87%82%e7%90%83%e5%b8%9d+%e4%b8%96%e7%95%8c%e6%9d%af+%e8%90%a5%e9%94%80+%e5%b9%bf%e5%91%8a&setlang=zh-Hans&cc=cn&filters=ex1%3a%22ez2%22&FPIG=82DBA619619F402AB96FB77878DB78C3&first=10&FORM=PERE
+                  - text: "2"
+              - listitem [ref=e348]:
+                - link "第 3 页" [ref=e349] [cursor=pointer]:
+                  - /url: /search?q=%e6%87%82%e7%90%83%e5%b8%9d+%e4%b8%96%e7%95%8c%e6%9d%af+%e8%90%a5%e9%94%80+%e5%b9%bf%e5%91%8a&setlang=zh-Hans&cc=cn&filters=ex1%3a%22ez2%22&FPIG=82DBA619619F402AB96FB77878DB78C3&first=20&FORM=PERE1
+                  - text: "3"
+              - listitem [ref=e350]:
+                - link "下一页" [ref=e351] [cursor=pointer]:
+                  - /url: /search?q=%e6%87%82%e7%90%83%e5%b8%9d+%e4%b8%96%e7%95%8c%e6%9d%af+%e8%90%a5%e9%94%80+%e5%b9%bf%e5%91%8a&setlang=zh-Hans&cc=cn&filters=ex1%3a%22ez2%22&FPIG=82DBA619619F402AB96FB77878DB78C3&first=10&FORM=PORE
+    - complementary "更多结果" [ref=e352]:
+      - list [ref=e353]:
+        - listitem [ref=e354]:
+          - generic [ref=e357]:
+            - heading "深入了解 懂球帝 世界杯 营销 广告" [level=2] [ref=e359]:
+              - text: 深入了解
+              - strong [ref=e360]: 懂球帝 世界杯 营销 广告
+            - generic [ref=e361]:
+              - generic:
+                - list
+              - generic [ref=e362]:
+                - link "懂球帝无广告版" [ref=e364] [cursor=pointer]:
+                  - /url: /search?q=%e6%87%82%e7%90%83%e5%b8%9d%e6%97%a0%e5%b9%bf%e5%91%8a%e7%89%88&FORM=R5FD
+                  - generic [ref=e366]:
+                    - strong [ref=e367]: 懂球帝
+                    - text: 无
+                    - strong [ref=e368]: 广告
+                    - text: 版
+                - link "懂球帝无广告版下载" [ref=e370] [cursor=pointer]:
+                  - /url: /search?q=%e6%87%82%e7%90%83%e5%b8%9d%e6%97%a0%e5%b9%bf%e5%91%8a%e7%89%88%e4%b8%8b%e8%bd%bd&FORM=R5FD1
+                  - generic [ref=e372]:
+                    - strong [ref=e373]: 懂球帝
+                    - text: 无
+                    - strong [ref=e374]: 广告
+                    - text: 版下载
+                - link "懂球帝广告无法关闭" [ref=e376] [cursor=pointer]:
+                  - /url: /search?q=%e6%87%82%e7%90%83%e5%b8%9d%e5%b9%bf%e5%91%8a%e6%97%a0%e6%b3%95%e5%85%b3%e9%97%ad&FORM=R5FD2
+                  - generic [ref=e378]:
+                    - strong [ref=e379]: 懂球帝广告
+                    - text: 无法关闭
+                - link "懂球帝8.2.5去广告" [ref=e381] [cursor=pointer]:
+                  - /url: /search?q=%e6%87%82%e7%90%83%e5%b8%9d8.2.5%e5%8e%bb%e5%b9%bf%e5%91%8a&FORM=R5FD3
+                  - generic [ref=e383]:
+                    - strong [ref=e384]: 懂球帝
+                    - text: 8.2.5去
+                    - strong [ref=e385]: 广告
+                - link "懂球帝广告太容易误触了" [ref=e387] [cursor=pointer]:
+                  - /url: /search?q=%e6%87%82%e7%90%83%e5%b8%9d%e5%b9%bf%e5%91%8a%e5%a4%aa%e5%ae%b9%e6%98%93%e8%af%af%e8%a7%a6%e4%ba%86&FORM=R5FD4
+                  - generic [ref=e389]:
+                    - strong [ref=e390]: 懂球帝广告
+                    - text: 太容易误触了
+                - link "懂球帝怎么关闭一摇广告" [ref=e392] [cursor=pointer]:
+                  - /url: /search?q=%e6%87%82%e7%90%83%e5%b8%9d%e6%80%8e%e4%b9%88%e5%85%b3%e9%97%ad%e4%b8%80%e6%91%87%e5%b9%bf%e5%91%8a&FORM=R5FD5
+                  - generic [ref=e394]:
+                    - strong [ref=e395]: 懂球帝
+                    - text: 怎么关闭一摇
+                    - strong [ref=e396]: 广告
+                - link "懂球帝关闭广告" [ref=e398] [cursor=pointer]:
+                  - /url: /search?q=%e6%87%82%e7%90%83%e5%b8%9d%e5%85%b3%e9%97%ad%e5%b9%bf%e5%91%8a&FORM=R5FD6
+                  - generic [ref=e400]:
+                    - strong [ref=e401]: 懂球帝
+                    - text: 关闭
+                    - strong [ref=e402]: 广告
+                - link "懂球帝摇一摇广告" [ref=e404] [cursor=pointer]:
+                  - /url: /search?q=%e6%87%82%e7%90%83%e5%b8%9d%e6%91%87%e4%b8%80%e6%91%87%e5%b9%bf%e5%91%8a&FORM=R5FD7
+                  - generic [ref=e406]:
+                    - strong [ref=e407]: 懂球帝
+                    - text: 摇一摇
+                    - strong [ref=e408]: 广告
+  - contentinfo [ref=e409]:
+    - list [ref=e411]:
+      - listitem [ref=e412]:
+        - link "增值电信业务经营许可证：合字B2-20090007" [ref=e413] [cursor=pointer]:
+          - /url: https://dxzhgl.miit.gov.cn/dxxzsp/xkz/xkzgl/resource/qiyereport.jsp?num=caf04fa4-bd8a-4d9e-80b6-2aa1b86c1509&type=yreport
+      - listitem [ref=e414]:
+        - link "京ICP备10036305号-7" [ref=e415] [cursor=pointer]:
+          - /url: https://beian.miit.gov.cn
+      - listitem [ref=e416]:
+        - link "京公网安备11010802047360号" [ref=e417] [cursor=pointer]:
+          - /url: https://beian.mps.gov.cn/#/query/webSearch?code=11010802047360
+      - listitem [ref=e418]:
+        - link "隐私" [ref=e419] [cursor=pointer]:
+          - /url: http://go.microsoft.com/fwlink/?LinkId=521839
+      - listitem [ref=e420]:
+        - link "条款" [ref=e421] [cursor=pointer]:
+          - /url: http://go.microsoft.com/fwlink/?LinkID=246338

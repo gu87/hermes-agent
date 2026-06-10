@@ -1,0 +1,371 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - generic:
+      - link "跳到主要内容" [ref=e2] [cursor=pointer]
+      - link "无障碍功能帮助" [ref=e3] [cursor=pointer]:
+        - /url: https://support.google.com/websearch/answer/181196?hl=zh-CN
+  - generic [ref=e8]:
+    - search [ref=e9]:
+      - generic [ref=e11]:
+        - link "Google 首页" [ref=e13] [cursor=pointer]:
+          - /url: https://www.google.com/webhp?hl=zh-CN&sa=X&ved=0ahUKEwilrtX4zfeUAxUMKEQIHWWLEh8QPAgI
+          - img [ref=e14]
+        - generic [ref=e21]:
+          - generic [ref=e22]:
+            - combobox "搜索" [ref=e25]: 麦当劳 世界杯 营销 2026 麦当劳 世界杯 营销 2026
+            - generic [ref=e26]:
+              - button "清除" [ref=e28] [cursor=pointer]:
+                - img [ref=e30]
+              - generic [ref=e33]:
+                - button "按语音搜索" [ref=e34] [cursor=pointer]:
+                  - img [ref=e35]
+                - button "按图搜索" [ref=e37] [cursor=pointer]:
+                  - img [ref=e38]
+          - button "搜索" [ref=e40] [cursor=pointer]:
+            - img [ref=e43]
+    - generic [ref=e46]:
+      - button "Google 应用" [ref=e48] [cursor=pointer]:
+        - img [ref=e49]
+      - button "Google 账号： 谷如洋 (guruyang77@gmail.com)" [ref=e53] [cursor=pointer]:
+        - img [ref=e54]
+  - generic [ref=e56]:
+    - navigation [ref=e62]:
+      - generic [ref=e68]:
+        - list [ref=e69]:
+          - listitem [ref=e70]:
+            - link "AI 模式" [ref=e73] [cursor=pointer]:
+              - /url: /search?q=%E9%BA%A6%E5%BD%93%E5%8A%B3+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4otf2awRJEpNdzMDtTYTvQRfswew:1780920521943&udm=50&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVNvV7jKtLqzLZ63dd2zPtrsojpaijeJRLrp4clUvcwVLi54dOkHWv8dWQ1lqb_5yWnnFHysznsWJN-Hkwoo5xEsMBsmz90w9MabbJ59WLk_Ho2CE3mM59pLPq6YJgvcU1XwUcXy_rSB33_bNoVIQjqnt8wfqRxJ-EGcGLDu-aCr-AZlXka_1-lIYiY6OgGyi1qEUFCw&aep=1&ntc=1&sa=X&ved=2ahUKEwilrtX4zfeUAxUMKEQIHWWLEh8Q2J8OegQIDxAD
+              - generic [ref=e76]: AI 模式
+          - listitem [ref=e77]:
+            - link "全部" [disabled] [ref=e78]:
+              - generic [ref=e80]: 全部
+          - listitem [ref=e81]:
+            - link "图片" [ref=e82] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4otf2awRJEpNdzMDtTYTvQRfswew:1780920521943&udm=2&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVNvV7jKtLqzLZ63dd2zPtrsojpaijeJRLrp4clUvcwVLi54dOkHWv8dWQ1lqb_5yWnnFHysznsWJN-Hkwoo5xEsMBsmz90w9MabbJ59WLk_Ho2CE3mM59pLPq6YJgvcU1XwUcXy_rSB33_bNoVIQjqnt8wfqRxJ-EGcGLDu-aCr-AZlXka_1-lIYiY6OgGyi1qEUFCw&q=%E9%BA%A6%E5%BD%93%E5%8A%B3+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sa=X&ved=2ahUKEwilrtX4zfeUAxUMKEQIHWWLEh8QtKgLegQIFRAB
+              - generic [ref=e84]: 图片
+          - listitem [ref=e85]:
+            - link "视频" [ref=e86] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4otf2awRJEpNdzMDtTYTvQRfswew:1780920521943&udm=7&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVNvV7jKtLqzLZ63dd2zPtrsojpaijeJRLrp4clUvcwVLi54dOkHWv8dWQ1lqb_5yWnnFHysznsWJN-Hkwoo5xEsMBsmz90w9MabbJ59WLk_Ho2CE3mM59pLPq6YJgvcU1XwUcXy_rSB33_bNoVIQjqnt8wfqRxJ-EGcGLDu-aCr-AZlXka_1-lIYiY6OgGyi1qEUFCw&q=%E9%BA%A6%E5%BD%93%E5%8A%B3+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sa=X&ved=2ahUKEwilrtX4zfeUAxUMKEQIHWWLEh8QtKgLegQIExAB
+              - generic [ref=e88]: 视频
+          - listitem [ref=e89]:
+            - link "新闻" [ref=e90] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n4otf2awRJEpNdzMDtTYTvQRfswew:1780920521943&q=%E9%BA%A6%E5%BD%93%E5%8A%B3+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&tbm=nws&source=lnms&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVNvV7jKtLqzLZ63dd2zPtrsojpaijeJRLrp4clUvcwVLi54dOkHWv8dWQ1lqb_5yWnnFHysznsWJN-Hkwoo5xEsMBsmz90w9MabbJ59WLk_Ho2CE3mM59pLPq6YJgvcU1XwUcXy_rSB33_bNoVIQjqnt8wfqRxJ-EGcGLDu-aCr-AZlXka_1-lIYiY6OgGyi1qEUFCw&sa=X&ved=2ahUKEwilrtX4zfeUAxUMKEQIHWWLEh8Q0pQJegQIEhAB
+              - generic [ref=e92]: 新闻
+          - listitem [ref=e93]:
+            - link "购物" [ref=e94] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4otf2awRJEpNdzMDtTYTvQRfswew:1780920521943&udm=28&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVNvV7jKtLqzLZ63dd2zPtrsojpaijeJRLrp4clUvcwVLi54dOkHWv8dWQ1lqb_5yWnnFHysznsWJN-Hkwoo5xEsMBsmz90w9MabbJ59WLk_Ho2CE3mM59pLPq6YJgvcU1XwUcXy_rSB33_bNoVIQjqnt8wfqRxJ-EGcGLDu-aCr-AZlXka_1-lIYiY6OgGyi1qEUFCw&q=%E9%BA%A6%E5%BD%93%E5%8A%B3+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&ved=1t:220175&ictx=111
+              - generic [ref=e96]: 购物
+          - listitem [ref=e97]:
+            - link "短视频" [ref=e98] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4otf2awRJEpNdzMDtTYTvQRfswew:1780920521943&udm=39&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVNvV7jKtLqzLZ63dd2zPtrsojpaijeJRLrp4clUvcwVLi54dOkHWv8dWQ1lqb_5yWnnFHysznsWJN-Hkwoo5xEsMBsmz90w9MabbJ59WLk_Ho2CE3mM59pLPq6YJgvcU1XwUcXy_rSB33_bNoVIQjqnt8wfqRxJ-EGcGLDu-aCr-AZlXka_1-lIYiY6OgGyi1qEUFCw&q=%E9%BA%A6%E5%BD%93%E5%8A%B3+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sa=X&ved=2ahUKEwilrtX4zfeUAxUMKEQIHWWLEh8Qs6gLegQIERAB
+              - generic [ref=e100]: 短视频
+          - listitem [ref=e101]:
+            - button "更多过滤条件" [ref=e102] [cursor=pointer]:
+              - generic "更多过滤条件" [ref=e103]:
+                - generic [ref=e104]:
+                  - generic [ref=e105]: 更多
+                  - img [ref=e107]
+        - button "工具" [ref=e110] [cursor=pointer]:
+          - generic [ref=e112]:
+            - generic [ref=e113]: 工具
+            - img [ref=e115]
+    - heading "搜索结果" [level=1] [ref=e117]
+    - main [ref=e123]:
+      - generic [ref=e127]:
+        - generic [ref=e130]:
+          - heading "网页搜索结果" [level=2] [ref=e131]
+          - generic [ref=e132]:
+            - generic [ref=e135]:
+              - link "两代巴萨天才梦幻联动，小罗晒世界杯广告花絮并祝福亚马尔 手机新浪网 https://k.sina.com.cn › ..." [ref=e137] [cursor=pointer]:
+                - /url: https://k.sina.com.cn/article_7857201856_1d45362c001906e25w.html?from=sports&subch=osport
+                - heading "两代巴萨天才梦幻联动，小罗晒世界杯广告花絮并祝福亚马尔" [level=3] [ref=e138]
+                - generic [ref=e143]:
+                  - generic [ref=e145]: 手机新浪网
+                  - generic [ref=e147]: https://k.sina.com.cn › ...
+              - button "关于这条结果的详细信息" [ref=e148] [cursor=pointer]:
+                - img [ref=e151]
+            - generic [ref=e154]:
+              - generic [ref=e155]: 22小时前 —
+              - generic [ref=e156]:
+                - text: 近日，罗纳尔迪尼奥和亚马尔合拍了
+                - emphasis [ref=e157]: 麦当劳
+                - text: 的
+                - emphasis [ref=e158]: 世界杯
+                - text: 广告。小罗在社媒发布了拍摄花絮，并预祝亚马尔在即将开幕的北美
+                - emphasis [ref=e159]: 世界杯
+                - text: 上好运。 在当天的广告拍摄现场，主办方临时安排了 ...
+        - generic [ref=e163]:
+          - generic [ref=e166]:
+            - link "2026美加墨世界杯营销合规指南：企业如何借势不“侵权”？ 中伦律师事务所 https://www.zhonglun.com › research › articles" [ref=e168] [cursor=pointer]:
+              - /url: https://www.zhonglun.com/research/articles/56249.html
+              - heading "2026美加墨世界杯营销合规指南：企业如何借势不“侵权”？" [level=3] [ref=e169]
+              - generic [ref=e174]:
+                - generic [ref=e176]: 中伦律师事务所
+                - generic [ref=e178]: https://www.zhonglun.com › research › articles
+            - button "关于这条结果的详细信息" [ref=e179] [cursor=pointer]:
+              - img [ref=e182]
+          - generic [ref=e185]:
+            - generic [ref=e186]:
+              - generic [ref=e187]: 2小时前
+              - text: —
+            - generic [ref=e188]:
+              - text: 对于品牌而言，这是四年一度的流量盛宴，但对于法务和合规而言，这也是一场关于“隐性
+              - emphasis [ref=e189]: 营销
+              - text: （Ambush Marketing）”的攻防战。本文为
+              - emphasis [ref=e190]: "2026"
+              - text: 美加墨
+              - emphasis [ref=e191]: 世界杯
+              - text: 期间的市场
+              - emphasis [ref=e192]: 营销
+              - text: 划出“高压线”， ...
+        - generic [ref=e196]:
+          - generic [ref=e199]:
+            - link "在2026年FIFA北中美世界杯即将到来之际，流通、食品行业 ... 매일경제 https://www.mk.co.kr › business" [ref=e201] [cursor=pointer]:
+              - /url: https://www.mk.co.kr/cn/business/12068448
+              - heading "在2026年FIFA北中美世界杯即将到来之际，流通、食品行业 ..." [level=3] [ref=e202]
+              - generic [ref=e207]:
+                - generic [ref=e209]: 매일경제
+                - generic [ref=e211]: https://www.mk.co.kr › business
+            - button "关于这条结果的详细信息" [ref=e212] [cursor=pointer]:
+              - img [ref=e215]
+          - generic [ref=e218]:
+            - generic [ref=e219]:
+              - generic [ref=e220]: 5小时前
+              - text: —
+            - generic [ref=e221]:
+              - text: 以国家队队长孙兴慜为首的明星
+              - emphasis [ref=e222]: 营销
+              - text: 也很积极。 乐天Wellfood、海特真露、
+              - emphasis [ref=e223]: 麦当劳
+              - text: 、巴黎贝甜等都启用孙兴慜为代言人。 乐天Wellfood通过抽签策划了赠送世界巡演模特 ...
+        - generic [ref=e227]:
+          - generic [ref=e230]:
+            - link "庆祝2026年世界杯，与传奇足球杯盲盒，从大卫·贝克汉姆到 ... VOI.id https://voi.id › Aktual › Lifestyle" [ref=e232] [cursor=pointer]:
+              - /url: https://voi.id/zh/lifestyle/578537
+              - heading "庆祝2026年世界杯，与传奇足球杯盲盒，从大卫·贝克汉姆到 ..." [level=3] [ref=e233]
+              - generic [ref=e238]:
+                - generic [ref=e240]: VOI.id
+                - generic [ref=e242]: https://voi.id › Aktual › Lifestyle
+            - button "关于这条结果的详细信息" [ref=e243] [cursor=pointer]:
+              - img [ref=e246]
+          - generic [ref=e249]:
+            - generic [ref=e250]: 23小时前 —
+            - generic [ref=e251]:
+              - text: “这非常特别，因为它不仅可以获得最喜欢的菜单，还可以获得传奇球杯，”
+              - emphasis [ref=e252]: 麦当劳
+              - text: 印度尼西亚
+              - emphasis [ref=e253]: 营销
+              - text: 副总监Caroline Kurniadjaja于
+              - emphasis [ref=e254]: "2026"
+              - text: 年6月3日星期三在南雅加达的Kemang表示。
+        - generic [ref=e258]:
+          - generic [ref=e261]:
+            - link "2026年美加墨世界杯将成史上最赚钱赛事 手机网易网 https://m.163.com › news › article" [ref=e263] [cursor=pointer]:
+              - /url: https://m.163.com/news/article/KUTQNC7R05198CJN.html
+              - heading "2026年美加墨世界杯将成史上最赚钱赛事" [level=3] [ref=e264]
+              - generic [ref=e269]:
+                - generic [ref=e271]: 手机网易网
+                - generic [ref=e273]: https://m.163.com › news › article
+            - button "关于这条结果的详细信息" [ref=e274] [cursor=pointer]:
+              - img [ref=e277]
+          - generic [ref=e280]:
+            - generic [ref=e281]:
+              - generic [ref=e282]: 3小时前
+              - text: —
+            - generic [ref=e283]:
+              - text: 需要注意的是，虽然
+              - emphasis [ref=e284]: 世界杯
+              - text: 是在第四年举办，但国际足联销售的转播权和赞助商
+              - emphasis [ref=e285]: 营销
+              - text: ...
+              - emphasis [ref=e286]: "2026"
+              - text: 年FIFA
+              - emphasis [ref=e287]: 世界杯
+              - text: 来到
+              - emphasis [ref=e288]: 麦当劳
+              - text: ，与全球粉丝共享美味与热情 · “科技狠活”来了！AI为 ...
+        - generic [ref=e292]:
+          - generic [ref=e295]:
+            - link "世界杯官赞好物齐聚天猫，超级发布引爆球迷浪潮 新浪新闻_手机新浪网 https://news.sina.com.cn › 文章页 › 商讯" [ref=e297] [cursor=pointer]:
+              - /url: https://news.sina.com.cn/sx/2026-06-08/detail-iniaswmn5425151.shtml
+              - heading "世界杯官赞好物齐聚天猫，超级发布引爆球迷浪潮" [level=3] [ref=e298]
+              - generic [ref=e303]:
+                - generic [ref=e305]: 新浪新闻_手机新浪网
+                - generic [ref=e307]: https://news.sina.com.cn › 文章页 › 商讯
+            - button "关于这条结果的详细信息" [ref=e308] [cursor=pointer]:
+              - img [ref=e311]
+          - generic [ref=e314]:
+            - generic [ref=e315]:
+              - generic [ref=e316]: 2小时前
+              - text: —
+            - generic [ref=e317]:
+              - text: 今年618天猫超级发布以“世界路人杯”为主题，率先开启球迷生态
+              - emphasis [ref=e318]: 营销
+              - text: ，将
+              - emphasis [ref=e319]: 世界杯
+              - text: 变成球迷的社交主场，号召更多泛球迷参与。线上通过发布“FBTI球场人格测试”生成球星卡互动玩法，让 ...
+        - generic [ref=e323]:
+          - generic [ref=e326]:
+            - link "世界杯官赞好物齐聚天猫，超级发布引爆球迷浪潮 电商派 https://www.pai.com.cn › ..." [ref=e328] [cursor=pointer]:
+              - /url: https://www.pai.com.cn/p/01ktk7tdc51afz7s2a39fcew6f
+              - heading "世界杯官赞好物齐聚天猫，超级发布引爆球迷浪潮" [level=3] [ref=e329]
+              - generic [ref=e334]:
+                - generic [ref=e336]: 电商派
+                - generic [ref=e338]: https://www.pai.com.cn › ...
+            - button "关于这条结果的详细信息" [ref=e339] [cursor=pointer]:
+              - img [ref=e342]
+          - generic [ref=e345]:
+            - generic [ref=e346]:
+              - generic [ref=e347]: 3小时前
+              - text: —
+            - generic [ref=e348]:
+              - text: 今年618天猫超级发布以“世界路人杯”为主题，率先开启球迷生态
+              - emphasis [ref=e349]: 营销
+              - text: ，将
+              - emphasis [ref=e350]: 世界杯
+              - text: 变成球迷的社交主场，号召更多泛球迷参与。线上通过发布“FBTI球场人格测试”生成球星卡互动玩法，让 ...
+        - generic [ref=e354]:
+          - generic [ref=e357]:
+            - link "“FBTI球场人格”测试出圈，天猫激活泛球迷互动 DoNews https://www.donews.com › news › detail" [ref=e359] [cursor=pointer]:
+              - /url: https://www.donews.com/news/detail/4/6587125.html
+              - heading "“FBTI球场人格”测试出圈，天猫激活泛球迷互动" [level=3] [ref=e360]
+              - generic [ref=e365]:
+                - generic [ref=e367]: DoNews
+                - generic [ref=e369]: https://www.donews.com › news › detail
+            - button "关于这条结果的详细信息" [ref=e370] [cursor=pointer]:
+              - img [ref=e373]
+          - generic [ref=e376]:
+            - generic [ref=e377]:
+              - generic [ref=e378]: 3小时前
+              - text: —
+            - generic [ref=e379]:
+              - text: 今年618天猫超级发布以“世界路人杯”为主题，率先开启球迷生态
+              - emphasis [ref=e380]: 营销
+              - text: ，将
+              - emphasis [ref=e381]: 世界杯
+              - text: 变成球迷的社交主场，号召更多泛球迷参与。线上通过发布“FBTI球场人格测试”生成球星卡互动玩法，让 ...
+        - generic [ref=e385]:
+          - generic [ref=e388]:
+            - link "凭直觉做广告，李宁签约库里，小红书获世界杯转播权 ... 手机网易网 https://www.163.com › article" [ref=e390] [cursor=pointer]:
+              - /url: https://www.163.com/dy/article/KURTSTSC0539E9ND.html
+              - heading "凭直觉做广告，李宁签约库里，小红书获世界杯转播权 ..." [level=3] [ref=e391]
+              - generic [ref=e396]:
+                - generic [ref=e398]: 手机网易网
+                - generic [ref=e400]: https://www.163.com › article
+            - button "关于这条结果的详细信息" [ref=e401] [cursor=pointer]:
+              - img [ref=e404]
+          - generic [ref=e407]:
+            - generic [ref=e408]: 21小时前 —
+            - generic [ref=e409]:
+              - text: 耐克发布
+              - emphasis [ref=e410]: "2026"
+              - text: 年
+              - emphasis [ref=e411]: 世界杯
+              - text: 广告《让剧本都作废》，以一场“反广告”的元叙事，颠覆了传统 ... 最终揭晓“包”为足球，暗示
+              - emphasis [ref=e412]: 麦当劳
+              - text: 作为
+              - emphasis [ref=e413]: 世界杯
+              - text: 官方餐饮赞助商的角色，并同步 ...
+        - generic [ref=e417]:
+          - heading "图片" [level=2] [ref=e421]
+          - generic [ref=e425]:
+            - generic [ref=e429] [cursor=pointer]:
+              - link "在2026年FIFA北中美世界杯即将到来之际，流通、食品行业为了跨越 ... www.mk.co.kr":
+                - /url: https://www.mk.co.kr/cn/business/12068448
+              - button "在2026年FIFA北中美世界杯即将到来之际，流通、食品行业为了跨越 ... 5 小时前" [ref=e431]:
+                - img "在2026年FIFA北中美世界杯即将到来之际，流通、食品行业为了跨越 ..." [ref=e434]
+                - generic [ref=e435]:
+                  - generic:
+                    - generic: 5 小时前
+              - generic [ref=e437]:
+                - generic [ref=e439]: 在2026年FIFA北中美世界杯即将到来之际，流通、食品行业为了跨越 ...
+                - generic [ref=e440]:
+                  - generic [ref=e447]: www.mk.co.kr
+                  - button "关于这条结果的详细信息" [ref=e450]:
+                    - img [ref=e453]
+            - generic [ref=e458] [cursor=pointer]:
+              - link "在2026年FIFA北中美世界杯即将到来之际，流通、食品行业为了跨越 ... www.mk.co.kr":
+                - /url: https://www.mk.co.kr/cn/business/12068448
+              - button "在2026年FIFA北中美世界杯即将到来之际，流通、食品行业为了跨越 ... 5 小时前" [ref=e460]:
+                - img "在2026年FIFA北中美世界杯即将到来之际，流通、食品行业为了跨越 ..." [ref=e463]
+                - generic [ref=e464]:
+                  - generic:
+                    - generic: 5 小时前
+              - generic [ref=e466]:
+                - generic [ref=e468]: 在2026年FIFA北中美世界杯即将到来之际，流通、食品行业为了跨越 ...
+                - generic [ref=e469]:
+                  - generic [ref=e476]: www.mk.co.kr
+                  - button "关于这条结果的详细信息" [ref=e479]:
+                    - img [ref=e482]
+            - generic [ref=e487] [cursor=pointer]:
+              - link "財經新聞世界盃2026丨高盛料西班牙相隔16年後再奪冠英格蘭僅5 ... Instagram":
+                - /url: https://www.instagram.com/p/DZUbW02lSHN/
+              - button "財經新聞世界盃2026丨高盛料西班牙相隔16年後再奪冠英格蘭僅5 ... 3 小时前" [ref=e489]:
+                - img "財經新聞世界盃2026丨高盛料西班牙相隔16年後再奪冠英格蘭僅5 ..." [ref=e492]
+                - generic [ref=e493]:
+                  - generic:
+                    - generic: 3 小时前
+              - generic [ref=e495]:
+                - generic [ref=e497]: 財經新聞世界盃2026丨高盛料西班牙相隔16年後再奪冠英格蘭僅5 ...
+                - generic [ref=e498]:
+                  - generic [ref=e505]: Instagram
+                  - button "关于这条结果的详细信息" [ref=e508]:
+                    - img [ref=e511]
+          - link "所有图片" [ref=e514] [cursor=pointer]:
+            - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n4otf2awRJEpNdzMDtTYTvQRfswew:1780920521943&q=%E9%BA%A6%E5%BD%93%E5%8A%B3+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&udm=2&source=univ&fir=0CSEY7rEkCl_qM%252Ctqi7frQOQhP6yM%252C_%253B6Rhmvo8oFFMV3M%252Ctqi7frQOQhP6yM%252C_%253BFtkyTZOjym58WM%252C4YBaplMnfR-UHM%252C_&usg=AI4_-kTRTgzR0iekIjTTP0xrdXv8E6BI4g&sa=X&ved=2ahUKEwilrtX4zfeUAxUMKEQIHWWLEh8Q7Al6BAg0EAU
+            - separator [ref=e515]
+            - generic [ref=e516]:
+              - generic [ref=e517]: 所有图片
+              - img [ref=e519]
+      - navigation [ref=e523]:
+        - heading "网页导航" [level=1] [ref=e524]
+        - text: "1"
+        - link "Page 2" [ref=e527] [cursor=pointer]:
+          - /url: /search?q=%E9%BA%A6%E5%BD%93%E5%8A%B3+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n4otf2awRJEpNdzMDtTYTvQRfswew:1780920521943&ei=ybAmauWlOYzQkPIP5ZbK-AE&start=10&sa=N&sstk=AU9db-Chsoqbm8pndH-sR3PK6txlrcOP1oLPLlNDmYzTTk4f_Ds_WP7JoC-V1MGCSw0J4VKU8ZXQ7iOe0To9htkXbtRGC--TRAzDPw&ved=2ahUKEwilrtX4zfeUAxUMKEQIHWWLEh8Q8tMDegQIMxAE
+          - text: "2"
+        - link "Page 3" [ref=e529] [cursor=pointer]:
+          - /url: /search?q=%E9%BA%A6%E5%BD%93%E5%8A%B3+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n4otf2awRJEpNdzMDtTYTvQRfswew:1780920521943&ei=ybAmauWlOYzQkPIP5ZbK-AE&start=20&sa=N&sstk=AU9db-Chsoqbm8pndH-sR3PK6txlrcOP1oLPLlNDmYzTTk4f_Ds_WP7JoC-V1MGCSw0J4VKU8ZXQ7iOe0To9htkXbtRGC--TRAzDPw&ved=2ahUKEwilrtX4zfeUAxUMKEQIHWWLEh8Q8tMDegQIMxAG
+          - text: "3"
+        - link "Page 4" [ref=e531] [cursor=pointer]:
+          - /url: /search?q=%E9%BA%A6%E5%BD%93%E5%8A%B3+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n4otf2awRJEpNdzMDtTYTvQRfswew:1780920521943&ei=ybAmauWlOYzQkPIP5ZbK-AE&start=30&sa=N&sstk=AU9db-Chsoqbm8pndH-sR3PK6txlrcOP1oLPLlNDmYzTTk4f_Ds_WP7JoC-V1MGCSw0J4VKU8ZXQ7iOe0To9htkXbtRGC--TRAzDPw&ved=2ahUKEwilrtX4zfeUAxUMKEQIHWWLEh8Q8tMDegQIMxAI
+          - text: "4"
+        - link "Page 5" [ref=e533] [cursor=pointer]:
+          - /url: /search?q=%E9%BA%A6%E5%BD%93%E5%8A%B3+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n4otf2awRJEpNdzMDtTYTvQRfswew:1780920521943&ei=ybAmauWlOYzQkPIP5ZbK-AE&start=40&sa=N&sstk=AU9db-Chsoqbm8pndH-sR3PK6txlrcOP1oLPLlNDmYzTTk4f_Ds_WP7JoC-V1MGCSw0J4VKU8ZXQ7iOe0To9htkXbtRGC--TRAzDPw&ved=2ahUKEwilrtX4zfeUAxUMKEQIHWWLEh8Q8tMDegQIMxAK
+          - text: "5"
+        - link "Page 6" [ref=e535] [cursor=pointer]:
+          - /url: /search?q=%E9%BA%A6%E5%BD%93%E5%8A%B3+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n4otf2awRJEpNdzMDtTYTvQRfswew:1780920521943&ei=ybAmauWlOYzQkPIP5ZbK-AE&start=50&sa=N&sstk=AU9db-Chsoqbm8pndH-sR3PK6txlrcOP1oLPLlNDmYzTTk4f_Ds_WP7JoC-V1MGCSw0J4VKU8ZXQ7iOe0To9htkXbtRGC--TRAzDPw&ved=2ahUKEwilrtX4zfeUAxUMKEQIHWWLEh8Q8tMDegQIMxAM
+          - text: "6"
+        - link "Page 7" [ref=e537] [cursor=pointer]:
+          - /url: /search?q=%E9%BA%A6%E5%BD%93%E5%8A%B3+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n4otf2awRJEpNdzMDtTYTvQRfswew:1780920521943&ei=ybAmauWlOYzQkPIP5ZbK-AE&start=60&sa=N&sstk=AU9db-Chsoqbm8pndH-sR3PK6txlrcOP1oLPLlNDmYzTTk4f_Ds_WP7JoC-V1MGCSw0J4VKU8ZXQ7iOe0To9htkXbtRGC--TRAzDPw&ved=2ahUKEwilrtX4zfeUAxUMKEQIHWWLEh8Q8tMDegQIMxAO
+          - text: "7"
+        - heading "下一页" [level=2] [ref=e539]:
+          - link "下一页" [ref=e540] [cursor=pointer]:
+            - /url: /search?q=%E9%BA%A6%E5%BD%93%E5%8A%B3+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n4otf2awRJEpNdzMDtTYTvQRfswew:1780920521943&ei=ybAmauWlOYzQkPIP5ZbK-AE&start=10&sa=N&sstk=AU9db-Chsoqbm8pndH-sR3PK6txlrcOP1oLPLlNDmYzTTk4f_Ds_WP7JoC-V1MGCSw0J4VKU8ZXQ7iOe0To9htkXbtRGC--TRAzDPw&ved=2ahUKEwilrtX4zfeUAxUMKEQIHWWLEh8Q8NMDegQIMxAQ
+            - generic [ref=e542]: 下一页
+      - navigation
+    - contentinfo [ref=e543]:
+      - heading "页脚链接" [level=1] [ref=e544]
+      - generic [ref=e548]:
+        - generic [ref=e551]:
+          - generic [ref=e552]: 是个性化搜索结果
+          - generic [ref=e553]: "-"
+          - link "尝试不使用个性化功能" [ref=e555] [cursor=pointer]:
+            - /url: https://www.google.com/search?q=%E9%BA%A6%E5%BD%93%E5%8A%B3+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&tbs=qdr:d&hl=zh-CN&peek_pws=0&sxsrf=ANbL-n4otf2awRJEpNdzMDtTYTvQRfswew:1780920521943
+            - generic [ref=e556]: 尝试不使用个性化功能
+        - generic [ref=e560]:
+          - button "加利福尼亚 - 根据您的活动记录" [ref=e562] [cursor=pointer]:
+            - generic [ref=e563]: 加利福尼亚
+            - generic [ref=e565]:
+              - text: "-"
+              - generic [ref=e566]: 根据您的活动记录
+          - text: "-"
+          - button "更新位置信息" [ref=e568] [cursor=pointer]: 更新位置信息
+        - generic [ref=e571]:
+          - link "帮助" [ref=e572] [cursor=pointer]:
+            - /url: https://support.google.com/websearch/?p=ws_results_help&hl=zh-CN&fg=1
+          - link "发送反馈" [ref=e573] [cursor=pointer]:
+            - /url: "#"
+          - link "隐私权" [ref=e574] [cursor=pointer]:
+            - /url: https://policies.google.com/privacy?hl=zh-CN&fg=1
+          - link "条款" [ref=e575] [cursor=pointer]:
+            - /url: https://policies.google.com/terms?hl=zh-CN&fg=1

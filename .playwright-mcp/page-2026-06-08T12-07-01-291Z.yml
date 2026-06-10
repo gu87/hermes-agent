@@ -1,0 +1,551 @@
+- generic [active] [ref=e1]:
+  - link "欢迎进入 百度一下，你就知道，盲人用户进入读屏幕模式请按快捷键Ctrl加Alt加R；阅读详细操作说明请按快捷键Ctrl加Alt加问号键。":
+    - /url: javascript:void(0)
+  - generic [ref=e2]:
+    - generic [ref=e4]:
+      - generic [ref=e5]:
+        - generic:
+          - link "到百度首页" [ref=e6] [cursor=pointer]:
+            - /url: /
+            - img "到百度首页" [ref=e7]
+          - generic [ref=e10]:
+            - textbox [ref=e12]: 蒙牛 世界杯 营销 2026
+            - generic [ref=e14]:
+              - generic [ref=e15]:
+                - img [ref=e17] [cursor=pointer]
+                - img [ref=e27] [cursor=pointer]
+                - generic [ref=e30]:
+                  - img [ref=e34] [cursor=pointer]
+                  - img [ref=e39] [cursor=pointer]
+              - button "百度一下" [ref=e43] [cursor=pointer]
+      - generic [ref=e45]:
+        - link "百度首页" [ref=e46] [cursor=pointer]:
+          - /url: /
+        - link "设置" [ref=e47] [cursor=pointer]:
+          - /url: javascript:;
+        - link "登录" [ref=e48] [cursor=pointer]:
+          - /url: https://passport.baidu.com/v2/?login&tpl=mn&u=http%3A%2F%2Fwww.baidu.com%2F
+    - generic [ref=e51]:
+      - link [ref=e52] [cursor=pointer]:
+        - /url: https://chat.baidu.com/search?word=%E8%92%99%E7%89%9B+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&dyTabStr=MTIsMCwzLDEsMiwxMyw3LDYsNSw5&pd=csaitab&setype=csaitab&extParamsJson=%7B%22enter_type%22%3A%22search_a_tab%22%2C%22sa%22%3A%22vs_tab%22%2C%22apagelid%22%3A%2214416357676655052481%22%2C%22ori_lid%22%3A%2214416357676655052481%22%7D
+        - img [ref=e53]
+      - generic [ref=e54]: 网页
+      - link "图片" [ref=e55] [cursor=pointer]:
+        - /url: http://image.baidu.com/i?tn=baiduimage&ps=1&ct=201326592&lm=-1&cl=2&nc=1&ie=utf-8&lid=c81130ed000006c1&dyTabStr=MTIsMCwzLDEsMiwxMyw3LDYsNSw5&word=%E8%92%99%E7%89%9B+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026
+      - link "资讯" [ref=e56] [cursor=pointer]:
+        - /url: https://www.baidu.com/s?rtt=1&bsst=1&cl=2&tn=news&ie=utf-8&word=%E8%92%99%E7%89%9B+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026
+      - link "视频" [ref=e57] [cursor=pointer]:
+        - /url: /sf/vsearch?pd=video&tn=vsearch&lid=c81130ed000006c1&ie=utf-8&wd=%E8%92%99%E7%89%9B+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&rsv_spt=7&rsv_bp=1&f=8&oq=%E8%92%99%E7%89%9B+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&rsv_pq=c81130ed000006c1&rsv_t=a610ghdgqG8UyLKpFyXCxRVHx5h3voBxKxWQgl9ZrUYsH0hzlutol%2F0SrTM
+      - link "笔记" [ref=e58] [cursor=pointer]:
+        - /url: https://www.baidu.com/s?pd=note&rpf=pc&dyTabStr=MTIsMCwzLDEsMiwxMyw3LDYsNSw5&word=%E8%92%99%E7%89%9B+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026
+      - link "地图" [ref=e59] [cursor=pointer]:
+        - /url: https://map.baidu.com/?newmap=1&ie=utf-8&from=pstab&s=s%26wd%3D%E8%92%99%E7%89%9B+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026
+      - link "贴吧" [ref=e60] [cursor=pointer]:
+        - /url: http://tieba.baidu.com/f?fr=wwwt&ie=utf-8&dyTabStr=MTIsMCwzLDEsMiwxMyw3LDYsNSw5&kw=%E8%92%99%E7%89%9B+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026
+      - link "文库" [ref=e61] [cursor=pointer]:
+        - /url: http://wenku.baidu.com/search?lm=0&od=0&ie=utf-8&dyTabStr=MTIsMCwzLDEsMiwxMyw3LDYsNSw5&word=%E8%92%99%E7%89%9B+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026
+      - link "更多" [ref=e62] [cursor=pointer]:
+        - /url: http://www.baidu.com/more/
+      - generic [ref=e63] [cursor=pointer]: 搜索工具
+    - generic [ref=e64]:
+      - generic [ref=e65]:
+        - table [ref=e67]:
+          - rowgroup [ref=e68]:
+            - row "   换一换 热搜榜 北京榜 民生榜 财经榜  习近平同金正恩举行会谈 1 考完数学沉默了 考完英语又笑了 热 2 “李华 我再也不用见到你了” 新 3 夏季高温 户外出行要注意这几点 4 考生考完英语：别人easy我是abandon 新 5 西安一考生物理增加23分钟作答时间 热 6 10起涉高考网络谣言典型案例公布 7 高考英语作文：给睡觉学习社交排序 热 8 中纪委连打两虎 9 18年前被捡的弃婴高考后跪谢养母 热 10 世界杯 热 11 传销头子涉案近38亿 出狱再骗10个亿 12 49岁大厨货船上失踪已超48小时 13 考生：只求英语能善待我一点 新 14 伊朗宣布停止对以色列的军事行动 新 15 董事长被曝亲密视频 胜宏科技回应 热" [ref=e69]:
+              - cell "   换一换 热搜榜 北京榜 民生榜 财经榜  习近平同金正恩举行会谈 1 考完数学沉默了 考完英语又笑了 热 2 “李华 我再也不用见到你了” 新 3 夏季高温 户外出行要注意这几点 4 考生考完英语：别人easy我是abandon 新 5 西安一考生物理增加23分钟作答时间 热 6 10起涉高考网络谣言典型案例公布 7 高考英语作文：给睡觉学习社交排序 热 8 中纪委连打两虎 9 18年前被捡的弃婴高考后跪谢养母 热 10 世界杯 热 11 传销头子涉案近38亿 出狱再骗10个亿 12 49岁大厨货船上失踪已超48小时 13 考生：只求英语能善待我一点 新 14 伊朗宣布停止对以色列的军事行动 新 15 董事长被曝亲密视频 胜宏科技回应 热" [ref=e70]:
+                - generic [ref=e75]:
+                  - generic "百度热搜" [ref=e76]:
+                    - link " " [ref=e77] [cursor=pointer]:
+                      - /url: https://top.baidu.com/board?platform=pc&sa=pcindex_a_right
+                      - generic [ref=e78]: 
+                      - generic [ref=e79]: 
+                    - link " 换一换" [ref=e81] [cursor=pointer]:
+                      - /url: javascript:void(0);
+                      - generic [ref=e82]: 
+                      - text: 换一换
+                  - generic [ref=e83]:
+                    - generic [ref=e84] [cursor=pointer]: 热搜榜
+                    - generic [ref=e85] [cursor=pointer]: 北京榜
+                    - generic [ref=e86] [cursor=pointer]: 民生榜
+                    - generic [ref=e87] [cursor=pointer]: 财经榜
+                  - generic [ref=e89]:
+                    - generic [ref=e91]:
+                      - generic [ref=e93]: 
+                      - link "习近平同金正恩举行会谈" [ref=e94] [cursor=pointer]:
+                        - /url: /s?wd=%E4%B9%A0%E8%BF%91%E5%B9%B3%E5%90%8C%E9%87%91%E6%AD%A3%E6%81%A9%E4%B8%BE%E8%A1%8C%E4%BC%9A%E8%B0%88&ie=utf-8&rsv_pq=c81130ed000006c1&oq=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&rsv_t=9e8cbthzKVh%2BWqic248w4q3BsyE86HtbNWbT6QPn8D4LytYFzf8OpDKuj2I&rqid=c81130ed000006c1&rsf=3a77095dbe83dcb0ec90665dd3499c46_1_15_1&rsv_dl=0_right_fyb_pchot_20811&sa=0_right_fyb_pchot_20811
+                    - generic [ref=e96]:
+                      - generic [ref=e97]: "1"
+                      - link "考完数学沉默了 考完英语又笑了" [ref=e98] [cursor=pointer]:
+                        - /url: /s?wd=%E8%80%83%E5%AE%8C%E6%95%B0%E5%AD%A6%E6%B2%89%E9%BB%98%E4%BA%86%20%E8%80%83%E5%AE%8C%E8%8B%B1%E8%AF%AD%E5%8F%88%E7%AC%91%E4%BA%86&ie=utf-8&rsv_pq=c81130ed000006c1&oq=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&rsv_t=9e8cbthzKVh%2BWqic248w4q3BsyE86HtbNWbT6QPn8D4LytYFzf8OpDKuj2I&rqid=c81130ed000006c1&rsf=3a77095dbe83dcb0ec90665dd3499c46_1_15_2&rsv_dl=0_right_fyb_pchot_20811&sa=0_right_fyb_pchot_20811
+                      - generic [ref=e99]: 热
+                    - generic [ref=e101]:
+                      - generic [ref=e102]: "2"
+                      - link "“李华 我再也不用见到你了”" [ref=e103] [cursor=pointer]:
+                        - /url: /s?wd=%E2%80%9C%E6%9D%8E%E5%8D%8E%20%E6%88%91%E5%86%8D%E4%B9%9F%E4%B8%8D%E7%94%A8%E8%A7%81%E5%88%B0%E4%BD%A0%E4%BA%86%E2%80%9D&ie=utf-8&rsv_pq=c81130ed000006c1&oq=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&rsv_t=9e8cbthzKVh%2BWqic248w4q3BsyE86HtbNWbT6QPn8D4LytYFzf8OpDKuj2I&rqid=c81130ed000006c1&rsf=3a77095dbe83dcb0ec90665dd3499c46_1_15_3&rsv_dl=0_right_fyb_pchot_20811&sa=0_right_fyb_pchot_20811
+                      - generic [ref=e104]: 新
+                    - generic [ref=e106]:
+                      - generic [ref=e107]: "3"
+                      - link "夏季高温 户外出行要注意这几点" [ref=e108] [cursor=pointer]:
+                        - /url: /s?wd=%E5%A4%8F%E5%AD%A3%E9%AB%98%E6%B8%A9%20%E6%88%B7%E5%A4%96%E5%87%BA%E8%A1%8C%E8%A6%81%E6%B3%A8%E6%84%8F%E8%BF%99%E5%87%A0%E7%82%B9&ie=utf-8&rsv_pq=c81130ed000006c1&oq=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&rsv_t=9e8cbthzKVh%2BWqic248w4q3BsyE86HtbNWbT6QPn8D4LytYFzf8OpDKuj2I&rqid=c81130ed000006c1&rsf=3a77095dbe83dcb0ec90665dd3499c46_1_15_4&rsv_dl=0_right_fyb_pchot_20811&sa=0_right_fyb_pchot_20811
+                    - generic [ref=e110]:
+                      - generic [ref=e111]: "4"
+                      - link "考生考完英语：别人easy我是abandon" [ref=e112] [cursor=pointer]:
+                        - /url: /s?wd=%E8%80%83%E7%94%9F%E8%80%83%E5%AE%8C%E8%8B%B1%E8%AF%AD%EF%BC%9A%E5%88%AB%E4%BA%BAeasy%E6%88%91%E6%98%AFabandon&ie=utf-8&rsv_pq=c81130ed000006c1&oq=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&rsv_t=9e8cbthzKVh%2BWqic248w4q3BsyE86HtbNWbT6QPn8D4LytYFzf8OpDKuj2I&rqid=c81130ed000006c1&rsf=3a77095dbe83dcb0ec90665dd3499c46_1_15_5&rsv_dl=0_right_fyb_pchot_20811&sa=0_right_fyb_pchot_20811
+                      - generic [ref=e113]: 新
+                    - generic [ref=e115]:
+                      - generic [ref=e116]: "5"
+                      - link "西安一考生物理增加23分钟作答时间" [ref=e117] [cursor=pointer]:
+                        - /url: /s?wd=%E8%A5%BF%E5%AE%89%E4%B8%80%E8%80%83%E7%94%9F%E7%89%A9%E7%90%86%E5%A2%9E%E5%8A%A023%E5%88%86%E9%92%9F%E4%BD%9C%E7%AD%94%E6%97%B6%E9%97%B4&ie=utf-8&rsv_pq=c81130ed000006c1&oq=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&rsv_t=9e8cbthzKVh%2BWqic248w4q3BsyE86HtbNWbT6QPn8D4LytYFzf8OpDKuj2I&rqid=c81130ed000006c1&rsf=3a77095dbe83dcb0ec90665dd3499c46_1_15_6&rsv_dl=0_right_fyb_pchot_20811&sa=0_right_fyb_pchot_20811
+                      - generic [ref=e118]: 热
+                    - generic [ref=e120]:
+                      - generic [ref=e121]: "6"
+                      - link "10起涉高考网络谣言典型案例公布" [ref=e122] [cursor=pointer]:
+                        - /url: /s?wd=10%E8%B5%B7%E6%B6%89%E9%AB%98%E8%80%83%E7%BD%91%E7%BB%9C%E8%B0%A3%E8%A8%80%E5%85%B8%E5%9E%8B%E6%A1%88%E4%BE%8B%E5%85%AC%E5%B8%83&ie=utf-8&rsv_pq=c81130ed000006c1&oq=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&rsv_t=9e8cbthzKVh%2BWqic248w4q3BsyE86HtbNWbT6QPn8D4LytYFzf8OpDKuj2I&rqid=c81130ed000006c1&rsf=3a77095dbe83dcb0ec90665dd3499c46_1_15_7&rsv_dl=0_right_fyb_pchot_20811&sa=0_right_fyb_pchot_20811
+                    - generic [ref=e124]:
+                      - generic [ref=e125]: "7"
+                      - link "高考英语作文：给睡觉学习社交排序" [ref=e126] [cursor=pointer]:
+                        - /url: /s?wd=%E9%AB%98%E8%80%83%E8%8B%B1%E8%AF%AD%E4%BD%9C%E6%96%87%EF%BC%9A%E7%BB%99%E7%9D%A1%E8%A7%89%E5%AD%A6%E4%B9%A0%E7%A4%BE%E4%BA%A4%E6%8E%92%E5%BA%8F&ie=utf-8&rsv_pq=c81130ed000006c1&oq=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&rsv_t=9e8cbthzKVh%2BWqic248w4q3BsyE86HtbNWbT6QPn8D4LytYFzf8OpDKuj2I&rqid=c81130ed000006c1&rsf=3a77095dbe83dcb0ec90665dd3499c46_1_15_8&rsv_dl=0_right_fyb_pchot_20811&sa=0_right_fyb_pchot_20811
+                      - generic [ref=e127]: 热
+                    - generic [ref=e129]:
+                      - generic [ref=e130]: "8"
+                      - link "中纪委连打两虎" [ref=e131] [cursor=pointer]:
+                        - /url: /s?wd=%E4%B8%AD%E7%BA%AA%E5%A7%94%E8%BF%9E%E6%89%93%E4%B8%A4%E8%99%8E&ie=utf-8&rsv_pq=c81130ed000006c1&oq=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&rsv_t=9e8cbthzKVh%2BWqic248w4q3BsyE86HtbNWbT6QPn8D4LytYFzf8OpDKuj2I&rqid=c81130ed000006c1&rsf=3a77095dbe83dcb0ec90665dd3499c46_1_15_9&rsv_dl=0_right_fyb_pchot_20811&sa=0_right_fyb_pchot_20811
+                    - generic [ref=e133]:
+                      - generic [ref=e134]: "9"
+                      - link "18年前被捡的弃婴高考后跪谢养母" [ref=e135] [cursor=pointer]:
+                        - /url: /s?wd=18%E5%B9%B4%E5%89%8D%E8%A2%AB%E6%8D%A1%E7%9A%84%E5%BC%83%E5%A9%B4%E9%AB%98%E8%80%83%E5%90%8E%E8%B7%AA%E8%B0%A2%E5%85%BB%E6%AF%8D&ie=utf-8&rsv_pq=c81130ed000006c1&oq=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&rsv_t=42c7HfhdDMTvgsxj5%2FFwN7iAbpzAlwBYlYCDhxC%2F%2F1gdiNRStn8gtFdpaBo&rqid=c81130ed000006c1&rsf=3a77095dbe83dcb0ec90665dd3499c46_1_15_10&rsv_dl=0_right_fyb_pchot_20811&sa=0_right_fyb_pchot_20811
+                      - generic [ref=e136]: 热
+                    - generic [ref=e138]:
+                      - generic [ref=e139]: "10"
+                      - link "世界杯" [ref=e140] [cursor=pointer]:
+                        - /url: /s?wd=%E4%B8%96%E7%95%8C%E6%9D%AF&ie=utf-8&rsv_pq=c81130ed000006c1&oq=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&rsv_t=42c7HfhdDMTvgsxj5%2FFwN7iAbpzAlwBYlYCDhxC%2F%2F1gdiNRStn8gtFdpaBo&rqid=c81130ed000006c1&rsf=3a77095dbe83dcb0ec90665dd3499c46_1_15_11&rsv_dl=0_right_fyb_pchot_20811&sa=0_right_fyb_pchot_20811
+                      - generic [ref=e141]: 热
+                    - generic [ref=e143]:
+                      - generic [ref=e144]: "11"
+                      - link "传销头子涉案近38亿 出狱再骗10个亿" [ref=e145] [cursor=pointer]:
+                        - /url: /s?wd=%E4%BC%A0%E9%94%80%E5%A4%B4%E5%AD%90%E6%B6%89%E6%A1%88%E8%BF%9138%E4%BA%BF%20%E5%87%BA%E7%8B%B1%E5%86%8D%E9%AA%9710%E4%B8%AA%E4%BA%BF&ie=utf-8&rsv_pq=c81130ed000006c1&oq=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&rsv_t=42c7HfhdDMTvgsxj5%2FFwN7iAbpzAlwBYlYCDhxC%2F%2F1gdiNRStn8gtFdpaBo&rqid=c81130ed000006c1&rsf=3a77095dbe83dcb0ec90665dd3499c46_1_15_12&rsv_dl=0_right_fyb_pchot_20811&sa=0_right_fyb_pchot_20811
+                    - generic [ref=e147]:
+                      - generic [ref=e148]: "12"
+                      - link "49岁大厨货船上失踪已超48小时" [ref=e149] [cursor=pointer]:
+                        - /url: /s?wd=49%E5%B2%81%E5%A4%A7%E5%8E%A8%E8%B4%A7%E8%88%B9%E4%B8%8A%E5%A4%B1%E8%B8%AA%E5%B7%B2%E8%B6%8548%E5%B0%8F%E6%97%B6&ie=utf-8&rsv_pq=c81130ed000006c1&oq=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&rsv_t=42c7HfhdDMTvgsxj5%2FFwN7iAbpzAlwBYlYCDhxC%2F%2F1gdiNRStn8gtFdpaBo&rqid=c81130ed000006c1&rsf=3a77095dbe83dcb0ec90665dd3499c46_1_15_13&rsv_dl=0_right_fyb_pchot_20811&sa=0_right_fyb_pchot_20811
+                    - generic [ref=e151]:
+                      - generic [ref=e152]: "13"
+                      - link "考生：只求英语能善待我一点" [ref=e153] [cursor=pointer]:
+                        - /url: /s?wd=%E8%80%83%E7%94%9F%EF%BC%9A%E5%8F%AA%E6%B1%82%E8%8B%B1%E8%AF%AD%E8%83%BD%E5%96%84%E5%BE%85%E6%88%91%E4%B8%80%E7%82%B9&ie=utf-8&rsv_pq=c81130ed000006c1&oq=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&rsv_t=42c7HfhdDMTvgsxj5%2FFwN7iAbpzAlwBYlYCDhxC%2F%2F1gdiNRStn8gtFdpaBo&rqid=c81130ed000006c1&rsf=3a77095dbe83dcb0ec90665dd3499c46_1_15_14&rsv_dl=0_right_fyb_pchot_20811&sa=0_right_fyb_pchot_20811
+                      - generic [ref=e154]: 新
+                    - generic [ref=e156]:
+                      - generic [ref=e157]: "14"
+                      - link "伊朗宣布停止对以色列的军事行动" [ref=e158] [cursor=pointer]:
+                        - /url: /s?wd=%E4%BC%8A%E6%9C%97%E5%AE%A3%E5%B8%83%E5%81%9C%E6%AD%A2%E5%AF%B9%E4%BB%A5%E8%89%B2%E5%88%97%E7%9A%84%E5%86%9B%E4%BA%8B%E8%A1%8C%E5%8A%A8&ie=utf-8&rsv_pq=c81130ed000006c1&oq=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&rsv_t=42c7HfhdDMTvgsxj5%2FFwN7iAbpzAlwBYlYCDhxC%2F%2F1gdiNRStn8gtFdpaBo&rqid=c81130ed000006c1&rsf=3a77095dbe83dcb0ec90665dd3499c46_1_15_15&rsv_dl=0_right_fyb_pchot_20811&sa=0_right_fyb_pchot_20811
+                      - generic [ref=e159]: 新
+                    - generic [ref=e161]:
+                      - generic [ref=e162]: "15"
+                      - link "董事长被曝亲密视频 胜宏科技回应" [ref=e163] [cursor=pointer]:
+                        - /url: /s?wd=%E8%91%A3%E4%BA%8B%E9%95%BF%E8%A2%AB%E6%9B%9D%E4%BA%B2%E5%AF%86%E8%A7%86%E9%A2%91%20%E8%83%9C%E5%AE%8F%E7%A7%91%E6%8A%80%E5%9B%9E%E5%BA%94&ie=utf-8&rsv_pq=c81130ed000006c1&oq=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&rsv_t=42c7HfhdDMTvgsxj5%2FFwN7iAbpzAlwBYlYCDhxC%2F%2F1gdiNRStn8gtFdpaBo&rqid=c81130ed000006c1&rsf=3a77095dbe83dcb0ec90665dd3499c46_16_30_16&rsv_dl=0_right_fyb_pchot_20811&sa=0_right_fyb_pchot_20811
+                      - generic [ref=e164]: 热
+        - generic [ref=e165]:
+          - generic [ref=e169]:
+            - heading "蒙牛再续世界杯青春回忆,致敬中国球迷的“要强” _光明网" [level=3] [ref=e172]:
+              - link "蒙牛再续世界杯青春回忆,致敬中国球迷的“要强” _光明网" [ref=e173] [cursor=pointer]:
+                - /url: http://www.baidu.com/link?url=7h9rsBnrOXB-y98akE7edbWzGfEKx75o7qLMn8DUoqv5KufGocDb4DfNFrkGKyjkfaH3fl7jhFXTviAjXB-LOq
+                - paragraph [ref=e176]:
+                  - generic [ref=e179]:
+                    - emphasis [ref=e180]: 蒙牛
+                    - text: 再续
+                    - emphasis [ref=e181]: 世界杯
+                    - text: 青春回忆,致敬中国球迷的“要强” _光明网
+            - generic [ref=e186]:
+              - text: 2026年5月6日
+              - generic [ref=e187]:
+                - text: 自2018年起,
+                - emphasis [ref=e188]: 蒙牛
+                - text: 成为中国乳业首个FIFA
+                - emphasis [ref=e189]: 世界杯
+                - text: 全球官方赞助商。连续赞助2022、
+                - emphasis [ref=e190]: "2026"
+                - text: 、2030年世界杯及2027年女足世界杯,十余年传递“要强”精神,实现中国品牌与世界杯百年征程同频共振。 此外,蒙牛还秉持着“牛奶和体育都能给人们带来健康和快乐”的初心,把“营养世界每个人的要强”,落到每一代人、每一天、每一个生活场景里。从
+            - generic [ref=e191]:
+              - link [ref=e193] [cursor=pointer]:
+                - /url: http://www.baidu.com/link?url=7h9rsBnrOXB-y98akE7edbWzGfEKx75o7qLMn8DUoqv5KufGocDb4DfNFrkGKyjkfaH3fl7jhFXTviAjXB-LOq
+              - link [ref=e197] [cursor=pointer]:
+                - /url: http://www.baidu.com/link?url=7h9rsBnrOXB-y98akE7edbWzGfEKx75o7qLMn8DUoqv5KufGocDb4DfNFrkGKyjkfaH3fl7jhFXTviAjXB-LOq
+              - link [ref=e201] [cursor=pointer]:
+                - /url: http://www.baidu.com/link?url=7h9rsBnrOXB-y98akE7edbWzGfEKx75o7qLMn8DUoqv5KufGocDb4DfNFrkGKyjkfaH3fl7jhFXTviAjXB-LOq
+              - link "4" [ref=e205] [cursor=pointer]:
+                - /url: http://www.baidu.com/link?url=7h9rsBnrOXB-y98akE7edbWzGfEKx75o7qLMn8DUoqv5KufGocDb4DfNFrkGKyjkfaH3fl7jhFXTviAjXB-LOq
+                - generic [ref=e208]:
+                  - generic [ref=e209]: 
+                  - text: "4"
+            - link "光明网" [ref=e214] [cursor=pointer]:
+              - /url: http://www.baidu.com/link?url=7h9rsBnrOXB-y98akE7edbWzGfEKx75o7qLMn8DUoqv5KufGocDb4DfNFrkGKyjkfaH3fl7jhFXTviAjXB-LOq
+              - generic [ref=e215]: 光明网
+              - generic [ref=e217]: 
+          - generic [ref=e221]:
+            - heading "决胜绿茵之巅!中央广播电视总台发布2026世界杯融媒体传播服务方案..." [level=3] [ref=e224]:
+              - link "决胜绿茵之巅!中央广播电视总台发布2026世界杯融媒体传播服务方案..." [ref=e225] [cursor=pointer]:
+                - /url: http://www.baidu.com/link?url=7h9rsBnrOXB-y98akE7edeLjxf6EFFuhnlhM-AZcw25EdLrMnNFfTKvmFZfbPG7jGwl6osvruXS-_rxsfRXdy1NXXDQxdoTEBST7wyd4W4q
+                - paragraph [ref=e228]:
+                  - generic [ref=e231]:
+                    - text: 决胜绿茵之巅!中央广播电视总台发布
+                    - emphasis [ref=e232]: 2026世界杯
+                    - text: 融媒体传播服务方案...
+            - generic [ref=e237]:
+              - text: 2026年5月19日
+              - generic [ref=e238]:
+                - text: 中央广播电视总台副台长余俊生出席活动,并与总台总经理室党委书记任学安,总台体育青少节目中心党委书记吕逸涛,总台视听新媒体中心主任钱蔚,总台技术局局长刘朝晖,总台新闻新媒体中心副召集人唐怡,
+                - emphasis [ref=e239]: 蒙牛集团
+                - text: 首席增长官赵兴继,海信集团副总裁朱书琴,球迷代表杨涵静共同启动总台
+                - emphasis [ref=e240]: "2026"
+                - emphasis [ref=e241]: 世界杯
+                - text: 转播报道计划。 国际足联秘书长马蒂亚...
+            - generic [ref=e242]:
+              - link [ref=e244] [cursor=pointer]:
+                - /url: http://www.baidu.com/link?url=7h9rsBnrOXB-y98akE7edeLjxf6EFFuhnlhM-AZcw25EdLrMnNFfTKvmFZfbPG7jGwl6osvruXS-_rxsfRXdy1NXXDQxdoTEBST7wyd4W4q
+              - link [ref=e248] [cursor=pointer]:
+                - /url: http://www.baidu.com/link?url=7h9rsBnrOXB-y98akE7edeLjxf6EFFuhnlhM-AZcw25EdLrMnNFfTKvmFZfbPG7jGwl6osvruXS-_rxsfRXdy1NXXDQxdoTEBST7wyd4W4q
+              - link [ref=e252] [cursor=pointer]:
+                - /url: http://www.baidu.com/link?url=7h9rsBnrOXB-y98akE7edeLjxf6EFFuhnlhM-AZcw25EdLrMnNFfTKvmFZfbPG7jGwl6osvruXS-_rxsfRXdy1NXXDQxdoTEBST7wyd4W4q
+              - link "11" [ref=e256] [cursor=pointer]:
+                - /url: http://www.baidu.com/link?url=7h9rsBnrOXB-y98akE7edeLjxf6EFFuhnlhM-AZcw25EdLrMnNFfTKvmFZfbPG7jGwl6osvruXS-_rxsfRXdy1NXXDQxdoTEBST7wyd4W4q
+                - generic [ref=e259]:
+                  - generic [ref=e260]: 
+                  - text: "11"
+            - link "央视网" [ref=e265] [cursor=pointer]:
+              - /url: http://www.baidu.com/link?url=7h9rsBnrOXB-y98akE7edeLjxf6EFFuhnlhM-AZcw25EdLrMnNFfTKvmFZfbPG7jGwl6osvruXS-_rxsfRXdy1NXXDQxdoTEBST7wyd4W4q
+              - generic [ref=e266]: 央视网
+              - generic [ref=e268]: 
+          - generic [ref=e270]:
+            - generic [ref=e271]: 大家还在搜
+            - generic [ref=e272]:
+              - link "蒙牛世界杯营销" [ref=e273] [cursor=pointer]:
+                - /url: /s?wd=%E8%92%99%E7%89%9B%E4%B8%96%E7%95%8C%E6%9D%AF%E8%90%A5%E9%94%80&ie=utf-8&rsv_pq=c81130ed000006c1&oq=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&rsv_t=29560JmDmZT7BDO9sMOaWfO6PJ1uvuBWrm0iMpmDwx2z1%2FeFzGE020Sfvlo&rsf=101631202&rsv_dl=0_prs_28608_1
+                - generic [ref=e275]: 蒙牛世界杯营销
+              - link "蒙牛最有名的营销活动就是" [ref=e276] [cursor=pointer]:
+                - /url: /s?wd=%E8%92%99%E7%89%9B%E6%9C%80%E6%9C%89%E5%90%8D%E7%9A%84%E8%90%A5%E9%94%80%E6%B4%BB%E5%8A%A8%E5%B0%B1%E6%98%AF&ie=utf-8&rsv_pq=c81130ed000006c1&oq=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&rsv_t=29560JmDmZT7BDO9sMOaWfO6PJ1uvuBWrm0iMpmDwx2z1%2FeFzGE020Sfvlo&rsf=101631202&rsv_dl=0_prs_28608_2
+                - generic [ref=e278]: 蒙牛最有名的营销活动就是
+              - link "蒙牛牛奶营销策略" [ref=e279] [cursor=pointer]:
+                - /url: /s?wd=%E8%92%99%E7%89%9B%E7%89%9B%E5%A5%B6%E8%90%A5%E9%94%80%E7%AD%96%E7%95%A5&ie=utf-8&rsv_pq=c81130ed000006c1&oq=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&rsv_t=29560JmDmZT7BDO9sMOaWfO6PJ1uvuBWrm0iMpmDwx2z1%2FeFzGE020Sfvlo&rsf=101631202&rsv_dl=0_prs_28608_3
+                - generic [ref=e281]: 蒙牛牛奶营销策略
+              - link "伊利与蒙牛的竞争与发展" [ref=e282] [cursor=pointer]:
+                - /url: /s?wd=%E4%BC%8A%E5%88%A9%E4%B8%8E%E8%92%99%E7%89%9B%E7%9A%84%E7%AB%9E%E4%BA%89%E4%B8%8E%E5%8F%91%E5%B1%95&ie=utf-8&rsv_pq=c81130ed000006c1&oq=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&rsv_t=29560JmDmZT7BDO9sMOaWfO6PJ1uvuBWrm0iMpmDwx2z1%2FeFzGE020Sfvlo&rsf=101633403&rsv_dl=0_prs_28608_4
+                - generic [ref=e284]: 伊利与蒙牛的竞争与发展
+              - link "蒙牛未来星成长牛奶" [ref=e285] [cursor=pointer]:
+                - /url: /s?wd=%E8%92%99%E7%89%9B%E6%9C%AA%E6%9D%A5%E6%98%9F%E6%88%90%E9%95%BF%E7%89%9B%E5%A5%B6&ie=utf-8&rsv_pq=c81130ed000006c1&oq=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&rsv_t=29560JmDmZT7BDO9sMOaWfO6PJ1uvuBWrm0iMpmDwx2z1%2FeFzGE020Sfvlo&rsf=101636803&rsv_dl=0_prs_28608_5
+                - generic [ref=e287]: 蒙牛未来星成长牛奶
+              - link "蒙牛的目标是成为全球至爱" [ref=e288] [cursor=pointer]:
+                - /url: /s?wd=%E8%92%99%E7%89%9B%E7%9A%84%E7%9B%AE%E6%A0%87%E6%98%AF%E6%88%90%E4%B8%BA%E5%85%A8%E7%90%83%E8%87%B3%E7%88%B1&ie=utf-8&rsv_pq=c81130ed000006c1&oq=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&rsv_t=29560JmDmZT7BDO9sMOaWfO6PJ1uvuBWrm0iMpmDwx2z1%2FeFzGE020Sfvlo&rsf=101633403&rsv_dl=0_prs_28608_6
+                - generic [ref=e290]: 蒙牛的目标是成为全球至爱
+              - link "蒙牛营销案例" [ref=e291] [cursor=pointer]:
+                - /url: /s?wd=%E8%92%99%E7%89%9B%E8%90%A5%E9%94%80%E6%A1%88%E4%BE%8B&ie=utf-8&rsv_pq=c81130ed000006c1&oq=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&rsv_t=29560JmDmZT7BDO9sMOaWfO6PJ1uvuBWrm0iMpmDwx2z1%2FeFzGE020Sfvlo&rsf=101631202&rsv_dl=0_prs_28608_7
+                - generic [ref=e293]: 蒙牛营销案例
+              - link "蒙牛纯牛奶广告2023" [ref=e294] [cursor=pointer]:
+                - /url: /s?wd=%E8%92%99%E7%89%9B%E7%BA%AF%E7%89%9B%E5%A5%B6%E5%B9%BF%E5%91%8A2023&ie=utf-8&rsv_pq=c81130ed000006c1&oq=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&rsv_t=29560JmDmZT7BDO9sMOaWfO6PJ1uvuBWrm0iMpmDwx2z1%2FeFzGE020Sfvlo&rsf=100636803&rsv_dl=0_prs_28608_8
+                - generic [ref=e296]: 蒙牛纯牛奶广告2023
+          - generic [ref=e300]:
+            - heading "蒙牛乳业2026年美加墨世界杯SFE执行项目竞争性谈判信息公告_蒙牛..." [level=3] [ref=e303]:
+              - link "蒙牛乳业2026年美加墨世界杯SFE执行项目竞争性谈判信息公告_蒙牛..." [ref=e304] [cursor=pointer]:
+                - /url: http://www.baidu.com/link?url=XvHbe0517r8PTYCCISlCF0_w8E9IMTS1et8RjbXVxFgJoo06UMCZSthyjYsVdU_e42F2qU2P20eNzfSMIkhGo_
+                - paragraph [ref=e307]:
+                  - generic [ref=e310]:
+                    - emphasis [ref=e311]: 蒙牛
+                    - text: 乳业
+                    - emphasis [ref=e312]: "2026"
+                    - text: 年美加墨
+                    - emphasis [ref=e313]: 世界杯
+                    - text: SFE执行项目竞争性谈判信息公告_蒙牛...
+            - generic [ref=e318]:
+              - text: 2025年12月2日
+              - generic [ref=e319]:
+                - text: "二、项目名称:"
+                - emphasis [ref=e320]: 蒙牛
+                - text: 乳业
+                - emphasis [ref=e321]: "2026"
+                - text: 年美加墨
+                - emphasis [ref=e322]: 世界杯
+                - text: "SFE项目 三、项目概况: 2026年国际足联世界杯是第23届国际足联世界杯,于2026年6月11日至7月19日在美国、加拿大和墨西哥三国联合举办,蒙牛作为2026年FIFA世界杯全球官方赞助商将再次站上世界顶级体育赛事的舞台。 基于2026年FIFA世界杯的"
+                - emphasis [ref=e323]: 营销
+                - text: 及权益激活规划,将拍摄蒙牛足球代言...
+            - generic [ref=e325]:
+              - link "蒙牛官网" [ref=e328] [cursor=pointer]:
+                - /url: http://www.baidu.com/link?url=XvHbe0517r8PTYCCISlCF0_w8E9IMTS1et8RjbXVxFgJoo06UMCZSthyjYsVdU_e42F2qU2P20eNzfSMIkhGo_
+                - generic [ref=e329]: 蒙牛官网
+                - generic [ref=e331]: 
+              - link "" [ref=e339] [cursor=pointer]:
+                - /url: https://www.baidu.com/s?wd=%E5%86%85%E8%92%99%E5%8F%A4%E8%92%99%E7%89%9B%E4%B9%B3%E4%B8%9A(%E9%9B%86%E5%9B%A2)%E8%82%A1%E4%BB%BD%E6%9C%89%E9%99%90%E5%85%AC%E5%8F%B8@v&product=brand&rsv_dl=0_left_v_#vmp-tm-brand
+                - generic [ref=e340]: 
+          - generic [ref=e344]:
+            - heading "别家押球星球队,蒙牛锁定全赛事球迷注意力-企业频道-东方网" [level=3] [ref=e347]:
+              - link "别家押球星球队,蒙牛锁定全赛事球迷注意力-企业频道-东方网" [ref=e348] [cursor=pointer]:
+                - /url: http://www.baidu.com/link?url=Pv8mF1MKHvkfyqUi9jc__B8p5LNyspeUuj3LnVLbvx_uB_iZtGQCPtJJuXB083nXi5wPPOnf9-DAHN-XT6F1ghqOk396djOuySVPVVvluzpubAzo-uwcoKrFueS91yB3
+                - paragraph [ref=e351]:
+                  - generic [ref=e354]:
+                    - text: 别家押球星球队,
+                    - emphasis [ref=e355]: 蒙牛
+                    - text: 锁定全赛事球迷注意力-企业频道-东方网
+            - generic [ref=e360]:
+              - text: 3天前
+              - generic [ref=e361]:
+                - text: 进入6月,营销界迎来世界杯时刻。作为FIFA世界杯全球官方赞助商的蒙牛,于6月2日,以首部世界杯剧情推理短片正式拉开了
+                - emphasis [ref=e362]: 蒙牛2026
+                - text: 年FIFA
+                - emphasis [ref=e363]: 世界杯营销
+                - text: 攻势。 本届世界杯,蒙牛以“无论谁赢球,都来找蒙牛”为主题,开启“品效销一体2.0”。从明星剧情推理视频点燃话题,到线上全民互动参与,再到携手美团、京东...
+            - link "东方网" [ref=e368] [cursor=pointer]:
+              - /url: http://www.baidu.com/link?url=Pv8mF1MKHvkfyqUi9jc__B8p5LNyspeUuj3LnVLbvx_uB_iZtGQCPtJJuXB083nXi5wPPOnf9-DAHN-XT6F1ghqOk396djOuySVPVVvluzpubAzo-uwcoKrFueS91yB3
+              - generic [ref=e369]: 东方网
+              - generic [ref=e371]: 
+          - generic [ref=e375]:
+            - heading "蒙牛2026世界杯官方合作伙伴 - 营养助力足球梦想" [level=3] [ref=e378]:
+              - link "蒙牛2026世界杯官方合作伙伴 - 营养助力足球梦想" [ref=e379] [cursor=pointer]:
+                - /url: http://www.baidu.com/link?url=IouR1h8IDeyAN2Tz3hMx8RGiA8Vs95hp3efB5Hte6DpNOlXqj_aHEa0tfvFKS5Kk
+                - paragraph [ref=e382]:
+                  - generic [ref=e385]:
+                    - emphasis [ref=e386]: 蒙牛2026世界杯
+                    - text: 官方合作伙伴 - 营养助力足球梦想
+            - generic [ref=e392]:
+              - emphasis [ref=e393]: 蒙牛集团
+              - text: 与国际足联达成战略合作,成为
+              - emphasis [ref=e394]: "2026"
+              - text: 年
+              - emphasis [ref=e395]: 世界杯
+              - text: 官方合作伙伴.这是中国乳制品品牌首次与国际足联达成如此高规格的合作,标志着中国品牌在全球体育
+              - emphasis [ref=e396]: 营销
+              - text: 领域的重要突破. 2026年世界杯将由美国,加拿大和墨西哥联合举办,是历史上首次有48支球队参赛的世界杯,预计全球观众将超过50亿人次. 合作范围 为世界杯参赛球队提供专业...
+            - link "mengniu2026shijebei.com.cn/" [ref=e401] [cursor=pointer]:
+              - /url: http://www.baidu.com/link?url=IouR1h8IDeyAN2Tz3hMx8RGiA8Vs95hp3efB5Hte6DpNOlXqj_aHEa0tfvFKS5Kk
+              - generic [ref=e402]: mengniu2026shijebei.com.cn/
+              - generic [ref=e404]: 
+          - generic [ref=e408]:
+            - heading "世界杯陷直播僵局,赞助方蒙牛“很受伤”丨消费一线" [level=3] [ref=e411]:
+              - link "世界杯陷直播僵局,赞助方蒙牛“很受伤”丨消费一线" [ref=e412] [cursor=pointer]:
+                - /url: http://www.baidu.com/link?url=GFvynVPXlwpkWeIS6Y-ebX6CENTpWKe9BdUYw6CkvVEd97HqYiqfEP8Fnl9RfeiGPHVknCjYBwQ5BvUkt5_Pky07HMH8STV6IdiIkvniugi
+                - paragraph [ref=e415]:
+                  - generic [ref=e418]:
+                    - emphasis [ref=e419]: 世界杯
+                    - text: 陷直播僵局,赞助方
+                    - emphasis [ref=e420]: 蒙牛
+                    - text: “很受伤”丨消费一线
+            - generic [ref=e421]:
+              - link [ref=e423] [cursor=pointer]:
+                - /url: http://www.baidu.com/link?url=GFvynVPXlwpkWeIS6Y-ebX6CENTpWKe9BdUYw6CkvVEd97HqYiqfEP8Fnl9RfeiGPHVknCjYBwQ5BvUkt5_Pky07HMH8STV6IdiIkvniugi
+              - generic [ref=e428]:
+                - generic [ref=e433]:
+                  - text: 2026年5月9日
+                  - generic [ref=e434]:
+                    - text: 蒙牛，则对
+                    - emphasis [ref=e435]: 世界杯营销
+                    - text: 寄予厚望。“
+                    - emphasis [ref=e436]: "2026"
+                    - text: 年，奥运和世界杯双赛临门，蒙牛迎来一个主场时刻。这是独一无二的营销机遇。”在3月的业绩会上，
+                    - emphasis [ref=e437]: 蒙牛集团
+                    - text: 总裁高飞说。2023年8月4日，蒙牛正式成为2026年、2030年FIFA世界杯以及2027年FIFA女足世界杯全球官方赞助商。那时，蒙牛的总裁还是卢敏放。更要看到，相对联想、海信等...
+                - link "头像  新浪财经" [ref=e442] [cursor=pointer]:
+                  - /url: http://www.baidu.com/link?url=GFvynVPXlwpkWeIS6Y-ebX6CENTpWKe9BdUYw6CkvVEd97HqYiqfEP8Fnl9RfeiGPHVknCjYBwQ5BvUkt5_Pky07HMH8STV6IdiIkvniugi
+                  - generic [ref=e443]:
+                    - img "头像" [ref=e445]
+                    - generic [ref=e447]: 
+                  - generic [ref=e448]: 新浪财经
+                  - generic [ref=e450]: 
+          - generic [ref=e454]:
+            - heading "三大营销妙手!读懂蒙牛深耕世界杯的底层逻辑_财富号_东方财富网" [level=3] [ref=e457]:
+              - link "三大营销妙手!读懂蒙牛深耕世界杯的底层逻辑_财富号_东方财富网" [ref=e458] [cursor=pointer]:
+                - /url: http://www.baidu.com/link?url=Pv8mF1MKHvkfyqUi9jc__1uaw2E9L7FNnrUgtFc44Vvt0xRcFxIwlZ_mfoJHOcX-vJ3PioUpiovP2SVs3eHP9oImML7VnJPNpjJC-J4m2Ou
+                - paragraph [ref=e461]:
+                  - generic [ref=e464]:
+                    - text: 三大
+                    - emphasis [ref=e465]: 营销
+                    - text: 妙手!读懂
+                    - emphasis [ref=e466]: 蒙牛
+                    - text: 深耕
+                    - emphasis [ref=e467]: 世界杯
+                    - text: 的底层逻辑_财富号_东方财富网
+            - generic [ref=e472]:
+              - text: 7天前
+              - generic [ref=e473]:
+                - text: 从2018年俄罗斯世界杯首次牵手国际足联,到2022年卡塔尔世界杯押中梅西、姆巴佩引发热议,再到
+                - emphasis [ref=e474]: "2026"
+                - text: 美加墨世界杯以跨界阵容与全民福利破圈,
+                - emphasis [ref=e475]: 蒙牛
+                - text: 的
+                - emphasis [ref=e476]: 世界杯营销
+                - text: 始终坚持「长期主义」,将体育精神与品牌理念深度绑定。 此次营销,蒙牛让世界杯不再只是球迷的狂欢,而是所有人都能参与的快乐盛宴;以跨界联动为抓手,兼顾专业与娱乐、...
+            - link "东方财富网" [ref=e481] [cursor=pointer]:
+              - /url: http://www.baidu.com/link?url=Pv8mF1MKHvkfyqUi9jc__1uaw2E9L7FNnrUgtFc44Vvt0xRcFxIwlZ_mfoJHOcX-vJ3PioUpiovP2SVs3eHP9oImML7VnJPNpjJC-J4m2Ou
+              - generic [ref=e482]: 东方财富网
+              - generic [ref=e484]: 
+          - generic [ref=e488]:
+            - heading "蒙牛为2026年世界杯策划了哪些具体营销活动?|跨界合作|嘉年华|..." [level=3] [ref=e491]:
+              - link "蒙牛为2026年世界杯策划了哪些具体营销活动?|跨界合作|嘉年华|..." [ref=e492] [cursor=pointer]:
+                - /url: http://www.baidu.com/link?url=03Lngv6_G54d3GitaTVV4PN2oTmRubVVhvzFlV3OQbZQPsOGQeh3N3vK5V2vhfrFP46DH7CgkAJj82RL7__Zx-3yzqF3pmivxnhbZ_GnMhu
+                - paragraph [ref=e495]:
+                  - generic [ref=e498]:
+                    - emphasis [ref=e499]: 蒙牛
+                    - text: 为
+                    - emphasis [ref=e500]: "2026"
+                    - text: 年
+                    - emphasis [ref=e501]: 世界杯
+                    - text: 策划了哪些具体
+                    - emphasis [ref=e502]: 营销
+                    - text: 活动?|跨界合作|嘉年华|...
+            - generic [ref=e507]:
+              - text: 7天前
+              - generic [ref=e508]:
+                - emphasis [ref=e509]: 蒙牛
+                - text: 作为
+                - emphasis [ref=e510]: "2026"
+                - text: 年美加墨
+                - emphasis [ref=e511]: 世界杯
+                - text: 全球官方赞助商,以“无论谁赢球都来找蒙牛”为核心主题,策划了覆盖全民互动、跨界合作、情感叙事与青少年公益的立体
+                - emphasis [ref=e512]: 营销
+                - text: "矩阵,将品牌深度融入球迷的观赛体验与生活场景。 一、全民零门槛竞猜活动:强化参与感与福利回馈 蒙牛推出“品效销2.0”双阶段福利活动: ..."
+            - link "新浪网" [ref=e517] [cursor=pointer]:
+              - /url: http://www.baidu.com/link?url=03Lngv6_G54d3GitaTVV4PN2oTmRubVVhvzFlV3OQbZQPsOGQeh3N3vK5V2vhfrFP46DH7CgkAJj82RL7__Zx-3yzqF3pmivxnhbZ_GnMhu
+              - generic [ref=e518]: 新浪网
+              - generic [ref=e520]: 
+          - generic [ref=e524]:
+            - heading "参与这么多次世界杯,蒙牛在想什么?" [level=3] [ref=e527]:
+              - link "参与这么多次世界杯,蒙牛在想什么?" [ref=e528] [cursor=pointer]:
+                - /url: http://www.baidu.com/link?url=GFvynVPXlwpkWeIS6Y-ebX6CENTpWKe9BdUYw6CkvVDIcLHjlY7EkpEOWtTplUVZ8Y4B-zXa5SRmYh5Lh5sCi2Xzv2bxa1zqxQpu30tUZAe
+                - paragraph [ref=e531]:
+                  - generic [ref=e534]:
+                    - text: 参与这么多次
+                    - emphasis [ref=e535]: 世界杯
+                    - text: ","
+                    - emphasis [ref=e536]: 蒙牛
+                    - text: 在想什么?
+            - generic [ref=e537]:
+              - link [ref=e539] [cursor=pointer]:
+                - /url: http://www.baidu.com/link?url=GFvynVPXlwpkWeIS6Y-ebX6CENTpWKe9BdUYw6CkvVDIcLHjlY7EkpEOWtTplUVZ8Y4B-zXa5SRmYh5Lh5sCi2Xzv2bxa1zqxQpu30tUZAe
+              - generic [ref=e544]:
+                - generic [ref=e549]:
+                  - text: 6天前
+                  - generic [ref=e550]:
+                    - text: 至于效果方面，据央视网，2018年世界杯期间，超500亿人次通过总台等媒介渠道接触到了
+                    - emphasis [ref=e551]: 蒙牛
+                    - text: 品牌；蒙牛“扫码赢红包”活动吸引了近2.4亿人次消费者的加入。俄罗斯世界杯赞助活动及立足总台的传播推广，帮助蒙牛的品牌力提升了11.4%。俄罗斯
+                    - emphasis [ref=e552]: 世界杯营销
+                    - text: 的成功，有力助推了蒙牛业绩的提升。2018年，蒙牛乳业实现收入689.77...
+                - link "头像  财经早餐" [ref=e557] [cursor=pointer]:
+                  - /url: http://www.baidu.com/link?url=GFvynVPXlwpkWeIS6Y-ebX6CENTpWKe9BdUYw6CkvVDIcLHjlY7EkpEOWtTplUVZ8Y4B-zXa5SRmYh5Lh5sCi2Xzv2bxa1zqxQpu30tUZAe
+                  - generic [ref=e558]:
+                    - img "头像" [ref=e560]
+                    - generic [ref=e562]: 
+                  - generic [ref=e563]: 财经早餐
+                  - generic [ref=e565]: 
+          - generic [ref=e569]:
+            - heading "蒙牛世界杯营销揭秘:圈层覆盖逻辑与协同效应_足球_什么值得买" [level=3] [ref=e572]:
+              - link "蒙牛世界杯营销揭秘:圈层覆盖逻辑与协同效应_足球_什么值得买" [ref=e573] [cursor=pointer]:
+                - /url: http://www.baidu.com/link?url=MaX73eZCINbHMhyuJypDYbtlkksh0DY_1ytKg0I2aueP5-QitlH6ofQwZ-jC0T-v
+                - paragraph [ref=e576]:
+                  - generic [ref=e579]:
+                    - emphasis [ref=e580]: 蒙牛世界杯营销
+                    - text: 揭秘:圈层覆盖逻辑与协同效应_足球_什么值得买
+            - generic [ref=e585]:
+              - text: 2天前
+              - generic [ref=e586]:
+                - text: "01"
+                - emphasis [ref=e587]: 蒙牛世界杯
+                - text: 揭秘官阵容的圈层覆盖逻辑
+                - emphasis [ref=e588]: "2026"
+                - text: 年美加墨世界杯临近,蒙牛官宣的容祖儿、黄健翔等七位「世界杯揭秘官」阵容引发广泛讨论。不同于传统体育
+                - emphasis [ref=e589]: 营销
+                - text: 绑定单一球星的打法,本次阵容横跨体育、娱乐、电竞等多个领域,精准锚定不同受众群体,形成了清晰的圈层渗透路径。
+            - link "什么值得买" [ref=e594] [cursor=pointer]:
+              - /url: http://www.baidu.com/link?url=MaX73eZCINbHMhyuJypDYbtlkksh0DY_1ytKg0I2aueP5-QitlH6ofQwZ-jC0T-v
+              - generic [ref=e595]: 什么值得买
+              - generic [ref=e597]: 
+        - generic [ref=e600]:
+          - generic [ref=e601]: 相关搜索
+          - table [ref=e602]:
+            - rowgroup [ref=e603]:
+              - row "蒙牛世界杯营销 蒙牛最有名的营销活动就是" [ref=e604]:
+                - cell "蒙牛世界杯营销" [ref=e605]:
+                  - link "蒙牛世界杯营销" [ref=e606] [cursor=pointer]:
+                    - /url: /s?wd=%E8%92%99%E7%89%9B%E4%B8%96%E7%95%8C%E6%9D%AF%E8%90%A5%E9%94%80&rsf=101631202&rsp=0&f=1&rs_src=0&rsv_pq=c81130ed000006c1&rsv_t=a610ghdgqG8UyLKpFyXCxRVHx5h3voBxKxWQgl9ZrUYsH0hzlutol%2F0SrTM&rsv_dl=brs_28338_1
+                    - generic [ref=e608]: 蒙牛世界杯营销
+                - cell "蒙牛最有名的营销活动就是" [ref=e609]:
+                  - link "蒙牛最有名的营销活动就是" [ref=e610] [cursor=pointer]:
+                    - /url: /s?wd=%E8%92%99%E7%89%9B%E6%9C%80%E6%9C%89%E5%90%8D%E7%9A%84%E8%90%A5%E9%94%80%E6%B4%BB%E5%8A%A8%E5%B0%B1%E6%98%AF&rsf=101631202&rsp=1&f=1&rs_src=0&rsv_pq=c81130ed000006c1&rsv_t=a610ghdgqG8UyLKpFyXCxRVHx5h3voBxKxWQgl9ZrUYsH0hzlutol%2F0SrTM&rsv_dl=brs_28338_2
+                    - generic [ref=e612]: 蒙牛最有名的营销活动就是
+              - row "蒙牛vs伊利 蒙牛营销案例" [ref=e613]:
+                - cell "蒙牛vs伊利" [ref=e614]:
+                  - link "蒙牛vs伊利" [ref=e615] [cursor=pointer]:
+                    - /url: /s?wd=%E8%92%99%E7%89%9Bvs%E4%BC%8A%E5%88%A9&rsf=101633403&rsp=2&f=1&rs_src=0&rsv_pq=c81130ed000006c1&rsv_t=a610ghdgqG8UyLKpFyXCxRVHx5h3voBxKxWQgl9ZrUYsH0hzlutol%2F0SrTM&rsv_dl=brs_28338_3
+                    - generic [ref=e617]: 蒙牛vs伊利
+                - cell "蒙牛营销案例" [ref=e618]:
+                  - link "蒙牛营销案例" [ref=e619] [cursor=pointer]:
+                    - /url: /s?wd=%E8%92%99%E7%89%9B%E8%90%A5%E9%94%80%E6%A1%88%E4%BE%8B&rsf=101631202&rsp=3&f=1&rs_src=0&rsv_pq=c81130ed000006c1&rsv_t=a610ghdgqG8UyLKpFyXCxRVHx5h3voBxKxWQgl9ZrUYsH0hzlutol%2F0SrTM&rsv_dl=brs_28338_4
+                    - generic [ref=e621]: 蒙牛营销案例
+              - row "蒙牛的目标是成为全球至爱 蒙牛世界杯40天全域经营 新" [ref=e622]:
+                - cell "蒙牛的目标是成为全球至爱" [ref=e623]:
+                  - link "蒙牛的目标是成为全球至爱" [ref=e624] [cursor=pointer]:
+                    - /url: /s?wd=%E8%92%99%E7%89%9B%E7%9A%84%E7%9B%AE%E6%A0%87%E6%98%AF%E6%88%90%E4%B8%BA%E5%85%A8%E7%90%83%E8%87%B3%E7%88%B1&rsf=101633403&rsp=4&f=1&rs_src=0&rsv_pq=c81130ed000006c1&rsv_t=a610ghdgqG8UyLKpFyXCxRVHx5h3voBxKxWQgl9ZrUYsH0hzlutol%2F0SrTM&rsv_dl=brs_28338_5
+                    - generic [ref=e626]: 蒙牛的目标是成为全球至爱
+                - cell "蒙牛世界杯40天全域经营 新" [ref=e627]:
+                  - link "蒙牛世界杯40天全域经营 新" [ref=e628] [cursor=pointer]:
+                    - /url: /s?wd=%E8%92%99%E7%89%9B%E4%B8%96%E7%95%8C%E6%9D%AF40%E5%A4%A9%E5%85%A8%E5%9F%9F%E7%BB%8F%E8%90%A5&rsf=101632809&rsp=5&f=1&rs_src=0&rsv_pq=c81130ed000006c1&rsv_t=a610ghdgqG8UyLKpFyXCxRVHx5h3voBxKxWQgl9ZrUYsH0hzlutol%2F0SrTM&rsv_dl=brs_28338_6
+                    - generic [ref=e630]: 蒙牛世界杯40天全域经营
+                    - generic [ref=e631]: 新
+              - row "蒙牛最新出的新品 蒙牛2024广告" [ref=e632]:
+                - cell "蒙牛最新出的新品" [ref=e633]:
+                  - link "蒙牛最新出的新品" [ref=e634] [cursor=pointer]:
+                    - /url: /s?wd=%E8%92%99%E7%89%9B%E6%9C%80%E6%96%B0%E5%87%BA%E7%9A%84%E6%96%B0%E5%93%81&rsf=101633403&rsp=6&f=1&rs_src=0&rsv_pq=c81130ed000006c1&rsv_t=a610ghdgqG8UyLKpFyXCxRVHx5h3voBxKxWQgl9ZrUYsH0hzlutol%2F0SrTM&rsv_dl=brs_28338_7
+                    - generic [ref=e636]: 蒙牛最新出的新品
+                - cell "蒙牛2024广告" [ref=e637]:
+                  - link "蒙牛2024广告" [ref=e638] [cursor=pointer]:
+                    - /url: /s?wd=%E8%92%99%E7%89%9B2024%E5%B9%BF%E5%91%8A&rsf=100636803&rsp=7&f=1&rs_src=0&rsv_pq=c81130ed000006c1&rsv_t=a610ghdgqG8UyLKpFyXCxRVHx5h3voBxKxWQgl9ZrUYsH0hzlutol%2F0SrTM&rsv_dl=brs_28338_8
+                    - generic [ref=e640]: 蒙牛2024广告
+              - row "蒙牛2024新品 蒙牛纯牛奶广告2023" [ref=e641]:
+                - cell "蒙牛2024新品" [ref=e642]:
+                  - link "蒙牛2024新品" [ref=e643] [cursor=pointer]:
+                    - /url: /s?wd=%E8%92%99%E7%89%9B2024%E6%96%B0%E5%93%81&rsf=100636803&rsp=8&f=1&rs_src=0&rsv_pq=c81130ed000006c1&rsv_t=a610ghdgqG8UyLKpFyXCxRVHx5h3voBxKxWQgl9ZrUYsH0hzlutol%2F0SrTM&rsv_dl=brs_28338_9
+                    - generic [ref=e645]: 蒙牛2024新品
+                - cell "蒙牛纯牛奶广告2023" [ref=e646]:
+                  - link "蒙牛纯牛奶广告2023" [ref=e647] [cursor=pointer]:
+                    - /url: /s?wd=%E8%92%99%E7%89%9B%E7%BA%AF%E7%89%9B%E5%A5%B6%E5%B9%BF%E5%91%8A2023&rsf=100636803&rsp=9&f=1&rs_src=0&rsv_pq=c81130ed000006c1&rsv_t=a610ghdgqG8UyLKpFyXCxRVHx5h3voBxKxWQgl9ZrUYsH0hzlutol%2F0SrTM&rsv_dl=brs_28338_10
+                    - generic [ref=e649]: 蒙牛纯牛奶广告2023
+      - generic [ref=e652]:
+        - link:
+          - /url: ""
+          - img
+        - strong [ref=e653]:
+          - generic [ref=e654]: "1"
+        - link "2" [ref=e655] [cursor=pointer]:
+          - /url: /s?wd=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&pn=10&oq=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&ie=utf-8&rsv_pq=c81130ed000006c1&rsv_t=a610ghdgqG8UyLKpFyXCxRVHx5h3voBxKxWQgl9ZrUYsH0hzlutol%2F0SrTM&topic_pn=
+          - generic [ref=e656]: "2"
+        - link "3" [ref=e657] [cursor=pointer]:
+          - /url: /s?wd=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&pn=20&oq=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&ie=utf-8&rsv_pq=c81130ed000006c1&rsv_t=a610ghdgqG8UyLKpFyXCxRVHx5h3voBxKxWQgl9ZrUYsH0hzlutol%2F0SrTM&topic_pn=
+          - generic [ref=e658]: "3"
+        - link "4" [ref=e659] [cursor=pointer]:
+          - /url: /s?wd=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&pn=30&oq=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&ie=utf-8&rsv_pq=c81130ed000006c1&rsv_t=a610ghdgqG8UyLKpFyXCxRVHx5h3voBxKxWQgl9ZrUYsH0hzlutol%2F0SrTM&topic_pn=
+          - generic [ref=e660]: "4"
+        - link "5" [ref=e661] [cursor=pointer]:
+          - /url: /s?wd=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&pn=40&oq=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&ie=utf-8&rsv_pq=c81130ed000006c1&rsv_t=a610ghdgqG8UyLKpFyXCxRVHx5h3voBxKxWQgl9ZrUYsH0hzlutol%2F0SrTM&topic_pn=
+          - generic [ref=e662]: "5"
+        - link "6" [ref=e663] [cursor=pointer]:
+          - /url: /s?wd=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&pn=50&oq=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&ie=utf-8&rsv_pq=c81130ed000006c1&rsv_t=a610ghdgqG8UyLKpFyXCxRVHx5h3voBxKxWQgl9ZrUYsH0hzlutol%2F0SrTM&topic_pn=
+          - generic [ref=e664]: "6"
+        - link "7" [ref=e665] [cursor=pointer]:
+          - /url: /s?wd=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&pn=60&oq=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&ie=utf-8&rsv_pq=c81130ed000006c1&rsv_t=a610ghdgqG8UyLKpFyXCxRVHx5h3voBxKxWQgl9ZrUYsH0hzlutol%2F0SrTM&topic_pn=
+          - generic [ref=e666]: "7"
+        - link "8" [ref=e667] [cursor=pointer]:
+          - /url: /s?wd=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&pn=70&oq=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&ie=utf-8&rsv_pq=c81130ed000006c1&rsv_t=a610ghdgqG8UyLKpFyXCxRVHx5h3voBxKxWQgl9ZrUYsH0hzlutol%2F0SrTM&topic_pn=
+          - generic [ref=e668]: "8"
+        - link "9" [ref=e669] [cursor=pointer]:
+          - /url: /s?wd=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&pn=80&oq=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&ie=utf-8&rsv_pq=c81130ed000006c1&rsv_t=a610ghdgqG8UyLKpFyXCxRVHx5h3voBxKxWQgl9ZrUYsH0hzlutol%2F0SrTM&topic_pn=
+          - generic [ref=e670]: "9"
+        - link "10" [ref=e671] [cursor=pointer]:
+          - /url: /s?wd=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&pn=90&oq=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&ie=utf-8&rsv_pq=c81130ed000006c1&rsv_t=a610ghdgqG8UyLKpFyXCxRVHx5h3voBxKxWQgl9ZrUYsH0hzlutol%2F0SrTM&topic_pn=
+          - generic [ref=e672]: "10"
+        - link [ref=e673] [cursor=pointer]:
+          - /url: /s?wd=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&pn=10&oq=%E8%92%99%E7%89%9B%20%E4%B8%96%E7%95%8C%E6%9D%AF%20%E8%90%A5%E9%94%80%202026&ie=utf-8&rsv_pq=c81130ed000006c1&rsv_t=a610ghdgqG8UyLKpFyXCxRVHx5h3voBxKxWQgl9ZrUYsH0hzlutol%2F0SrTM&topic_pn=&rsv_page=1
+          - img [ref=e674]
+      - generic [ref=e678]:
+        - link "帮助" [ref=e679] [cursor=pointer]:
+          - /url: https://help.baidu.com/question?prod_id=1
+        - link "举报" [ref=e680] [cursor=pointer]:
+          - /url: https://help.baidu.com/jubao?source=search
+        - link "用户反馈" [ref=e681] [cursor=pointer]:
+          - /url: javascript:;
+        - link "企业推广" [ref=e682] [cursor=pointer]:
+          - /url: https://e.baidu.com/lp/search/?refer=1298

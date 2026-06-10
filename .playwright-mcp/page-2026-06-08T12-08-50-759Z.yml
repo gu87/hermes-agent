@@ -1,0 +1,334 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - generic:
+      - link "跳到主要内容" [ref=e2] [cursor=pointer]
+      - link "无障碍功能帮助" [ref=e3] [cursor=pointer]:
+        - /url: https://support.google.com/websearch/answer/181196?hl=zh-CN
+  - generic [ref=e8]:
+    - search [ref=e9]:
+      - generic [ref=e11]:
+        - link "Google 首页" [ref=e13] [cursor=pointer]:
+          - /url: https://www.google.com/webhp?hl=zh-CN&sa=X&ved=0ahUKEwjkqcD8zfeUAxUhHEQIHbXmG7IQPAgI
+          - img [ref=e14]
+        - generic [ref=e21]:
+          - generic [ref=e22]:
+            - combobox "搜索" [ref=e25]: 耐克 世界杯 营销 2026 耐克 世界杯 营销 2026
+            - generic [ref=e26]:
+              - button "清除" [ref=e28] [cursor=pointer]:
+                - img [ref=e30]
+              - generic [ref=e33]:
+                - button "按语音搜索" [ref=e34] [cursor=pointer]:
+                  - img [ref=e35]
+                - button "按图搜索" [ref=e37] [cursor=pointer]:
+                  - img [ref=e38]
+          - button "搜索" [ref=e40] [cursor=pointer]:
+            - img [ref=e43]
+    - generic [ref=e46]:
+      - button "Google 应用" [ref=e48] [cursor=pointer]:
+        - img [ref=e49]
+      - button "Google 账号： 谷如洋 (guruyang77@gmail.com)" [ref=e53] [cursor=pointer]:
+        - img [ref=e54]
+  - generic [ref=e56]:
+    - navigation [ref=e62]:
+      - generic [ref=e68]:
+        - list [ref=e69]:
+          - listitem [ref=e70]:
+            - link "AI 模式" [ref=e73] [cursor=pointer]:
+              - /url: /search?q=%E8%80%90%E5%85%8B+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n6aIZYHUS2KUl_rHcpSZI-eTfGuiw:1780920529987&udm=50&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVtSi6kM5ZjADb03gRVWnenfhJMtO4x41VfNir3SjdVdjNySDoWBETGvn67PVJl1x3TQqXNOmHcpB2RN2TcscC89WMlVJ5hE0mD8NPuEkS5kofxhfCvzGztJD8_yG9vrodj7N_TPRDE3tglt1Kzoiu_HzjYn8q2EKWg7v-9a9xkXDQMkW8T0d7fUkpVm2HxGpn2DDLbg&aep=1&ntc=1&sa=X&ved=2ahUKEwjkqcD8zfeUAxUhHEQIHbXmG7IQ2J8OegQIERAD
+              - generic [ref=e76]: AI 模式
+          - listitem [ref=e77]:
+            - link "全部" [disabled] [ref=e78]:
+              - generic [ref=e80]: 全部
+          - listitem [ref=e81]:
+            - link "购物" [ref=e82] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n6aIZYHUS2KUl_rHcpSZI-eTfGuiw:1780920529987&udm=28&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVtSi6kM5ZjADb03gRVWnenfhJMtO4x41VfNir3SjdVdjNySDoWBETGvn67PVJl1x3TQqXNOmHcpB2RN2TcscC89WMlVJ5hE0mD8NPuEkS5kofxhfCvzGztJD8_yG9vrodj7N_TPRDE3tglt1Kzoiu_HzjYn8q2EKWg7v-9a9xkXDQMkW8T0d7fUkpVm2HxGpn2DDLbg&q=%E8%80%90%E5%85%8B+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&ved=1t:220175&ictx=111
+              - generic [ref=e84]: 购物
+          - listitem [ref=e85]:
+            - link "图片" [ref=e86] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n6aIZYHUS2KUl_rHcpSZI-eTfGuiw:1780920529987&udm=2&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVtSi6kM5ZjADb03gRVWnenfhJMtO4x41VfNir3SjdVdjNySDoWBETGvn67PVJl1x3TQqXNOmHcpB2RN2TcscC89WMlVJ5hE0mD8NPuEkS5kofxhfCvzGztJD8_yG9vrodj7N_TPRDE3tglt1Kzoiu_HzjYn8q2EKWg7v-9a9xkXDQMkW8T0d7fUkpVm2HxGpn2DDLbg&q=%E8%80%90%E5%85%8B+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sa=X&ved=2ahUKEwjkqcD8zfeUAxUhHEQIHbXmG7IQtKgLegQIFBAB
+              - generic [ref=e88]: 图片
+          - listitem [ref=e89]:
+            - link "短视频" [ref=e90] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n6aIZYHUS2KUl_rHcpSZI-eTfGuiw:1780920529987&udm=39&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVtSi6kM5ZjADb03gRVWnenfhJMtO4x41VfNir3SjdVdjNySDoWBETGvn67PVJl1x3TQqXNOmHcpB2RN2TcscC89WMlVJ5hE0mD8NPuEkS5kofxhfCvzGztJD8_yG9vrodj7N_TPRDE3tglt1Kzoiu_HzjYn8q2EKWg7v-9a9xkXDQMkW8T0d7fUkpVm2HxGpn2DDLbg&q=%E8%80%90%E5%85%8B+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sa=X&ved=2ahUKEwjkqcD8zfeUAxUhHEQIHbXmG7IQs6gLegQIExAB
+              - generic [ref=e92]: 短视频
+          - listitem [ref=e93]:
+            - link "视频" [ref=e94] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n6aIZYHUS2KUl_rHcpSZI-eTfGuiw:1780920529987&udm=7&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVtSi6kM5ZjADb03gRVWnenfhJMtO4x41VfNir3SjdVdjNySDoWBETGvn67PVJl1x3TQqXNOmHcpB2RN2TcscC89WMlVJ5hE0mD8NPuEkS5kofxhfCvzGztJD8_yG9vrodj7N_TPRDE3tglt1Kzoiu_HzjYn8q2EKWg7v-9a9xkXDQMkW8T0d7fUkpVm2HxGpn2DDLbg&q=%E8%80%90%E5%85%8B+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sa=X&ved=2ahUKEwjkqcD8zfeUAxUhHEQIHbXmG7IQtKgLegQIFhAB
+              - generic [ref=e96]: 视频
+          - listitem [ref=e97]:
+            - link "新闻" [ref=e98] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n6aIZYHUS2KUl_rHcpSZI-eTfGuiw:1780920529987&q=%E8%80%90%E5%85%8B+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&tbm=nws&source=lnms&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVtSi6kM5ZjADb03gRVWnenfhJMtO4x41VfNir3SjdVdjNySDoWBETGvn67PVJl1x3TQqXNOmHcpB2RN2TcscC89WMlVJ5hE0mD8NPuEkS5kofxhfCvzGztJD8_yG9vrodj7N_TPRDE3tglt1Kzoiu_HzjYn8q2EKWg7v-9a9xkXDQMkW8T0d7fUkpVm2HxGpn2DDLbg&sa=X&ved=2ahUKEwjkqcD8zfeUAxUhHEQIHbXmG7IQ0pQJegQIFRAB
+              - generic [ref=e100]: 新闻
+          - listitem [ref=e101]:
+            - button "更多过滤条件" [ref=e102] [cursor=pointer]:
+              - generic "更多过滤条件" [ref=e103]:
+                - generic [ref=e104]:
+                  - generic [ref=e105]: 更多
+                  - img [ref=e107]
+        - button "工具" [ref=e110] [cursor=pointer]:
+          - generic [ref=e112]:
+            - generic [ref=e113]: 工具
+            - img [ref=e115]
+    - heading "搜索结果" [level=1] [ref=e117]
+    - main [ref=e123]:
+      - generic [ref=e127]:
+        - generic [ref=e130]:
+          - heading "网页搜索结果" [level=2] [ref=e131]
+          - generic [ref=e132]:
+            - generic [ref=e135]:
+              - link "2026美加墨世界杯即将开战，耐克新广告引热议|哈兰德 新浪网 https://k.sina.cn › ..." [ref=e137] [cursor=pointer]:
+                - /url: https://k.sina.cn/article_5899720771_m15fa6984303301rodi.html?from=game&subch=ogame
+                - heading "2026美加墨世界杯即将开战，耐克新广告引热议|哈兰德" [level=3] [ref=e138]
+                - generic [ref=e143]:
+                  - generic [ref=e145]: 新浪网
+                  - generic [ref=e147]: https://k.sina.cn › ...
+              - button "关于这条结果的详细信息" [ref=e148] [cursor=pointer]:
+                - img [ref=e151]
+            - generic [ref=e154]:
+              - generic [ref=e155]:
+                - generic [ref=e156]: 3小时前
+                - text: —
+              - generic [ref=e157]:
+                - text: 球王谢幕？哈兰德吃小孩？
+                - emphasis [ref=e158]: 耐克
+                - text: ✓这片神了
+                - emphasis [ref=e159]: "2026"
+                - text: 美加墨
+                - emphasis [ref=e160]: 世界杯
+                - text: 战火即将点燃！点击进入对应球队超话，点击签到，即可点亮该球队国旗，为球队助威#登贝莱要求姆巴佩多防守##
+                - emphasis [ref=e161]: "2026"
+                - text: 美加 ...
+        - generic [ref=e165]:
+          - generic [ref=e168]:
+            - link "互相谦让！詹姆斯转发与C罗拍摄耐克完整版广告《GOAT的 ... 新浪网 https://sports.sina.cn › 文章页 › NBA综合" [ref=e170] [cursor=pointer]:
+              - /url: https://sports.sina.cn/nba/other/2026-06-07/detail-iniarean4447674.d.html?vt=4
+              - heading "互相谦让！詹姆斯转发与C罗拍摄耐克完整版广告《GOAT的 ..." [level=3] [ref=e171]
+              - generic [ref=e176]:
+                - generic [ref=e178]: 新浪网
+                - generic [ref=e180]: https://sports.sina.cn › 文章页 › NBA综合
+            - button "关于这条结果的详细信息" [ref=e181] [cursor=pointer]:
+              - img [ref=e184]
+          - generic [ref=e187]:
+            - generic [ref=e188]: 21小时前 —
+            - generic [ref=e189]:
+              - text: 直播吧6月7日讯今日，湖人球星詹姆斯更新了Instagram Story动态。 詹姆斯转发了他和克里斯蒂亚诺·罗纳尔多为
+              - emphasis [ref=e190]: 耐克
+              - text: 拍摄的
+              - emphasis [ref=e191]: 世界杯
+              - text: 宣传广告完整版。 詹姆斯评论道：“ 的✌ 。
+        - generic [ref=e195]:
+          - generic [ref=e198]:
+            - link "随着世界杯开赛日益临近，耐克为这一盛事 ... WWD国际时尚特讯 https://h5.wwdgreaterchina.com › detail" [ref=e200] [cursor=pointer]:
+              - /url: https://h5.wwdgreaterchina.com/detail.html?pid=67&id=14756
+              - heading "随着世界杯开赛日益临近，耐克为这一盛事 ..." [level=3] [ref=e201]
+              - generic [ref=e206]:
+                - generic [ref=e208]: WWD国际时尚特讯
+                - generic [ref=e210]: https://h5.wwdgreaterchina.com › detail
+            - button "关于这条结果的详细信息" [ref=e211] [cursor=pointer]:
+              - img [ref=e214]
+          - generic [ref=e217]:
+            - generic [ref=e218]: 20小时前 —
+            - generic [ref=e219]:
+              - text: 随着
+              - emphasis [ref=e220]: 世界杯
+              - text: 开赛日益临近，
+              - emphasis [ref=e221]: 耐克
+              - text: 为这一盛事推出了名为《Rip the Script》的广告片，启用了金·卡戴珊、勒布朗·詹姆斯、查宁·塔图姆等庞大的明星阵容，旨在将更多消费者拉入这项 ...
+        - generic [ref=e225]:
+          - generic [ref=e228]:
+            - link "豐臀金、C羅、姆巴佩都來參一咖運動品牌Nike迎接世界盃 ... Instagram https://www.instagram.com › ..." [ref=e230] [cursor=pointer]:
+              - /url: https://www.instagram.com/p/DZT3IXRmvUl/
+              - heading "豐臀金、C羅、姆巴佩都來參一咖運動品牌Nike迎接世界盃 ..." [level=3] [ref=e231]
+              - generic [ref=e236]:
+                - generic [ref=e238]: Instagram
+                - generic [ref=e240]: https://www.instagram.com › ...
+            - button "关于这条结果的详细信息" [ref=e241] [cursor=pointer]:
+              - img [ref=e244]
+          - generic [ref=e248]:
+            - emphasis [ref=e249]: Nike用宝丽来改写2026 世界杯营销玩法
+            - text: "#LISA #Nike #2026世界杯 #FIFAWorldCup2026 ... LISA亮相Nike为2026世界杯推出的全新营销企划。Nike近日发布足球主题活动 ..."
+        - generic [ref=e253]:
+          - generic [ref=e256]:
+            - link "39天狂揽130亿美元！美加墨世界杯背后的商业大战与品牌 ... 搜狐网 https://m.sohu.com › 搜狐文章页 › 时光逸趣" [ref=e258] [cursor=pointer]:
+              - /url: https://m.sohu.com/a/1033883823_122387568?scm=10001.325_13-325_13.0.0-0-0-0-0.5_1334
+              - heading "39天狂揽130亿美元！美加墨世界杯背后的商业大战与品牌 ..." [level=3] [ref=e259]
+              - generic [ref=e264]:
+                - generic [ref=e266]: 搜狐网
+                - generic [ref=e268]: https://m.sohu.com › 搜狐文章页 › 时光逸趣
+            - button "关于这条结果的详细信息" [ref=e269] [cursor=pointer]:
+              - img [ref=e272]
+          - generic [ref=e275]:
+            - generic [ref=e276]:
+              - generic [ref=e277]: 1小时前
+              - text: —
+            - generic [ref=e278]:
+              - text: “运动品牌价值榜”作为备受关注的栏目，将通过统计各大球队和球员的表现，评估运动品牌在
+              - emphasis [ref=e279]: 世界杯
+              - text: 上的
+              - emphasis [ref=e280]: 营销
+              - text: 效果。阿迪达斯、
+              - emphasis [ref=e281]: 耐克
+              - text: 和彪马等品牌将为球迷们带来视觉盛宴，而最终的 ...
+        - generic [ref=e285]:
+          - generic [ref=e288]:
+            - link "互相谦让！詹姆斯转发与C罗拍摄耐克完整版广告《GOAT的 ... zhibo8.com https://news.zhibo8.com › nba › 2026-06-07" [ref=e290] [cursor=pointer]:
+              - /url: https://news.zhibo8.com/nba/2026-06-07/6a256f37b8a36native.htm
+              - heading "互相谦让！詹姆斯转发与C罗拍摄耐克完整版广告《GOAT的 ..." [level=3] [ref=e291]
+              - generic [ref=e296]:
+                - generic [ref=e298]: zhibo8.com
+                - generic [ref=e300]: https://news.zhibo8.com › nba › 2026-06-07
+            - button "关于这条结果的详细信息" [ref=e301] [cursor=pointer]:
+              - img [ref=e304]
+          - generic [ref=e307]:
+            - generic [ref=e308]: 22小时前 —
+            - generic [ref=e309]:
+              - text: 直播吧6月7日讯今日，湖人球星詹姆斯更新了InstagramStory动态。詹姆斯转发了他和克里斯蒂亚诺·罗纳尔多为
+              - emphasis [ref=e310]: 耐克
+              - text: 拍摄的
+              - emphasis [ref=e311]: 世界杯
+              - text: 宣传广告完整版。詹姆斯评论道：“ 的✌ 。 ”
+              - emphasis [ref=e312]: 耐克
+        - generic [ref=e316]:
+          - generic [ref=e319]:
+            - link "不只义乌小商品！美加墨世界杯，这些“浙江制造”也亮相了 潮新闻 https://tidenews.com.cn › news" [ref=e321] [cursor=pointer]:
+              - /url: https://tidenews.com.cn/news.html?id=3466854
+              - heading "不只义乌小商品！美加墨世界杯，这些“浙江制造”也亮相了" [level=3] [ref=e322]
+              - generic [ref=e327]:
+                - generic [ref=e329]: 潮新闻
+                - generic [ref=e331]: https://tidenews.com.cn › news
+            - button "关于这条结果的详细信息" [ref=e332] [cursor=pointer]:
+              - img [ref=e335]
+          - generic [ref=e338]:
+            - generic [ref=e339]: 19小时前 —
+            - generic [ref=e340]:
+              - text: 日前，
+              - emphasis [ref=e341]: 耐克
+              - text: （
+              - emphasis [ref=e342]: Nike
+              - text: ）
+              - emphasis [ref=e343]: "2026"
+              - text: 美加墨
+              - emphasis [ref=e344]: 世界杯
+              - text: 相关球衣全球首发。作为首次全面应用Aero-FIT散热科技的国家队系列球衣，
+              - emphasis [ref=e345]: 耐克
+              - text: 此次带来的新品以分区针织工艺为核心，融合 ...
+        - generic [ref=e349]:
+          - generic [ref=e352]:
+            - link "adidas x DEICHMANN联名款来了！世界杯周边白菜价 北美省钱快报 https://www.dealmoon.com › post" [ref=e354] [cursor=pointer]:
+              - /url: https://www.dealmoon.com/post/3226554
+              - heading "adidas x DEICHMANN联名款来了！世界杯周边白菜价" [level=3] [ref=e355]
+              - generic [ref=e360]:
+                - generic [ref=e362]: 北美省钱快报
+                - generic [ref=e364]: https://www.dealmoon.com › post
+            - button "关于这条结果的详细信息" [ref=e365] [cursor=pointer]:
+              - img [ref=e368]
+          - generic [ref=e371]:
+            - generic [ref=e372]: 11小时前 —
+            - generic [ref=e373]:
+              - text: ...
+              - emphasis [ref=e374]: 世界杯营销活动从5月25日持续到6月28日
+              - text: ，一共21个创意内容，线上线下同步铺。价格从11.99欧元到84.99欧元不等，想冲的姐妹可以蹲一下～. 2026 FIFA · FIFA世界杯. 05-27 ...
+        - generic [ref=e378]:
+          - generic [ref=e381]:
+            - link "耐克发布双骄新闻后大跌5% NGA玩家社区 NGA https://bbs.nga.cn › read" [ref=e383] [cursor=pointer]:
+              - /url: https://bbs.nga.cn/read.php?tid=46942802
+              - heading "耐克发布双骄新闻后大跌5% NGA玩家社区" [level=3] [ref=e384]
+              - generic [ref=e389]:
+                - generic [ref=e391]: NGA
+                - generic [ref=e393]: https://bbs.nga.cn › read
+            - button "关于这条结果的详细信息" [ref=e394] [cursor=pointer]:
+              - img [ref=e397]
+          - generic [ref=e400]:
+            - generic [ref=e401]: 19小时前 —
+            - generic [ref=e402]:
+              - text: "#8"
+              - emphasis [ref=e403]: "2026"
+              - text: "-06-07 18:44. . 也不好说是因为他这个帖子烂还是今年新出的"
+              - emphasis [ref=e404]: 世界杯
+              - text: 球鞋烂，1号发布的
+              - emphasis [ref=e405]: 世界杯
+              - text: "年新球鞋也烂完了都烂. UID:3113811 声望青训学徒 · 威望学徒. #9"
+              - emphasis [ref=e406]: "2026"
+              - text: "-06- ..."
+        - generic [ref=e410]:
+          - generic [ref=e413]:
+            - link "小众运动不够了，小红书也需要「大运动」 36Kr https://m.36kr.com › ..." [ref=e415] [cursor=pointer]:
+              - /url: https://m.36kr.com/p/3834694807418241
+              - heading "小众运动不够了，小红书也需要「大运动」" [level=3] [ref=e416]
+              - generic [ref=e421]:
+                - generic [ref=e423]: 36Kr
+                - generic [ref=e425]: https://m.36kr.com › ...
+            - button "关于这条结果的详细信息" [ref=e426] [cursor=pointer]:
+              - img [ref=e429]
+          - generic [ref=e432]:
+            - generic [ref=e433]: 14小时前 —
+            - generic [ref=e434]:
+              - emphasis [ref=e435]: 耐克
+              - text: 过往的《Secret Tournament》和《Write the Future》等
+              - emphasis [ref=e436]: 世界杯
+              - text: 广告大片都是足球史上的经典
+              - emphasis [ref=e437]: 营销
+              - text: 之作。 但在今年，
+              - emphasis [ref=e438]: 耐克
+              - text: 没有放出这样一支广告片，而是把签约的足球传奇 ...
+      - navigation [ref=e441]:
+        - heading "网页导航" [level=1] [ref=e442]
+        - text: "1"
+        - link "Page 2" [ref=e445] [cursor=pointer]:
+          - /url: /search?q=%E8%80%90%E5%85%8B+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n6aIZYHUS2KUl_rHcpSZI-eTfGuiw:1780920529987&ei=0bAmaqT9O6G4kPIPtc3vkAs&start=10&sa=N&sstk=AU9db-DfOXsQ47QXt3yRdtubCFUx2qSoij0goGg0AHCvKc8UW3tk3hftKDBbZy-qw6R8W32w8nE3mLRZbQpHBs9AhQZNN8pW6gU9Ew&ved=2ahUKEwjkqcD8zfeUAxUhHEQIHbXmG7IQ8tMDegQIJBAE
+          - text: "2"
+        - link "Page 3" [ref=e447] [cursor=pointer]:
+          - /url: /search?q=%E8%80%90%E5%85%8B+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n6aIZYHUS2KUl_rHcpSZI-eTfGuiw:1780920529987&ei=0bAmaqT9O6G4kPIPtc3vkAs&start=20&sa=N&sstk=AU9db-DfOXsQ47QXt3yRdtubCFUx2qSoij0goGg0AHCvKc8UW3tk3hftKDBbZy-qw6R8W32w8nE3mLRZbQpHBs9AhQZNN8pW6gU9Ew&ved=2ahUKEwjkqcD8zfeUAxUhHEQIHbXmG7IQ8tMDegQIJBAG
+          - text: "3"
+        - link "Page 4" [ref=e449] [cursor=pointer]:
+          - /url: /search?q=%E8%80%90%E5%85%8B+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n6aIZYHUS2KUl_rHcpSZI-eTfGuiw:1780920529987&ei=0bAmaqT9O6G4kPIPtc3vkAs&start=30&sa=N&sstk=AU9db-DfOXsQ47QXt3yRdtubCFUx2qSoij0goGg0AHCvKc8UW3tk3hftKDBbZy-qw6R8W32w8nE3mLRZbQpHBs9AhQZNN8pW6gU9Ew&ved=2ahUKEwjkqcD8zfeUAxUhHEQIHbXmG7IQ8tMDegQIJBAI
+          - text: "4"
+        - link "Page 5" [ref=e451] [cursor=pointer]:
+          - /url: /search?q=%E8%80%90%E5%85%8B+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n6aIZYHUS2KUl_rHcpSZI-eTfGuiw:1780920529987&ei=0bAmaqT9O6G4kPIPtc3vkAs&start=40&sa=N&sstk=AU9db-DfOXsQ47QXt3yRdtubCFUx2qSoij0goGg0AHCvKc8UW3tk3hftKDBbZy-qw6R8W32w8nE3mLRZbQpHBs9AhQZNN8pW6gU9Ew&ved=2ahUKEwjkqcD8zfeUAxUhHEQIHbXmG7IQ8tMDegQIJBAK
+          - text: "5"
+        - link "Page 6" [ref=e453] [cursor=pointer]:
+          - /url: /search?q=%E8%80%90%E5%85%8B+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n6aIZYHUS2KUl_rHcpSZI-eTfGuiw:1780920529987&ei=0bAmaqT9O6G4kPIPtc3vkAs&start=50&sa=N&sstk=AU9db-DfOXsQ47QXt3yRdtubCFUx2qSoij0goGg0AHCvKc8UW3tk3hftKDBbZy-qw6R8W32w8nE3mLRZbQpHBs9AhQZNN8pW6gU9Ew&ved=2ahUKEwjkqcD8zfeUAxUhHEQIHbXmG7IQ8tMDegQIJBAM
+          - text: "6"
+        - link "Page 7" [ref=e455] [cursor=pointer]:
+          - /url: /search?q=%E8%80%90%E5%85%8B+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n6aIZYHUS2KUl_rHcpSZI-eTfGuiw:1780920529987&ei=0bAmaqT9O6G4kPIPtc3vkAs&start=60&sa=N&sstk=AU9db-DfOXsQ47QXt3yRdtubCFUx2qSoij0goGg0AHCvKc8UW3tk3hftKDBbZy-qw6R8W32w8nE3mLRZbQpHBs9AhQZNN8pW6gU9Ew&ved=2ahUKEwjkqcD8zfeUAxUhHEQIHbXmG7IQ8tMDegQIJBAO
+          - text: "7"
+        - link "Page 8" [ref=e457] [cursor=pointer]:
+          - /url: /search?q=%E8%80%90%E5%85%8B+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n6aIZYHUS2KUl_rHcpSZI-eTfGuiw:1780920529987&ei=0bAmaqT9O6G4kPIPtc3vkAs&start=70&sa=N&sstk=AU9db-DfOXsQ47QXt3yRdtubCFUx2qSoij0goGg0AHCvKc8UW3tk3hftKDBbZy-qw6R8W32w8nE3mLRZbQpHBs9AhQZNN8pW6gU9Ew&ved=2ahUKEwjkqcD8zfeUAxUhHEQIHbXmG7IQ8tMDegQIJBAQ
+          - text: "8"
+        - link "Page 9" [ref=e459] [cursor=pointer]:
+          - /url: /search?q=%E8%80%90%E5%85%8B+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n6aIZYHUS2KUl_rHcpSZI-eTfGuiw:1780920529987&ei=0bAmaqT9O6G4kPIPtc3vkAs&start=80&sa=N&sstk=AU9db-DfOXsQ47QXt3yRdtubCFUx2qSoij0goGg0AHCvKc8UW3tk3hftKDBbZy-qw6R8W32w8nE3mLRZbQpHBs9AhQZNN8pW6gU9Ew&ved=2ahUKEwjkqcD8zfeUAxUhHEQIHbXmG7IQ8tMDegQIJBAS
+          - text: "9"
+        - link "Page 10" [ref=e461] [cursor=pointer]:
+          - /url: /search?q=%E8%80%90%E5%85%8B+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n6aIZYHUS2KUl_rHcpSZI-eTfGuiw:1780920529987&ei=0bAmaqT9O6G4kPIPtc3vkAs&start=90&sa=N&sstk=AU9db-DfOXsQ47QXt3yRdtubCFUx2qSoij0goGg0AHCvKc8UW3tk3hftKDBbZy-qw6R8W32w8nE3mLRZbQpHBs9AhQZNN8pW6gU9Ew&ved=2ahUKEwjkqcD8zfeUAxUhHEQIHbXmG7IQ8tMDegQIJBAU
+          - text: "10"
+        - heading "下一页" [level=2] [ref=e463]:
+          - link "下一页" [ref=e464] [cursor=pointer]:
+            - /url: /search?q=%E8%80%90%E5%85%8B+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n6aIZYHUS2KUl_rHcpSZI-eTfGuiw:1780920529987&ei=0bAmaqT9O6G4kPIPtc3vkAs&start=10&sa=N&sstk=AU9db-DfOXsQ47QXt3yRdtubCFUx2qSoij0goGg0AHCvKc8UW3tk3hftKDBbZy-qw6R8W32w8nE3mLRZbQpHBs9AhQZNN8pW6gU9Ew&ved=2ahUKEwjkqcD8zfeUAxUhHEQIHbXmG7IQ8NMDegQIJBAW
+            - generic [ref=e466]: 下一页
+      - navigation
+    - contentinfo [ref=e467]:
+      - heading "页脚链接" [level=1] [ref=e468]
+      - generic [ref=e472]:
+        - generic [ref=e475]:
+          - generic [ref=e476]: 是个性化搜索结果
+          - generic [ref=e477]: "-"
+          - link "尝试不使用个性化功能" [ref=e479] [cursor=pointer]:
+            - /url: https://www.google.com/search?q=%E8%80%90%E5%85%8B+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&tbs=qdr:d&hl=zh-CN&peek_pws=0&sxsrf=ANbL-n6aIZYHUS2KUl_rHcpSZI-eTfGuiw:1780920529987
+            - generic [ref=e480]: 尝试不使用个性化功能
+        - generic [ref=e484]:
+          - button "加利福尼亚 - 根据您的活动记录" [ref=e486] [cursor=pointer]:
+            - generic [ref=e487]: 加利福尼亚
+            - generic [ref=e489]:
+              - text: "-"
+              - generic [ref=e490]: 根据您的活动记录
+          - text: "-"
+          - button "更新位置信息" [ref=e492] [cursor=pointer]: 更新位置信息
+        - generic [ref=e495]:
+          - link "帮助" [ref=e496] [cursor=pointer]:
+            - /url: https://support.google.com/websearch/?p=ws_results_help&hl=zh-CN&fg=1
+          - link "发送反馈" [ref=e497] [cursor=pointer]:
+            - /url: "#"
+          - link "隐私权" [ref=e498] [cursor=pointer]:
+            - /url: https://policies.google.com/privacy?hl=zh-CN&fg=1
+          - link "条款" [ref=e499] [cursor=pointer]:
+            - /url: https://policies.google.com/terms?hl=zh-CN&fg=1

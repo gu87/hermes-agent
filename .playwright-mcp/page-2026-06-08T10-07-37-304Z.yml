@@ -1,0 +1,297 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - button "跳至内容" [ref=e4] [cursor=pointer]:
+      - generic [ref=e6]: 跳至内容
+    - button "辅助功能反馈" [ref=e7] [cursor=pointer]:
+      - generic [ref=e9]: 辅助功能反馈
+    - generic [ref=e10]:
+      - link "返回到必应搜索" [ref=e11] [cursor=pointer]:
+        - /url: /?FORM=Z9FD1
+        - heading "返回到必应搜索" [level=1] [ref=e12]
+      - search [ref=e13]:
+        - button "搜索" [ref=e16] [cursor=pointer]
+        - searchbox "在此处输入你的搜索 — 输入时会显示搜索建议" [ref=e17]: 直播吧 世界杯 内容策略 2026
+    - complementary "帐户奖励和偏好设置" [ref=e21]:
+      - button "Microsoft Rewards" [ref=e22] [cursor=pointer]:
+        - generic [ref=e24]:
+          - generic [ref=e25]: Rewards
+          - img [ref=e27]
+      - link "登录" [ref=e39] [cursor=pointer]:
+        - /url: javascript:void(0)
+        - generic "登录" [ref=e40]
+    - generic:
+      - generic "国内版" [ref=e41]
+      - generic "国际版" [ref=e42] [cursor=pointer]
+    - navigation "主菜单" [ref=e43]:
+      - list [ref=e44]:
+        - listitem [ref=e45]:
+          - link "网页" [ref=e46] [cursor=pointer]:
+            - /url: /?scope=web&FORM=HDRSC1
+        - listitem [ref=e47]:
+          - link "图片" [ref=e48] [cursor=pointer]:
+            - /url: /images/search?q=%e7%9b%b4%e6%92%ad%e5%90%a7+%e4%b8%96%e7%95%8c%e6%9d%af+%e5%86%85%e5%ae%b9%e7%ad%96%e7%95%a5+2026&FORM=HDRSC2
+        - listitem [ref=e49]:
+          - link "视频" [ref=e50] [cursor=pointer]:
+            - /url: /videos/search?q=%e7%9b%b4%e6%92%ad%e5%90%a7+%e4%b8%96%e7%95%8c%e6%9d%af+%e5%86%85%e5%ae%b9%e7%ad%96%e7%95%a5+2026&FORM=HDRSC3
+        - listitem [ref=e51]:
+          - link "学术" [ref=e52] [cursor=pointer]:
+            - /url: /academic/search?q=%e7%9b%b4%e6%92%ad%e5%90%a7+%e4%b8%96%e7%95%8c%e6%9d%af+%e5%86%85%e5%ae%b9%e7%ad%96%e7%95%a5+2026&FORM=HDRSC4
+        - listitem [ref=e53]:
+          - link "词典" [ref=e54] [cursor=pointer]:
+            - /url: /dict/search?q=%e7%9b%b4%e6%92%ad%e5%90%a7+%e4%b8%96%e7%95%8c%e6%9d%af+%e5%86%85%e5%ae%b9%e7%ad%96%e7%95%a5+2026&FORM=HDRSC6
+        - listitem [ref=e55]:
+          - link "地图" [ref=e56] [cursor=pointer]:
+            - /url: /maps?q=%e7%9b%b4%e6%92%ad%e5%90%a7+%e4%b8%96%e7%95%8c%e6%9d%af+%e5%86%85%e5%ae%b9%e7%ad%96%e7%95%a5+2026&FORM=HDRSC7
+        - listitem [ref=e57]:
+          - button "更多" [ref=e58] [cursor=pointer]:
+            - img [ref=e60]
+            - text: 更多
+  - generic [ref=e62]:
+    - main "搜索结果" [ref=e63]:
+      - generic [ref=e65]:
+        - button "按照 时间不限 筛选, 一周内" [ref=e67] [cursor=pointer]: 一周内
+        - button "在新选项卡中打开链接" [pressed] [ref=e70] [cursor=pointer]:
+          - generic [ref=e71]: 在新选项卡中打开链接
+          - img [ref=e73]
+        - generic [ref=e76]:
+          - generic [ref=e77]:
+            - generic [ref=e78]: 必应国家/地区设置为
+            - generic [ref=e79]:
+              - img [ref=e80]
+              - generic [ref=e83]: 中国
+          - link "更改国家/地区" [ref=e85] [cursor=pointer]:
+            - /url: /account/general?ru=%2fsearch%3fq%3d%25E7%259B%25B4%25E6%2592%25AD%25E5%2590%25A7%2b%25E4%25B8%2596%25E7%2595%258C%25E6%259D%25AF%2b%25E5%2586%2585%25E5%25AE%25B9%25E7%25AD%2596%25E7%2595%25A5%2b2026%26setlang%3dzh-Hans%26cc%3dcn%26filters%3dex1%253A%2522ez2%2522&FORM=O2HV65&id=region_section#region-section
+      - list [ref=e86]:
+        - listitem [ref=e87]:
+          - link "zhibo8.com" [ref=e89] [cursor=pointer]:
+            - /url: https://news.zhibo8.com/zuqiu/2026-06-04/6a2057420f544native.htm
+            - generic [ref=e94]:
+              - generic [ref=e95]: zhibo8.com
+              - generic [ref=e98]: https://news.zhibo8.com › zuqiu
+          - heading "世界杯大势综述：传统势力稳固 梅罗最后一舞？-直播吧" [level=2] [ref=e99]:
+            - link "世界杯大势综述：传统势力稳固 梅罗最后一舞？-直播吧" [ref=e100] [cursor=pointer]:
+              - /url: https://news.zhibo8.com/zuqiu/2026-06-04/6a2057420f544native.htm
+              - strong [ref=e101]: 世界杯
+              - text: 大势综述：传统势力稳固 梅罗最后一舞？-
+              - strong [ref=e102]: 直播吧
+          - paragraph [ref=e104]: 2026年世界杯注定成为一代传奇球星的告别舞台。梅西、C罗等老将，均已步入职业生涯尾声，本届赛事大概率是他们最后一次征战世 …
+        - listitem [ref=e105]:
+          - link "新浪网" [ref=e107] [cursor=pointer]:
+            - /url: https://news.sina.cn/bignews/insight/2026-06-08/detail-iniarzfw5678678.d.html?vt=4
+            - img "全球 Web 图标" [ref=e111]
+            - generic [ref=e112]:
+              - generic [ref=e113]: 新浪网
+              - generic [ref=e116]: https://news.sina.cn › bignews › insight › detail...
+          - heading "在时差和直播泛滥的时代，新一代球迷该如何定制个性化的 ..." [level=2] [ref=e117]:
+            - link "在时差和直播泛滥的时代，新一代球迷该如何定制个性化的 ..." [ref=e118] [cursor=pointer]:
+              - /url: https://news.sina.cn/bignews/insight/2026-06-08/detail-iniarzfw5678678.d.html?vt=4
+              - text: 在时差和
+              - strong [ref=e119]: 直播
+              - text: 泛滥的时代，新一代球迷该如何定制个性化的 ...
+          - paragraph [ref=e121]: 2026美加墨世界杯即将开赛，新一代球迷面临的观赛痛点从“熬夜伤身”转向“如何在时差中优雅看球”，而各平台提供的免费直播、AI黑 …
+        - listitem [ref=e122]:
+          - link "哔哩哔哩" [ref=e124] [cursor=pointer]:
+            - /url: https://www.bilibili.com/video/BV1847D6BEVw/
+            - generic [ref=e129]:
+              - generic [ref=e130]: 哔哩哔哩
+              - generic [ref=e133]: https://www.bilibili.com › video
+          - heading "海外党必备！2026美加墨世界杯直播观看指南，国外如何 ..." [level=2] [ref=e134]:
+            - link "海外党必备！2026美加墨世界杯直播观看指南，国外如何 ..." [ref=e135] [cursor=pointer]:
+              - /url: https://www.bilibili.com/video/BV1847D6BEVw/
+              - text: 海外党必备！
+              - strong [ref=e136]: "2026"
+              - text: 美加墨
+              - strong [ref=e137]: 世界杯直播
+              - text: 观看指南，国外如何 ...
+          - generic [ref=e139]:
+            - 'link "海外党必备！2026美加墨世界杯直播观看指南，国外如何 ... · 时长: 1 分钟35 秒 · 单击以播放。" [ref=e146] [cursor=pointer]':
+              - /url: https://www.bilibili.com/video/BV1847D6BEVw/
+              - generic [ref=e156]: 1:35
+            - paragraph [ref=e157]: 1 天前 · ，2026美加墨世界杯赛程公布！ ，2026年美加墨世界杯48支国家队简介，2026美加墨世界杯赛 …
+            - generic [ref=e159]:
+              - list [ref=e160]:
+                - listitem [ref=e161]:
+                  - generic [ref=e162]: "作者: 傥瘸Suj"
+              - list [ref=e163]:
+                - listitem [ref=e164]:
+                  - generic [ref=e165]: 查看次数 108
+        - listitem [ref=e166]:
+          - generic [ref=e168]:
+            - heading "直播吧 世界杯 内容策略 2026 的视频" [level=2] [ref=e170]:
+              - link "直播吧 世界杯 内容策略 2026 的视频" [ref=e171] [cursor=pointer]:
+                - /url: /videos/search?q=%e7%9b%b4%e6%92%ad%e5%90%a7+%e4%b8%96%e7%95%8c%e6%9d%af+%e5%86%85%e5%ae%b9%e7%ad%96%e7%95%a5+2026&qpvt=%e7%9b%b4%e6%92%ad%e5%90%a7+%e4%b8%96%e7%95%8c%e6%9d%af+%e5%86%85%e5%ae%b9%e7%ad%96%e7%95%a5+2026&FORM=VDRE
+            - generic [ref=e173]:
+              - 'link "世界杯海外观看全攻略！2026小组赛精彩看点推荐+海外用户中文解说流程+直播/点播详细操作来源: bilibili · 时长: 1 分钟32 秒 · 已浏览 82 次 · 上传时间: 5 天之前 · 上传人: 三角洲最新问题解决 · 单击以播放。 · 世界杯海外观看全攻略！2026小组赛精彩看点推荐+海外用户中文解说流程+直播/点播详细操作, 视频播放量 82、弹幕量 0、点赞数 0、投硬币枚数 0、收藏人数 0、转发人数 0, 视频作者 三角洲最新问题解决, 作者简介 ，相关视频：2026世界杯海外直播平台汇总 ..." [ref=e176] [cursor=pointer]':
+                - /url: https://www.bilibili.com/video/BV1YmV66zEfh/
+                - generic [ref=e177]:
+                  - generic [ref=e178]:
+                    - img "世界杯海外观看全攻略！2026小组赛精彩看点推荐+海外用户中文解说流程+直播/点播详细操作" [ref=e180]
+                    - generic [ref=e186]: 1:32
+                  - generic [ref=e187]:
+                    - generic "世界杯海外观看全攻略！2026小组赛精彩看点推荐+海外用户中文解说流程+直播/点播详细操作" [ref=e188]:
+                      - strong [ref=e189]: 世界杯
+                      - text: 海外观看全攻略！2026小组赛精彩看点推荐+海外用户中文解说流程+直播/点播详细操作
+                    - generic [ref=e190]:
+                      - generic [ref=e191]: bilibili · 三角洲最新问题解决
+                      - generic [ref=e192]: 已浏览 82 次 · 5 天之前
+              - 'link "2026 世界杯 A 组战术前瞻：墨西哥的主场红利、捷克的定位球密码，与韩国的变阵隐忧。来源: bilibili · 时长: 6 分钟 · 已浏览 203 次 · 上传时间: 2 天之前 · 上传人: 奔跑的老凡 · 单击以播放。 · 2026 世界杯 A 组战术前瞻：墨西哥的主场红利、捷克的定位球密码，与韩国的变阵隐忧。, 视频播放量 203、弹幕量 0、点赞数 3、投硬币枚数 0、收藏人数 2、转发人数 1, 视频作者 奔跑的老凡, 作者简介 合作：benpaodelaofan\\n感谢你成为我1000粉丝的原始股 ..." [ref=e195] [cursor=pointer]':
+                - /url: https://www.bilibili.com/video/BV1jw7y6aExu/
+                - generic [ref=e196]:
+                  - generic [ref=e197]:
+                    - img "2026 世界杯 A 组战术前瞻：墨西哥的主场红利、捷克的定位球密码，与韩国的变阵隐忧。" [ref=e199]
+                    - generic [ref=e205]: 6:00
+                  - generic [ref=e206]:
+                    - generic "2026 世界杯 A 组战术前瞻：墨西哥的主场红利、捷克的定位球密码，与韩国的变阵隐忧。" [ref=e207]:
+                      - strong [ref=e208]: "2026"
+                      - strong [ref=e209]: 世界杯
+                      - text: A 组战术前瞻：墨西哥的主场红利、捷克的定位球密码，与韩国的变阵隐忧。
+                    - generic [ref=e210]:
+                      - generic [ref=e211]: bilibili · 奔跑的老凡
+                      - generic [ref=e212]: 已浏览 203 次 · 2 天之前
+              - 'link "海外怎么看2026世界杯直播？CCTV5央视体育、咪咕视频、世界杯赛事直播地区限制解除详细教程来源: bilibili · 时长: 1 分钟40 秒 · 已浏览 27 次 · 上传时间: 4 天之前 · 上传人: 沼是得hYb · 单击以播放。 · 海外怎么看2026世界杯直播？CCTV5央视体育、咪咕视频、世界杯赛事直播地区限制解除详细教程, 视频播放量 27、弹幕量 0、点赞数 0、投硬币枚数 0、收藏人数 1、转发人数 0, 视频作者 沼是得hYb, 作者简介 ，相关视频：CCTV1综合频道2026世界杯宣传片，2026 ..." [ref=e215] [cursor=pointer]':
+                - /url: https://www.bilibili.com/video/BV1Pc7X6NE94/
+                - generic [ref=e216]:
+                  - generic [ref=e217]:
+                    - img "海外怎么看2026世界杯直播？CCTV5央视体育、咪咕视频、世界杯赛事直播地区限制解除详细教程" [ref=e219]
+                    - generic [ref=e225]: 1:40
+                  - generic [ref=e226]:
+                    - generic "海外怎么看2026世界杯直播？CCTV5央视体育、咪咕视频、世界杯赛事直播地区限制解除详细教程" [ref=e227]:
+                      - text: 海外怎么看2026
+                      - strong [ref=e228]: 世界杯
+                      - text: 直播？CCTV5央视体育、咪咕视频、
+                      - strong [ref=e229]: 世界杯
+                      - text: 赛事直播地区限制解除详细教程
+                    - generic [ref=e230]:
+                      - generic [ref=e231]: bilibili · 沼是得hYb
+                      - generic [ref=e232]: 已浏览 27 次 · 4 天之前
+        - listitem [ref=e233]:
+          - link "CSDN博客" [ref=e235] [cursor=pointer]:
+            - /url: https://blog.csdn.net/2501_92406411/article/details/161800902
+            - generic [ref=e240]:
+              - generic [ref=e241]: CSDN博客
+              - generic [ref=e244]: https://blog.csdn.net › article › details › ...
+          - heading "世界杯倒计时，你的系统准备好迎接流量洪峰了吗？-CSDN博客" [level=2] [ref=e245]:
+            - link "世界杯倒计时，你的系统准备好迎接流量洪峰了吗？-CSDN博客" [ref=e246] [cursor=pointer]:
+              - /url: https://blog.csdn.net/2501_92406411/article/details/161800902
+              - strong [ref=e247]: 世界杯
+              - text: 倒计时，你的系统准备好迎接流量洪峰了吗？-CSDN博客
+          - paragraph [ref=e249]: 迎接世界杯流量洪峰，高并发场景性能测试和全链路压力测试指南 2026世界杯即将开赛，从赛事直播、互动营销，到票务预订、支付 …
+        - listitem [ref=e250]:
+          - link "worldcup2026cn.com" [ref=e252] [cursor=pointer]:
+            - /url: https://worldcup2026cn.com/news/2026-cctv5-watch-guide-streaming/
+            - generic [ref=e257]:
+              - generic [ref=e258]: worldcup2026cn.com
+              - generic [ref=e261]: https://worldcup2026cn.com › news
+          - heading "凌晨三点的客厅:2026世界杯中国观赛全攻略与CCTV5、咪咕 ..." [level=2] [ref=e262]:
+            - link "凌晨三点的客厅:2026世界杯中国观赛全攻略与CCTV5、咪咕 ..." [ref=e263] [cursor=pointer]:
+              - /url: https://worldcup2026cn.com/news/2026-cctv5-watch-guide-streaming/
+              - text: "凌晨三点的客厅:"
+              - strong [ref=e264]: 2026世界杯
+              - text: 中国观赛全攻略与CCTV5、咪咕 ...
+          - paragraph [ref=e266]: 10 小时之前 · 2026世界杯即将来临，本指南详细介绍中国球迷的直播观看方式。 涵盖CCTV5官方直播、咪咕视频、央视频等主流平 …
+        - listitem [ref=e267]:
+          - link "新浪" [ref=e269] [cursor=pointer]:
+            - /url: https://k.sina.com.cn/article_2018499075_m784fda0302002k1n0.html
+            - generic [ref=e274]:
+              - generic [ref=e275]: 新浪
+              - generic [ref=e278]: https://k.sina.com.cn
+          - heading "世界杯继续增加“中国元素”，海信世界杯前线内容官成团官宣 ..." [level=2] [ref=e279]:
+            - link "世界杯继续增加“中国元素”，海信世界杯前线内容官成团官宣 ..." [ref=e280] [cursor=pointer]:
+              - /url: https://k.sina.com.cn/article_2018499075_m784fda0302002k1n0.html
+              - strong [ref=e281]: 世界杯
+              - text: 继续增加“中国元素”，海信
+              - strong [ref=e282]: 世界杯
+              - text: 前线
+              - strong [ref=e283]: 内容
+              - text: 官成团官宣 ...
+          - paragraph [ref=e285]: 世界杯继续增加“中国元素”，海信世界杯前线内容官成团官宣#海信前线内容官成团出发. 特别声明：以上文章内容仅代表作者本人观 …
+        - listitem [ref=e286]:
+          - link "网易" [ref=e288] [cursor=pointer]:
+            - /url: https://www.163.com/dy/article/KUTGFIKN0547AO2M.html
+            - generic [ref=e293]:
+              - generic [ref=e294]: 网易
+              - generic [ref=e297]: https://www.163.com › dy › article
+          - heading "2026世界杯观赛指南：5位顶尖足球赛事科普博主，拆解赛场逻辑" [level=2] [ref=e298]:
+            - link "2026世界杯观赛指南：5位顶尖足球赛事科普博主，拆解赛场逻辑":
+              - /url: https://www.163.com/dy/article/KUTGFIKN0547AO2M.html
+              - strong [ref=e299] [cursor=pointer]: 2026世界杯
+              - text: 观赛指南：5位顶尖足球赛事科普博主，拆解赛场逻辑
+          - paragraph [ref=e301]: 账号传播度位居行业前列，爆款视频最高播放量 800 万，直播间时常万人在线探讨赛事，公众号全平台累计粉丝 700 万，内容重心集 …
+        - listitem [ref=e302]:
+          - link "腾讯网" [ref=e304] [cursor=pointer]:
+            - /url: https://news.qq.com/rain/a/20260603A07K0G00
+            - generic [ref=e309]:
+              - generic [ref=e310]: 腾讯网
+              - generic [ref=e313]: https://news.qq.com › rain
+          - heading "48队新赛制！2026年世界杯怎么看？收藏这篇观赛指南就够啦" [level=2] [ref=e314]:
+            - link "48队新赛制！2026年世界杯怎么看？收藏这篇观赛指南就够啦":
+              - /url: https://news.qq.com/rain/a/20260603A07K0G00
+              - text: 48队新赛制！
+              - strong [ref=e315] [cursor=pointer]: "2026"
+              - text: 年
+              - strong [ref=e316] [cursor=pointer]: 世界杯
+              - text: 怎么看？收藏这篇观赛指南就够啦
+          - paragraph [ref=e318]: 北京时间2026年6月12日凌晨美加墨世界杯将正式拉开大幕新赛制怎么看哪些比赛不容错过为你提前划重点48队新赛制让比赛更有悬 …
+        - listitem [ref=e319]:
+          - link "广告门" [ref=e321] [cursor=pointer]:
+            - /url: https://www.adquan.com/article/361009
+            - generic [ref=e326]:
+              - generic [ref=e327]: 广告门
+              - generic [ref=e330]: https://www.adquan.com › article
+          - heading "2026世界杯转播落定：央视、咪咕、小红书成持权平台 | 广告门" [level=2] [ref=e331]:
+            - link "2026世界杯转播落定：央视、咪咕、小红书成持权平台 | 广告门":
+              - /url: https://www.adquan.com/article/361009
+              - strong [ref=e332] [cursor=pointer]: 2026世界杯
+              - text: 转播落定：央视、咪咕、小红书成持权平台 | 广告门
+          - paragraph [ref=e334]: 央视、咪咕、小红书获2026世界杯转播权，以全民覆盖、专业科技、社交种草差异化布局。 播出渠道：电视端通过CCTV-1、CCTV-5 …
+        - listitem [ref=e335]:
+          - link "知乎专栏" [ref=e337] [cursor=pointer]:
+            - /url: https://zhuanlan.zhihu.com/p/2046251093651469036
+            - generic [ref=e342]:
+              - generic [ref=e343]: 知乎专栏
+              - generic [ref=e346]: https://zhuanlan.zhihu.com
+          - heading "国外在哪收看官方的2026世界杯中文解说？ - 知乎" [level=2] [ref=e347]:
+            - link "国外在哪收看官方的2026世界杯中文解说？ - 知乎":
+              - /url: https://zhuanlan.zhihu.com/p/2046251093651469036
+              - text: 国外在哪收看官方的
+              - strong [ref=e348] [cursor=pointer]: 2026世界杯
+              - text: 中文解说？ - 知乎
+          - paragraph [ref=e350]: 世界杯赛事周期内，官网首页顶部会设置专属赛事专区入口，便捷直达直播； 3. 点击正在进行的赛事直播间，支持全屏播放，平台原 …
+        - listitem [ref=e351]:
+          - link "某些结果已被删除" [ref=e352] [cursor=pointer]:
+            - /url: http://go.microsoft.com/fwlink/?LinkID=617350
+        - listitem [ref=e353]:
+          - navigation "直播吧 世界杯 内容策略 2026 的更多搜索结果":
+            - list:
+              - listitem [ref=e354]:
+                - generic "第 1 页" [ref=e355]: "1"
+              - listitem [ref=e356]:
+                - link "第 2 页" [ref=e357] [cursor=pointer]:
+                  - /url: /search?q=%e7%9b%b4%e6%92%ad%e5%90%a7+%e4%b8%96%e7%95%8c%e6%9d%af+%e5%86%85%e5%ae%b9%e7%ad%96%e7%95%a5+2026&setlang=zh-Hans&cc=cn&filters=ex1%3a%22ez2%22&FPIG=DCB0233CEDC340B8A61ED6B035AC9562&first=10&FORM=PERE
+                  - text: "2"
+              - listitem [ref=e358]:
+                - link "第 3 页" [ref=e359] [cursor=pointer]:
+                  - /url: /search?q=%e7%9b%b4%e6%92%ad%e5%90%a7+%e4%b8%96%e7%95%8c%e6%9d%af+%e5%86%85%e5%ae%b9%e7%ad%96%e7%95%a5+2026&setlang=zh-Hans&cc=cn&filters=ex1%3a%22ez2%22&FPIG=DCB0233CEDC340B8A61ED6B035AC9562&first=20&FORM=PERE1
+                  - text: "3"
+              - listitem [ref=e360]:
+                - link "下一页" [ref=e361] [cursor=pointer]:
+                  - /url: /search?q=%e7%9b%b4%e6%92%ad%e5%90%a7+%e4%b8%96%e7%95%8c%e6%9d%af+%e5%86%85%e5%ae%b9%e7%ad%96%e7%95%a5+2026&setlang=zh-Hans&cc=cn&filters=ex1%3a%22ez2%22&FPIG=DCB0233CEDC340B8A61ED6B035AC9562&first=10&FORM=PORE
+    - complementary "更多结果" [ref=e362]:
+      - list
+  - contentinfo [ref=e363]:
+    - list [ref=e365]:
+      - listitem [ref=e366]:
+        - link "增值电信业务经营许可证：合字B2-20090007" [ref=e367] [cursor=pointer]:
+          - /url: https://dxzhgl.miit.gov.cn/dxxzsp/xkz/xkzgl/resource/qiyereport.jsp?num=caf04fa4-bd8a-4d9e-80b6-2aa1b86c1509&type=yreport
+      - listitem [ref=e368]:
+        - link "京ICP备10036305号-7" [ref=e369] [cursor=pointer]:
+          - /url: https://beian.miit.gov.cn
+      - listitem [ref=e370]:
+        - link "京公网安备11010802047360号" [ref=e371] [cursor=pointer]:
+          - /url: https://beian.mps.gov.cn/#/query/webSearch?code=11010802047360
+      - listitem [ref=e372]:
+        - link "隐私" [ref=e373] [cursor=pointer]:
+          - /url: http://go.microsoft.com/fwlink/?LinkId=521839
+      - listitem [ref=e374]:
+        - link "条款" [ref=e375] [cursor=pointer]:
+          - /url: http://go.microsoft.com/fwlink/?LinkID=246338

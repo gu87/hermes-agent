@@ -1,0 +1,301 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - generic:
+      - link "跳到主要内容" [ref=e2] [cursor=pointer]
+      - link "无障碍功能帮助" [ref=e3] [cursor=pointer]:
+        - /url: https://support.google.com/websearch/answer/181196?hl=zh-CN
+  - generic [ref=e8]:
+    - search [ref=e9]:
+      - generic [ref=e11]:
+        - link "Google 首页" [ref=e13] [cursor=pointer]:
+          - /url: https://www.google.com/webhp?hl=zh-CN&sa=X&ved=0ahUKEwiv1tnnzfeUAxWVJEQIHY18BgoQPAgI
+          - img [ref=e14]
+        - generic [ref=e21]:
+          - generic [ref=e22]:
+            - combobox "搜索" [ref=e25]: 体育产业生态圈 世界杯 营销 体育产业生态圈 世界杯 营销
+            - generic [ref=e26]:
+              - button "清除" [ref=e28] [cursor=pointer]:
+                - img [ref=e30]
+              - generic [ref=e33]:
+                - button "按语音搜索" [ref=e34] [cursor=pointer]:
+                  - img [ref=e35]
+                - button "按图搜索" [ref=e37] [cursor=pointer]:
+                  - img [ref=e38]
+          - button "搜索" [ref=e40] [cursor=pointer]:
+            - img [ref=e43]
+    - generic [ref=e46]:
+      - button "Google 应用" [ref=e48] [cursor=pointer]:
+        - img [ref=e49]
+      - button "Google 账号： 谷如洋 (guruyang77@gmail.com)" [ref=e53] [cursor=pointer]:
+        - img [ref=e54]
+  - generic [ref=e56]:
+    - navigation [ref=e62]:
+      - generic [ref=e68]:
+        - list [ref=e69]:
+          - listitem [ref=e70]:
+            - link "AI 模式" [ref=e73] [cursor=pointer]:
+              - /url: /search?q=%E4%BD%93%E8%82%B2%E4%BA%A7%E4%B8%9A%E7%94%9F%E6%80%81%E5%9C%88+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80&sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4rEMXE0G127dYuB2IKOiIIdh2QtQ:1780920486362&udm=50&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVrl2pKVsOrAGyrx9IK5ONThzuZ3Y2Cbge6N8GD-jNeuofUIqyDkfrqQ-ML4SLuVr3qOdAvi3LT2Ijjt_Vmo-b-CtAKK-y6FxwsQrytTVnhflPyOcjYhQaDexq0uSXLlmHEjDUDtoy6Bxl4edzSi8ka4bAXFEPEH5NUfJJW-hjFFLjb9jmo_F4sIUInba3cGxfVgwOuw&aep=1&ntc=1&sa=X&ved=2ahUKEwiv1tnnzfeUAxWVJEQIHY18BgoQ2J8OegQIEBAD
+              - generic [ref=e76]: AI 模式
+          - listitem [ref=e77]:
+            - link "全部" [disabled] [ref=e78]:
+              - generic [ref=e80]: 全部
+          - listitem [ref=e81]:
+            - link "新闻" [ref=e82] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4rEMXE0G127dYuB2IKOiIIdh2QtQ:1780920486362&q=%E4%BD%93%E8%82%B2%E4%BA%A7%E4%B8%9A%E7%94%9F%E6%80%81%E5%9C%88+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80&tbm=nws&source=lnms&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVrl2pKVsOrAGyrx9IK5ONThzuZ3Y2Cbge6N8GD-jNeuofUIqyDkfrqQ-ML4SLuVr3qOdAvi3LT2Ijjt_Vmo-b-CtAKK-y6FxwsQrytTVnhflPyOcjYhQaDexq0uSXLlmHEjDUDtoy6Bxl4edzSi8ka4bAXFEPEH5NUfJJW-hjFFLjb9jmo_F4sIUInba3cGxfVgwOuw&sa=X&ved=2ahUKEwiv1tnnzfeUAxWVJEQIHY18BgoQ0pQJegQIFhAB
+              - generic [ref=e84]: 新闻
+          - listitem [ref=e85]:
+            - link "图片" [ref=e86] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4rEMXE0G127dYuB2IKOiIIdh2QtQ:1780920486362&udm=2&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVrl2pKVsOrAGyrx9IK5ONThzuZ3Y2Cbge6N8GD-jNeuofUIqyDkfrqQ-ML4SLuVr3qOdAvi3LT2Ijjt_Vmo-b-CtAKK-y6FxwsQrytTVnhflPyOcjYhQaDexq0uSXLlmHEjDUDtoy6Bxl4edzSi8ka4bAXFEPEH5NUfJJW-hjFFLjb9jmo_F4sIUInba3cGxfVgwOuw&q=%E4%BD%93%E8%82%B2%E4%BA%A7%E4%B8%9A%E7%94%9F%E6%80%81%E5%9C%88+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80&sa=X&ved=2ahUKEwiv1tnnzfeUAxWVJEQIHY18BgoQtKgLegQIExAB
+              - generic [ref=e88]: 图片
+          - listitem [ref=e89]:
+            - link "视频" [ref=e90] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4rEMXE0G127dYuB2IKOiIIdh2QtQ:1780920486362&udm=7&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVrl2pKVsOrAGyrx9IK5ONThzuZ3Y2Cbge6N8GD-jNeuofUIqyDkfrqQ-ML4SLuVr3qOdAvi3LT2Ijjt_Vmo-b-CtAKK-y6FxwsQrytTVnhflPyOcjYhQaDexq0uSXLlmHEjDUDtoy6Bxl4edzSi8ka4bAXFEPEH5NUfJJW-hjFFLjb9jmo_F4sIUInba3cGxfVgwOuw&q=%E4%BD%93%E8%82%B2%E4%BA%A7%E4%B8%9A%E7%94%9F%E6%80%81%E5%9C%88+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80&sa=X&ved=2ahUKEwiv1tnnzfeUAxWVJEQIHY18BgoQtKgLegQIFBAB
+              - generic [ref=e92]: 视频
+          - listitem [ref=e93]:
+            - link "购物" [ref=e94] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4rEMXE0G127dYuB2IKOiIIdh2QtQ:1780920486362&udm=28&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVrl2pKVsOrAGyrx9IK5ONThzuZ3Y2Cbge6N8GD-jNeuofUIqyDkfrqQ-ML4SLuVr3qOdAvi3LT2Ijjt_Vmo-b-CtAKK-y6FxwsQrytTVnhflPyOcjYhQaDexq0uSXLlmHEjDUDtoy6Bxl4edzSi8ka4bAXFEPEH5NUfJJW-hjFFLjb9jmo_F4sIUInba3cGxfVgwOuw&q=%E4%BD%93%E8%82%B2%E4%BA%A7%E4%B8%9A%E7%94%9F%E6%80%81%E5%9C%88+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80&ved=1t:220175&ictx=111
+              - generic [ref=e96]: 购物
+          - listitem [ref=e97]:
+            - link "短视频" [ref=e98] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4rEMXE0G127dYuB2IKOiIIdh2QtQ:1780920486362&udm=39&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVrl2pKVsOrAGyrx9IK5ONThzuZ3Y2Cbge6N8GD-jNeuofUIqyDkfrqQ-ML4SLuVr3qOdAvi3LT2Ijjt_Vmo-b-CtAKK-y6FxwsQrytTVnhflPyOcjYhQaDexq0uSXLlmHEjDUDtoy6Bxl4edzSi8ka4bAXFEPEH5NUfJJW-hjFFLjb9jmo_F4sIUInba3cGxfVgwOuw&q=%E4%BD%93%E8%82%B2%E4%BA%A7%E4%B8%9A%E7%94%9F%E6%80%81%E5%9C%88+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80&sa=X&ved=2ahUKEwiv1tnnzfeUAxWVJEQIHY18BgoQs6gLegQIEhAB
+              - generic [ref=e100]: 短视频
+          - listitem [ref=e101]:
+            - button "更多过滤条件" [ref=e102] [cursor=pointer]:
+              - generic "更多过滤条件" [ref=e103]:
+                - generic [ref=e104]:
+                  - generic [ref=e105]: 更多
+                  - img [ref=e107]
+        - button "工具" [ref=e110] [cursor=pointer]:
+          - generic [ref=e112]:
+            - generic [ref=e113]: 工具
+            - img [ref=e115]
+    - heading "搜索结果" [level=1] [ref=e117]
+    - main [ref=e123]:
+      - generic [ref=e127]:
+        - generic [ref=e130]:
+          - heading "网页搜索结果" [level=2] [ref=e131]
+          - generic [ref=e132]:
+            - generic [ref=e135]:
+              - link "世界杯广告竟是AI制作？真相大揭秘！ 36 Kr https://eu.36kr.com › ..." [ref=e137] [cursor=pointer]:
+                - /url: https://eu.36kr.com/zh/p/3838170851215623
+                - heading "世界杯广告竟是AI制作？真相大揭秘！" [level=3] [ref=e138]
+                - generic [ref=e143]:
+                  - generic [ref=e145]: 36 Kr
+                  - generic [ref=e147]: https://eu.36kr.com › ...
+              - button "关于这条结果的详细信息" [ref=e148] [cursor=pointer]:
+                - img [ref=e151]
+            - generic [ref=e154]:
+              - generic [ref=e155]: 5天前 —
+              - generic [ref=e156]:
+                - text: Fast Company中文版总经理Vicky Wang向
+                - emphasis [ref=e157]: 体育产业生态圈
+                - text: 指出，「体育赛事拥有多市场、多球队的复杂特征，大节点
+                - emphasis [ref=e158]: 营销
+                - text: 必然伴随着极高的多渠道分发需求。」在热点 ...
+        - generic [ref=e169]:
+          - heading "正在思考" [level=2] [ref=e173]:
+            - generic [ref=e174]: 正在思考
+          - progressbar [ref=e175]
+        - generic [ref=e179]:
+          - heading "网页搜索结果" [level=2] [ref=e180]
+          - generic [ref=e181]:
+            - generic [ref=e184]:
+              - link "世界杯上的广告，都是AI做的？-腾讯新闻 - QQ News 腾讯新闻 https://news.qq.com › rain" [ref=e186] [cursor=pointer]:
+                - /url: https://news.qq.com/rain/a/20260603A08LTB00
+                - heading "世界杯上的广告，都是AI做的？-腾讯新闻 - QQ News" [level=3] [ref=e187]
+                - generic [ref=e192]:
+                  - generic [ref=e194]: 腾讯新闻
+                  - generic [ref=e196]: https://news.qq.com › rain
+              - button "关于这条结果的详细信息" [ref=e197] [cursor=pointer]:
+                - img [ref=e200]
+            - generic [ref=e203]:
+              - generic [ref=e204]: 5天前 —
+              - generic [ref=e205]:
+                - text: 在获得IP方授权的情况下，品牌方可以通过生成式AI产出拥有球星真实形象的广告。据
+                - emphasis [ref=e206]: 体育产业生态圈
+                - text: 了解，阿根廷足协在与脉动协商相关AI内容时，呈现了积极的 ...
+        - generic [ref=e210]:
+          - generic [ref=e213]:
+            - link "世界杯版权谈崩，才是真正的天价 凤凰网 https://h5.ifeng.com › vivo" [ref=e215] [cursor=pointer]:
+              - /url: https://h5.ifeng.com/c/vivo/v002y9tBrqvbtkEScje7XGzxkhZtPjBWw3XSPDMboHE6Djo__?isNews=1&showComments=0
+              - heading "世界杯版权谈崩，才是真正的天价" [level=3] [ref=e216]
+              - generic [ref=e218]:
+                - img [ref=e222]
+                - generic [ref=e224]:
+                  - generic [ref=e226]: 凤凰网
+                  - generic [ref=e228]: https://h5.ifeng.com › vivo
+            - button "关于这条结果的详细信息" [ref=e229] [cursor=pointer]:
+              - img [ref=e232]
+          - generic [ref=e235]:
+            - generic [ref=e236]: 7天前 —
+            - generic [ref=e237]:
+              - text: 如果再切换到关联度更紧密的
+              - emphasis [ref=e238]: 体育产业
+              - text: ，基于
+              - emphasis [ref=e239]: 世界杯
+              - text: 带动的媒体转播、品牌
+              - emphasis [ref=e240]: 营销
+              - text: 、特许产品等一系列业务，也是数十亿级的增量水平。 这是实实在在能够看得见、 ...
+        - generic [ref=e244]:
+          - generic [ref=e247]:
+            - link "70%的朋友圈都在刷世界杯！53亿品牌广告掀起“ ... 知乎专栏 https://zhuanlan.zhihu.com › ..." [ref=e249] [cursor=pointer]:
+              - /url: https://zhuanlan.zhihu.com/p/38162691
+              - heading "70%的朋友圈都在刷世界杯！53亿品牌广告掀起“ ..." [level=3] [ref=e250]
+              - generic [ref=e255]:
+                - generic [ref=e257]: 知乎专栏
+                - generic [ref=e259]: https://zhuanlan.zhihu.com › ...
+            - button "关于这条结果的详细信息" [ref=e260] [cursor=pointer]:
+              - img [ref=e263]
+          - generic [ref=e266]:
+            - generic [ref=e267]: 2018年6月16日 —
+            - generic [ref=e268]:
+              - text: 回归这场
+              - emphasis [ref=e269]: 营销
+              - text: 盛宴中，不难发现，各家品牌费尽心思试图在
+              - emphasis [ref=e270]: 世界杯
+              - text: 这个巨大流量中分得一杯羹的同时，也投入了巨大的资本和人力物力，也必将面临“豪赌”带来的风险。
+        - generic [ref=e274]:
+          - generic [ref=e277]:
+            - link "体育产业生态圈的个人空间 钛媒体 https://www.tmtpost.com › user" [ref=e279] [cursor=pointer]:
+              - /url: https://www.tmtpost.com/user/2458744
+              - heading "体育产业生态圈的个人空间" [level=3] [ref=e280]
+              - generic [ref=e285]:
+                - generic [ref=e287]: 钛媒体
+                - generic [ref=e289]: https://www.tmtpost.com › user
+            - button "关于这条结果的详细信息" [ref=e290] [cursor=pointer]:
+              - img [ref=e293]
+          - generic [ref=e297]:
+            - text: 刚刚，央视官宣
+            - emphasis [ref=e298]: 世界杯
+            - text: 版权
+            - emphasis [ref=e299]: 世界杯
+            - text: 生意开始抢时间。 ; 热搜之外，电竞俱乐部还要学会做生意粉丝资产化的价值，或许要大于单纯追求流量规模化。 ; 村超能否走出网红魔咒？从宏观经济 ...
+        - generic [ref=e303]:
+          - generic [ref=e306]:
+            - link "世界杯食品品牌营销：绿茵场上不只有翻滚的足球 FoodTalks https://www.foodtalks.cn › news" [ref=e308] [cursor=pointer]:
+              - /url: https://www.foodtalks.cn/news/39637
+              - heading "世界杯食品品牌营销：绿茵场上不只有翻滚的足球" [level=3] [ref=e309]
+              - generic [ref=e314]:
+                - generic [ref=e316]: FoodTalks
+                - generic [ref=e318]: https://www.foodtalks.cn › news
+            - button "关于这条结果的详细信息" [ref=e319] [cursor=pointer]:
+              - img [ref=e322]
+          - generic [ref=e325]:
+            - generic [ref=e326]: 2022年11月29日 —
+            - generic [ref=e327]:
+              - text: 赛事本质上更是一个无形、非标的文化产品，不同品牌也会因消费诉求的转变，而在
+              - emphasis [ref=e328]: 体育营销
+              - text: 的参与度、玩法上有所偏重。 卡塔尔
+              - emphasis [ref=e329]: 世界杯
+              - text: ，食品品牌齐亮相.
+              - emphasis [ref=e330]: 体育营销
+              - text: .
+        - generic [ref=e334]:
+          - generic [ref=e337]:
+            - link "可口可乐手环新玩法，世界杯营销新姿势| 资讯 搜狐网 https://www.sohu.com › 搜狐文章页 › 体育产业生态圈" [ref=e339] [cursor=pointer]:
+              - /url: https://www.sohu.com/a/236738839_415197
+              - heading "可口可乐手环新玩法，世界杯营销新姿势| 资讯" [level=3] [ref=e340]
+              - generic [ref=e345]:
+                - generic [ref=e347]: 搜狐网
+                - generic [ref=e349]: https://www.sohu.com › 搜狐文章页 › 体育产业生态圈
+            - button "关于这条结果的详细信息" [ref=e350] [cursor=pointer]:
+              - img [ref=e353]
+          - generic [ref=e356]:
+            - generic [ref=e357]: 2018年6月20日 —
+            - generic [ref=e358]:
+              - text: 可口可乐为本届
+              - emphasis [ref=e359]: 世界杯
+              - text: 特别定制了31款手环瓶，瓶身印有不同国家队的专属设计图标，球迷可从标签轻松撕下手环戴上手腕，以示对心仪队伍的“站队”支持。
+        - generic [ref=e363]:
+          - generic [ref=e366]:
+            - link "世界杯营销的10条法则 人人都是产品 https://www.woshipm.com › marketing" [ref=e368] [cursor=pointer]:
+              - /url: https://www.woshipm.com/marketing/5699301.html
+              - heading "世界杯营销的10条法则" [level=3] [ref=e369]
+              - generic [ref=e374]:
+                - generic [ref=e376]: 人人都是产品
+                - generic [ref=e378]: https://www.woshipm.com › marketing
+            - button "关于这条结果的详细信息" [ref=e379] [cursor=pointer]:
+              - img [ref=e382]
+          - generic [ref=e386]:
+            - text: 结合
+            - emphasis [ref=e387]: 体育
+            - text: 精神迈向全球化，升级品牌宣传文案起全面参与讨论的形式是目前
+            - emphasis [ref=e388]: 体育营销
+            - text: 的一个趋势。这种方式能迅速吸引球迷的关注，参与讨论，但是想要出圈还是有一定难度。 而目前出 ...
+        - generic [ref=e392]:
+          - generic [ref=e395]:
+            - link "小红书为什么必须拿下世界杯？ - 业界 亿邦动力网 https://www.ebrun.com › 内容电商" [ref=e397] [cursor=pointer]:
+              - /url: https://www.ebrun.com/20260604/675413.shtml
+              - heading "小红书为什么必须拿下世界杯？ - 业界" [level=3] [ref=e398]
+              - generic [ref=e403]:
+                - generic [ref=e405]: 亿邦动力网
+                - generic [ref=e407]: https://www.ebrun.com › 内容电商
+            - button "关于这条结果的详细信息" [ref=e408] [cursor=pointer]:
+              - img [ref=e411]
+          - generic [ref=e414]:
+            - generic [ref=e415]: 4天前 —
+            - generic [ref=e416]:
+              - text: 小红书以
+              - emphasis [ref=e417]: 世界杯
+              - text: 转播权为战略抓手，意图突破1.7亿DAU增长瓶颈，争夺男性用户以优化广告主结构和本地生活闭环，同时抵御AI助手对其核心“搜索-种草”商业模式 ...
+      - navigation [ref=e420]:
+        - heading "网页导航" [level=1] [ref=e421]
+        - text: "1"
+        - link "Page 2" [ref=e424] [cursor=pointer]:
+          - /url: /search?q=%E4%BD%93%E8%82%B2%E4%BA%A7%E4%B8%9A%E7%94%9F%E6%80%81%E5%9C%88+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80&sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4rEMXE0G127dYuB2IKOiIIdh2QtQ:1780920486362&ei=prAmaq_rFZXJkPIPjfmZUA&start=10&sa=N&sstk=AU9db-BVc48Lf5hevjDOVIe1Kr0r4dVcwe-JM5sAH3-4ZxpkrNla1T1yGPNZnXCm5jw7r2N1FGV2abTjuBd-2e9Rh4xvvosHJsQCSw&ved=2ahUKEwiv1tnnzfeUAxWVJEQIHY18BgoQ8tMDegQIHRAE
+          - text: "2"
+        - link "Page 3" [ref=e426] [cursor=pointer]:
+          - /url: /search?q=%E4%BD%93%E8%82%B2%E4%BA%A7%E4%B8%9A%E7%94%9F%E6%80%81%E5%9C%88+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80&sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4rEMXE0G127dYuB2IKOiIIdh2QtQ:1780920486362&ei=prAmaq_rFZXJkPIPjfmZUA&start=20&sa=N&sstk=AU9db-BVc48Lf5hevjDOVIe1Kr0r4dVcwe-JM5sAH3-4ZxpkrNla1T1yGPNZnXCm5jw7r2N1FGV2abTjuBd-2e9Rh4xvvosHJsQCSw&ved=2ahUKEwiv1tnnzfeUAxWVJEQIHY18BgoQ8tMDegQIHRAG
+          - text: "3"
+        - link "Page 4" [ref=e428] [cursor=pointer]:
+          - /url: /search?q=%E4%BD%93%E8%82%B2%E4%BA%A7%E4%B8%9A%E7%94%9F%E6%80%81%E5%9C%88+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80&sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4rEMXE0G127dYuB2IKOiIIdh2QtQ:1780920486362&ei=prAmaq_rFZXJkPIPjfmZUA&start=30&sa=N&sstk=AU9db-BVc48Lf5hevjDOVIe1Kr0r4dVcwe-JM5sAH3-4ZxpkrNla1T1yGPNZnXCm5jw7r2N1FGV2abTjuBd-2e9Rh4xvvosHJsQCSw&ved=2ahUKEwiv1tnnzfeUAxWVJEQIHY18BgoQ8tMDegQIHRAI
+          - text: "4"
+        - link "Page 5" [ref=e430] [cursor=pointer]:
+          - /url: /search?q=%E4%BD%93%E8%82%B2%E4%BA%A7%E4%B8%9A%E7%94%9F%E6%80%81%E5%9C%88+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80&sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4rEMXE0G127dYuB2IKOiIIdh2QtQ:1780920486362&ei=prAmaq_rFZXJkPIPjfmZUA&start=40&sa=N&sstk=AU9db-BVc48Lf5hevjDOVIe1Kr0r4dVcwe-JM5sAH3-4ZxpkrNla1T1yGPNZnXCm5jw7r2N1FGV2abTjuBd-2e9Rh4xvvosHJsQCSw&ved=2ahUKEwiv1tnnzfeUAxWVJEQIHY18BgoQ8tMDegQIHRAK
+          - text: "5"
+        - link "Page 6" [ref=e432] [cursor=pointer]:
+          - /url: /search?q=%E4%BD%93%E8%82%B2%E4%BA%A7%E4%B8%9A%E7%94%9F%E6%80%81%E5%9C%88+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80&sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4rEMXE0G127dYuB2IKOiIIdh2QtQ:1780920486362&ei=prAmaq_rFZXJkPIPjfmZUA&start=50&sa=N&sstk=AU9db-BVc48Lf5hevjDOVIe1Kr0r4dVcwe-JM5sAH3-4ZxpkrNla1T1yGPNZnXCm5jw7r2N1FGV2abTjuBd-2e9Rh4xvvosHJsQCSw&ved=2ahUKEwiv1tnnzfeUAxWVJEQIHY18BgoQ8tMDegQIHRAM
+          - text: "6"
+        - link "Page 7" [ref=e434] [cursor=pointer]:
+          - /url: /search?q=%E4%BD%93%E8%82%B2%E4%BA%A7%E4%B8%9A%E7%94%9F%E6%80%81%E5%9C%88+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80&sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4rEMXE0G127dYuB2IKOiIIdh2QtQ:1780920486362&ei=prAmaq_rFZXJkPIPjfmZUA&start=60&sa=N&sstk=AU9db-BVc48Lf5hevjDOVIe1Kr0r4dVcwe-JM5sAH3-4ZxpkrNla1T1yGPNZnXCm5jw7r2N1FGV2abTjuBd-2e9Rh4xvvosHJsQCSw&ved=2ahUKEwiv1tnnzfeUAxWVJEQIHY18BgoQ8tMDegQIHRAO
+          - text: "7"
+        - link "Page 8" [ref=e436] [cursor=pointer]:
+          - /url: /search?q=%E4%BD%93%E8%82%B2%E4%BA%A7%E4%B8%9A%E7%94%9F%E6%80%81%E5%9C%88+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80&sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4rEMXE0G127dYuB2IKOiIIdh2QtQ:1780920486362&ei=prAmaq_rFZXJkPIPjfmZUA&start=70&sa=N&sstk=AU9db-BVc48Lf5hevjDOVIe1Kr0r4dVcwe-JM5sAH3-4ZxpkrNla1T1yGPNZnXCm5jw7r2N1FGV2abTjuBd-2e9Rh4xvvosHJsQCSw&ved=2ahUKEwiv1tnnzfeUAxWVJEQIHY18BgoQ8tMDegQIHRAQ
+          - text: "8"
+        - link "Page 9" [ref=e438] [cursor=pointer]:
+          - /url: /search?q=%E4%BD%93%E8%82%B2%E4%BA%A7%E4%B8%9A%E7%94%9F%E6%80%81%E5%9C%88+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80&sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4rEMXE0G127dYuB2IKOiIIdh2QtQ:1780920486362&ei=prAmaq_rFZXJkPIPjfmZUA&start=80&sa=N&sstk=AU9db-BVc48Lf5hevjDOVIe1Kr0r4dVcwe-JM5sAH3-4ZxpkrNla1T1yGPNZnXCm5jw7r2N1FGV2abTjuBd-2e9Rh4xvvosHJsQCSw&ved=2ahUKEwiv1tnnzfeUAxWVJEQIHY18BgoQ8tMDegQIHRAS
+          - text: "9"
+        - link "Page 10" [ref=e440] [cursor=pointer]:
+          - /url: /search?q=%E4%BD%93%E8%82%B2%E4%BA%A7%E4%B8%9A%E7%94%9F%E6%80%81%E5%9C%88+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80&sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4rEMXE0G127dYuB2IKOiIIdh2QtQ:1780920486362&ei=prAmaq_rFZXJkPIPjfmZUA&start=90&sa=N&sstk=AU9db-BVc48Lf5hevjDOVIe1Kr0r4dVcwe-JM5sAH3-4ZxpkrNla1T1yGPNZnXCm5jw7r2N1FGV2abTjuBd-2e9Rh4xvvosHJsQCSw&ved=2ahUKEwiv1tnnzfeUAxWVJEQIHY18BgoQ8tMDegQIHRAU
+          - text: "10"
+        - heading "下一页" [level=2] [ref=e442]:
+          - link "下一页" [ref=e443] [cursor=pointer]:
+            - /url: /search?q=%E4%BD%93%E8%82%B2%E4%BA%A7%E4%B8%9A%E7%94%9F%E6%80%81%E5%9C%88+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80&sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4rEMXE0G127dYuB2IKOiIIdh2QtQ:1780920486362&ei=prAmaq_rFZXJkPIPjfmZUA&start=10&sa=N&sstk=AU9db-BVc48Lf5hevjDOVIe1Kr0r4dVcwe-JM5sAH3-4ZxpkrNla1T1yGPNZnXCm5jw7r2N1FGV2abTjuBd-2e9Rh4xvvosHJsQCSw&ved=2ahUKEwiv1tnnzfeUAxWVJEQIHY18BgoQ8NMDegQIHRAW
+            - generic [ref=e445]: 下一页
+      - navigation
+    - contentinfo [ref=e446]:
+      - heading "页脚链接" [level=1] [ref=e447]
+      - generic [ref=e451]:
+        - generic [ref=e454]:
+          - generic [ref=e455]: 是个性化搜索结果
+          - generic [ref=e456]: "-"
+          - link "尝试不使用个性化功能" [ref=e458] [cursor=pointer]:
+            - /url: https://www.google.com/search?q=%E4%BD%93%E8%82%B2%E4%BA%A7%E4%B8%9A%E7%94%9F%E6%80%81%E5%9C%88+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80&hl=zh-CN&peek_pws=0&sxsrf=ANbL-n4rEMXE0G127dYuB2IKOiIIdh2QtQ:1780920486362
+            - generic [ref=e459]: 尝试不使用个性化功能
+        - generic [ref=e463]:
+          - button "加利福尼亚 - 根据您的活动记录" [ref=e465] [cursor=pointer]:
+            - generic [ref=e466]: 加利福尼亚
+            - generic [ref=e468]:
+              - text: "-"
+              - generic [ref=e469]: 根据您的活动记录
+          - text: "-"
+          - button "更新位置信息" [ref=e471] [cursor=pointer]: 更新位置信息
+        - generic [ref=e474]:
+          - link "帮助" [ref=e475] [cursor=pointer]:
+            - /url: https://support.google.com/websearch/?p=ws_results_help&hl=zh-CN&fg=1
+          - link "发送反馈" [ref=e476] [cursor=pointer]:
+            - /url: "#"
+          - link "隐私权" [ref=e477] [cursor=pointer]:
+            - /url: https://policies.google.com/privacy?hl=zh-CN&fg=1
+          - link "条款" [ref=e478] [cursor=pointer]:
+            - /url: https://policies.google.com/terms?hl=zh-CN&fg=1

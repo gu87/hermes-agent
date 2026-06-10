@@ -1,0 +1,58 @@
+- generic [ref=e1]:
+  - banner [ref=e2]:
+    - button "跳至内容" [ref=e3] [cursor=pointer]:
+      - generic [ref=e5]: 跳至内容
+    - button "辅助功能反馈" [ref=e6] [cursor=pointer]:
+      - generic [ref=e8]: 辅助功能反馈
+    - generic [ref=e9]:
+      - link "返回到必应搜索" [ref=e10] [cursor=pointer]:
+        - /url: /?FORM=Z9FD1
+        - heading "返回到必应搜索" [level=1] [ref=e11]
+      - search [ref=e12]:
+        - button "搜索" [ref=e15] [cursor=pointer]
+        - searchbox "在此处输入你的搜索 — 输入时会显示搜索建议" [ref=e16]: 直播吧 世界杯 营销 2026
+        - button "使用图像搜索" [ref=e19] [cursor=pointer]
+    - complementary "帐户奖励和偏好设置" [ref=e21]:
+      - button "Microsoft Rewards" [ref=e22] [cursor=pointer]:
+        - generic [ref=e53]:
+          - generic [ref=e54]: Rewards
+          - img [ref=e56]
+      - link "登录" [ref=e23] [cursor=pointer]:
+        - /url: javascript:void(0)
+        - generic "登录" [ref=e24]
+    - navigation "主菜单" [ref=e25]:
+      - list [ref=e26]:
+        - listitem [ref=e27]:
+          - link "全部" [ref=e28] [cursor=pointer]:
+            - /url: /?scope=web&FORM=HDRSC1
+        - listitem [ref=e29]:
+          - link "搜索" [ref=e30] [cursor=pointer]:
+            - /url: /copilotsearch?q=%e7%9b%b4%e6%92%ad%e5%90%a7+%e4%b8%96%e7%95%8c%e6%9d%af+%e8%90%a5%e9%94%80+2026&FORM=CSSCOP
+            - img [ref=e31]
+            - text: 搜索
+        - listitem [ref=e33]:
+          - link "图片" [ref=e34] [cursor=pointer]:
+            - /url: https://www.bing.com/ck/a?!&&p=6bac7970a3f9861726c491ba47221cab8dc94de31421cdc740470f2311da4eeaJmltdHM9MTc4MDg3NjgwMA&ptn=3&ver=2&hsh=4&fclid=243e26cf-9f99-6f7c-0a7c-31a69e0b6e82&u=a1L2ltYWdlcy9zZWFyY2g_cT0lZTclOWIlYjQlZTYlOTIlYWQlZTUlOTAlYTcrJWU0JWI4JTk2JWU3JTk1JThjJWU2JTlkJWFmKyVlOCU5MCVhNSVlOSU5NCU4MCsyMDI2JkZPUk09SERSU0My&ntb=1
+        - listitem [ref=e35]:
+          - link "视频" [ref=e36] [cursor=pointer]:
+            - /url: https://www.bing.com/ck/a?!&&p=29a17a4c6b45d69bfb9a074a98e0d371ee885b4ca45e2e2e4b230114f102a59dJmltdHM9MTc4MDg3NjgwMA&ptn=3&ver=2&hsh=4&fclid=243e26cf-9f99-6f7c-0a7c-31a69e0b6e82&u=a1L3ZpZGVvcy9zZWFyY2g_cT0lZTclOWIlYjQlZTYlOTIlYWQlZTUlOTAlYTcrJWU0JWI4JTk2JWU3JTk1JThjJWU2JTlkJWFmKyVlOCU5MCVhNSVlOSU5NCU4MCsyMDI2JkZPUk09SERSU0Mz&ntb=1
+        - listitem [ref=e37]:
+          - link "地图" [ref=e38] [cursor=pointer]:
+            - /url: https://www.bing.com/ck/a?!&&p=182386cbdbc78c2f5ccdefe99f61842fc47a246a576b6e349735cf7f19feb1efJmltdHM9MTc4MDg3NjgwMA&ptn=3&ver=2&hsh=4&fclid=243e26cf-9f99-6f7c-0a7c-31a69e0b6e82&u=a1L21hcHM_cT0lZTclOWIlYjQlZTYlOTIlYWQlZTUlOTAlYTcrJWU0JWI4JTk2JWU3JTk1JThjJWU2JTlkJWFmKyVlOCU5MCVhNSVlOSU5NCU4MCsyMDI2JkZPUk09SERSU0M0&ntb=1
+        - listitem [ref=e39]:
+          - link "资讯" [active] [ref=e40] [cursor=pointer]:
+            - /url: https://www.bing.com/ck/a?!&&p=855fe7570223be37aa7b12c4842e10ed8e62e060e32e4b2787f45eceb45fa250JmltdHM9MTc4MDg3NjgwMA&ptn=3&ver=2&hsh=4&fclid=243e26cf-9f99-6f7c-0a7c-31a69e0b6e82&u=a1L25ld3Mvc2VhcmNoP3E9JWU3JTliJWI0JWU2JTkyJWFkJWU1JTkwJWE3KyVlNCViOCU5NiVlNyU5NSU4YyVlNiU5ZCVhZislZTglOTAlYTUlZTklOTQlODArMjAyNiZGT1JNPUhEUlNDNg&ntb=1
+        - listitem [ref=e41]:
+          - button "更多" [ref=e42] [cursor=pointer]:
+            - img [ref=e44]
+            - text: 更多
+  - contentinfo [ref=e46]:
+    - generic [ref=e47]:
+      - list:
+        - listitem [ref=e48]:
+          - link "隐私" [ref=e49] [cursor=pointer]:
+            - /url: https://www.bing.com/ck/a?!&&p=1605109de47b6e0ae5adfeb90e85e9f1a21de7a86237875c1a63accc01855a26JmltdHM9MTc4MDg3NjgwMA&ptn=3&ver=2&hsh=4&fclid=243e26cf-9f99-6f7c-0a7c-31a69e0b6e82&u=a1aHR0cDovL2dvLm1pY3Jvc29mdC5jb20vZndsaW5rLz9MaW5rSWQ9NTIxODM5&ntb=1
+        - listitem [ref=e50]:
+          - link "条款" [ref=e51] [cursor=pointer]:
+            - /url: https://www.bing.com/ck/a?!&&p=cdcfe1fd237829a1c5b8b1b7c9755c7d0d32ec3cc83229a5b84c7767e46fc02aJmltdHM9MTc4MDg3NjgwMA&ptn=3&ver=2&hsh=4&fclid=243e26cf-9f99-6f7c-0a7c-31a69e0b6e82&u=a1aHR0cDovL2dvLm1pY3Jvc29mdC5jb20vZndsaW5rLz9MaW5rSUQ9MjQ2MzM4&ntb=1
+  - dialog "Quick Search"

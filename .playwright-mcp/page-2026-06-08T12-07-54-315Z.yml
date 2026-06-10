@@ -1,0 +1,328 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - generic:
+      - link "跳到主要内容" [ref=e2] [cursor=pointer]
+      - link "无障碍功能帮助" [ref=e3] [cursor=pointer]:
+        - /url: https://support.google.com/websearch/answer/181196?hl=zh-CN
+  - generic [ref=e8]:
+    - search [ref=e9]:
+      - generic [ref=e11]:
+        - link "Google 首页" [ref=e13] [cursor=pointer]:
+          - /url: https://www.google.com/webhp?hl=zh-CN&sa=X&ved=0ahUKEwiFsabhzfeUAxWDJkQIHTtsCqIQPAgI
+          - img [ref=e14]
+        - generic [ref=e21]:
+          - generic [ref=e22]:
+            - combobox "搜索" [ref=e25]: 虎扑 世界杯 营销 2026 虎扑 世界杯 营销 2026
+            - generic [ref=e26]:
+              - button "清除" [ref=e28] [cursor=pointer]:
+                - img [ref=e30]
+              - generic [ref=e33]:
+                - button "按语音搜索" [ref=e34] [cursor=pointer]:
+                  - img [ref=e35]
+                - button "按图搜索" [ref=e37] [cursor=pointer]:
+                  - img [ref=e38]
+          - button "搜索" [ref=e40] [cursor=pointer]:
+            - img [ref=e43]
+    - generic [ref=e46]:
+      - button "Google 应用" [ref=e48] [cursor=pointer]:
+        - img [ref=e49]
+      - button "Google 账号： 谷如洋 (guruyang77@gmail.com)" [ref=e53] [cursor=pointer]:
+        - img [ref=e54]
+  - generic [ref=e56]:
+    - navigation [ref=e62]:
+      - generic [ref=e68]:
+        - list [ref=e69]:
+          - listitem [ref=e70]:
+            - link "AI 模式" [ref=e73] [cursor=pointer]:
+              - /url: /search?q=%E8%99%8E%E6%89%91+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4fkAtY0JVYIlr_ldm5Vi3k9axA7g:1780920472938&udm=50&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVrl2pKVsOrAGyrx9IK5ONThzuZ3Y2Cbge6N8GD-jNeuoXgo2PB_GD83jrZk0kQzeqDupJ6tc57_6OdN_MKM5GiLMIaQhXGxb-DV3Bj630OvYbM-Q4j8a-0-EV4Y6ENjYaw45o5SnHljP5pHk2ktLj927gWt9ZrGGfWNugxDzwfWHpKTO-y86HmwUS-wJjhF-K1xGu1Q&aep=1&ntc=1&sa=X&ved=2ahUKEwiFsabhzfeUAxWDJkQIHTtsCqIQ2J8OegQIDxAD
+              - generic [ref=e76]: AI 模式
+          - listitem [ref=e77]:
+            - link "全部" [disabled] [ref=e78]:
+              - generic [ref=e80]: 全部
+          - listitem [ref=e81]:
+            - link "新闻" [ref=e82] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4fkAtY0JVYIlr_ldm5Vi3k9axA7g:1780920472938&q=%E8%99%8E%E6%89%91+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&tbm=nws&source=lnms&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVrl2pKVsOrAGyrx9IK5ONThzuZ3Y2Cbge6N8GD-jNeuoXgo2PB_GD83jrZk0kQzeqDupJ6tc57_6OdN_MKM5GiLMIaQhXGxb-DV3Bj630OvYbM-Q4j8a-0-EV4Y6ENjYaw45o5SnHljP5pHk2ktLj927gWt9ZrGGfWNugxDzwfWHpKTO-y86HmwUS-wJjhF-K1xGu1Q&sa=X&ved=2ahUKEwiFsabhzfeUAxWDJkQIHTtsCqIQ0pQJegQIFRAB
+              - generic [ref=e84]: 新闻
+          - listitem [ref=e85]:
+            - link "图片" [ref=e86] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4fkAtY0JVYIlr_ldm5Vi3k9axA7g:1780920472938&udm=2&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVrl2pKVsOrAGyrx9IK5ONThzuZ3Y2Cbge6N8GD-jNeuoXgo2PB_GD83jrZk0kQzeqDupJ6tc57_6OdN_MKM5GiLMIaQhXGxb-DV3Bj630OvYbM-Q4j8a-0-EV4Y6ENjYaw45o5SnHljP5pHk2ktLj927gWt9ZrGGfWNugxDzwfWHpKTO-y86HmwUS-wJjhF-K1xGu1Q&q=%E8%99%8E%E6%89%91+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sa=X&ved=2ahUKEwiFsabhzfeUAxWDJkQIHTtsCqIQtKgLegQIFBAB
+              - generic [ref=e88]: 图片
+          - listitem [ref=e89]:
+            - link "购物" [ref=e90] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4fkAtY0JVYIlr_ldm5Vi3k9axA7g:1780920472938&udm=28&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVrl2pKVsOrAGyrx9IK5ONThzuZ3Y2Cbge6N8GD-jNeuoXgo2PB_GD83jrZk0kQzeqDupJ6tc57_6OdN_MKM5GiLMIaQhXGxb-DV3Bj630OvYbM-Q4j8a-0-EV4Y6ENjYaw45o5SnHljP5pHk2ktLj927gWt9ZrGGfWNugxDzwfWHpKTO-y86HmwUS-wJjhF-K1xGu1Q&q=%E8%99%8E%E6%89%91+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&ved=1t:220175&ictx=111
+              - generic [ref=e92]: 购物
+          - listitem [ref=e93]:
+            - link "视频" [ref=e94] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4fkAtY0JVYIlr_ldm5Vi3k9axA7g:1780920472938&udm=7&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVrl2pKVsOrAGyrx9IK5ONThzuZ3Y2Cbge6N8GD-jNeuoXgo2PB_GD83jrZk0kQzeqDupJ6tc57_6OdN_MKM5GiLMIaQhXGxb-DV3Bj630OvYbM-Q4j8a-0-EV4Y6ENjYaw45o5SnHljP5pHk2ktLj927gWt9ZrGGfWNugxDzwfWHpKTO-y86HmwUS-wJjhF-K1xGu1Q&q=%E8%99%8E%E6%89%91+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sa=X&ved=2ahUKEwiFsabhzfeUAxWDJkQIHTtsCqIQtKgLegQIEhAB
+              - generic [ref=e96]: 视频
+          - listitem [ref=e97]:
+            - link "短视频" [ref=e98] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4fkAtY0JVYIlr_ldm5Vi3k9axA7g:1780920472938&udm=39&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVrl2pKVsOrAGyrx9IK5ONThzuZ3Y2Cbge6N8GD-jNeuoXgo2PB_GD83jrZk0kQzeqDupJ6tc57_6OdN_MKM5GiLMIaQhXGxb-DV3Bj630OvYbM-Q4j8a-0-EV4Y6ENjYaw45o5SnHljP5pHk2ktLj927gWt9ZrGGfWNugxDzwfWHpKTO-y86HmwUS-wJjhF-K1xGu1Q&q=%E8%99%8E%E6%89%91+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sa=X&ved=2ahUKEwiFsabhzfeUAxWDJkQIHTtsCqIQs6gLegQIExAB
+              - generic [ref=e100]: 短视频
+          - listitem [ref=e101]:
+            - button "更多过滤条件" [ref=e102] [cursor=pointer]:
+              - generic "更多过滤条件" [ref=e103]:
+                - generic [ref=e104]:
+                  - generic [ref=e105]: 更多
+                  - img [ref=e107]
+        - button "工具" [ref=e110] [cursor=pointer]:
+          - generic [ref=e112]:
+            - generic [ref=e113]: 工具
+            - img [ref=e115]
+    - heading "搜索结果" [level=1] [ref=e117]
+    - main [ref=e123]:
+      - generic [ref=e127]:
+        - generic [ref=e130]:
+          - heading "网页搜索结果" [level=2] [ref=e131]
+          - generic [ref=e132]:
+            - generic [ref=e135]:
+              - link "胜牌全球启动2026年FIF-国际足球 虎扑 https://bbs.hupu.com › ..." [ref=e137] [cursor=pointer]:
+                - /url: https://bbs.hupu.com/638647282.html
+                - heading "胜牌全球启动2026年FIF-国际足球" [level=3] [ref=e138]
+                - generic [ref=e143]:
+                  - generic [ref=e145]: 虎扑
+                  - generic [ref=e147]: https://bbs.hupu.com › ...
+              - button "关于这条结果的详细信息" [ref=e148] [cursor=pointer]:
+                - img [ref=e151]
+            - generic [ref=e155]:
+              - text: 全球汽车和工业解决方案创新者胜牌™全球（Valvoline™ Global Operations）近日宣布， 将正式启动以
+              - emphasis [ref=e156]: "2026"
+              - text: 年FIFA
+              - emphasis [ref=e157]: 世界杯
+              - text: ™为核心主题的全球品牌宣传活动。 本次活动旨在彰显 ...
+        - generic [ref=e161]:
+          - generic [ref=e164]:
+            - link "2026世界杯-国际足球-足球话题区 手机虎扑网 https://bbs.hupu.com › ..." [ref=e166] [cursor=pointer]:
+              - /url: https://bbs.hupu.com/639411013.html
+              - heading "2026世界杯-国际足球-足球话题区" [level=3] [ref=e167]
+              - generic [ref=e172]:
+                - generic [ref=e174]: 手机虎扑网
+                - generic [ref=e176]: https://bbs.hupu.com › ...
+            - button "关于这条结果的详细信息" [ref=e177] [cursor=pointer]:
+              - img [ref=e180]
+          - generic [ref=e184]:
+            - emphasis [ref=e185]: 世界杯
+            - text: 期间最高可享七成的超级分成比例，让您的流量变现价值最大化。2. 流量全包围：精准截留百亿级体育红利KY体育紧跟赛事热点，斥巨资布局全网
+            - emphasis [ref=e186]: 营销
+            - text: 。百亿级品牌曝光 ...
+        - generic [ref=e190]:
+          - generic [ref=e193]:
+            - link "2026年世界杯版权还没有谈-国际足球 虎扑 https://bbs.hupu.com › ..." [ref=e195] [cursor=pointer]:
+              - /url: https://bbs.hupu.com/638944967.html
+              - heading "2026年世界杯版权还没有谈-国际足球" [level=3] [ref=e196]
+              - generic [ref=e201]:
+                - generic [ref=e203]: 虎扑
+                - generic [ref=e205]: https://bbs.hupu.com › ...
+            - button "关于这条结果的详细信息" [ref=e206] [cursor=pointer]:
+              - img [ref=e209]
+          - generic [ref=e213]:
+            - text: 2014年巴西
+            - emphasis [ref=e214]: 世界杯
+            - text: 央视以5000多万美元版权费获15亿元广告收入；
+            - emphasis [ref=e215]: "2026"
+            - text: 年广告主预算普遍压缩20-30%，即使高价购版权，收入难以覆盖成本，甚至面临亏损。 3、国内免费观赛习惯固化， ...
+        - generic [ref=e219]:
+          - generic [ref=e222]:
+            - link "世界杯-国际足球-国际足球资讯-虎扑社区 - NBA 虎扑 https://voice.hupu.com › bbs" [ref=e224] [cursor=pointer]:
+              - /url: https://voice.hupu.com/bbs/639194453
+              - heading "世界杯-国际足球-国际足球资讯-虎扑社区 - NBA" [level=3] [ref=e225]
+              - generic [ref=e230]:
+                - generic [ref=e232]: 虎扑
+                - generic [ref=e234]: https://voice.hupu.com › bbs
+            - button "关于这条结果的详细信息" [ref=e235] [cursor=pointer]:
+              - img [ref=e238]
+          - generic [ref=e241]:
+            - generic [ref=e242]: 2026年5月11日 —
+            - generic [ref=e243]:
+              - emphasis [ref=e244]: 虎扑
+              - text: 05月11日讯美国东部时间6月11日15时（北京时间6月12日凌晨3时），
+              - emphasis [ref=e245]: "2026"
+              - text: 美加墨
+              - emphasis [ref=e246]: 世界杯
+              - text: 将正式开幕，并首次扩军到48支球队参赛。虽然国足连续第6届无缘 ...
+        - generic [ref=e250]:
+          - generic [ref=e253]:
+            - link "【世界杯话题区】2026，可能是我们青春-中国足球 虎扑 https://bbs.hupu.com › ..." [ref=e255] [cursor=pointer]:
+              - /url: https://bbs.hupu.com/637395057.html
+              - heading "【世界杯话题区】2026，可能是我们青春-中国足球" [level=3] [ref=e256]
+              - generic [ref=e261]:
+                - generic [ref=e263]: 虎扑
+                - generic [ref=e265]: https://bbs.hupu.com › ...
+            - button "关于这条结果的详细信息" [ref=e266] [cursor=pointer]:
+              - img [ref=e269]
+          - generic [ref=e273]:
+            - emphasis [ref=e274]: "2026"
+            - text: 年美加墨
+            - emphasis [ref=e275]: 世界杯
+            - text: 越来越近，除了讨论战术和阵容，另一个话题让所有球迷心里都五味杂陈——我们可能要和
+            - emphasis [ref=e276]: 世界杯
+            - text: 舞台上的一整代传奇，说再见了。
+          - generic [ref=e278]:
+            - text: 缺少字词： 营销 ‎| 必须包含：
+            - link "营销" [ref=e279] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4fkAtY0JVYIlr_ldm5Vi3k9axA7g:1780920472938&q=%E8%99%8E%E6%89%91+%E4%B8%96%E7%95%8C%E6%9D%AF+%22%E8%90%A5%E9%94%80%22+2026&sa=X&ved=2ahUKEwiFsabhzfeUAxWDJkQIHTtsCqIQ5t4CegQINRAB
+        - generic [ref=e283]:
+          - generic [ref=e286]:
+            - link "从夯到拉！2026美加墨世界-国际足球-足球话题区 虎扑 https://bbs.hupu.com › ..." [ref=e288] [cursor=pointer]:
+              - /url: https://bbs.hupu.com/639601638.html
+              - heading "从夯到拉！2026美加墨世界-国际足球-足球话题区" [level=3] [ref=e289]
+              - generic [ref=e294]:
+                - generic [ref=e296]: 虎扑
+                - generic [ref=e298]: https://bbs.hupu.com › ...
+            - button "关于这条结果的详细信息" [ref=e299] [cursor=pointer]:
+              - img [ref=e302]
+          - generic [ref=e306]:
+            - text: 足球话题区 咪咕与CCTV达成合作成
+            - emphasis [ref=e307]: 2026世界杯
+            - text: 持权转播商. 发布于福建阅读1098. 全部回复. no-replies. 评论区开荒，我辈义不容辞. 来抢第一个沙发！
+          - generic [ref=e309]:
+            - text: 缺少字词： 营销 ‎| 必须包含：
+            - link "营销" [ref=e310] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4fkAtY0JVYIlr_ldm5Vi3k9axA7g:1780920472938&q=%E8%99%8E%E6%89%91+%E4%B8%96%E7%95%8C%E6%9D%AF+%22%E8%90%A5%E9%94%80%22+2026&sa=X&ved=2ahUKEwiFsabhzfeUAxWDJkQIHTtsCqIQ5t4CegQINBAB
+        - generic [ref=e314]:
+          - generic [ref=e317]:
+            - link "FIFA官方社媒发布202-国际足球 虎扑 https://m.hupu.com › bbs" [ref=e319] [cursor=pointer]:
+              - /url: https://m.hupu.com/bbs/634944629.html
+              - heading "FIFA官方社媒发布202-国际足球" [level=3] [ref=e320]
+              - generic [ref=e325]:
+                - generic [ref=e327]: 虎扑
+                - generic [ref=e329]: https://m.hupu.com › bbs
+            - button "关于这条结果的详细信息" [ref=e330] [cursor=pointer]:
+              - img [ref=e333]
+          - generic [ref=e336]:
+            - generic [ref=e337]: 2025年9月25日 —
+            - generic [ref=e338]:
+              - emphasis [ref=e339]: 虎扑
+              - text: 09月25日讯FIFA官方社媒发布
+              - emphasis [ref=e340]: "2026"
+              - text: 年美加墨
+              - emphasis [ref=e341]: 世界杯
+              - text: 吉祥物预热视频。 三只吉祥物为门将Maple（驼鹿），前锋Zayu（美洲豹）和中场Clutch（白头海雕）
+          - generic [ref=e343]:
+            - text: 缺少字词： 营销 ‎| 必须包含：
+            - link "营销" [ref=e344] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4fkAtY0JVYIlr_ldm5Vi3k9axA7g:1780920472938&q=%E8%99%8E%E6%89%91+%E4%B8%96%E7%95%8C%E6%9D%AF+%22%E8%90%A5%E9%94%80%22+2026&sa=X&ved=2ahUKEwiFsabhzfeUAxWDJkQIHTtsCqIQ5t4CegQIMRAB
+        - generic [ref=e348]:
+          - generic [ref=e351]:
+            - link "2026体育营销特辑：世界杯营销七十年，谁在定义世界杯？ 36Kr https://m.36kr.com › ..." [ref=e353] [cursor=pointer]:
+              - /url: https://m.36kr.com/p/3784849143373060
+              - heading "2026体育营销特辑：世界杯营销七十年，谁在定义世界杯？" [level=3] [ref=e354]
+              - generic [ref=e359]:
+                - generic [ref=e361]: 36Kr
+                - generic [ref=e363]: https://m.36kr.com › ...
+            - button "关于这条结果的详细信息" [ref=e364] [cursor=pointer]:
+              - img [ref=e367]
+          - generic [ref=e370]:
+            - generic [ref=e371]: 2026年4月27日 —
+            - generic [ref=e372]:
+              - text: 回溯
+              - emphasis [ref=e373]: 世界杯营销
+              - text: 的历史，体育并不是一开始就属于品牌的。 第一阶段：电视霸权时代，曝光即正义. 1930年首届
+              - emphasis [ref=e374]: 世界杯
+              - text: 在乌拉圭举办时，足球还不是一门生意。
+        - generic [ref=e378]:
+          - generic [ref=e381]:
+            - link "官方：2026世界杯6月1-国际足球 虎扑 https://m.hupu.com › bbs" [ref=e383] [cursor=pointer]:
+              - /url: https://m.hupu.com/bbs/624631660
+              - heading "官方：2026世界杯6月1-国际足球" [level=3] [ref=e384]
+              - generic [ref=e389]:
+                - generic [ref=e391]: 虎扑
+                - generic [ref=e393]: https://m.hupu.com › bbs
+            - button "关于这条结果的详细信息" [ref=e394] [cursor=pointer]:
+              - img [ref=e397]
+          - generic [ref=e401]:
+            - text: 国际足联官网于今早公布了
+            - emphasis [ref=e402]: "2026"
+            - text: 年
+            - emphasis [ref=e403]: 世界杯
+            - text: 的完整赛程，14座城市将会举办104场比赛。72场小组赛将于6月11日至6月27日进行，32场淘汰赛将于6月28日至7月19日进行。 ; 墨西哥
+            - emphasis [ref=e404]: "2026"
+            - text: 年 ...
+          - generic [ref=e406]:
+            - text: 缺少字词： 营销 ‎| 必须包含：
+            - link "营销" [ref=e407] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4fkAtY0JVYIlr_ldm5Vi3k9axA7g:1780920472938&q=%E8%99%8E%E6%89%91+%E4%B8%96%E7%95%8C%E6%9D%AF+%22%E8%90%A5%E9%94%80%22+2026&sa=X&ved=2ahUKEwiFsabhzfeUAxWDJkQIHTtsCqIQ5t4CegQIMBAB
+        - generic [ref=e411]:
+          - generic [ref=e414]:
+            - link "2026美加墨世界杯LOGO-国际足球-足球话题区 虎扑 https://m.hupu.com › bbs" [ref=e416] [cursor=pointer]:
+              - /url: https://m.hupu.com/bbs/57091090
+              - heading "2026美加墨世界杯LOGO-国际足球-足球话题区" [level=3] [ref=e417]
+              - generic [ref=e422]:
+                - generic [ref=e424]: 虎扑
+                - generic [ref=e426]: https://m.hupu.com › bbs
+            - button "关于这条结果的详细信息" [ref=e427] [cursor=pointer]:
+              - img [ref=e430]
+          - generic [ref=e434]:
+            - emphasis [ref=e435]: 虎扑
+            - text: 体育网. 搜我想看. 打开APP.
+            - emphasis [ref=e436]: "2026"
+            - text: 美加墨
+            - emphasis [ref=e437]: 世界杯
+            - text: LOGO发布，做个梦，阿根廷卫冕. avatar. 阿根廷是冠军2022. 2022-12-23 20:30. 关注. 感觉
+            - emphasis [ref=e438]: 虎扑
+            - text: 没人发这个，我来发一个 ...
+          - generic [ref=e440]:
+            - text: 缺少字词： 营销 ‎| 必须包含：
+            - link "营销" [ref=e441] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4fkAtY0JVYIlr_ldm5Vi3k9axA7g:1780920472938&q=%E8%99%8E%E6%89%91+%E4%B8%96%E7%95%8C%E6%9D%AF+%22%E8%90%A5%E9%94%80%22+2026&sa=X&ved=2ahUKEwiFsabhzfeUAxWDJkQIHTtsCqIQ5t4CegQIORAB
+      - navigation [ref=e444]:
+        - heading "网页导航" [level=1] [ref=e445]
+        - text: "1"
+        - link "Page 2" [ref=e448] [cursor=pointer]:
+          - /url: /search?q=%E8%99%8E%E6%89%91+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4fkAtY0JVYIlr_ldm5Vi3k9axA7g:1780920472938&ei=mLAmaoWFOYPNkPIPu9ipkAo&start=10&sa=N&sstk=AU9db-DDxWTV1ss6RAd2j3uVZSkvxdlmaZ_q4AsYXv4MNZe1j1iInMJ8j3eTM7ah3Wy7RiS9Nt8Abxgxzm5S-eu-pcZB79ezwSZhKg&ved=2ahUKEwiFsabhzfeUAxWDJkQIHTtsCqIQ8tMDegQIIhAE
+          - text: "2"
+        - link "Page 3" [ref=e450] [cursor=pointer]:
+          - /url: /search?q=%E8%99%8E%E6%89%91+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4fkAtY0JVYIlr_ldm5Vi3k9axA7g:1780920472938&ei=mLAmaoWFOYPNkPIPu9ipkAo&start=20&sa=N&sstk=AU9db-DDxWTV1ss6RAd2j3uVZSkvxdlmaZ_q4AsYXv4MNZe1j1iInMJ8j3eTM7ah3Wy7RiS9Nt8Abxgxzm5S-eu-pcZB79ezwSZhKg&ved=2ahUKEwiFsabhzfeUAxWDJkQIHTtsCqIQ8tMDegQIIhAG
+          - text: "3"
+        - link "Page 4" [ref=e452] [cursor=pointer]:
+          - /url: /search?q=%E8%99%8E%E6%89%91+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4fkAtY0JVYIlr_ldm5Vi3k9axA7g:1780920472938&ei=mLAmaoWFOYPNkPIPu9ipkAo&start=30&sa=N&sstk=AU9db-DDxWTV1ss6RAd2j3uVZSkvxdlmaZ_q4AsYXv4MNZe1j1iInMJ8j3eTM7ah3Wy7RiS9Nt8Abxgxzm5S-eu-pcZB79ezwSZhKg&ved=2ahUKEwiFsabhzfeUAxWDJkQIHTtsCqIQ8tMDegQIIhAI
+          - text: "4"
+        - link "Page 5" [ref=e454] [cursor=pointer]:
+          - /url: /search?q=%E8%99%8E%E6%89%91+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4fkAtY0JVYIlr_ldm5Vi3k9axA7g:1780920472938&ei=mLAmaoWFOYPNkPIPu9ipkAo&start=40&sa=N&sstk=AU9db-DDxWTV1ss6RAd2j3uVZSkvxdlmaZ_q4AsYXv4MNZe1j1iInMJ8j3eTM7ah3Wy7RiS9Nt8Abxgxzm5S-eu-pcZB79ezwSZhKg&ved=2ahUKEwiFsabhzfeUAxWDJkQIHTtsCqIQ8tMDegQIIhAK
+          - text: "5"
+        - link "Page 6" [ref=e456] [cursor=pointer]:
+          - /url: /search?q=%E8%99%8E%E6%89%91+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4fkAtY0JVYIlr_ldm5Vi3k9axA7g:1780920472938&ei=mLAmaoWFOYPNkPIPu9ipkAo&start=50&sa=N&sstk=AU9db-DDxWTV1ss6RAd2j3uVZSkvxdlmaZ_q4AsYXv4MNZe1j1iInMJ8j3eTM7ah3Wy7RiS9Nt8Abxgxzm5S-eu-pcZB79ezwSZhKg&ved=2ahUKEwiFsabhzfeUAxWDJkQIHTtsCqIQ8tMDegQIIhAM
+          - text: "6"
+        - link "Page 7" [ref=e458] [cursor=pointer]:
+          - /url: /search?q=%E8%99%8E%E6%89%91+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4fkAtY0JVYIlr_ldm5Vi3k9axA7g:1780920472938&ei=mLAmaoWFOYPNkPIPu9ipkAo&start=60&sa=N&sstk=AU9db-DDxWTV1ss6RAd2j3uVZSkvxdlmaZ_q4AsYXv4MNZe1j1iInMJ8j3eTM7ah3Wy7RiS9Nt8Abxgxzm5S-eu-pcZB79ezwSZhKg&ved=2ahUKEwiFsabhzfeUAxWDJkQIHTtsCqIQ8tMDegQIIhAO
+          - text: "7"
+        - link "Page 8" [ref=e460] [cursor=pointer]:
+          - /url: /search?q=%E8%99%8E%E6%89%91+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4fkAtY0JVYIlr_ldm5Vi3k9axA7g:1780920472938&ei=mLAmaoWFOYPNkPIPu9ipkAo&start=70&sa=N&sstk=AU9db-DDxWTV1ss6RAd2j3uVZSkvxdlmaZ_q4AsYXv4MNZe1j1iInMJ8j3eTM7ah3Wy7RiS9Nt8Abxgxzm5S-eu-pcZB79ezwSZhKg&ved=2ahUKEwiFsabhzfeUAxWDJkQIHTtsCqIQ8tMDegQIIhAQ
+          - text: "8"
+        - link "Page 9" [ref=e462] [cursor=pointer]:
+          - /url: /search?q=%E8%99%8E%E6%89%91+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4fkAtY0JVYIlr_ldm5Vi3k9axA7g:1780920472938&ei=mLAmaoWFOYPNkPIPu9ipkAo&start=80&sa=N&sstk=AU9db-DDxWTV1ss6RAd2j3uVZSkvxdlmaZ_q4AsYXv4MNZe1j1iInMJ8j3eTM7ah3Wy7RiS9Nt8Abxgxzm5S-eu-pcZB79ezwSZhKg&ved=2ahUKEwiFsabhzfeUAxWDJkQIHTtsCqIQ8tMDegQIIhAS
+          - text: "9"
+        - link "Page 10" [ref=e464] [cursor=pointer]:
+          - /url: /search?q=%E8%99%8E%E6%89%91+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4fkAtY0JVYIlr_ldm5Vi3k9axA7g:1780920472938&ei=mLAmaoWFOYPNkPIPu9ipkAo&start=90&sa=N&sstk=AU9db-DDxWTV1ss6RAd2j3uVZSkvxdlmaZ_q4AsYXv4MNZe1j1iInMJ8j3eTM7ah3Wy7RiS9Nt8Abxgxzm5S-eu-pcZB79ezwSZhKg&ved=2ahUKEwiFsabhzfeUAxWDJkQIHTtsCqIQ8tMDegQIIhAU
+          - text: "10"
+        - heading "下一页" [level=2] [ref=e466]:
+          - link "下一页" [ref=e467] [cursor=pointer]:
+            - /url: /search?q=%E8%99%8E%E6%89%91+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4fkAtY0JVYIlr_ldm5Vi3k9axA7g:1780920472938&ei=mLAmaoWFOYPNkPIPu9ipkAo&start=10&sa=N&sstk=AU9db-DDxWTV1ss6RAd2j3uVZSkvxdlmaZ_q4AsYXv4MNZe1j1iInMJ8j3eTM7ah3Wy7RiS9Nt8Abxgxzm5S-eu-pcZB79ezwSZhKg&ved=2ahUKEwiFsabhzfeUAxWDJkQIHTtsCqIQ8NMDegQIIhAW
+            - generic [ref=e469]: 下一页
+      - navigation
+    - contentinfo [ref=e470]:
+      - heading "页脚链接" [level=1] [ref=e471]
+      - generic [ref=e475]:
+        - generic [ref=e478]:
+          - generic [ref=e479]: 是个性化搜索结果
+          - generic [ref=e480]: "-"
+          - link "尝试不使用个性化功能" [ref=e482] [cursor=pointer]:
+            - /url: https://www.google.com/search?q=%E8%99%8E%E6%89%91+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&hl=zh-CN&peek_pws=0&sxsrf=ANbL-n4fkAtY0JVYIlr_ldm5Vi3k9axA7g:1780920472938
+            - generic [ref=e483]: 尝试不使用个性化功能
+        - generic [ref=e487]:
+          - button "加利福尼亚 - 根据您的活动记录" [ref=e489] [cursor=pointer]:
+            - generic [ref=e490]: 加利福尼亚
+            - generic [ref=e492]:
+              - text: "-"
+              - generic [ref=e493]: 根据您的活动记录
+          - text: "-"
+          - button "更新位置信息" [ref=e495] [cursor=pointer]: 更新位置信息
+        - generic [ref=e498]:
+          - link "帮助" [ref=e499] [cursor=pointer]:
+            - /url: https://support.google.com/websearch/?p=ws_results_help&hl=zh-CN&fg=1
+          - link "发送反馈" [ref=e500] [cursor=pointer]:
+            - /url: "#"
+          - link "隐私权" [ref=e501] [cursor=pointer]:
+            - /url: https://policies.google.com/privacy?hl=zh-CN&fg=1
+          - link "条款" [ref=e502] [cursor=pointer]:
+            - /url: https://policies.google.com/terms?hl=zh-CN&fg=1

@@ -1,0 +1,613 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - generic:
+      - link "Skip to main content" [ref=e2] [cursor=pointer]
+      - link "Accessibility help" [ref=e3] [cursor=pointer]:
+        - /url: https://support.google.com/websearch/answer/181196?hl=en
+  - generic [ref=e8]:
+    - search [ref=e9]:
+      - generic [ref=e11]:
+        - link "Go to Google Home" [ref=e13] [cursor=pointer]:
+          - /url: https://www.google.com/webhp?hl=en&sa=X&ved=0ahUKEwjy9ZbrzfeUAxUYOkQIHbwzKg4QPAgI
+          - img [ref=e14]
+        - generic [ref=e21]:
+          - generic [ref=e22]:
+            - combobox "Search" [ref=e25]: World Cup marketing 2026 campaign World Cup marketing 2026 campaign
+            - generic [ref=e26]:
+              - button "Clear" [ref=e28] [cursor=pointer]:
+                - img [ref=e30]
+              - generic [ref=e33]:
+                - button "Search by voice" [ref=e34] [cursor=pointer]:
+                  - img [ref=e35]
+                - button "Search by image" [ref=e37] [cursor=pointer]:
+                  - img [ref=e38]
+          - button "Search" [ref=e40] [cursor=pointer]:
+            - img [ref=e43]
+    - generic [ref=e46]:
+      - link "Search Labs" [ref=e48] [cursor=pointer]:
+        - /url: https://labs.google.com/search?source=srp
+        - img [ref=e49]
+      - button "Google apps" [ref=e52] [cursor=pointer]:
+        - img [ref=e53]
+      - 'button "Google Account: 谷如洋 (guruyang77@gmail.com)" [ref=e57] [cursor=pointer]':
+        - img [ref=e58]
+  - generic [ref=e60]:
+    - navigation [ref=e66]:
+      - generic [ref=e72]:
+        - list [ref=e73]:
+          - listitem [ref=e74]:
+            - link "AI Mode" [ref=e77] [cursor=pointer]:
+              - /url: /search?q=World+Cup+marketing+2026+campaign&sca_esv=2715e2732bdd0b5b&hl=en&sxsrf=ANbL-n6B3dVW77ZjaDVYomXVFv_5rYlrFQ:1780920493657&udm=50&fbs=ADc_l-aN0CWEZBOHjofHoaMMDiKp0UJuhqwKhR0QUhF54-6jIYFfWbU_Clyew-1Wh7zkL7EUcewkj-Y5mEXWvVf2-8S7Q9JzmuMHBTnAM1FBTEpBAA6ghZXslcE6dJxwMWTLgGoAr4vYGCqFp1bqwX9pdu1VtM8TVsK2QpWIASBYKEiS5XGwgKc6E7Dp3ilRZxQId1C2H3zqV-Yekj5Y5u09hyXTQo1fKw&aep=1&ntc=1&sa=X&ved=2ahUKEwjy9ZbrzfeUAxUYOkQIHbwzKg4Q2J8OegQIEBAD
+              - generic [ref=e80]: AI Mode
+          - listitem [ref=e81]:
+            - link "All" [disabled] [ref=e82]:
+              - generic [ref=e84]: All
+          - listitem [ref=e85]:
+            - link "News" [ref=e86] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=en&sxsrf=ANbL-n6B3dVW77ZjaDVYomXVFv_5rYlrFQ:1780920493657&q=World+Cup+marketing+2026+campaign&tbm=nws&source=lnms&fbs=ADc_l-aN0CWEZBOHjofHoaMMDiKp0UJuhqwKhR0QUhF54-6jIYFfWbU_Clyew-1Wh7zkL7EUcewkj-Y5mEXWvVf2-8S7Q9JzmuMHBTnAM1FBTEpBAA6ghZXslcE6dJxwMWTLgGoAr4vYGCqFp1bqwX9pdu1VtM8TVsK2QpWIASBYKEiS5XGwgKc6E7Dp3ilRZxQId1C2H3zqV-Yekj5Y5u09hyXTQo1fKw&sa=X&ved=2ahUKEwjy9ZbrzfeUAxUYOkQIHbwzKg4Q0pQJegQIExAB
+              - generic [ref=e88]: News
+          - listitem [ref=e89]:
+            - link "Images" [ref=e90] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=en&sxsrf=ANbL-n6B3dVW77ZjaDVYomXVFv_5rYlrFQ:1780920493657&udm=2&fbs=ADc_l-aN0CWEZBOHjofHoaMMDiKp0UJuhqwKhR0QUhF54-6jIYFfWbU_Clyew-1Wh7zkL7EUcewkj-Y5mEXWvVf2-8S7Q9JzmuMHBTnAM1FBTEpBAA6ghZXslcE6dJxwMWTLgGoAr4vYGCqFp1bqwX9pdu1VtM8TVsK2QpWIASBYKEiS5XGwgKc6E7Dp3ilRZxQId1C2H3zqV-Yekj5Y5u09hyXTQo1fKw&q=World+Cup+marketing+2026+campaign&sa=X&ved=2ahUKEwjy9ZbrzfeUAxUYOkQIHbwzKg4QtKgLegQIFBAB
+              - generic [ref=e92]: Images
+          - listitem [ref=e93]:
+            - link "Videos" [ref=e94] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=en&sxsrf=ANbL-n6B3dVW77ZjaDVYomXVFv_5rYlrFQ:1780920493657&udm=7&fbs=ADc_l-aN0CWEZBOHjofHoaMMDiKp0UJuhqwKhR0QUhF54-6jIYFfWbU_Clyew-1Wh7zkL7EUcewkj-Y5mEXWvVf2-8S7Q9JzmuMHBTnAM1FBTEpBAA6ghZXslcE6dJxwMWTLgGoAr4vYGCqFp1bqwX9pdu1VtM8TVsK2QpWIASBYKEiS5XGwgKc6E7Dp3ilRZxQId1C2H3zqV-Yekj5Y5u09hyXTQo1fKw&q=World+Cup+marketing+2026+campaign&sa=X&ved=2ahUKEwjy9ZbrzfeUAxUYOkQIHbwzKg4QtKgLegQIFhAB
+              - generic [ref=e96]: Videos
+          - listitem [ref=e97]:
+            - link "Forums" [ref=e98] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=en&sxsrf=ANbL-n6B3dVW77ZjaDVYomXVFv_5rYlrFQ:1780920493657&udm=18&fbs=ADc_l-aN0CWEZBOHjofHoaMMDiKp0UJuhqwKhR0QUhF54-6jIYFfWbU_Clyew-1Wh7zkL7EUcewkj-Y5mEXWvVf2-8S7Q9JzmuMHBTnAM1FBTEpBAA6ghZXslcE6dJxwMWTLgGoAr4vYGCqFp1bqwX9pdu1VtM8TVsK2QpWIASBYKEiS5XGwgKc6E7Dp3ilRZxQId1C2H3zqV-Yekj5Y5u09hyXTQo1fKw&q=World+Cup+marketing+2026+campaign&sa=X&ved=2ahUKEwjy9ZbrzfeUAxUYOkQIHbwzKg4Qs6gLegQIFRAB
+              - generic [ref=e100]: Forums
+          - listitem [ref=e101]:
+            - link "Shopping" [ref=e102] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=en&sxsrf=ANbL-n6B3dVW77ZjaDVYomXVFv_5rYlrFQ:1780920493657&udm=28&fbs=ADc_l-aN0CWEZBOHjofHoaMMDiKp0UJuhqwKhR0QUhF54-6jIYFfWbU_Clyew-1Wh7zkL7EUcewkj-Y5mEXWvVf2-8S7Q9JzmuMHBTnAM1FBTEpBAA6ghZXslcE6dJxwMWTLgGoAr4vYGCqFp1bqwX9pdu1VtM8TVsK2QpWIASBYKEiS5XGwgKc6E7Dp3ilRZxQId1C2H3zqV-Yekj5Y5u09hyXTQo1fKw&q=World+Cup+marketing+2026+campaign&ved=1t:220175&ictx=111
+              - generic [ref=e104]: Shopping
+          - listitem [ref=e105]:
+            - button "More filters" [ref=e106] [cursor=pointer]:
+              - generic "More filters" [ref=e107]:
+                - generic [ref=e108]:
+                  - generic [ref=e109]: More
+                  - img [ref=e111]
+        - button "Tools" [ref=e114] [cursor=pointer]:
+          - generic [ref=e116]:
+            - generic [ref=e117]: Tools
+            - img [ref=e119]
+    - heading "Search Results" [level=1] [ref=e121]
+    - main [ref=e127]:
+      - generic [ref=e131]:
+        - generic [ref=e134]:
+          - heading "Web results" [level=2] [ref=e135]
+          - generic [ref=e136]:
+            - generic [ref=e139]:
+              - link "FIFA World Cup 2026™ commercial announcements Inside FIFA https://inside.fifa.com › tournaments-and-events › com..." [ref=e141] [cursor=pointer]:
+                - /url: https://inside.fifa.com/official-documents/annual-report/2025/tournaments-and-events/fifa-world-cup-2026/commercial-announcements
+                - heading "FIFA World Cup 2026™ commercial announcements" [level=3] [ref=e142]
+                - generic [ref=e147]:
+                  - generic [ref=e149]: Inside FIFA
+                  - generic [ref=e151]: https://inside.fifa.com › tournaments-and-events › com...
+              - button "About this result" [ref=e152] [cursor=pointer]:
+                - img [ref=e155]
+            - generic [ref=e159]:
+              - emphasis [ref=e160]: Diageo will activate fan‐focused experiences and retail campaigns
+              - text: localised marketing, digital activations and community-driven initiatives.
+        - generic [ref=e164]:
+          - generic [ref=e167]:
+            - link "Brand Innovators FIFA World Cup Ad Tracker 2026 Brand Innovators https://brand-innovators.com › News All" [ref=e169] [cursor=pointer]:
+              - /url: https://brand-innovators.com/brand-innovators-fifa-world-cup-ad-tracker-2026/
+              - heading "Brand Innovators FIFA World Cup Ad Tracker 2026" [level=3] [ref=e170]
+              - generic [ref=e175]:
+                - generic [ref=e177]: Brand Innovators
+                - generic [ref=e179]: https://brand-innovators.com › News All
+            - button "About this result" [ref=e180] [cursor=pointer]:
+              - img [ref=e183]
+          - generic [ref=e186]:
+            - generic [ref=e187]: 3 days ago —
+            - generic [ref=e188]:
+              - emphasis [ref=e189]: Marriott & Visa have launched the “For Fans, Everywhere” campaign
+              - text: to run during the World Cup. The spot stars Erling Haaland and Vinicius Júnior ...
+            - link "Read more" [ref=e190] [cursor=pointer]:
+              - /url: https://brand-innovators.com/brand-innovators-fifa-world-cup-ad-tracker-2026/#:~:text=Marriott%20%26%20Visa%20have%20launched,similarities%20of%20soccer%20and%20travel.
+        - generic [ref=e201]:
+          - generic [ref=e203]:
+            - generic [ref=e205]:
+              - generic [ref=e206]:
+                - img [ref=e207]
+                - heading "AI Overview" [level=2] [ref=e209]
+              - generic [ref=e210]:
+                - button "View 3 corroboration links" [ref=e213] [cursor=pointer]
+                - button "About this result" [ref=e220]:
+                  - img [ref=e222]
+            - generic [ref=e245]:
+              - generic [ref=e246]:
+                - text: The World Cup 2026 marketing landscape is dominated by
+                - mark [ref=e247]: massive global campaigns, with brands focusing on nostalgia, fan togetherness, and star-studded collaborations across the US, Canada, and Mexico
+                - text: . Major corporate sponsors and endemic brands have heavily tailored their messaging around consumer experiences and digital engagement.
+                - generic [ref=e249]:
+                  - link "ADWEEK (+1) - View related links" [ref=e250] [cursor=pointer]:
+                    - /url: https://www.adweek.com/brand-marketing/fifa-world-cup-26-ad-tracker-brands-kick-off-summer-of-soccer/
+                  - button "ADWEEK (+1) - View related links" [ref=e251] [cursor=pointer]:
+                    - generic [ref=e253]:
+                      - generic [ref=e254]: ADWEEK
+                      - generic [ref=e255]: "+1"
+              - heading "Top Global Campaigns" [level=3] [ref=e256]
+              - list [ref=e258]:
+                - listitem [ref=e259]:
+                  - generic [ref=e260]:
+                    - strong [ref=e261]: "McDonald's:"
+                    - text: Launched their largest-ever World Cup campaign, spanning over 100 markets. The fast-food giant is offering regional FIFA World Cup 26 Meals and limited-edition, retro 90s-style collectible cups designed by ILOVEDUST. The ads feature global icons like David Beckham, Ronaldinho, and Lamine Yamal.
+                  - generic [ref=e263]:
+                    - link [ref=e264] [cursor=pointer]:
+                      - /url: https://www.thedrum.com/news/world-cup-2026-watch-all-the-latest-ads
+                    - button [ref=e265] [cursor=pointer]:
+                      - generic [ref=e267]:
+                        - generic [ref=e268]: The Drum
+                        - generic [ref=e269]: "+2"
+                - listitem [ref=e270]:
+                  - generic [ref=e271]:
+                    - strong [ref=e272]: "Nike:"
+                    - text: Rolled out their "Rip the Script" campaign, urging the next generation of athletes to drop conventional playbooks and rely on their instincts. The initiative features a massive roster of talent, including Erling Haaland, Kylian Mbappé, Vini Jr., and Alexia Putellas.
+                  - generic [ref=e274]:
+                    - link [ref=e275] [cursor=pointer]:
+                      - /url: https://brand-innovators.com/brand-innovators-fifa-world-cup-ad-tracker-2026/
+                    - button [ref=e276] [cursor=pointer]:
+                      - generic [ref=e278]:
+                        - generic [ref=e279]: Brand Innovators
+                        - generic [ref=e280]: "+1"
+                - listitem [ref=e281]:
+                  - generic [ref=e282]:
+                    - strong [ref=e283]: "Coca-Cola:"
+                    - text: Replaced the traditional anthem with a modern update of Van Halen's "Jump" performed by J Balvin, Steve Vai, Amber Mark, and Travis Barker.
+                  - generic [ref=e285]:
+                    - link [ref=e286] [cursor=pointer]:
+                      - /url: https://brand-innovators.com/brand-innovators-fifa-world-cup-ad-tracker-2026/
+                    - button [ref=e287] [cursor=pointer]:
+                      - generic [ref=e290]: Brand Innovators
+                - listitem [ref=e291]:
+                  - generic [ref=e292]:
+                    - strong [ref=e293]: "Visa:"
+                    - text: Debuted their "Tap In" campaign starring Jason Sudeikis and international soccer stars to promote contactless payment sweepstakes for match tickets.
+                  - generic [ref=e295]:
+                    - link [ref=e296] [cursor=pointer]:
+                      - /url: https://brand-innovators.com/brand-innovators-fifa-world-cup-ad-tracker-2026/
+                    - button [ref=e297] [cursor=pointer]:
+                      - generic [ref=e300]: Brand Innovators
+                - listitem [ref=e301]:
+                  - generic [ref=e302]:
+                    - strong [ref=e303]: "Lay's:"
+                    - text: Brought back their widely popular "No Lay's, No Game" campaign featuring soccer royalty Lionel Messi and David Beckham.
+                  - generic [ref=e305]:
+                    - link [ref=e306] [cursor=pointer]:
+                      - /url: https://www.adweek.com/brand-marketing/fifa-world-cup-26-ad-tracker-brands-kick-off-summer-of-soccer/
+                    - button [ref=e307] [cursor=pointer]:
+                      - generic [ref=e310]: ADWEEK
+              - heading [level=3] [ref=e312]: Key Strategic Themes
+              - list [ref=e314]:
+                - listitem [ref=e315]:
+                  - generic [ref=e316]:
+                    - strong [ref=e317]: "Nostalgia & Collectibles:"
+                    - text: Brands are leaning heavily into physical collectibles to drive consumer traffic, as seen with McDonald’s revival of its classic Dream Team Cups.
+                  - generic [ref=e319]:
+                    - link [ref=e320] [cursor=pointer]:
+                      - /url: https://www.thedrum.com/news/world-cup-2026-watch-all-the-latest-ads
+                    - button [ref=e321] [cursor=pointer]:
+                      - generic [ref=e323]:
+                        - generic [ref=e324]: The Drum
+                        - generic [ref=e325]: "+2"
+                - listitem [ref=e326]:
+                  - generic [ref=e327]:
+                    - strong [ref=e328]: "Hyper-Localized Experiences:"
+                    - text: Hospitality and service brands are shifting focus to the unique challenges and excitement of cross-border travel. For instance, Airbnb is offering specialized local experiences, and Marriott is highlighting travel as the core "business" for dedicated fans.
+                  - generic [ref=e330]:
+                    - link [ref=e331] [cursor=pointer]:
+                      - /url: https://www.adweek.com/brand-marketing/fifa-world-cup-26-ad-tracker-brands-kick-off-summer-of-soccer/
+                    - button [ref=e332] [cursor=pointer]:
+                      - generic [ref=e335]: ADWEEK
+                - listitem [ref=e336]:
+                  - generic [ref=e337]:
+                    - strong [ref=e338]: "Digital Fan Engagement:"
+                    - text: Because the tournament spans three massive host countries, platforms like EA Sports (promoting FC 26) and prediction apps like Lebom are prioritizing interactive, shareable, and group-based digital experiences.
+                  - generic [ref=e340]:
+                    - link [ref=e341] [cursor=pointer]:
+                      - /url: https://brand-innovators.com/brand-innovators-fifa-world-cup-ad-tracker-2026/
+                    - button [ref=e342] [cursor=pointer]:
+                      - generic [ref=e344]:
+                        - generic [ref=e345]: Brand Innovators
+                        - generic [ref=e346]: "+1"
+              - separator [ref=e348]
+              - generic [ref=e350]:
+                - text: Could you tell me
+                - strong [ref=e351]: what specific industry your business is in
+                - text: (e.g., local restaurant, e-commerce, travel) and
+                - strong [ref=e352]: what your budget is
+                - text: "? I can help tailor a localized or niche campaign to capitalize on the tournament's momentum."
+              - list [ref=e356]:
+                - listitem [ref=e357]:
+                  - generic [ref=e358]:
+                    - link "Brand Innovators FIFA World Cup Ad Tracker 2026" [ref=e359] [cursor=pointer]:
+                      - /url: https://brand-innovators.com/brand-innovators-fifa-world-cup-ad-tracker-2026/
+                    - generic [ref=e360]:
+                      - generic [ref=e362]:
+                        - generic [ref=e363]: Brand Innovators FIFA World Cup Ad Tracker 2026
+                        - generic [ref=e365]: Jun 5, 2026 — Brand Innovators FIFA World Cup Ad Tracker 2026 * EA Sports. * Nike. * “We know the magical moments in football happen when player...
+                      - generic [ref=e367]:
+                        - generic [ref=e370]: Brand Innovators
+                        - button "About this result" [ref=e374] [cursor=pointer]:
+                          - img [ref=e376]
+                - listitem [ref=e379]:
+                  - generic [ref=e380]:
+                    - 'link "World Cup 2026 ads: Watch all the big brand spots released so far" [ref=e381] [cursor=pointer]':
+                      - /url: https://www.thedrum.com/news/world-cup-2026-watch-all-the-latest-ads
+                    - generic [ref=e382]:
+                      - generic [ref=e384]:
+                        - generic [ref=e385]: "World Cup 2026 ads: Watch all the big brand spots released so far"
+                        - generic [ref=e387]: May 1, 2026 — Here are the ads brands have released so far. * Nike 'Rip the script' Nike's Rip the Script campaign challenges football's next ge...
+                      - generic [ref=e389]:
+                        - generic [ref=e392]: The Drum
+                        - button "About this result" [ref=e396] [cursor=pointer]:
+                          - img [ref=e398]
+                - listitem [ref=e401]:
+                  - generic [ref=e402]:
+                    - 'link "FIFA World Cup 26 Ad Tracker: Brands Kick Off Summer of Soccer" [ref=e403] [cursor=pointer]':
+                      - /url: https://www.adweek.com/brand-marketing/fifa-world-cup-26-ad-tracker-brands-kick-off-summer-of-soccer/
+                    - generic [ref=e404]:
+                      - generic [ref=e406]:
+                        - generic [ref=e407]: "FIFA World Cup 26 Ad Tracker: Brands Kick Off Summer of Soccer"
+                        - generic [ref=e409]: May 11, 2026 — The best ads, stunts, and activations around the men's tournament. May 11, 2026. The ADWEEK team will be keeping track of all the ...
+                      - generic [ref=e411]:
+                        - generic [ref=e414]: ADWEEK
+                        - button "About this result" [ref=e418] [cursor=pointer]:
+                          - img [ref=e420]
+                - listitem [ref=e423]:
+                  - generic [ref=e424]:
+                    - link "McDonald’s launches biggest-ever FIFA World Cup campaign with ..." [ref=e425] [cursor=pointer]:
+                      - /url: https://www.sportsbusinessjournal.com/Articles/2026/06/03/mcdonalds-launches-biggest-ever-world-cup-campaign-with-beckham-ronaldinho-other-icons/
+                    - generic [ref=e426]:
+                      - generic [ref=e428]:
+                        - generic [ref=e429]: McDonald’s launches biggest-ever FIFA World Cup campaign with ...
+                        - generic [ref=e431]: Jun 5, 2026 — 2026 FIFA World Cup Coverage Explore Sports Business Journal's World Cup hub, featuring news, analysis, and insights on the busine...
+                      - generic [ref=e433]:
+                        - generic [ref=e436]: Sports Business Journal
+                        - button "About this result" [ref=e440] [cursor=pointer]:
+                          - img [ref=e442]
+                - listitem [ref=e445]:
+                  - generic [ref=e446]:
+                    - 'link "World Cup 2026 round-up: Nike, McDonald’s, Sky Bet, Tennent’s ..." [ref=e447] [cursor=pointer]':
+                      - /url: https://www.campaignlive.co.uk/article/world-cup-2026-round-up-nike-mcdonalds-sky-bet-tennents-lager/1957866
+                    - generic [ref=e448]:
+                      - generic [ref=e450]:
+                        - generic [ref=e451]: "World Cup 2026 round-up: Nike, McDonald’s, Sky Bet, Tennent’s ..."
+                        - generic [ref=e453]: Jun 5, 2026 — Lebom “Relegate the sweepstake” (in-house) Football prediction app Lebom has positioned itself as an alternative to the traditiona...
+                      - generic [ref=e455]:
+                        - generic [ref=e458]: Campaign
+                        - button "About this result" [ref=e462] [cursor=pointer]:
+                          - img [ref=e464]
+                - listitem [ref=e467]:
+                  - generic [ref=e468]:
+                    - link "FIFA World Cup 2026™ commercial announcements" [ref=e469] [cursor=pointer]:
+                      - /url: https://inside.fifa.com/official-documents/annual-report/2025/tournaments-and-events/fifa-world-cup-2026/commercial-announcements
+                    - generic [ref=e470]:
+                      - generic [ref=e472]:
+                        - generic [ref=e473]: FIFA World Cup 2026™ commercial announcements
+                        - generic [ref=e475]: Covering nine markets, the partnership focused on connecting fans to the tournaments through localised marketing, digital activati...
+                      - generic [ref=e476]:
+                        - generic [ref=e479]: Inside FIFA
+                        - button "About this result" [ref=e483] [cursor=pointer]:
+                          - img [ref=e485]
+                - generic [ref=e489]:
+                  - link "Restaurant chains kick off a World Cup marketing barrage" [ref=e490] [cursor=pointer]:
+                    - /url: https://www.restaurantbusinessonline.com/marketing/restaurant-chains-kick-world-cup-marketing-barrage
+                  - generic [ref=e491]:
+                    - generic [ref=e493]:
+                      - generic [ref=e494]: Restaurant chains kick off a World Cup marketing barrage
+                      - generic [ref=e496]: Jun 4, 2026 — Restaurant chains kick off a World Cup marketing barrage * McDonald's has launched a limited-time FIFA World Cup 26 Meal and Happy...
+                    - generic [ref=e498]:
+                      - generic [ref=e501]: Restaurant Business Magazine
+                      - button "About this result" [ref=e505] [cursor=pointer]:
+                        - img [ref=e507]
+                - button [ref=e510] [cursor=pointer]:
+                  - img [ref=e512]
+          - button "Show more AI Overview" [ref=e517]:
+            - generic [ref=e519] [cursor=pointer]:
+              - generic [ref=e520]: Show more
+              - img [ref=e522]
+        - generic [ref=e527]:
+          - heading "Web results" [level=2] [ref=e528]
+          - generic [ref=e529]:
+            - generic [ref=e532]:
+              - 'link "FIFA World Cup 2026: Campaigns Setting the Bar Before ... DesignRush https://news.designrush.com › Creative" [ref=e534] [cursor=pointer]':
+                - /url: https://news.designrush.com/fifa-world-cup-2026-brand-campaigns
+                - 'heading "FIFA World Cup 2026: Campaigns Setting the Bar Before ..." [level=3] [ref=e535]'
+                - generic [ref=e540]:
+                  - generic [ref=e542]: DesignRush
+                  - generic [ref=e544]: https://news.designrush.com › Creative
+              - button "About this result" [ref=e545] [cursor=pointer]:
+                - img [ref=e548]
+            - generic [ref=e551]:
+              - generic [ref=e552]: May 25, 2026 —
+              - generic [ref=e553]:
+                - emphasis [ref=e554]: Adidas, LEGO, and Lay's lead early World Cup 2026 advertising
+                - text: while Coca-Cola draws backlash, as brands compete for fan attention ahead of ...
+        - generic [ref=e558]:
+          - generic [ref=e561]:
+            - link "2026 World Cup Marketing playbook is full of Beckham ... Substack · The Social Juice 20+ likes · 2 weeks ago" [ref=e563] [cursor=pointer]:
+              - /url: https://thesocialjuice.substack.com/p/2026-world-cup-marketing-playbook
+              - heading "2026 World Cup Marketing playbook is full of Beckham ..." [level=3] [ref=e564]
+              - generic [ref=e569]:
+                - generic [ref=e571]: Substack · The Social Juice
+                - generic [ref=e573]: 20+ likes · 2 weeks ago
+            - button "About this result" [ref=e574] [cursor=pointer]:
+              - img [ref=e577]
+          - generic [ref=e580]:
+            - generic [ref=e581]:
+              - emphasis [ref=e582]: Air Transat's 2026 World Cup campaign
+              - text: applauded as the best OOH ad of the event. RIMOWA's new campaign traces legacy through a single case.
+            - link "Read more" [ref=e583] [cursor=pointer]:
+              - /url: https://thesocialjuice.substack.com/p/2026-world-cup-marketing-playbook#:~:text=Air%20Transat's%202026%20World%20Cup,legacy%20through%20a%20single%20case.
+        - generic [ref=e587]:
+          - generic [ref=e590]:
+            - 'link "Collection: 2026 FIFA World Cup Ads of the World https://www.adsoftheworld.com › collections › 2026-fifa..." [ref=e592] [cursor=pointer]':
+              - /url: https://www.adsoftheworld.com/collections/2026-fifa-world-cup
+              - 'heading "Collection: 2026 FIFA World Cup" [level=3] [ref=e593]'
+              - generic [ref=e598]:
+                - generic [ref=e600]: Ads of the World
+                - generic [ref=e602]: https://www.adsoftheworld.com › collections › 2026-fifa...
+            - button "About this result" [ref=e603] [cursor=pointer]:
+              - img [ref=e606]
+          - generic [ref=e609]:
+            - generic [ref=e610]:
+              - emphasis [ref=e611]: 2026 FIFA World Cup
+              - text: ". 65 Campaigns. Your Connection is Out There · Sound Transit · Your Connection is Out There · Agency: Copacino Fujikado · Rip the Script."
+            - link "Read more" [ref=e612] [cursor=pointer]:
+              - /url: https://www.adsoftheworld.com/collections/2026-fifa-world-cup#:~:text=2026%20FIFA%20World%20Cup,Agency%3A%20Copacino%20Fujikado
+        - generic [ref=e616]:
+          - generic [ref=e618]:
+            - heading "Videos" [level=2] [ref=e619]
+            - button "About this result" [ref=e620] [cursor=pointer]:
+              - img [ref=e623]
+          - generic [ref=e626]:
+            - generic [ref=e631]:
+              - generic [ref=e632]:
+                - link "Nike's latest campaign is a reminder that football was never ... Instagram Good Ads Matter 1 day ago" [ref=e634] [cursor=pointer]:
+                  - /url: https://www.instagram.com/reel/DZRet-9TDmI/
+                  - heading "Nike's latest campaign is a reminder that football was never ... Instagram Good Ads Matter 1 day ago" [level=3] [ref=e635]:
+                    - generic [ref=e638]: Nike's latest campaign is a reminder that football was never ...
+                    - generic [ref=e640]:
+                      - generic [ref=e641]:
+                        - text: Instagram
+                        - generic [ref=e642]: · Good Ads Matter
+                      - generic [ref=e643]: 1 day ago
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - text: Instagram
+                          - generic: · Good Ads Matter
+                    - button "About this result" [ref=e644] [cursor=pointer]:
+                      - img [ref=e647]
+              - link "Nike's latest campaign is a reminder that football was never ... by Good Ads Matter on Instagram. Play on Instagram. 5:59" [ref=e649] [cursor=pointer]:
+                - /url: https://www.instagram.com/reel/DZRet-9TDmI/
+                - generic [ref=e650]:
+                  - img [ref=e653]
+                  - generic [ref=e657]: 5:59
+            - generic [ref=e663]:
+              - generic [ref=e664]:
+                - link "⚽📺 ESPN | 2026 World Cup Advertising Campaign (Full Spot) YouTube Pablo Petovel 3 days ago" [ref=e666] [cursor=pointer]:
+                  - /url: https://www.youtube.com/watch?v=TLzu-U6ecpg
+                  - heading "⚽📺 ESPN | 2026 World Cup Advertising Campaign (Full Spot) YouTube Pablo Petovel 3 days ago" [level=3] [ref=e667]:
+                    - generic [ref=e670]: ⚽📺 ESPN | 2026 World Cup Advertising Campaign (Full Spot)
+                    - generic [ref=e672]:
+                      - generic [ref=e673]:
+                        - text: YouTube
+                        - generic [ref=e674]: · Pablo Petovel
+                      - generic [ref=e675]: 3 days ago
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - text: YouTube
+                          - generic: · Pablo Petovel
+                    - button "About this result" [ref=e676] [cursor=pointer]:
+                      - img [ref=e679]
+              - button "⚽📺 ESPN | 2026 World Cup Advertising Campaign (Full Spot) by Pablo Petovel on YouTube. Play on Google. 1:21" [ref=e681] [cursor=pointer]:
+                - generic [ref=e682]:
+                  - img [ref=e685]
+                  - generic [ref=e688]:
+                    - generic [ref=e689]: 1:21
+                    - img [ref=e692]
+            - generic [ref=e698]:
+              - generic [ref=e699]:
+                - link "Let's break down adidas' World Cup marketing strategy IN ... Instagram Jordan Rogers 🏆 Sports Marketing 1 day ago" [ref=e701] [cursor=pointer]:
+                  - /url: https://www.instagram.com/reel/DZQnCSTRnTM/
+                  - heading "Let's break down adidas' World Cup marketing strategy IN ... Instagram Jordan Rogers 🏆 Sports Marketing 1 day ago" [level=3] [ref=e702]:
+                    - generic [ref=e705]: Let's break down adidas' World Cup marketing strategy IN ...
+                    - generic [ref=e707]:
+                      - generic [ref=e708]:
+                        - text: Instagram
+                        - generic [ref=e709]: · Jordan Rogers 🏆 Sports Marketing
+                      - generic [ref=e710]: 1 day ago
+                - generic:
+                  - generic:
+                    - generic:
+                      - generic:
+                        - generic:
+                          - text: Instagram
+                          - generic: · Jordan Rogers 🏆 Sports Marketing
+                    - button "About this result" [ref=e711] [cursor=pointer]:
+                      - img [ref=e714]
+              - link "Let's break down adidas' World Cup marketing strategy IN ... by Jordan Rogers 🏆 Sports Marketing on Instagram. Play on Instagram. 1:24" [ref=e716] [cursor=pointer]:
+                - /url: https://www.instagram.com/reel/DZQnCSTRnTM/
+                - generic [ref=e717]:
+                  - img [ref=e720]
+                  - generic [ref=e724]: 1:24
+          - link "View all videos" [ref=e727] [cursor=pointer]:
+            - /url: /search?sca_esv=2715e2732bdd0b5b&hl=en&udm=7&sxsrf=ANbL-n6B3dVW77ZjaDVYomXVFv_5rYlrFQ:1780920493657&q=World+Cup+marketing+2026+campaign&sa=X&ved=2ahUKEwjy9ZbrzfeUAxUYOkQIHbwzKg4Q8ccDKAJ6BAg9EAQ
+            - separator [ref=e728]
+            - generic [ref=e729]:
+              - generic [ref=e730]: View all
+              - img [ref=e732]
+        - generic [ref=e736]:
+          - heading "Web results" [level=2] [ref=e737]
+          - generic [ref=e738]:
+            - generic [ref=e741]:
+              - link "Nike 'rips the script' and writes new chapter with epic 2026 ... Campaign US https://www.campaignlive.com › article › nike-rips-scri..." [ref=e743] [cursor=pointer]:
+                - /url: https://www.campaignlive.com/article/nike-rips-script-writes-new-chapter-epic-2026-world-cup-campaign/1960540
+                - heading "Nike 'rips the script' and writes new chapter with epic 2026 ..." [level=3] [ref=e744]
+                - generic [ref=e749]:
+                  - generic [ref=e751]: Campaign US
+                  - generic [ref=e753]: https://www.campaignlive.com › article › nike-rips-scri...
+              - button "About this result" [ref=e754] [cursor=pointer]:
+                - img [ref=e757]
+            - generic [ref=e760]:
+              - generic [ref=e761]: 4 days ago —
+              - generic [ref=e762]:
+                - emphasis [ref=e763]: Nike has built out an expansive football universe for its FIFA World Cup 2026 campaign
+                - text: . Rip the Script, an epic six-minute-long film ian Mbappé ...
+        - generic [ref=e767]:
+          - generic [ref=e770]:
+            - link "NEED HELP ASAP* '26 WORLD CUP MARKETING. Reddit · r/AskMarketing 10+ comments · 1 month ago" [ref=e772] [cursor=pointer]:
+              - /url: https://www.reddit.com/r/AskMarketing/comments/1t4hggv/need_help_asap_26_world_cup_marketing/
+              - heading "NEED HELP ASAP* '26 WORLD CUP MARKETING." [level=3] [ref=e773]
+              - generic [ref=e778]:
+                - generic [ref=e780]: Reddit · r/AskMarketing
+                - generic [ref=e782]: 10+ comments · 1 month ago
+            - button "About this result" [ref=e783] [cursor=pointer]:
+              - img [ref=e786]
+          - generic [ref=e790]:
+            - text: Greetings all, I'm a 27M founder in Missouri. If you guys aren't familiar, The
+            - emphasis [ref=e791]: 2026 world cup
+            - text: is hosted in Kansas city Missouri next month.
+        - generic [ref=e795]:
+          - generic [ref=e798]:
+            - 'link "FIFA World Cup Advertising in 2026: Costs and Campaigns RichAds https://richads.com › blog › world-cup-advertising" [ref=e800] [cursor=pointer]':
+              - /url: https://richads.com/blog/world-cup-advertising/
+              - 'heading "FIFA World Cup Advertising in 2026: Costs and Campaigns" [level=3] [ref=e801]'
+              - generic [ref=e806]:
+                - generic [ref=e808]: RichAds
+                - generic [ref=e810]: https://richads.com › blog › world-cup-advertising
+            - button "About this result" [ref=e811] [cursor=pointer]:
+              - img [ref=e814]
+          - generic [ref=e818]:
+            - emphasis [ref=e819]: Learn how to succeed in World Cup advertising in 2026
+            - text: . Real Betting statistics, top GEOs, best traffic sources, creative ideas, and campaign setup strategy ...
+          - img "Rated 4.0 out of 5, (1) user reviews" [ref=e824]:
+            - text: "4.0"
+            - img [ref=e825]
+            - text: (1)
+          - list [ref=e829]:
+            - listitem [ref=e830]:
+              - link "Why should affiliates consider..." [ref=e831] [cursor=pointer]:
+                - /url: https://richads.com/blog/world-cup-advertising/#why_should_affiliates_consider_advertising_the_world_cup
+                - generic [ref=e833]: Why should affiliates consider...
+            - listitem [ref=e834]:
+              - link "World Cup advertising costs" [ref=e835] [cursor=pointer]:
+                - /url: https://richads.com/blog/world-cup-advertising/#world_cup_advertising_costs
+                - generic [ref=e837]: World Cup advertising costs
+      - generic [ref=e839]:
+        - generic [ref=e844]:
+          - heading "People also search for" [level=2] [ref=e846]
+          - generic [ref=e848]:
+            - generic [ref=e849]:
+              - link "Fifa world cup marketing 2026 campaign" [ref=e853] [cursor=pointer]:
+                - /url: /search?sca_esv=2715e2732bdd0b5b&hl=en&sxsrf=ANbL-n6B3dVW77ZjaDVYomXVFv_5rYlrFQ:1780920493657&q=Fifa+world+cup+marketing+2026+campaign&sa=X&ved=2ahUKEwjy9ZbrzfeUAxUYOkQIHbwzKg4Q1QJ6BAgfEAE
+                - generic [ref=e854]:
+                  - generic [ref=e859]: Fifa world cup marketing 2026 campaign
+                  - img [ref=e863]
+              - link "World Cup commercial 2026" [ref=e868] [cursor=pointer]:
+                - /url: /search?sca_esv=2715e2732bdd0b5b&hl=en&sxsrf=ANbL-n6B3dVW77ZjaDVYomXVFv_5rYlrFQ:1780920493657&q=World+Cup+commercial+2026&sa=X&ved=2ahUKEwjy9ZbrzfeUAxUYOkQIHbwzKg4Q1QJ6BAg5EAE
+                - generic [ref=e869]:
+                  - generic [ref=e874]: World Cup commercial 2026
+                  - img [ref=e878]
+              - link "Official Sponsor of FIFA World Cup 2026" [ref=e883] [cursor=pointer]:
+                - /url: /search?sca_esv=2715e2732bdd0b5b&hl=en&sxsrf=ANbL-n6B3dVW77ZjaDVYomXVFv_5rYlrFQ:1780920493657&q=Official+Sponsor+of+FIFA+World+Cup+2026&sa=X&ved=2ahUKEwjy9ZbrzfeUAxUYOkQIHbwzKg4Q1QJ6BAg1EAE
+                - generic [ref=e884]:
+                  - generic [ref=e889]: Official Sponsor of FIFA World Cup 2026
+                  - img [ref=e893]
+              - link "Adidas World Cup commercial 2026" [ref=e898] [cursor=pointer]:
+                - /url: /search?sca_esv=2715e2732bdd0b5b&hl=en&sxsrf=ANbL-n6B3dVW77ZjaDVYomXVFv_5rYlrFQ:1780920493657&q=Adidas+World+Cup+commercial+2026&sa=X&ved=2ahUKEwjy9ZbrzfeUAxUYOkQIHbwzKg4Q1QJ6BAgtEAE
+                - generic [ref=e899]:
+                  - generic [ref=e904]: Adidas World Cup commercial 2026
+                  - img [ref=e908]
+            - generic [ref=e910]:
+              - link "World Cup advertising" [ref=e914] [cursor=pointer]:
+                - /url: /search?sca_esv=2715e2732bdd0b5b&hl=en&sxsrf=ANbL-n6B3dVW77ZjaDVYomXVFv_5rYlrFQ:1780920493657&q=World+Cup+advertising&sa=X&ved=2ahUKEwjy9ZbrzfeUAxUYOkQIHbwzKg4Q1QJ6BAgkEAE
+                - generic [ref=e915]:
+                  - generic [ref=e920]: World Cup advertising
+                  - img [ref=e924]
+              - link "World Cup activations" [ref=e929] [cursor=pointer]:
+                - /url: /search?sca_esv=2715e2732bdd0b5b&hl=en&sxsrf=ANbL-n6B3dVW77ZjaDVYomXVFv_5rYlrFQ:1780920493657&q=World+Cup+activations&sa=X&ved=2ahUKEwjy9ZbrzfeUAxUYOkQIHbwzKg4Q1QJ6BAgqEAE
+                - generic [ref=e930]:
+                  - generic [ref=e935]: World Cup activations
+                  - img [ref=e939]
+              - link "World cup commercial 2026 trailer" [ref=e944] [cursor=pointer]:
+                - /url: /search?sca_esv=2715e2732bdd0b5b&hl=en&sxsrf=ANbL-n6B3dVW77ZjaDVYomXVFv_5rYlrFQ:1780920493657&q=World+cup+commercial+2026+trailer&sa=X&ved=2ahUKEwjy9ZbrzfeUAxUYOkQIHbwzKg4Q1QJ6BAgpEAE
+                - generic [ref=e945]:
+                  - generic [ref=e950]: World cup commercial 2026 trailer
+                  - img [ref=e954]
+              - link "World cup brand campaigns" [ref=e959] [cursor=pointer]:
+                - /url: /search?sca_esv=2715e2732bdd0b5b&hl=en&sxsrf=ANbL-n6B3dVW77ZjaDVYomXVFv_5rYlrFQ:1780920493657&q=World+cup+brand+campaigns&sa=X&ved=2ahUKEwjy9ZbrzfeUAxUYOkQIHbwzKg4Q1QJ6BAgnEAE
+                - generic [ref=e960]:
+                  - generic [ref=e965]: World cup brand campaigns
+                  - img [ref=e969]
+        - navigation [ref=e971]:
+          - heading "Page Navigation" [level=1] [ref=e972]
+          - text: "1"
+          - link "Page 2" [ref=e975] [cursor=pointer]:
+            - /url: /search?q=World+Cup+marketing+2026+campaign&sca_esv=2715e2732bdd0b5b&hl=en&sxsrf=ANbL-n6B3dVW77ZjaDVYomXVFv_5rYlrFQ:1780920493657&ei=rbAmarLrJ5j0kPIPvOeocQ&start=10&sa=N&sstk=AU9db-AWvWuHNVBCAM4iTDV7INXJFgHn9XqqTlMtgy_5rPHY_0VqxjjLMozaOH0bDiOdTyxRjQdccO72bZLTUj19qvYi-AzoGE6J3g&ved=2ahUKEwjy9ZbrzfeUAxUYOkQIHbwzKg4Q8tMDegQIHRAE
+            - text: "2"
+          - link "Page 3" [ref=e977] [cursor=pointer]:
+            - /url: /search?q=World+Cup+marketing+2026+campaign&sca_esv=2715e2732bdd0b5b&hl=en&sxsrf=ANbL-n6B3dVW77ZjaDVYomXVFv_5rYlrFQ:1780920493657&ei=rbAmarLrJ5j0kPIPvOeocQ&start=20&sa=N&sstk=AU9db-AWvWuHNVBCAM4iTDV7INXJFgHn9XqqTlMtgy_5rPHY_0VqxjjLMozaOH0bDiOdTyxRjQdccO72bZLTUj19qvYi-AzoGE6J3g&ved=2ahUKEwjy9ZbrzfeUAxUYOkQIHbwzKg4Q8tMDegQIHRAG
+            - text: "3"
+          - link "Page 4" [ref=e979] [cursor=pointer]:
+            - /url: /search?q=World+Cup+marketing+2026+campaign&sca_esv=2715e2732bdd0b5b&hl=en&sxsrf=ANbL-n6B3dVW77ZjaDVYomXVFv_5rYlrFQ:1780920493657&ei=rbAmarLrJ5j0kPIPvOeocQ&start=30&sa=N&sstk=AU9db-AWvWuHNVBCAM4iTDV7INXJFgHn9XqqTlMtgy_5rPHY_0VqxjjLMozaOH0bDiOdTyxRjQdccO72bZLTUj19qvYi-AzoGE6J3g&ved=2ahUKEwjy9ZbrzfeUAxUYOkQIHbwzKg4Q8tMDegQIHRAI
+            - text: "4"
+          - link "Page 5" [ref=e981] [cursor=pointer]:
+            - /url: /search?q=World+Cup+marketing+2026+campaign&sca_esv=2715e2732bdd0b5b&hl=en&sxsrf=ANbL-n6B3dVW77ZjaDVYomXVFv_5rYlrFQ:1780920493657&ei=rbAmarLrJ5j0kPIPvOeocQ&start=40&sa=N&sstk=AU9db-AWvWuHNVBCAM4iTDV7INXJFgHn9XqqTlMtgy_5rPHY_0VqxjjLMozaOH0bDiOdTyxRjQdccO72bZLTUj19qvYi-AzoGE6J3g&ved=2ahUKEwjy9ZbrzfeUAxUYOkQIHbwzKg4Q8tMDegQIHRAK
+            - text: "5"
+          - link "Page 6" [ref=e983] [cursor=pointer]:
+            - /url: /search?q=World+Cup+marketing+2026+campaign&sca_esv=2715e2732bdd0b5b&hl=en&sxsrf=ANbL-n6B3dVW77ZjaDVYomXVFv_5rYlrFQ:1780920493657&ei=rbAmarLrJ5j0kPIPvOeocQ&start=50&sa=N&sstk=AU9db-AWvWuHNVBCAM4iTDV7INXJFgHn9XqqTlMtgy_5rPHY_0VqxjjLMozaOH0bDiOdTyxRjQdccO72bZLTUj19qvYi-AzoGE6J3g&ved=2ahUKEwjy9ZbrzfeUAxUYOkQIHbwzKg4Q8tMDegQIHRAM
+            - text: "6"
+          - link "Page 7" [ref=e985] [cursor=pointer]:
+            - /url: /search?q=World+Cup+marketing+2026+campaign&sca_esv=2715e2732bdd0b5b&hl=en&sxsrf=ANbL-n6B3dVW77ZjaDVYomXVFv_5rYlrFQ:1780920493657&ei=rbAmarLrJ5j0kPIPvOeocQ&start=60&sa=N&sstk=AU9db-AWvWuHNVBCAM4iTDV7INXJFgHn9XqqTlMtgy_5rPHY_0VqxjjLMozaOH0bDiOdTyxRjQdccO72bZLTUj19qvYi-AzoGE6J3g&ved=2ahUKEwjy9ZbrzfeUAxUYOkQIHbwzKg4Q8tMDegQIHRAO
+            - text: "7"
+          - link "Page 8" [ref=e987] [cursor=pointer]:
+            - /url: /search?q=World+Cup+marketing+2026+campaign&sca_esv=2715e2732bdd0b5b&hl=en&sxsrf=ANbL-n6B3dVW77ZjaDVYomXVFv_5rYlrFQ:1780920493657&ei=rbAmarLrJ5j0kPIPvOeocQ&start=70&sa=N&sstk=AU9db-AWvWuHNVBCAM4iTDV7INXJFgHn9XqqTlMtgy_5rPHY_0VqxjjLMozaOH0bDiOdTyxRjQdccO72bZLTUj19qvYi-AzoGE6J3g&ved=2ahUKEwjy9ZbrzfeUAxUYOkQIHbwzKg4Q8tMDegQIHRAQ
+            - text: "8"
+          - link "Page 9" [ref=e989] [cursor=pointer]:
+            - /url: /search?q=World+Cup+marketing+2026+campaign&sca_esv=2715e2732bdd0b5b&hl=en&sxsrf=ANbL-n6B3dVW77ZjaDVYomXVFv_5rYlrFQ:1780920493657&ei=rbAmarLrJ5j0kPIPvOeocQ&start=80&sa=N&sstk=AU9db-AWvWuHNVBCAM4iTDV7INXJFgHn9XqqTlMtgy_5rPHY_0VqxjjLMozaOH0bDiOdTyxRjQdccO72bZLTUj19qvYi-AzoGE6J3g&ved=2ahUKEwjy9ZbrzfeUAxUYOkQIHbwzKg4Q8tMDegQIHRAS
+            - text: "9"
+          - link "Page 10" [ref=e991] [cursor=pointer]:
+            - /url: /search?q=World+Cup+marketing+2026+campaign&sca_esv=2715e2732bdd0b5b&hl=en&sxsrf=ANbL-n6B3dVW77ZjaDVYomXVFv_5rYlrFQ:1780920493657&ei=rbAmarLrJ5j0kPIPvOeocQ&start=90&sa=N&sstk=AU9db-AWvWuHNVBCAM4iTDV7INXJFgHn9XqqTlMtgy_5rPHY_0VqxjjLMozaOH0bDiOdTyxRjQdccO72bZLTUj19qvYi-AzoGE6J3g&ved=2ahUKEwjy9ZbrzfeUAxUYOkQIHbwzKg4Q8tMDegQIHRAU
+            - text: "10"
+          - heading "Next" [level=2] [ref=e993]:
+            - link "Next" [ref=e994] [cursor=pointer]:
+              - /url: /search?q=World+Cup+marketing+2026+campaign&sca_esv=2715e2732bdd0b5b&hl=en&sxsrf=ANbL-n6B3dVW77ZjaDVYomXVFv_5rYlrFQ:1780920493657&ei=rbAmarLrJ5j0kPIPvOeocQ&start=10&sa=N&sstk=AU9db-AWvWuHNVBCAM4iTDV7INXJFgHn9XqqTlMtgy_5rPHY_0VqxjjLMozaOH0bDiOdTyxRjQdccO72bZLTUj19qvYi-AzoGE6J3g&ved=2ahUKEwjy9ZbrzfeUAxUYOkQIHbwzKg4Q8NMDegQIHRAW
+              - generic [ref=e996]: Next
+      - navigation
+    - contentinfo [ref=e997]:
+      - heading "Footer Links" [level=1] [ref=e998]
+      - generic [ref=e1002]:
+        - generic [ref=e1005]:
+          - generic [ref=e1006]: Results are personalized
+          - generic [ref=e1007]: "-"
+          - link "Try without personalization" [ref=e1009] [cursor=pointer]:
+            - /url: https://www.google.com/search?q=World+Cup+marketing+2026+campaign&hl=en&peek_pws=0&sxsrf=ANbL-n6B3dVW77ZjaDVYomXVFv_5rYlrFQ:1780920493657
+            - generic [ref=e1010]: Try without personalization
+        - generic [ref=e1014]:
+          - button "California - Based on your past activity" [ref=e1016] [cursor=pointer]:
+            - generic [ref=e1017]: California
+            - generic [ref=e1019]:
+              - text: "-"
+              - generic [ref=e1020]: Based on your past activity
+          - text: "-"
+          - button "Update location" [ref=e1022] [cursor=pointer]: Update location
+        - generic [ref=e1025]:
+          - link "Help" [ref=e1026] [cursor=pointer]:
+            - /url: https://support.google.com/websearch/?p=ws_results_help&hl=en&fg=1
+          - link "Send feedback" [ref=e1027] [cursor=pointer]:
+            - /url: "#"
+          - link "Privacy" [ref=e1028] [cursor=pointer]:
+            - /url: https://policies.google.com/privacy?hl=en&fg=1
+          - link "Terms" [ref=e1029] [cursor=pointer]:
+            - /url: https://policies.google.com/terms?hl=en&fg=1

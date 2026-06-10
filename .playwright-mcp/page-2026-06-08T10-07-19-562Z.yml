@@ -1,0 +1,226 @@
+- generic [active] [ref=e1]:
+  - banner [ref=e2]:
+    - button "跳至内容" [ref=e4] [cursor=pointer]:
+      - generic [ref=e6]: 跳至内容
+    - button "辅助功能反馈" [ref=e7] [cursor=pointer]:
+      - generic [ref=e9]: 辅助功能反馈
+    - generic [ref=e10]:
+      - link "返回到必应搜索" [ref=e11] [cursor=pointer]:
+        - /url: /?FORM=Z9FD1
+        - heading "返回到必应搜索" [level=1] [ref=e12]
+      - search [ref=e13]:
+        - button "搜索" [ref=e16] [cursor=pointer]
+        - searchbox "在此处输入你的搜索 — 输入时会显示搜索建议" [ref=e17]: 懂球帝 世界杯营销 2026年6月
+    - complementary "帐户奖励和偏好设置" [ref=e21]:
+      - button "Microsoft Rewards" [ref=e22] [cursor=pointer]
+      - link "登录" [ref=e23] [cursor=pointer]:
+        - /url: javascript:void(0)
+        - generic "登录" [ref=e24]
+    - generic:
+      - generic "国内版" [ref=e25]
+      - generic "国际版" [ref=e26] [cursor=pointer]
+    - navigation "主菜单" [ref=e27]:
+      - list [ref=e28]:
+        - listitem [ref=e29]:
+          - link "网页" [ref=e30] [cursor=pointer]:
+            - /url: /?scope=web&FORM=HDRSC1
+        - listitem [ref=e31]:
+          - link "图片" [ref=e32] [cursor=pointer]:
+            - /url: /images/search?q=%e6%87%82%e7%90%83%e5%b8%9d+%e4%b8%96%e7%95%8c%e6%9d%af%e8%90%a5%e9%94%80+2026%e5%b9%b46%e6%9c%88&FORM=HDRSC2
+        - listitem [ref=e33]:
+          - link "视频" [ref=e34] [cursor=pointer]:
+            - /url: /videos/search?q=%e6%87%82%e7%90%83%e5%b8%9d+%e4%b8%96%e7%95%8c%e6%9d%af%e8%90%a5%e9%94%80+2026%e5%b9%b46%e6%9c%88&FORM=HDRSC3
+        - listitem [ref=e35]:
+          - link "学术" [ref=e36] [cursor=pointer]:
+            - /url: /academic/search?q=%e6%87%82%e7%90%83%e5%b8%9d+%e4%b8%96%e7%95%8c%e6%9d%af%e8%90%a5%e9%94%80+2026%e5%b9%b46%e6%9c%88&FORM=HDRSC4
+        - listitem [ref=e37]:
+          - link "词典" [ref=e38] [cursor=pointer]:
+            - /url: /dict/search?q=%e6%87%82%e7%90%83%e5%b8%9d+%e4%b8%96%e7%95%8c%e6%9d%af%e8%90%a5%e9%94%80+2026%e5%b9%b46%e6%9c%88&FORM=HDRSC6
+        - listitem [ref=e39]:
+          - link "地图" [ref=e40] [cursor=pointer]:
+            - /url: /maps?q=%e6%87%82%e7%90%83%e5%b8%9d+%e4%b8%96%e7%95%8c%e6%9d%af%e8%90%a5%e9%94%80+2026%e5%b9%b46%e6%9c%88&FORM=HDRSC7
+        - listitem [ref=e41]:
+          - button "更多" [ref=e42] [cursor=pointer]:
+            - img [ref=e44]
+            - text: 更多
+  - generic [ref=e46]:
+    - main "搜索结果" [ref=e47]:
+      - generic [ref=e49]: 约 50,300 个结果
+      - list [ref=e60]:
+        - listitem [ref=e61]:
+          - link "新浪" [ref=e63] [cursor=pointer]:
+            - /url: https://k.sina.com.cn/article_7857201856_1d45362c0019056hkk.html
+            - generic [ref=e68]:
+              - generic [ref=e69]: 新浪
+              - generic [ref=e72]: https://k.sina.com.cn
+          - heading "品牌营销战升温，“中国制造”如何玩转世界杯|世界杯|懂球帝 ..." [level=2] [ref=e73]:
+            - link "品牌营销战升温，“中国制造”如何玩转世界杯|世界杯|懂球帝 ..." [ref=e74] [cursor=pointer]:
+              - /url: https://k.sina.com.cn/article_7857201856_1d45362c0019056hkk.html
+              - text: 品牌
+              - strong [ref=e75]: 营销
+              - text: 战升温，“中国制造”如何玩转
+              - strong [ref=e76]: 世界杯
+              - text: "|"
+              - strong [ref=e77]: 世界杯
+              - text: "|"
+              - strong [ref=e78]: 懂球帝
+              - text: ...
+          - paragraph [ref=e80]: 2026年5月7日 · 万达、海信、蒙牛等来自中国的多家“金主”豪掷重金，拿下了本届世界杯赞助商名额，咪咕、抖音斥资超过10亿元，拿 …
+        - listitem [ref=e81]:
+          - link "cctvsports.com.cn" [ref=e83] [cursor=pointer]:
+            - /url: http://paper.cctvsports.com.cn/html/2026/06/06/content_20260606909.htm
+            - generic [ref=e88]:
+              - generic [ref=e89]: cctvsports.com.cn
+              - generic [ref=e92]: http://paper.cctvsports.com.cn › html › content...
+          - heading "无论冠军花落谁家，世界杯互动福利尽在蒙牛" [level=2] [ref=e93]:
+            - link "无论冠军花落谁家，世界杯互动福利尽在蒙牛" [ref=e94] [cursor=pointer]:
+              - /url: http://paper.cctvsports.com.cn/html/2026/06/06/content_20260606909.htm
+              - text: 无论冠军花落谁家，
+              - strong [ref=e95]: 世界杯
+              - text: 互动福利尽在蒙牛
+          - paragraph [ref=e97]: 2 天之前 · 进入6月，营销界迎来世界杯时刻。作为FIFA世界杯全球官方赞助商的蒙牛，于6月2日，以首部世界杯剧情推理短片正式拉 …
+        - listitem [ref=e98]:
+          - link "懂球帝" [ref=e100] [cursor=pointer]:
+            - /url: https://m.dongqiudi.com/article/4536560.html
+            - generic [ref=e105]:
+              - generic [ref=e106]: 懂球帝
+              - generic [ref=e109]: https://m.dongqiudi.com › article
+          - heading "再战美加墨？乐事发布2026世界杯宣传广告，梅西出镜|阿根廷 ..." [level=2] [ref=e110]:
+            - link "再战美加墨？乐事发布2026世界杯宣传广告，梅西出镜|阿根廷 ..." [ref=e111] [cursor=pointer]:
+              - /url: https://m.dongqiudi.com/article/4536560.html
+              - text: 再战美加墨？乐事发布
+              - strong [ref=e112]: 2026世界杯
+              - text: 宣传
+              - strong [ref=e113]: 广告
+              - text: ，梅西出镜|阿根廷 ...
+          - paragraph [ref=e115]: 2024年9月12日 · 乐事官方宣布，他们是2026年世界杯的官方零食合作伙伴。 在他们发布的最新宣传广告中，阿根廷队队长梅西作为 …
+        - listitem [ref=e116]:
+          - link "艾媒网" [ref=e118] [cursor=pointer]:
+            - /url: https://www.iimedia.cn/c400/111640.html
+            - generic [ref=e123]:
+              - generic [ref=e124]: 艾媒网
+              - generic [ref=e127]: https://www.iimedia.cn
+          - heading "艾媒咨询 | 2026年中国球迷世界杯观赛意向及营销感知洞察报告" [level=2] [ref=e128]:
+            - link "艾媒咨询 | 2026年中国球迷世界杯观赛意向及营销感知洞察报告" [ref=e129] [cursor=pointer]:
+              - /url: https://www.iimedia.cn/c400/111640.html
+              - text: 艾媒咨询 |
+              - strong [ref=e130]: 2026年
+              - text: 中国球迷
+              - strong [ref=e131]: 世界杯
+              - text: 观赛意向及
+              - strong [ref=e132]: 营销
+              - text: 感知洞察报告
+          - paragraph [ref=e134]: 2026年5月28日 · 伴随2026年美加墨世界杯中国大陆地区转播权谈判落地、版权风波尘埃落定，赛事在国内的正规传播渠道全面敲定， …
+        - listitem [ref=e135]:
+          - link "网易" [ref=e137] [cursor=pointer]:
+            - /url: https://www.163.com/dy/article/KUB3AU7N0519D4UH.html
+            - generic [ref=e142]:
+              - generic [ref=e143]: 网易
+              - generic [ref=e146]: https://www.163.com › dy › article
+          - heading "官宣！度小满成为阿根廷国家足球队中国区官方合作伙伴" [level=2] [ref=e147]:
+            - link "官宣！度小满成为阿根廷国家足球队中国区官方合作伙伴" [ref=e148] [cursor=pointer]:
+              - /url: https://www.163.com/dy/article/KUB3AU7N0519D4UH.html
+          - paragraph [ref=e150]: 中国一汽成为大冬会官方合作伙伴 2026年6月1日，度小满与阿根廷足球协会（AFA）宣布达成合作，度小满正式成为阿根廷国家足球 …
+        - listitem [ref=e151]:
+          - link "知乎专栏" [ref=e153] [cursor=pointer]:
+            - /url: https://zhuanlan.zhihu.com/p/1994184325042835768
+            - generic [ref=e158]:
+              - generic [ref=e159]: 知乎专栏
+              - generic [ref=e162]: https://zhuanlan.zhihu.com
+          - heading "2026美加墨世界杯营销 I 案例剖析：从多重维度破解世界杯 ..." [level=2] [ref=e163]:
+            - link "2026美加墨世界杯营销 I 案例剖析：从多重维度破解世界杯 ..." [ref=e164] [cursor=pointer]:
+              - /url: https://zhuanlan.zhihu.com/p/1994184325042835768
+              - strong [ref=e165]: "2026"
+              - text: 美加墨
+              - strong [ref=e166]: 世界杯营销
+              - text: I 案例剖析：从多重维度破解
+              - strong [ref=e167]: 世界杯
+              - text: ...
+          - paragraph [ref=e169]: 2026年1月12日 · 在2026这个体育大年，美加墨世界杯无疑是皇冠上的明珠。本届世界杯将成为史上规模最大、商业影响力最强的足球 …
+        - listitem [ref=e170]:
+          - link "dongqiu.org" [ref=e172] [cursor=pointer]:
+            - /url: https://dongqiu.org/
+            - generic [ref=e177]:
+              - generic [ref=e178]: dongqiu.org
+              - generic [ref=e181]: https://dongqiu.org
+          - heading "懂球帝_足球新闻_2026世界杯_NBA/CBA新闻_足球直播比分 ..." [level=2] [ref=e182]:
+            - link "懂球帝_足球新闻_2026世界杯_NBA/CBA新闻_足球直播比分 ..." [ref=e183] [cursor=pointer]:
+              - /url: https://dongqiu.org/
+              - strong [ref=e184]: 懂球帝
+              - text: _足球新闻_
+              - strong [ref=e185]: 2026世界杯
+              - text: _NBA/CBA新闻_足球直播比分 ...
+          - paragraph [ref=e187]: 懂球帝 — 足球资讯、赛事直播、比赛数据、专家预测一站式平台。 覆盖英超、西甲、德甲、意甲、法甲、中超、2026 世界杯、NBA …
+        - listitem [ref=e188]:
+          - link "hanghangsou.com" [ref=e190] [cursor=pointer]:
+            - /url: https://www.hanghangsou.com/%e6%8a%a5%e5%91%8a/19974.html
+            - generic [ref=e195]:
+              - generic [ref=e196]: hanghangsou.com
+              - generic [ref=e199]: https://www.hanghangsou.com › 报告
+          - heading "2026年世界杯营销白皮书 - 行业报告智库" [level=2] [ref=e200]:
+            - link "2026年世界杯营销白皮书 - 行业报告智库" [ref=e201] [cursor=pointer]:
+              - /url: https://www.hanghangsou.com/%e6%8a%a5%e5%91%8a/19974.html
+              - strong [ref=e202]: 2026年世界杯营销
+              - text: 白皮书 - 行业报告智库
+          - paragraph [ref=e204]: 主流社交媒体数据显示，2026 年 11 月至 2026 年 4 月 1 日期间，美加墨世界杯社媒讨论前八大关键词分别是梅西 C 罗、球队、体彩 …
+        - listitem [ref=e205]:
+          - link "中国国家品牌网" [ref=e207] [cursor=pointer]:
+            - /url: https://www.chinanationalbrand.org.cn/article/news/detail/action/news/id/49858
+            - generic [ref=e212]:
+              - generic [ref=e213]: 中国国家品牌网
+              - generic [ref=e216]: https://www.chinanationalbrand.org.cn › article › news › ...
+          - heading "阿迪耐克抢跑，运动品牌世界杯营销战端开启" [level=2] [ref=e217]:
+            - link "阿迪耐克抢跑，运动品牌世界杯营销战端开启" [ref=e218] [cursor=pointer]:
+              - /url: https://www.chinanationalbrand.org.cn/article/news/detail/action/news/id/49858
+              - text: 阿迪耐克抢跑，运动品牌
+              - strong [ref=e219]: 世界杯营销
+              - text: 战端开启
+          - paragraph [ref=e221]: 2025年11月11日 · 四年一度的国际足联世界杯将于2026年开赛，运动品牌的营销大战却早已提前打响。 11月6日，阿迪达斯在进博会国 …
+        - listitem [ref=e222]:
+          - link "界面新闻" [ref=e224] [cursor=pointer]:
+            - /url: https://www.jiemian.com/article/13616658.html
+            - generic [ref=e229]:
+              - generic [ref=e230]: 界面新闻
+              - generic [ref=e233]: https://www.jiemian.com › article
+          - heading "阿迪耐克抢跑，运动品牌世界杯营销战端开启|界面新闻 · 体育" [level=2] [ref=e234]:
+            - link "阿迪耐克抢跑，运动品牌世界杯营销战端开启|界面新闻 · 体育" [ref=e235] [cursor=pointer]:
+              - /url: https://www.jiemian.com/article/13616658.html
+              - text: 阿迪耐克抢跑，运动品牌
+              - strong [ref=e236]: 世界杯营销
+              - text: 战端开启|界面新闻 · 体育
+          - paragraph [ref=e238]: 2025年11月10日 · 四年一度的国际足联世界杯将于2026年开赛，运动品牌的营销大战却早已提前打响。 11月6日，阿迪达斯在进博会 …
+        - listitem [ref=e239]:
+          - navigation "懂球帝 世界杯营销 2026年6月 的更多搜索结果":
+            - list:
+              - listitem [ref=e240]:
+                - generic "第 1 页" [ref=e241]: "1"
+              - listitem [ref=e242]:
+                - link "第 2 页" [ref=e243] [cursor=pointer]:
+                  - /url: /search?q=%e6%87%82%e7%90%83%e5%b8%9d+%e4%b8%96%e7%95%8c%e6%9d%af%e8%90%a5%e9%94%80+2026%e5%b9%b46%e6%9c%88&setlang=zh-Hans&cc=cn&mkt=zh-CN&FPIG=E5F512FBC47E47FFB481AB19E619E153&first=10&FORM=PERE
+                  - text: "2"
+              - listitem [ref=e244]:
+                - link "第 3 页" [ref=e245] [cursor=pointer]:
+                  - /url: /search?q=%e6%87%82%e7%90%83%e5%b8%9d+%e4%b8%96%e7%95%8c%e6%9d%af%e8%90%a5%e9%94%80+2026%e5%b9%b46%e6%9c%88&setlang=zh-Hans&cc=cn&mkt=zh-CN&FPIG=E5F512FBC47E47FFB481AB19E619E153&first=20&FORM=PERE1
+                  - text: "3"
+              - listitem [ref=e246]:
+                - link "下一页" [ref=e247] [cursor=pointer]:
+                  - /url: /search?q=%e6%87%82%e7%90%83%e5%b8%9d+%e4%b8%96%e7%95%8c%e6%9d%af%e8%90%a5%e9%94%80+2026%e5%b9%b46%e6%9c%88&setlang=zh-Hans&cc=cn&mkt=zh-CN&FPIG=E5F512FBC47E47FFB481AB19E619E153&first=10&FORM=PORE
+    - complementary "更多结果" [ref=e248]:
+      - list
+  - contentinfo [ref=e249]:
+    - list [ref=e251]:
+      - listitem [ref=e252]:
+        - link "增值电信业务经营许可证：合字B2-20090007" [ref=e253] [cursor=pointer]:
+          - /url: https://dxzhgl.miit.gov.cn/dxxzsp/xkz/xkzgl/resource/qiyereport.jsp?num=caf04fa4-bd8a-4d9e-80b6-2aa1b86c1509&type=yreport
+      - listitem [ref=e254]:
+        - link "京ICP备10036305号-7" [ref=e255] [cursor=pointer]:
+          - /url: https://beian.miit.gov.cn
+      - listitem [ref=e256]:
+        - link "京公网安备11010802047360号" [ref=e257] [cursor=pointer]:
+          - /url: https://beian.mps.gov.cn/#/query/webSearch?code=11010802047360
+      - listitem [ref=e258]:
+        - link "隐私" [ref=e259] [cursor=pointer]:
+          - /url: http://go.microsoft.com/fwlink/?LinkId=521839
+      - listitem [ref=e260]:
+        - link "条款" [ref=e261] [cursor=pointer]:
+          - /url: http://go.microsoft.com/fwlink/?LinkID=246338

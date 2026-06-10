@@ -1,0 +1,494 @@
+- generic [ref=e5]:
+  - generic [ref=e6]:
+    - generic [ref=e9]:
+      - generic [ref=e11] [cursor=pointer]: 登录
+      - generic [ref=e13] [cursor=pointer]: 搜索
+      - list [ref=e15]:
+        - listitem [ref=e16]:
+          - generic [ref=e17]:
+            - link "36氪Auto" [ref=e19] [cursor=pointer]:
+              - /url: https://img.36krcdn.com/hsossms/20230605/v2_384be8e4c1e942a28cf13a2e427fe211@18900718_oswg78404oswg320oswg320_img_png
+            - link "数字时氪" [ref=e21] [cursor=pointer]:
+              - /url: https://img.36krcdn.com/hsossms/20230605/v2_636063907bdc44389b46e7db9c761a38@18900718_oswg62424oswg320oswg320_img_png
+            - link "未来消费" [ref=e23] [cursor=pointer]:
+              - /url: https://img.36krcdn.com/hsossms/20230210/v2_38d1cdabc8404b00806de58cbedb3b7b_oswg27031oswg320oswg320_img_png
+            - link "智能涌现" [ref=e25] [cursor=pointer]:
+              - /url: https://img.36krcdn.com/hsossms/20230605/v2_da74c43ba887426f8fbccaede691b844@18900718_oswg76573oswg320oswg320_img_png
+            - link "未来城市" [ref=e27] [cursor=pointer]:
+              - /url: https://img.36krcdn.com/hsossms/20230209/v2_8c2233c88a854c6496ff4f7842a9f9dd_oswg17629oswg320oswg320_img_png
+            - link "启动Power on" [ref=e29] [cursor=pointer]:
+              - /url: https://img.36krcdn.com/hsossms/20230605/v2_632f36f1c5904a539a1e57efe4497e3a@18900718_oswg63630oswg320oswg320_img_png
+            - link "36氪出海" [ref=e31] [cursor=pointer]:
+              - /url: http://letschuhai.com
+            - link "36氪研究院" [ref=e33] [cursor=pointer]:
+              - /url: https://img.36krcdn.com/hsossms/20230605/v2_89fa42090fae495ca5e45ba921ee42ff@18900718_oswg65306oswg320oswg320_img_png
+            - link "潮生TIDE" [ref=e35] [cursor=pointer]:
+              - /url: https://img.36krcdn.com/hsossms/20231204/v2_3b8447ffdda24a38a30fd839fd934baa@000000_oswg40121oswg430oswg430_img_jpeg
+            - link "36氪企服点评" [ref=e37] [cursor=pointer]:
+              - /url: https://img.36krcdn.com/hsossms/20230605/v2_c4720503500642d294b5be04064ef870@18900718_oswg58529oswg320oswg320_img_png
+            - link "36氪财经" [ref=e39] [cursor=pointer]:
+              - /url: https://img.36krcdn.com/hsossms/20230209/v2_d6d3f8b57fa04507915c48adf0f9620d_oswg16586oswg320oswg320_img_png
+            - link "职场bonus" [ref=e41] [cursor=pointer]:
+              - /url: https://img.36krcdn.com/hsossms/20230605/v2_efc94b0cce7043dbac883c1dfe00c810@18900718_oswg57046oswg320oswg320_img_png
+            - link "36碳" [ref=e43] [cursor=pointer]:
+              - /url: https://img.36krcdn.com/hsossms/20230209/v2_9eb02027be264174b61b9d49c391ca75_oswg15571oswg320oswg320_img_png
+            - link "后浪研究所" [ref=e45] [cursor=pointer]:
+              - /url: https://img.36krcdn.com/hsossms/20230605/v2_86f220b69e164751946d583b5472c857@18900718_oswg97988oswg320oswg320_img_png
+            - link "暗涌Waves" [ref=e47] [cursor=pointer]:
+              - /url: https://img.36krcdn.com/hsossms/20230209/v2_0c6a697748b54beea356d6e1f1fcec5f_oswg17066oswg320oswg320_img_png
+            - link "硬氪" [ref=e49] [cursor=pointer]:
+              - /url: https://img.36krcdn.com/hsossms/20230209/v2_2f845ed16244458d8887a5526c63c6d6_oswg17346oswg320oswg320_img_png
+            - link "氪睿研究院" [ref=e51] [cursor=pointer]:
+              - /url: https://img.36krcdn.com/hsossms/20251118/v2_d5e97c1ebb974011b0117c1338a9c747@000000_oswg146520oswg1280oswg1280_img_jpg
+          - generic [ref=e52] [cursor=pointer]: 媒体品牌
+        - listitem [ref=e53]:
+          - generic [ref=e54]:
+            - link "企业号" [ref=e56] [cursor=pointer]:
+              - /url: https://q.36kr.com
+            - link "企服点评" [ref=e58] [cursor=pointer]:
+              - /url: https://www.36dianping.com/
+            - link "36Kr研究院" [ref=e60] [cursor=pointer]:
+              - /url: https://36kr.com/academe
+            - link "36Kr创新咨询" [ref=e62] [cursor=pointer]:
+              - /url: https://innovation.36kr.com
+          - generic [ref=e63] [cursor=pointer]: 企业服务
+        - listitem [ref=e64]:
+          - generic [ref=e65]:
+            - link "核心服务" [ref=e67] [cursor=pointer]:
+              - /url: https://www.36kr.com/p/2492318105786505
+            - link "城市之窗" [ref=e69] [cursor=pointer]:
+              - /url: https://36kr.com/policy
+          - generic [ref=e70] [cursor=pointer]: 政府服务
+        - listitem [ref=e71]:
+          - generic [ref=e72]:
+            - link "创投发布" [ref=e74] [cursor=pointer]:
+              - /url: https://topics.36kr.com/topic/1645523444931974
+            - link "LP源计划" [ref=e76] [cursor=pointer]:
+              - /url: https://36kr.com/LPlan
+            - link "VClub" [ref=e78] [cursor=pointer]:
+              - /url: https://36kr.com/VClub
+            - link "VClub投资机构库" [ref=e80] [cursor=pointer]:
+              - /url: https://36kr.com/organization/
+            - link "投资机构职位推介" [ref=e82] [cursor=pointer]:
+              - /url: https://36kr.com/topics/1620276089894403
+            - link "投资人认证" [ref=e84] [cursor=pointer]:
+              - /url: https://pitchhub.36kr.com/audit-investor
+          - generic [ref=e85] [cursor=pointer]: 投资人服务
+        - listitem [ref=e86]:
+          - generic [ref=e87]:
+            - link "寻求报道" [ref=e89] [cursor=pointer]:
+              - /url: https://36kr.com/seek-report-new
+            - link "36氪Pro" [ref=e91] [cursor=pointer]:
+              - /url: https://img.36krcdn.com/hsossms/20230209/v2_95565530d4d94dc4ad904f3131c7b690_oswg23055oswg320oswg320_img_png
+            - link "创投氪堂" [ref=e93] [cursor=pointer]:
+              - /url: https://topics.36kr.com/topic/1961250130199045
+            - link "企业入驻" [ref=e95] [cursor=pointer]:
+              - /url: https://36kr.com/project-form/settled
+          - generic [ref=e96] [cursor=pointer]: 创业者服务
+        - listitem [ref=e97]:
+          - generic [ref=e98] [cursor=pointer]: 创投平台
+        - listitem [ref=e99]:
+          - generic [ref=e100] [cursor=pointer]: AI测评网
+      - generic [ref=e102]:
+        - link [ref=e103] [cursor=pointer]:
+          - /url: https://36kr.com/topics/799051634713857
+        - link [ref=e104] [cursor=pointer]:
+          - /url: http://www.bjjubao.org.cn/node_1606.html
+        - link [ref=e105] [cursor=pointer]:
+          - /url: ttps://36kr.com/topics/799051634713857
+    - generic [ref=e107]:
+      - link [ref=e108] [cursor=pointer]:
+        - /url: /
+      - generic [ref=e110]:
+        - list [ref=e112]:
+          - listitem [ref=e113]:
+            - link "首页" [ref=e115] [cursor=pointer]:
+              - /url: /
+          - listitem [ref=e116]:
+            - link "快讯" [ref=e118] [cursor=pointer]:
+              - /url: /newsflashes/
+          - listitem [ref=e119]:
+            - link "资讯" [ref=e122] [cursor=pointer]:
+              - /url: /information/web_news/
+            - generic:
+              - list [ref=e123]:
+                - listitem [ref=e124]:
+                  - link "推荐" [ref=e125] [cursor=pointer]:
+                    - /url: /information/web_recommend/
+                - listitem [ref=e126]:
+                  - link "财经" [ref=e127] [cursor=pointer]:
+                    - /url: /information/ccs/
+                - listitem [ref=e128]:
+                  - link "AI" [ref=e129] [cursor=pointer]:
+                    - /url: /information/AI/
+                - listitem [ref=e130]:
+                  - link "自助报道" [ref=e131] [cursor=pointer]:
+                    - /url: /information/aireport/
+                - listitem [ref=e132]:
+                  - link "浙江" [ref=e133] [cursor=pointer]:
+                    - /url: /local/zhejiang
+              - list [ref=e134]:
+                - listitem [ref=e135]:
+                  - link "最新" [ref=e136] [cursor=pointer]:
+                    - /url: /information/web_news/latest/
+                - listitem [ref=e137]:
+                  - link "创投" [ref=e138] [cursor=pointer]:
+                    - /url: /information/contact/
+                - listitem [ref=e139]:
+                  - link "汽车" [ref=e140] [cursor=pointer]:
+                    - /url: /information/travel/
+                - listitem [ref=e141]:
+                  - link "科技" [ref=e142] [cursor=pointer]:
+                    - /url: /information/technology/
+                - listitem [ref=e143]:
+                  - link "专精特新" [ref=e144] [cursor=pointer]:
+                    - /url: /information/shuzihua/
+          - listitem [ref=e145]:
+            - link "直播" [ref=e147] [cursor=pointer]:
+              - /url: /live/channel
+          - listitem [ref=e148]:
+            - link "视频" [ref=e150] [cursor=pointer]:
+              - /url: /video/
+          - listitem [ref=e151]:
+            - link "专题" [ref=e153] [cursor=pointer]:
+              - /url: /topics/
+          - listitem [ref=e154]:
+            - link "活动" [ref=e156] [cursor=pointer]:
+              - /url: /activity
+        - generic [ref=e158] [cursor=pointer]: 搜索
+        - link "寻求报道" [ref=e162] [cursor=pointer]:
+          - /url: /seek-report-new?t=1780913392174
+          - text: 寻求报道
+        - generic [ref=e164] [cursor=pointer]: 我要入驻
+        - link "城市合作" [ref=e166] [cursor=pointer]:
+          - /url: /station-business
+          - text: 城市合作
+    - generic [ref=e170]:
+      - generic:
+        - generic:
+          - generic:
+            - generic [ref=e171]:
+              - generic [ref=e174]:
+                - generic [ref=e176]:
+                  - heading "史上科技感最足的世界杯要来了？" [level=1] [ref=e177]
+                  - generic [ref=e178]:
+                    - link "红杉汇" [ref=e179] [cursor=pointer]:
+                      - /url: /user/284012190
+                    - generic [ref=e180]: ·2026年06月08日 08:40
+                  - generic [ref=e181]: 引入多项AI技术
+                - generic [ref=e183]:
+                  - blockquote [ref=e184]:
+                    - paragraph [ref=e185]:
+                      - strong [ref=e186]: 要点速览
+                    - paragraph [ref=e187]: · 本文盘点了即将举行的美加墨世界杯上出现的“黑科技”——从判罚系统到战术分析，从官方用球到裁判装备，AI与传感器正在以前所未有的深度重写这项运动的底层逻辑。
+                    - paragraph [ref=e188]: · AI技术方面：1200多名球员完成3D全身扫描，AI数字分身深度整合进判罚与转播系统；生成式AI战术助手Football AI Pro首次向48支球队平等开放，自然语言即可调取数据分析；裁判第一视角摄像头配备AI防抖算法，2026年起正式成为全球转播信号的一部分。
+                    - paragraph [ref=e189]: · 传感器技术方面：半自动越位技术全面升级，判罚精度从50厘米提升至10厘米，耗时从70秒压缩至25秒以内；官方用球Trionda内置14克传感器，以500Hz频率精确捕捉每一次触球的确切时刻。
+                  - paragraph [ref=e190]:
+                    - img [ref=e191]
+                  - paragraph [ref=e192]: 本文图源：FIFA官网
+                  - paragraph [ref=e193]: 本周，美加墨世界杯将拉开帷幕。这是历史上首届由三个国家联合举办的世界杯。48支球队、16座城市、104场比赛——规模的扩张之外，这届赛事的一大亮点是科技含量极高：AI、3D重建与高精度传感器，正在系统性的改变绿茵赛场。
+                  - heading "Football AI Pro" [level=2] [ref=e194]
+                  - heading "让战术分析走进对话框" [level=2] [ref=e195]:
+                    - strong [ref=e196]: 让战术分析走进对话框
+                  - paragraph [ref=e197]: 过去，FIFA比赛结束后会向各支球队提供一份50至60页的详细数据报告，内容涵盖球员跑动距离、传球成功率、阵型变化等几十项指标。这些报告信息量庞大，却需要专业比赛分析师团队花费大量时间进行解读——而并非所有参赛队都负担得起这样的配置。巴西、德国、法国等豪强可以派出一整套数据分析团队，而很多小国球队，往往只能拿着厚厚的PDF报告，靠有限的人力拼命消化。
+                  - paragraph [ref=e198]: 本届世界杯首次引入的Football AI Pro，试图打破这道隐形的门槛。
+                  - paragraph [ref=e199]: 这是一套基于数亿个足球历史数据点训练的生成式AI知识助手，面向全部48支参赛球队免费开放。教练或分析师无需再逐页翻阅报告，而是可以直接用自然语言向系统提问——"我们最近10场的角球成功率是多少？""对手在防守端的薄弱区域在哪里？"系统会即时生成文字摘要、视频拆解或图表可视化，按需输出。
+                  - paragraph [ref=e200]: 这背后有一条明确的规则边界：Football AI Pro只能在赛前备战和赛后复盘时使用，比赛进行中不得接入——FIFA希望确保场上的胜负仍然属于球员，而非算法。
+                  - paragraph [ref=e201]:
+                    - text: 这一逻辑并不陌生。生成式AI将专业分析师的工作压缩进一个对话框，
+                    - strong [ref=e202]: 让复杂的数据解读变成门槛极低的自然语言交互
+                    - text: ——与企业软件走向SaaS的演进路径十分相似。
+                  - heading "AI数字分身" [level=2] [ref=e203]:
+                    - strong [ref=e204]: AI数字分身
+                  - heading "1200多人，高精度虚拟形象" [level=2] [ref=e205]:
+                    - strong [ref=e206]: 1200多人，高精度虚拟形象
+                  - paragraph [ref=e207]:
+                    - text: 2026年世界杯上的1200多名球员将拥有
+                    - strong [ref=e208]: 专属3D数字分身
+                    - text: 。
+                  - paragraph [ref=e209]: 在赛事媒体日期间，每位参赛球员都将完成一次全身3D扫描。整个过程极为快速，但生成的高精度虚拟形象，将在整个赛事期间持续发挥作用。
+                  - paragraph [ref=e210]: 最直接的应用，是与半自动越位技术（SAOT）的深度整合。传统的越位判罚依赖人工画线，而数字分身系统可以实时重建球员的精确身体姿态——手臂的位置、肩膀的角度、脚尖的朝向——在快速运动或球员相互遮挡的情况下，这些细节往往是争议的核心。有了数字分身，裁判和VAR可以从任意角度审视同一帧画面中的每一个身体部位，而不再受制于摄像机的固定视角。
+                  - paragraph [ref=e211]: 数字分身还解锁了一项此前难以实现的功能：视线判断。足球规则中，处于越位位置的球员只有在"积极参与比赛"时才构成越位；而是否"干扰守门员视线"，正是判定"积极参与"的核心依据之一。当一名可能处于越位位置的进攻球员站在守门员面前时，VAR可以调出3D重建模型，精确模拟守门员在那一刻的视野范围——守门员究竟能不能看到来球？这个问题第一次有了可供客观审查的答案。
+                  - paragraph [ref=e212]: 对于球迷而言，电视转播中的越位回放将从过去的二维画线图，升级为更接近游戏引擎质感的3D动态渲染，判罚依据一目了然。
+                  - paragraph [ref=e213]:
+                    - img [ref=e214]
+                  - heading "半自动越位" [level=2] [ref=e215]:
+                    - strong [ref=e216]: 半自动越位
+                  - heading "从70秒到25秒" [level=2] [ref=e217]:
+                    - strong [ref=e218]: 从70秒到25秒
+                  - paragraph [ref=e219]: 越位，是足球规则中最容易引发争议的判罚之一。在2022年卡塔尔世界杯上，半自动越位技术（SAOT）已经初次亮相，将判罚平均耗时压缩至70秒左右。而在2026年，这套系统经历了全面迭代。
+                  - paragraph [ref=e220]:
+                    - text: 变化首先体现在精度上。上届世界杯的系统仅在球员越位超过50厘米时才会触发警报，而本届将阈值降低至10厘米——那些
+                    - strong [ref=e221]: 曾经因为"差一点儿"而引发无尽争议的判罚，将第一次拥有毫厘级别的精确依据
+                    - text: 。
+                  - paragraph [ref=e222]: 速度的提升同样显著。平均判罚耗时从70秒进一步压缩至25秒，裁判将直接通过耳麦接收音频警报，不再需要经由VAR中转传递。这一流程的简化，减少了比赛因等待判罚而陷入漫长停滞的情形。
+                  - paragraph [ref=e223]: 支撑这套系统运转的，是每座场馆新安装的16个光学跟踪摄像机——相比卡塔尔世界杯的12个增加了三分之一。每场比赛，这些摄像机将实时产生海量跟踪数据点，覆盖场上每一名球员的骨骼结构与运动轨迹。
+                  - paragraph [ref=e224]:
+                    - img [ref=e225]
+                  - heading "Trionda" [level=2] [ref=e226]:
+                    - strong [ref=e227]: Trionda
+                  - heading "一颗足球里的物理实验室" [level=2] [ref=e228]:
+                    - strong [ref=e229]: 一颗足球里的物理实验室
+                  - paragraph [ref=e230]: 每届世界杯的官方用球都会成为一个技术符号。2026年的官方用球名为Trionda——在西班牙语中意为"三重浪"，致敬本次三个举办国。但这颗球真正引人关注的，不是外观，而是内部那枚14克的传感器。
+                  - paragraph [ref=e231]: 传感器以500Hz的采样率持续运作——每秒钟采集500个数据点。这个频率远超主流广播帧率，意味着即便是最迅猛的射门或最刁钻的弧线球，球的运动轨迹也能被以毫秒为单位精确还原。传感器同时测量三维加速度、旋转角速度和运动轨迹，可以精确识别每一次触球发生的确切时刻——也就是所谓的"踢球点"。
+                  - paragraph [ref=e232]: "\"踢球点\"是整个越位判罚体系的时间锚点。越位的判定，必须以球离脚的瞬间为基准；而在此之前，哪怕快一帧，判罚的合法性就会产生根本性的动摇。500Hz的传感器，将这个时间锚点的误差压缩到了人眼和普通摄像机都无法企及的精度。"
+                  - paragraph [ref=e233]: 在续航层面，Trionda的传感器单次充电可工作6小时，足以覆盖一场包含加时赛和点球决战的完整比赛。传感器数据与场馆内的光学跟踪摄像机实时同步，与VAR系统共同构成独立冗余的判罚保障——两套系统互相校验，进一步降低误判概率。
+                  - paragraph [ref=e234]:
+                    - img [ref=e235]
+                  - heading "裁判的眼睛" [level=2] [ref=e236]:
+                    - strong [ref=e237]: 裁判的眼睛
+                  - heading "AI防抖如何重建第一视角" [level=2] [ref=e238]:
+                    - strong [ref=e239]: AI防抖如何重建第一视角
+                  - paragraph [ref=e240]: 2025年FIFA俱乐部世界杯上，裁判第一视角摄像头首次进行了大规模试验。但这套系统面临一个棘手的物理现实：裁判在场上需要持续跑动、急停、跳跃，剧烈的身体运动带来的画面抖动，让大量素材无法使用。
+                  - paragraph [ref=e241]: 解决这一问题的核心，是专门针对运动模糊开发的AI防抖算法。与传统光学防抖不同，AI防抖通过对视频流中每一帧进行实时分析，识别摄像机的运动向量，再对每帧画面进行反向补偿稳定处理——这一过程需要在毫秒级延迟内完成，以确保画面同步进入转播信号。训练这套算法面临的主要挑战是数据分布：运动员奔跑产生的抖动模式，在频率和幅度上都与手持摄影或车载拍摄有本质差异，需要针对性的训练样本和损失函数设计。
+                  - paragraph [ref=e242]: 经过防抖处理的裁判视角画面，将在2026年世界杯正式成为全球转播信号的一部分。它的价值不止于观赏——对于教练团队和医疗人员而言，裁判当时所处位置的第一视角，可以在球员发生碰撞或疑似受伤时，为伤情评估提供额外的参考维度。
+                  - paragraph [ref=e243]: 每一届世界杯，都是一个全球性的技术验证场。
+                  - paragraph [ref=e244]: 从门线技术到VAR，从半自动越位到AI数字分身，足球用了很长时间，才开始系统性地用传感器和算法重新定义比赛的边界。2026年世界杯将出现的这些技术——毫秒级的触球识别、自然语言驱动的战术分析、AI防抖与3D重建——并非专属于足球的发明，它们是IoT、生成式AI和计算机视觉在一个极端场景下的集中验证。
+                  - paragraph [ref=e245]: 那么终极问题来了：本届世界杯，你支持哪支球队？欢迎在留言区讨论。
+                  - paragraph [ref=e246]:
+                    - text: 本文来自微信公众号
+                    - link "“红杉汇”（ID：Sequoiacap）" [ref=e247] [cursor=pointer]:
+                      - /url: https://mp.weixin.qq.com/s?__biz=MzAwODE5NDg3NQ==&mid=2651293810&idx=1&sn=f6fa7b21deda86c8e9a2d8c333b70022&chksm=8104351ce218a67cf0860172d3ab4a362a06d05eb78b9c85188cd6da6e1826ebdd7ffab99bd6&scene=0&xtrack=1#rd
+                    - text: ，作者：洪衫，36氪经授权发布。
+                - paragraph [ref=e250]: 该文观点仅代表作者本人，36氪平台仅提供信息存储空间服务。
+              - generic [ref=e253]:
+                - generic [ref=e254]: 品牌专题
+                - link [ref=e256] [cursor=pointer]:
+                  - /url: https://adx.36kr.com/api/ad/click?sign=d740c4714280d5c720614a89de58a573&param.redirectUrl=aHR0cHM6Ly90b3BpY3MuMzZrci5jb20vdG9waWMvd2F2ZXMyMDI2&param.adsdk=uh1BlvUYTQjr4sS_M3x9MXVv4kDcs6O1dqdDcKcbdYMQc91sm3vRLXkoRllYAdaW4IGG6Ex6gJBQFDdkNfekCg
+              - generic [ref=e260]:
+                - generic [ref=e263] [cursor=pointer]: "3"
+                - paragraph [ref=e264]: 好文章，需要你的鼓励
+              - generic [ref=e271]:
+                - link [ref=e272] [cursor=pointer]:
+                  - /url: /user/284012190
+                - link "红杉汇" [ref=e275] [cursor=pointer]:
+                  - /url: /user/284012190
+                - generic [ref=e276]: 特邀作者
+                - generic [ref=e278]:
+                  - generic [ref=e279] [cursor=pointer]:
+                    - generic [ref=e280]: "0"
+                    - generic [ref=e281]: "0"
+                  - link [ref=e284] [cursor=pointer]:
+                    - /url: https://service.weibo.com/share/share.php?appkey=595885820&url=https://36kr.com/p/3843769850530056&title=史上科技感最足的世界杯要来了？
+                  - generic [ref=e289] [cursor=pointer]: 举报
+              - generic "参与评论" [ref=e291]:
+                - generic [ref=e292]:
+                  - generic [ref=e294]: 参与评论
+                  - generic [ref=e296]:
+                    - generic [ref=e298]: 评论千万条，友善第一条
+                    - generic [ref=e299]:
+                      - generic [ref=e300]: 登录后参与讨论
+                      - generic [ref=e301] [cursor=pointer]: 提交评论
+                      - generic [ref=e302]: 0/1000
+              - generic [ref=e304]:
+                - generic [ref=e305]: 你可能也喜欢这些文章
+                - generic [ref=e307]:
+                  - generic [ref=e308]:
+                    - link [ref=e309] [cursor=pointer]:
+                      - /url: /p/3837547310319878
+                    - link "年轻人不爱去夜店了，在运动社群找到蹦迪感" [ref=e311] [cursor=pointer]:
+                      - /url: /p/3837547310319878
+                  - generic [ref=e312]:
+                    - link [ref=e313] [cursor=pointer]:
+                      - /url: /p/3840189272640006
+                    - link "世界杯开赛在即，国际足联突然颁布“水瓶禁令”" [ref=e315] [cursor=pointer]:
+                      - /url: /p/3840189272640006
+                  - generic [ref=e316]:
+                    - link [ref=e317] [cursor=pointer]:
+                      - /url: /p/3840063353289348
+                    - link "张雪夺冠后，摩托车智能化行至何处？" [ref=e319] [cursor=pointer]:
+                      - /url: /p/3840063353289348
+                  - generic [ref=e320]:
+                    - link [ref=e321] [cursor=pointer]:
+                      - /url: /p/3839965157296647
+                    - link "胸肌贴满彪马耐克纹身，参加“苦役运动”的中产正成为免费广告牌" [ref=e323] [cursor=pointer]:
+                      - /url: /p/3839965157296647
+                  - generic [ref=e324]:
+                    - link [ref=e325] [cursor=pointer]:
+                      - /url: /p/3839975672003463
+                    - link "当“小登们”捧起世界杯" [ref=e327] [cursor=pointer]:
+                      - /url: /p/3839975672003463
+                  - generic [ref=e328]:
+                    - link [ref=e329] [cursor=pointer]:
+                      - /url: /p/3838873720916228
+                    - link "成立不到5年的运动品牌，上过3届奥运，现在又将登上世界杯" [ref=e331] [cursor=pointer]:
+                      - /url: /p/3838873720916228
+                  - generic [ref=e332]:
+                    - link [ref=e333] [cursor=pointer]:
+                      - /url: /p/3838728318306568
+                    - link "详解省超赞助升温背后：区域龙头、国资和银行为何一起入场？" [ref=e335] [cursor=pointer]:
+                      - /url: /p/3838728318306568
+                  - generic [ref=e336]:
+                    - link [ref=e337] [cursor=pointer]:
+                      - /url: /p/3838170851215623
+                    - link "世界杯上的广告，都是AI做的？" [ref=e339] [cursor=pointer]:
+                      - /url: /p/3838170851215623
+                  - generic [ref=e340]:
+                    - link [ref=e341] [cursor=pointer]:
+                      - /url: /p/3838185031305474
+                    - link "李宁需要库里，但库里更需要李宁" [ref=e343] [cursor=pointer]:
+                      - /url: /p/3838185031305474
+            - generic [ref=e344]:
+              - generic [ref=e352]:
+                - generic [ref=e353]:
+                  - link [ref=e354] [cursor=pointer]:
+                    - /url: /user/284012190
+                  - generic [ref=e357]:
+                    - link "红杉汇" [ref=e359] [cursor=pointer]:
+                      - /url: /user/284012190
+                    - generic [ref=e361]: 特邀作者
+                - paragraph [ref=e362]: 红杉中国，是创业者背后的创业者。在这里，红杉与你同行！
+                - generic [ref=e366]: 发表文章551篇
+                - generic [ref=e367]:
+                  - generic [ref=e369]:
+                    - heading "最近内容" [level=3] [ref=e370]
+                    - generic [ref=e372]:
+                      - link "史上科技感最足的世界杯要来了？" [ref=e373] [cursor=pointer]:
+                        - /url: /p/3843769850530056
+                      - generic [ref=e375]: 9小时前
+                    - generic [ref=e377]:
+                      - link "更高效vs方向感真空：扁平化的边界在哪里？" [ref=e378] [cursor=pointer]:
+                        - /url: /p/3818291628671874
+                      - generic [ref=e380]: 2026-05-21
+                    - generic [ref=e382]:
+                      - link "IEA报告：未来五年数据中心电耗将翻倍，谁来为AI供电？" [ref=e383] [cursor=pointer]:
+                        - /url: /p/3804135242096386
+                      - generic [ref=e385]: 2026-05-11
+                  - link "阅读更多内容，狠戳这里" [ref=e387] [cursor=pointer]:
+                    - /url: /user/284012190
+              - generic [ref=e393]:
+                - heading "下一篇" [level=3] [ref=e394]
+                - generic [ref=e395]:
+                  - link "AI泡沫已经在破了" [ref=e397] [cursor=pointer]:
+                    - /url: /p/3843762061806080
+                  - paragraph [ref=e398]: 拥抱变化
+                  - paragraph [ref=e399]: 9小时前
+  - generic [ref=e402]:
+    - generic [ref=e403]:
+      - generic [ref=e404]: 关于36氪
+      - generic [ref=e405]:
+        - listitem [ref=e406]:
+          - link "城市合作" [ref=e407] [cursor=pointer]:
+            - /url: /station-business
+        - listitem [ref=e408]:
+          - link "寻求报道" [ref=e409] [cursor=pointer]:
+            - /url: /seek-report-new
+        - listitem [ref=e410]: 我要入驻
+        - listitem [ref=e411]:
+          - link "投资者关系" [ref=e412] [cursor=pointer]:
+            - /url: http://ir.36kr.com
+      - generic [ref=e413]:
+        - listitem [ref=e414]: 商务合作
+        - listitem [ref=e415]:
+          - link "关于我们" [ref=e416] [cursor=pointer]:
+            - /url: /pages/about
+        - listitem [ref=e417]: 联系我们
+        - listitem [ref=e418]:
+          - link "加入我们" [ref=e419] [cursor=pointer]:
+            - /url: https://zhaopin.36kr.com
+        - listitem:
+          - link "36氪欧洲站":
+            - /url: https://eu.36kr.com
+          - link "36氪欧洲站":
+            - /url: https://eu.36kr.com/zh
+          - link "36氪欧洲站":
+            - /url: https://eu.36kr.com/de
+          - link "Ai产品日报":
+            - /url: https://www.aicpb.com
+      - link "网络谣言信息举报入口" [ref=e421] [cursor=pointer]:
+        - /url: /refute-rumor-notice
+    - generic [ref=e422]:
+      - generic [ref=e423]: 热门推荐
+      - generic [ref=e424]:
+        - listitem [ref=e425]:
+          - link "热门资讯" [ref=e426] [cursor=pointer]:
+            - /url: /hot-list/catalog
+        - listitem [ref=e427]:
+          - link "热门产品" [ref=e428] [cursor=pointer]:
+            - /url: /project
+        - listitem [ref=e429]:
+          - link "文章标签" [ref=e430] [cursor=pointer]:
+            - /url: /tags
+        - listitem [ref=e431]:
+          - link "快讯标签" [ref=e432] [cursor=pointer]:
+            - /url: /nftags
+    - generic [ref=e433]:
+      - generic [ref=e434]: 合作伙伴
+      - list [ref=e435]:
+        - listitem [ref=e436]:
+          - link "阿里云" [ref=e437] [cursor=pointer]:
+            - /url: https://www.aliyun.com/
+            - img "阿里云" [ref=e438]
+        - listitem [ref=e439]:
+          - link "火山引擎" [ref=e440] [cursor=pointer]:
+            - /url: https://www.volcengine.cn/
+            - img "火山引擎" [ref=e441]
+        - listitem [ref=e442]:
+          - img "高德" [ref=e444] [cursor=pointer]
+        - listitem [ref=e445]:
+          - link "个推" [ref=e446] [cursor=pointer]:
+            - /url: https://www.getui.com/cn/index.html
+            - img "个推" [ref=e447]
+        - listitem [ref=e448]:
+          - link "星球日报" [ref=e449] [cursor=pointer]:
+            - /url: https://www.odaily.com
+            - img "星球日报" [ref=e450]
+        - listitem [ref=e451]:
+          - link "鲸准" [ref=e452] [cursor=pointer]:
+            - /url: https://www.jingdata.com
+            - img "鲸准" [ref=e453]
+        - listitem [ref=e454]:
+          - link "氪空间" [ref=e455] [cursor=pointer]:
+            - /url: https://www.krspace.cn
+            - img "氪空间" [ref=e456]
+        - listitem [ref=e457]:
+          - link "富途牛牛" [ref=e458] [cursor=pointer]:
+            - /url: https://www.futunn.com/
+            - img "富途牛牛" [ref=e459]
+        - listitem [ref=e460]:
+          - link "企服点评" [ref=e461] [cursor=pointer]:
+            - /url: https://www.36dianping.com/pk/
+            - img "企服点评" [ref=e462]
+        - listitem [ref=e463]:
+          - link "人人都是产品经理" [ref=e464] [cursor=pointer]:
+            - /url: http://www.woshipm.com
+            - img "人人都是产品经理" [ref=e465]
+        - listitem [ref=e466]:
+          - link "领氪" [ref=e467] [cursor=pointer]:
+            - /url: https://www.36linkr.com
+            - img "领氪" [ref=e468]
+    - generic [ref=e469]:
+      - generic [ref=e470]: 36氪APP下载
+      - generic [ref=e471]: iOS & Android
+    - generic [ref=e472]:
+      - link "36氪" [ref=e473] [cursor=pointer]:
+        - /url: https://36kr.com/
+        - img "36氪" [ref=e474]
+      - generic [ref=e475]:
+        - generic [ref=e476]:
+          - text: 本站由
+          - generic [ref=e477]:
+            - link "阿里云" [ref=e478] [cursor=pointer]:
+              - /url: https://www.aliyun.com/
+            - text: 提供计算与安全服务 违法和不良信息、未成年人保护举报电话：010-89650707 举报邮箱：jubao@36kr.com
+            - link "网上有害信息举报" [ref=e479] [cursor=pointer]:
+              - /url: https://www.12377.cn
+        - generic [ref=e480]:
+          - generic [ref=e482] [cursor=pointer]: © 2011~2026 北京多氪信息科技有限公司 |
+          - link "京ICP备12031756号-6" [ref=e483] [cursor=pointer]:
+            - /url: https://beian.miit.gov.cn/#/Integrated/index
+          - text: "|"
+          - link "京ICP证150143号" [ref=e484] [cursor=pointer]:
+            - /url: https://dxzhgl.miit.gov.cn/dxxzsp/xkz/xkzgl/resource/qiyesearch.jsp?num=%25E5%258C%2597%25E4%25BA%25AC%25E5%25A4%259A%25E6%25B0%25AA%25E4%25BF%25A1%25E6%2581%25AF%25E7%25A7%2591%25E6%258A%2580%25E6%259C%2589%25E9%2599%2590%25E5%2585%25AC%25E5%258F%25B8&type=xuke
+          - text: "|"
+          - link "京公网安备11010502057322号" [ref=e485] [cursor=pointer]:
+            - /url: http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010502057322
+      - generic [ref=e486]:
+        - link "" [ref=e487] [cursor=pointer]:
+          - /url: https://weibo.com/wow36kr
+          - generic [ref=e488]: 
+        - link "" [ref=e489] [cursor=pointer]:
+          - /url: /rss-center
+          - generic [ref=e490]: 
+  - link [ref=e492] [cursor=pointer]:
+    - /url: https://36kr.com/mform/1755983296602372

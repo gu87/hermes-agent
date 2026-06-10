@@ -17,25 +17,25 @@ export const en: Translations = {
   },
 
   boot: {
-    ready: 'Hermes Desktop is ready',
+    ready: 'Seven Desktop is ready',
     desktopBootFailedWithMessage: message => `Desktop boot failed: ${message}`,
     steps: {
       connectingGateway: 'Connecting live desktop gateway',
-      loadingSettings: 'Loading Hermes settings',
+      loadingSettings: 'Loading Seven settings',
       loadingSessions: 'Loading recent sessions',
       startingDesktopConnection: 'Starting desktop connection',
-      startingHermesDesktop: 'Starting Hermes Desktop…'
+      startingHermesDesktop: 'Starting Seven Desktop…'
     },
     errors: {
-      backgroundExited: 'Hermes background process exited.',
-      backgroundExitedDuringStartup: 'Hermes background process exited during startup.',
+      backgroundExited: 'Seven background process exited.',
+      backgroundExitedDuringStartup: 'Seven background process exited during startup.',
       backendStopped: 'Backend stopped',
       desktopBootFailed: 'Desktop boot failed',
       gatewaySignInRequired: 'Gateway sign-in required',
       ipcBridgeUnavailable: 'Desktop IPC bridge is unavailable.'
     },
     failure: {
-      title: "Hermes couldn't start",
+      title: "Seven couldn't start",
       description:
         "The background gateway didn't come up. Try one of the recovery steps below. Nothing here deletes your chats or settings.",
       remoteTitle: 'Remote gateway sign-in required',
@@ -72,8 +72,8 @@ export const en: Translations = {
     copyDetailFailed: 'Could not copy notification detail',
     backendOutOfDateTitle: 'Backend out of date',
     backendOutOfDateMessage:
-      'Your Hermes backend is older than this desktop build and may not work correctly. Update to align them.',
-    updateHermes: 'Update Hermes',
+      'Your Seven backend is older than this desktop build and may not work correctly. Update to align them.',
+    updateHermes: 'Update Seven',
     updateReadyTitle: 'Update ready',
     updateReadyMessage: count => `${count} new change${count === 1 ? '' : 's'} available.`,
     seeWhatsNew: "See what's new",
@@ -81,7 +81,7 @@ export const en: Translations = {
       elevenLabsNeedsKey: 'ElevenLabs STT needs ELEVENLABS_API_KEY.',
       elevenLabsRejectedKey: 'ElevenLabs rejected the API key (401).',
       methodNotAllowed:
-        'The desktop backend rejected that request (405 Method Not Allowed). Try restarting Hermes Desktop.',
+        'The desktop backend rejected that request (405 Method Not Allowed). Try restarting Seven Desktop.',
       microphonePermission: 'Microphone permission was denied.',
       openaiRejectedApiKey: 'OpenAI rejected the API key.',
       openaiRejectedApiKeyWithStatus: status => `OpenAI rejected the API key (${status} invalid_api_key).`,
@@ -115,7 +115,7 @@ export const en: Translations = {
     exportConfig: 'Export config',
     importConfig: 'Import config',
     resetToDefaults: 'Reset to defaults',
-    resetConfirm: 'Reset all settings to Hermes defaults?',
+    resetConfirm: 'Reset all settings to Seven defaults?',
     exportFailed: 'Export failed',
     resetFailed: 'Reset failed',
     nav: {
@@ -136,7 +136,7 @@ export const en: Translations = {
       advanced: 'Advanced'
     },
     searchPlaceholder: {
-      about: 'About Hermes Desktop',
+      about: 'About Seven Desktop',
       config: 'Search settings...',
       gateway: 'Gateway connection...',
       keys: 'Search API keys...',
@@ -153,7 +153,7 @@ export const en: Translations = {
       intro:
         'These are desktop-only display preferences. Mode controls brightness; theme controls the accent palette and chat surface styling.',
       colorMode: 'Color Mode',
-      colorModeDesc: 'Pick a fixed mode or let Hermes follow your system setting.',
+      colorModeDesc: 'Pick a fixed mode or let Seven follow your system setting.',
       toolViewTitle: 'Tool Call Display',
       toolViewDesc: 'Product hides raw tool payloads; Technical shows full input/output.',
       product: 'Product',
@@ -166,7 +166,7 @@ export const en: Translations = {
     fieldLabels: FIELD_LABELS,
     fieldDescriptions: FIELD_DESCRIPTIONS,
     about: {
-      heading: 'Hermes Desktop',
+      heading: 'Seven Desktop',
       version: value => `Version ${value}`,
       versionUnavailable: 'Version unavailable',
       updates: 'Updates',
@@ -184,7 +184,7 @@ export const en: Translations = {
       justNowSuffix: ' · just now',
       automaticUpdates: 'Automatic updates',
       automaticUpdatesDesc:
-        'Hermes checks for updates automatically in the background and lets you know when one is ready.',
+        'Seven checks for updates automatically in the background and lets you know when one is ready.',
       branchCommit: (branch, commit) => `Branch ${branch} · Commit ${commit}`,
       never: 'never',
       justNow: 'just now',
@@ -299,7 +299,7 @@ export const en: Translations = {
     },
     nav: {
       newChat: { title: 'New session', detail: 'Start a fresh session' },
-      settings: { title: 'Settings', detail: 'Configure Hermes desktop' },
+      settings: { title: 'Settings', detail: 'Configure Seven desktop' },
       skills: { title: 'Skills & Tools', detail: 'Enable skills, toolsets, and providers' },
       messaging: { title: 'Messaging', detail: 'Set up Telegram, Slack, Discord, and more' },
       artifacts: { title: 'Artifacts', detail: 'Browse generated outputs' }
@@ -321,9 +321,9 @@ export const en: Translations = {
     noSessions: 'No sessions yet.',
     gatewayRunning: 'Messaging gateway running',
     gatewayStopped: 'Messaging gateway stopped',
-    hermesActiveSessions: (version, count) => `Hermes ${version} · Active sessions ${count}`,
+    hermesActiveSessions: (version, count) => `Seven ${version} · Active sessions ${count}`,
     restartMessaging: 'Restart messaging',
-    updateHermes: 'Update Hermes',
+    updateHermes: 'Update Seven',
     actionRunning: 'running',
     actionDone: 'done',
     actionFailed: 'failed',
@@ -435,7 +435,7 @@ export const en: Translations = {
     deleteDescMid: ' and remove its ',
     deleteDescSuffix: ' directory. This cannot be undone.',
     deleting: 'Deleting...',
-    createDesc: 'Profiles are independent Hermes environments: separate config, skills, and SOUL.md.',
+    createDesc: 'Profiles are independent Seven environments: separate config, skills, and SOUL.md.',
     nameLabel: 'Name',
     cloneFromDefault: 'Clone from default',
     cloneFromDefaultDesc: 'Copy config, skills, and SOUL.md from your default profile.',
@@ -523,7 +523,7 @@ export const en: Translations = {
     newCron: 'New cron',
     createFirst: 'Create first cron',
     emptyDescNew:
-      'Schedule a prompt to run on a cron expression. Hermes will run it and deliver results to the destination you pick.',
+      'Schedule a prompt to run on a cron expression. Seven will run it and deliver results to the destination you pick.',
     emptyDescSearch: 'Try a broader search query.',
     emptyTitleNew: 'No scheduled jobs yet',
     emptyTitleSearch: 'No matches',
@@ -661,12 +661,12 @@ export const en: Translations = {
 
   composer: {
     message: 'Message',
-    placeholderStarting: 'Starting Hermes...',
-    placeholderReconnecting: 'Reconnecting to Hermes…',
+    placeholderStarting: 'Starting Seven...',
+    placeholderReconnecting: 'Reconnecting to Seven…',
     placeholderFollowUp: 'Send follow-up',
     newSessionPlaceholders: [
       'What are we building?',
-      'Give Hermes a task',
+      'Give Seven a task',
       "What's on your mind?",
       'Describe what you need',
       'What should we tackle?',
@@ -723,7 +723,7 @@ export const en: Translations = {
       '↑ / ↓': 'cycle popover / history'
     },
     attachUrlTitle: 'Attach a URL',
-    attachUrlDesc: 'Hermes will fetch the page and include it as context for this turn.',
+    attachUrlDesc: 'Seven will fetch the page and include it as context for this turn.',
     urlPlaceholder: 'https://example.com/post',
     urlHintPre: 'Include the full URL, e.g. ',
     attach: 'Attach',

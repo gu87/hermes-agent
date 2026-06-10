@@ -1,0 +1,352 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - generic:
+      - link "跳到主要内容" [ref=e2] [cursor=pointer]
+      - link "无障碍功能帮助" [ref=e3] [cursor=pointer]:
+        - /url: https://support.google.com/websearch/answer/181196?hl=zh-CN
+  - generic [ref=e8]:
+    - search [ref=e9]:
+      - generic [ref=e11]:
+        - link "Google 首页" [ref=e13] [cursor=pointer]:
+          - /url: https://www.google.com/webhp?hl=zh-CN&sa=X&ved=0ahUKEwj6mpPwzfeUAxVJOUQIHc04N3AQPAgI
+          - img [ref=e14]
+        - generic [ref=e21]:
+          - generic [ref=e22]:
+            - combobox "搜索" [ref=e25]: 海信 世界杯 赞助 2026 海信 世界杯 赞助 2026
+            - generic [ref=e26]:
+              - button "清除" [ref=e28] [cursor=pointer]:
+                - img [ref=e30]
+              - generic [ref=e33]:
+                - button "按语音搜索" [ref=e34] [cursor=pointer]:
+                  - img [ref=e35]
+                - button "按图搜索" [ref=e37] [cursor=pointer]:
+                  - img [ref=e38]
+          - button "搜索" [ref=e40] [cursor=pointer]:
+            - img [ref=e43]
+    - generic [ref=e46]:
+      - button "Google 应用" [ref=e48] [cursor=pointer]:
+        - img [ref=e49]
+      - button "Google 账号： 谷如洋 (guruyang77@gmail.com)" [ref=e53] [cursor=pointer]:
+        - img [ref=e54]
+  - generic [ref=e56]:
+    - navigation [ref=e62]:
+      - generic [ref=e68]:
+        - list [ref=e69]:
+          - listitem [ref=e70]:
+            - link "AI 模式" [ref=e73] [cursor=pointer]:
+              - /url: /search?q=%E6%B5%B7%E4%BF%A1+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%B5%9E%E5%8A%A9+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n6dzJPTHh_v08eSqb_0RT59wrnbBg:1780920504082&udm=50&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVNvV7jKtLqzLZ63dd2zPtrsojpaijeJRLrp4clUvcwVLi54dOkHWv8dWQ1lqb_5yWnnFHysznsWJN-Hkwoo5xEl0bvQoo9Pq6A9ryhd_Z_O7CFKEk_CTldzL95znGxvA4tCZC0BzpNJ5q2katOx264FMjR_KoipBU8KbT6qudOKF5jlIyIiE67VFD4Jzd5yOZoHe8nQ&aep=1&ntc=1&sa=X&ved=2ahUKEwj6mpPwzfeUAxVJOUQIHc04N3AQ2J8OegQIDxAD
+              - generic [ref=e76]: AI 模式
+          - listitem [ref=e77]:
+            - link "全部" [disabled] [ref=e78]:
+              - generic [ref=e80]: 全部
+          - listitem [ref=e81]:
+            - link "图片" [ref=e82] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n6dzJPTHh_v08eSqb_0RT59wrnbBg:1780920504082&udm=2&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVNvV7jKtLqzLZ63dd2zPtrsojpaijeJRLrp4clUvcwVLi54dOkHWv8dWQ1lqb_5yWnnFHysznsWJN-Hkwoo5xEl0bvQoo9Pq6A9ryhd_Z_O7CFKEk_CTldzL95znGxvA4tCZC0BzpNJ5q2katOx264FMjR_KoipBU8KbT6qudOKF5jlIyIiE67VFD4Jzd5yOZoHe8nQ&q=%E6%B5%B7%E4%BF%A1+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%B5%9E%E5%8A%A9+2026&sa=X&ved=2ahUKEwj6mpPwzfeUAxVJOUQIHc04N3AQtKgLegQIFRAB
+              - generic [ref=e84]: 图片
+          - listitem [ref=e85]:
+            - link "视频" [ref=e86] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n6dzJPTHh_v08eSqb_0RT59wrnbBg:1780920504082&udm=7&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVNvV7jKtLqzLZ63dd2zPtrsojpaijeJRLrp4clUvcwVLi54dOkHWv8dWQ1lqb_5yWnnFHysznsWJN-Hkwoo5xEl0bvQoo9Pq6A9ryhd_Z_O7CFKEk_CTldzL95znGxvA4tCZC0BzpNJ5q2katOx264FMjR_KoipBU8KbT6qudOKF5jlIyIiE67VFD4Jzd5yOZoHe8nQ&q=%E6%B5%B7%E4%BF%A1+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%B5%9E%E5%8A%A9+2026&sa=X&ved=2ahUKEwj6mpPwzfeUAxVJOUQIHc04N3AQtKgLegQIFBAB
+              - generic [ref=e88]: 视频
+          - listitem [ref=e89]:
+            - link "新闻" [ref=e90] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n6dzJPTHh_v08eSqb_0RT59wrnbBg:1780920504082&q=%E6%B5%B7%E4%BF%A1+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%B5%9E%E5%8A%A9+2026&tbm=nws&source=lnms&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVNvV7jKtLqzLZ63dd2zPtrsojpaijeJRLrp4clUvcwVLi54dOkHWv8dWQ1lqb_5yWnnFHysznsWJN-Hkwoo5xEl0bvQoo9Pq6A9ryhd_Z_O7CFKEk_CTldzL95znGxvA4tCZC0BzpNJ5q2katOx264FMjR_KoipBU8KbT6qudOKF5jlIyIiE67VFD4Jzd5yOZoHe8nQ&sa=X&ved=2ahUKEwj6mpPwzfeUAxVJOUQIHc04N3AQ0pQJegQIEhAB
+              - generic [ref=e92]: 新闻
+          - listitem [ref=e93]:
+            - link "购物" [ref=e94] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n6dzJPTHh_v08eSqb_0RT59wrnbBg:1780920504082&udm=28&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVNvV7jKtLqzLZ63dd2zPtrsojpaijeJRLrp4clUvcwVLi54dOkHWv8dWQ1lqb_5yWnnFHysznsWJN-Hkwoo5xEl0bvQoo9Pq6A9ryhd_Z_O7CFKEk_CTldzL95znGxvA4tCZC0BzpNJ5q2katOx264FMjR_KoipBU8KbT6qudOKF5jlIyIiE67VFD4Jzd5yOZoHe8nQ&q=%E6%B5%B7%E4%BF%A1+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%B5%9E%E5%8A%A9+2026&ved=1t:220175&ictx=111
+              - generic [ref=e96]: 购物
+          - listitem [ref=e97]:
+            - link "短视频" [ref=e98] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n6dzJPTHh_v08eSqb_0RT59wrnbBg:1780920504082&udm=39&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVNvV7jKtLqzLZ63dd2zPtrsojpaijeJRLrp4clUvcwVLi54dOkHWv8dWQ1lqb_5yWnnFHysznsWJN-Hkwoo5xEl0bvQoo9Pq6A9ryhd_Z_O7CFKEk_CTldzL95znGxvA4tCZC0BzpNJ5q2katOx264FMjR_KoipBU8KbT6qudOKF5jlIyIiE67VFD4Jzd5yOZoHe8nQ&q=%E6%B5%B7%E4%BF%A1+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%B5%9E%E5%8A%A9+2026&sa=X&ved=2ahUKEwj6mpPwzfeUAxVJOUQIHc04N3AQs6gLegQIExAB
+              - generic [ref=e100]: 短视频
+          - listitem [ref=e101]:
+            - button "更多过滤条件" [ref=e102] [cursor=pointer]:
+              - generic "更多过滤条件" [ref=e103]:
+                - generic [ref=e104]:
+                  - generic [ref=e105]: 更多
+                  - img [ref=e107]
+        - button "工具" [ref=e110] [cursor=pointer]:
+          - generic [ref=e112]:
+            - generic [ref=e113]: 工具
+            - img [ref=e115]
+    - heading "搜索结果" [level=1] [ref=e117]
+    - main [ref=e123]:
+      - generic [ref=e127]:
+        - generic [ref=e130]:
+          - heading "网页搜索结果" [level=2] [ref=e131]
+          - generic [ref=e132]:
+            - generic [ref=e135]:
+              - link "中国裁判与中国企业携手亮相世界杯 - 文旅- 人民网 人民网 http://ent.people.com.cn › 文旅·体育" [ref=e137] [cursor=pointer]:
+                - /url: http://ent.people.com.cn/n1/2026/0608/c1012-40736081.html
+                - heading "中国裁判与中国企业携手亮相世界杯 - 文旅- 人民网" [level=3] [ref=e138]
+                - generic [ref=e143]:
+                  - generic [ref=e145]: 人民网
+                  - generic [ref=e147]: http://ent.people.com.cn › 文旅·体育
+              - button "关于这条结果的详细信息" [ref=e148] [cursor=pointer]:
+                - img [ref=e151]
+            - generic [ref=e154]:
+              - generic [ref=e155]:
+                - generic [ref=e156]: 6小时前
+                - text: —
+              - generic [ref=e157]:
+                - text: 与此同时，国际足联也高度认可与
+                - emphasis [ref=e158]: 海信
+                - text: RGB-MiniLED在VAR上的深入合作，其商业合作总监尼克·布朗表示，
+                - emphasis [ref=e159]: 海信
+                - text: 对技术卓越的执着追求，与国际足联的愿景高度一致——让
+                - emphasis [ref=e160]: 2026世界杯
+                - text: 成为 ...
+        - generic [ref=e164]:
+          - generic [ref=e167]:
+            - link "中国裁判与中国企业携手亮相世界杯中国技术迎来“主场时刻” 搜狐网 https://m.sohu.com › 搜狐文章页 › 海报新闻" [ref=e169] [cursor=pointer]:
+              - /url: https://m.sohu.com/a/1033834970_121332524?scm=10001.325_13-325_13.0.0-0-0-0-0.5_1334
+              - heading "中国裁判与中国企业携手亮相世界杯中国技术迎来“主场时刻”" [level=3] [ref=e170]
+              - generic [ref=e175]:
+                - generic [ref=e177]: 搜狐网
+                - generic [ref=e179]: https://m.sohu.com › 搜狐文章页 › 海报新闻
+            - button "关于这条结果的详细信息" [ref=e180] [cursor=pointer]:
+              - img [ref=e183]
+          - generic [ref=e186]:
+            - generic [ref=e187]:
+              - generic [ref=e188]: 3小时前
+              - text: —
+            - generic [ref=e189]:
+              - text: 首次参与
+              - emphasis [ref=e190]: 世界杯
+              - text: 执法的傅明看来，与
+              - emphasis [ref=e191]: 海信
+              - text: 共赴
+              - emphasis [ref=e192]: "2026"
+              - text: 美加墨
+              - emphasis [ref=e193]: 世界杯
+              - text: 更像是一年前约定的实现，“去年和
+              - emphasis [ref=e194]: 海信
+              - text: 有一个美妙的约定，希望可以代表中国一起参加
+              - emphasis [ref=e195]: 2026世界杯
+              - text: ，现在这个梦想终于 ...
+        - generic [ref=e199]:
+          - generic [ref=e202]:
+            - link "中国裁判与中国企业携手亮相世界杯中国技术迎来“主场时刻” 新浪财经 http://finance.sina.com.cn › roll › doc-iniasmvw3951997" [ref=e204] [cursor=pointer]:
+              - /url: http://finance.sina.com.cn/roll/2026-06-08/doc-iniasmvw3951997.shtml?cre=tianyi&mod=pcspth&loc=6&r=0&rfunc=73&tj=cxvertical_pc_spth&tr=12
+              - heading "中国裁判与中国企业携手亮相世界杯中国技术迎来“主场时刻”" [level=3] [ref=e205]
+              - generic [ref=e210]:
+                - generic [ref=e212]: 新浪财经
+                - generic [ref=e214]: http://finance.sina.com.cn › roll › doc-iniasmvw3951997
+            - button "关于这条结果的详细信息" [ref=e215] [cursor=pointer]:
+              - img [ref=e218]
+          - generic [ref=e221]:
+            - generic [ref=e222]:
+              - generic [ref=e223]: 8小时前
+              - text: —
+            - generic [ref=e224]:
+              - text: 与此同时，作为
+              - emphasis [ref=e225]: 2026世界杯
+              - text: 全球官方
+              - emphasis [ref=e226]: 赞助
+              - text: 商，
+              - emphasis [ref=e227]: 海信
+              - text: RGB-Mini LED电视也将进驻
+              - emphasis [ref=e228]: 世界杯
+              - text: 视频裁判中心，为赛事判罚提供显示技术支持。近日，
+              - emphasis [ref=e229]: 海信
+              - text: 官宣马宁、傅明成为RGB-Mini LED超级用户 ...
+        - generic [ref=e233]:
+          - generic [ref=e236]:
+            - link "中国裁判与海信技术共赴2026世界杯，展现中国力量 搜狐网 https://m.sohu.com › 搜狐文章页 › 社会显微镜" [ref=e238] [cursor=pointer]:
+              - /url: https://m.sohu.com/a/1033767921_122001004?scm=10001.325_13-325_13.0.0-0-0-0-0.5_1334
+              - heading "中国裁判与海信技术共赴2026世界杯，展现中国力量" [level=3] [ref=e239]
+              - generic [ref=e244]:
+                - generic [ref=e246]: 搜狐网
+                - generic [ref=e248]: https://m.sohu.com › 搜狐文章页 › 社会显微镜
+            - button "关于这条结果的详细信息" [ref=e249] [cursor=pointer]:
+              - img [ref=e252]
+          - generic [ref=e255]:
+            - generic [ref=e256]:
+              - generic [ref=e257]: 5小时前
+              - text: —
+            - generic [ref=e258]:
+              - text: 与此同时，
+              - emphasis [ref=e259]: 海信
+              - text: 作为
+              - emphasis [ref=e260]: 2026世界杯
+              - text: 的全球官方
+              - emphasis [ref=e261]: 赞助
+              - text: 商，也将为赛事的判罚提供技术支持。
+              - emphasis [ref=e262]: 海信
+              - text: 的RGB-MiniLED电视将进驻
+              - emphasis [ref=e263]: 世界杯
+              - text: 视频裁判中心，为裁判们提供更高精度、更快响应的显示技术 ...
+        - generic [ref=e267]:
+          - generic [ref=e270]:
+            - link "世界杯含中量有多高？中国元素不止于马宁和赞助商 手机网易网 https://www.163.com › article" [ref=e272] [cursor=pointer]:
+              - /url: https://www.163.com/dy/article/KUTP0H5E0529AII4.html
+              - heading "世界杯含中量有多高？中国元素不止于马宁和赞助商" [level=3] [ref=e273]
+              - generic [ref=e278]:
+                - generic [ref=e280]: 手机网易网
+                - generic [ref=e282]: https://www.163.com › article
+            - button "关于这条结果的详细信息" [ref=e283] [cursor=pointer]:
+              - img [ref=e286]
+          - generic [ref=e289]:
+            - generic [ref=e290]:
+              - generic [ref=e291]: 4小时前
+              - text: —
+            - generic [ref=e292]:
+              - text: 可以这么说，本届
+              - emphasis [ref=e293]: 世界杯
+              - text: 的含中量真的很高，不只有马宁、
+              - emphasis [ref=e294]: 海信
+              - text: 、ai技术！还有以上相关以及看不到的，未来我们真诚的希望，中国男足也能成为一份子，那到时候就真 ...
+        - generic [ref=e298]:
+          - generic [ref=e301]:
+            - link "世界杯开赛在即电视销售升温电器商趁势推优惠刺激市场 中國報 China Press https://eastcoast.chinapress.com.my › 20260608 › 世界..." [ref=e303] [cursor=pointer]:
+              - /url: https://eastcoast.chinapress.com.my/20260608/%E4%B8%96%E7%95%8C%E6%9D%AF%E5%BC%80%E8%B5%9B%E5%9C%A8%E5%8D%B3-%E7%94%B5%E8%A7%86%E9%94%80%E5%94%AE%E5%8D%87%E6%B8%A9-%E7%94%B5%E5%99%A8%E5%95%86%E8%B6%81%E5%8A%BF%E6%8E%A8%E4%BC%98%E6%83%A0/
+              - heading "世界杯开赛在即电视销售升温电器商趁势推优惠刺激市场" [level=3] [ref=e304]
+              - generic [ref=e306]:
+                - img [ref=e310]
+                - generic [ref=e312]:
+                  - generic [ref=e314]: 中國報 China Press
+                  - generic [ref=e316]: https://eastcoast.chinapress.com.my › 20260608 › 世界...
+            - button "关于这条结果的详细信息" [ref=e317] [cursor=pointer]:
+              - img [ref=e320]
+          - generic [ref=e323]:
+            - generic [ref=e324]:
+              - generic [ref=e325]: 2小时前
+              - text: —
+            - generic [ref=e326]:
+              - emphasis [ref=e327]: 海信
+              - text: 作为今年
+              - emphasis [ref=e328]: 世界杯
+              - text: 的
+              - emphasis [ref=e329]: 赞助
+              - text: 商，销量有受到刺激而增长。 瓜登. TV Box销量未掀热潮 ... 他说，政府鼓励民众下载RTM Klik应用程式，以免费观看
+              - emphasis [ref=e330]: "2026"
+              - text: 年
+              - emphasis [ref=e331]: 世界杯
+              - text: 赛事，对于足球迷无疑是个 ...
+        - generic [ref=e335]:
+          - generic [ref=e338]:
+            - link "听说2026世界杯不让带硬水瓶，是因为怕球迷砸到球员。 ... Instagram https://www.instagram.com › DZUMEArGNu_" [ref=e340] [cursor=pointer]:
+              - /url: https://www.instagram.com/p/DZUMEArGNu_/
+              - heading "听说2026世界杯不让带硬水瓶，是因为怕球迷砸到球员。 ..." [level=3] [ref=e341]
+              - generic [ref=e346]:
+                - generic [ref=e348]: Instagram
+                - generic [ref=e350]: https://www.instagram.com › DZUMEArGNu_
+            - button "关于这条结果的详细信息" [ref=e351] [cursor=pointer]:
+              - img [ref=e354]
+          - generic [ref=e358]:
+            - text: 与此同时，蒙牛、
+            - emphasis [ref=e359]: 海信
+            - text: 等
+            - emphasis [ref=e360]: 2026世界杯
+            - text: 全球官方
+            - emphasis [ref=e361]: 赞助
+            - text: 商表现得非常“稳”：不慌不忙、按计划推进，并且在五一假期已经率先开启了
+            - emphasis [ref=e362]: 2026世界杯
+            - text: 营销，从线上到线下，掀起全民参与的 ...
+        - generic [ref=e366]:
+          - generic [ref=e369]:
+            - link "世界杯官赞好物齐聚天猫，超级发布引爆球迷浪潮 新浪新闻_手机新浪网 https://news.sina.com.cn › 文章页 › 商讯" [ref=e371] [cursor=pointer]:
+              - /url: https://news.sina.com.cn/sx/2026-06-08/detail-iniaswmn5425151.shtml
+              - heading "世界杯官赞好物齐聚天猫，超级发布引爆球迷浪潮" [level=3] [ref=e372]
+              - generic [ref=e377]:
+                - generic [ref=e379]: 新浪新闻_手机新浪网
+                - generic [ref=e381]: https://news.sina.com.cn › 文章页 › 商讯
+            - button "关于这条结果的详细信息" [ref=e382] [cursor=pointer]:
+              - img [ref=e385]
+          - generic [ref=e388]:
+            - generic [ref=e389]:
+              - generic [ref=e390]: 2小时前
+              - text: —
+            - generic [ref=e391]:
+              - text: 天猫作为品牌新品首发阵地，集结了adidas、
+              - emphasis [ref=e392]: 海信
+              - text: 、蒙牛、可口可乐、乐高、ThinkPad、百威、麦当劳、FIFA官方Store等
+              - emphasis [ref=e393]: 世界杯
+              - text: 官方
+              - emphasis [ref=e394]: 赞助
+              - text: 及内容合作品牌，推出了限量联名款与 ...
+        - generic [ref=e398]:
+          - generic [ref=e401]:
+            - link "2026年美加墨世界杯倒计时，中国技术即将迎来世界主场 搜狐网 https://m.sohu.com › 搜狐文章页 › 球场观察者2024" [ref=e403] [cursor=pointer]:
+              - /url: https://m.sohu.com/a/1033767908_121924582?scm=10001.325_13-325_13.0.0-0-0-0-0.5_1334
+              - heading "2026年美加墨世界杯倒计时，中国技术即将迎来世界主场" [level=3] [ref=e404]
+              - generic [ref=e409]:
+                - generic [ref=e411]: 搜狐网
+                - generic [ref=e413]: https://m.sohu.com › 搜狐文章页 › 球场观察者2024
+            - button "关于这条结果的详细信息" [ref=e414] [cursor=pointer]:
+              - img [ref=e417]
+          - generic [ref=e420]:
+            - generic [ref=e421]:
+              - generic [ref=e422]: 5小时前
+              - text: —
+            - generic [ref=e423]:
+              - text: 与此同时，
+              - emphasis [ref=e424]: 海信
+              - text: 作为
+              - emphasis [ref=e425]: 2026世界杯
+              - text: 的全球官方
+              - emphasis [ref=e426]: 赞助
+              - text: 商，也将在
+              - emphasis [ref=e427]: 世界杯
+              - text: 视频裁判中心提供技术支持。
+              - emphasis [ref=e428]: 海信
+              - text: 的RGB-MiniLED电视将为VAR裁判提供高精度的显示技术，帮助裁判在复杂的 ...
+        - generic [ref=e432]:
+          - generic [ref=e435]:
+            - link "哈兰德无缘2026世界杯？真实赛程与观赛建议 什么值得买 https://post.smzdm.com › ..." [ref=e437] [cursor=pointer]:
+              - /url: https://post.smzdm.com/p/anv4pxo0
+              - heading "哈兰德无缘2026世界杯？真实赛程与观赛建议" [level=3] [ref=e438]
+              - generic [ref=e443]:
+                - generic [ref=e445]: 什么值得买
+                - generic [ref=e447]: https://post.smzdm.com › ...
+            - button "关于这条结果的详细信息" [ref=e448] [cursor=pointer]:
+              - img [ref=e451]
+          - generic [ref=e454]:
+            - generic [ref=e455]: 19小时前 —
+            - generic [ref=e456]:
+              - text: 国际足联为何紧盯中国市场？ ... 重磅！2026世界杯48队全部出炉！ ...
+              - emphasis [ref=e457]: 中国赞助商投入超5 亿美元赞助美加墨世界杯
+              - text: ，若世界杯不在中国转播，会造成哪些影响？谁该为此买单？ ... 全国人口 ...
+      - navigation [ref=e460]:
+        - heading "网页导航" [level=1] [ref=e461]
+        - text: "1"
+        - link "Page 2" [ref=e464] [cursor=pointer]:
+          - /url: /search?q=%E6%B5%B7%E4%BF%A1+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%B5%9E%E5%8A%A9+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n6dzJPTHh_v08eSqb_0RT59wrnbBg:1780920504082&ei=uLAmavreBMnykPIPzfHcgQc&start=10&sa=N&sstk=AU9db-DygQEXKjCUBaq5MnDk03wuIuyM4kJ0HiqJelOa7NINkIqg6Epl90g5kJSlndy__TVU-8w62F6JJRKS6VpNdvgy9HMNhFxfrQ&ved=2ahUKEwj6mpPwzfeUAxVJOUQIHc04N3AQ8tMDegQIMxAE
+          - text: "2"
+        - link "Page 3" [ref=e466] [cursor=pointer]:
+          - /url: /search?q=%E6%B5%B7%E4%BF%A1+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%B5%9E%E5%8A%A9+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n6dzJPTHh_v08eSqb_0RT59wrnbBg:1780920504082&ei=uLAmavreBMnykPIPzfHcgQc&start=20&sa=N&sstk=AU9db-DygQEXKjCUBaq5MnDk03wuIuyM4kJ0HiqJelOa7NINkIqg6Epl90g5kJSlndy__TVU-8w62F6JJRKS6VpNdvgy9HMNhFxfrQ&ved=2ahUKEwj6mpPwzfeUAxVJOUQIHc04N3AQ8tMDegQIMxAG
+          - text: "3"
+        - link "Page 4" [ref=e468] [cursor=pointer]:
+          - /url: /search?q=%E6%B5%B7%E4%BF%A1+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%B5%9E%E5%8A%A9+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n6dzJPTHh_v08eSqb_0RT59wrnbBg:1780920504082&ei=uLAmavreBMnykPIPzfHcgQc&start=30&sa=N&sstk=AU9db-DygQEXKjCUBaq5MnDk03wuIuyM4kJ0HiqJelOa7NINkIqg6Epl90g5kJSlndy__TVU-8w62F6JJRKS6VpNdvgy9HMNhFxfrQ&ved=2ahUKEwj6mpPwzfeUAxVJOUQIHc04N3AQ8tMDegQIMxAI
+          - text: "4"
+        - heading "下一页" [level=2] [ref=e470]:
+          - link "下一页" [ref=e471] [cursor=pointer]:
+            - /url: /search?q=%E6%B5%B7%E4%BF%A1+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%B5%9E%E5%8A%A9+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n6dzJPTHh_v08eSqb_0RT59wrnbBg:1780920504082&ei=uLAmavreBMnykPIPzfHcgQc&start=10&sa=N&sstk=AU9db-DygQEXKjCUBaq5MnDk03wuIuyM4kJ0HiqJelOa7NINkIqg6Epl90g5kJSlndy__TVU-8w62F6JJRKS6VpNdvgy9HMNhFxfrQ&ved=2ahUKEwj6mpPwzfeUAxVJOUQIHc04N3AQ8NMDegQIMxAK
+            - generic [ref=e473]: 下一页
+      - navigation
+    - contentinfo [ref=e474]:
+      - heading "页脚链接" [level=1] [ref=e475]
+      - generic [ref=e479]:
+        - generic [ref=e482]:
+          - generic [ref=e483]: 是个性化搜索结果
+          - generic [ref=e484]: "-"
+          - link "尝试不使用个性化功能" [ref=e486] [cursor=pointer]:
+            - /url: https://www.google.com/search?q=%E6%B5%B7%E4%BF%A1+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%B5%9E%E5%8A%A9+2026&tbs=qdr:d&hl=zh-CN&peek_pws=0&sxsrf=ANbL-n6dzJPTHh_v08eSqb_0RT59wrnbBg:1780920504082
+            - generic [ref=e487]: 尝试不使用个性化功能
+        - generic [ref=e491]:
+          - button "加利福尼亚 - 根据您的活动记录" [ref=e493] [cursor=pointer]:
+            - generic [ref=e494]: 加利福尼亚
+            - generic [ref=e496]:
+              - text: "-"
+              - generic [ref=e497]: 根据您的活动记录
+          - text: "-"
+          - button "更新位置信息" [ref=e499] [cursor=pointer]: 更新位置信息
+        - generic [ref=e502]:
+          - link "帮助" [ref=e503] [cursor=pointer]:
+            - /url: https://support.google.com/websearch/?p=ws_results_help&hl=zh-CN&fg=1
+          - link "发送反馈" [ref=e504] [cursor=pointer]:
+            - /url: "#"
+          - link "隐私权" [ref=e505] [cursor=pointer]:
+            - /url: https://policies.google.com/privacy?hl=zh-CN&fg=1
+          - link "条款" [ref=e506] [cursor=pointer]:
+            - /url: https://policies.google.com/terms?hl=zh-CN&fg=1

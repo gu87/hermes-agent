@@ -1,0 +1,331 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - generic:
+      - link "跳到主要内容" [ref=e2] [cursor=pointer]
+      - link "无障碍功能帮助" [ref=e3] [cursor=pointer]:
+        - /url: https://support.google.com/websearch/answer/181196?hl=zh-CN
+  - generic [ref=e8]:
+    - search [ref=e9]:
+      - generic [ref=e11]:
+        - link "Google 首页" [ref=e13] [cursor=pointer]:
+          - /url: https://www.google.com/webhp?hl=zh-CN&sa=X&ved=0ahUKEwjm1fnozfeUAxUOmO4BHUBJBIcQPAgI
+          - img [ref=e14]
+        - generic [ref=e21]:
+          - generic [ref=e22]:
+            - combobox "搜索" [ref=e25]: 比亚迪 世界杯 赞助 比亚迪 世界杯 赞助
+            - generic [ref=e26]:
+              - button "清除" [ref=e28] [cursor=pointer]:
+                - img [ref=e30]
+              - generic [ref=e33]:
+                - button "按语音搜索" [ref=e34] [cursor=pointer]:
+                  - img [ref=e35]
+                - button "按图搜索" [ref=e37] [cursor=pointer]:
+                  - img [ref=e38]
+          - button "搜索" [ref=e40] [cursor=pointer]:
+            - img [ref=e43]
+    - generic [ref=e46]:
+      - button "Google 应用" [ref=e48] [cursor=pointer]:
+        - img [ref=e49]
+      - button "Google 账号： 谷如洋 (guruyang77@gmail.com)" [ref=e53] [cursor=pointer]:
+        - img [ref=e54]
+  - generic [ref=e56]:
+    - navigation [ref=e62]:
+      - generic [ref=e68]:
+        - list [ref=e69]:
+          - listitem [ref=e70]:
+            - link "AI 模式" [ref=e73] [cursor=pointer]:
+              - /url: /search?q=%E6%AF%94%E4%BA%9A%E8%BF%AA+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%B5%9E%E5%8A%A9&sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n6cXKCm_Q5RAAwfi8V0dlgE7XOO5w:1780920488983&udm=50&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVtSi6kM5ZjADb03gRVWnenfhJMtO4x41VfNir3SjdVdiEKNoNmFrbJhj2T4y2iUaDZX9JQlFHJeWbDYOQG7s7o0auNa7JSQKeBwZnXCkSuOyttXt7jTzcnOZfs0s2zGyFL1cSBaHawquMwHMgkKovKsza-5qnYSR1Ef47wFaP_QE0CDx5qFdPMVDi_ydz9B3kmsvFzw&aep=1&ntc=1&sa=X&ved=2ahUKEwjm1fnozfeUAxUOmO4BHUBJBIcQ2J8OegQIERAD
+              - generic [ref=e76]: AI 模式
+          - listitem [ref=e77]:
+            - link "全部" [disabled] [ref=e78]:
+              - generic [ref=e80]: 全部
+          - listitem [ref=e81]:
+            - link "购物" [ref=e82] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n6cXKCm_Q5RAAwfi8V0dlgE7XOO5w:1780920488983&udm=28&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVtSi6kM5ZjADb03gRVWnenfhJMtO4x41VfNir3SjdVdiEKNoNmFrbJhj2T4y2iUaDZX9JQlFHJeWbDYOQG7s7o0auNa7JSQKeBwZnXCkSuOyttXt7jTzcnOZfs0s2zGyFL1cSBaHawquMwHMgkKovKsza-5qnYSR1Ef47wFaP_QE0CDx5qFdPMVDi_ydz9B3kmsvFzw&q=%E6%AF%94%E4%BA%9A%E8%BF%AA+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%B5%9E%E5%8A%A9&ved=1t:220175&ictx=111
+              - generic [ref=e84]: 购物
+          - listitem [ref=e85]:
+            - link "图片" [ref=e86] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n6cXKCm_Q5RAAwfi8V0dlgE7XOO5w:1780920488983&udm=2&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVtSi6kM5ZjADb03gRVWnenfhJMtO4x41VfNir3SjdVdiEKNoNmFrbJhj2T4y2iUaDZX9JQlFHJeWbDYOQG7s7o0auNa7JSQKeBwZnXCkSuOyttXt7jTzcnOZfs0s2zGyFL1cSBaHawquMwHMgkKovKsza-5qnYSR1Ef47wFaP_QE0CDx5qFdPMVDi_ydz9B3kmsvFzw&q=%E6%AF%94%E4%BA%9A%E8%BF%AA+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%B5%9E%E5%8A%A9&sa=X&ved=2ahUKEwjm1fnozfeUAxUOmO4BHUBJBIcQtKgLegQIFhAB
+              - generic [ref=e88]: 图片
+          - listitem [ref=e89]:
+            - link "视频" [ref=e90] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n6cXKCm_Q5RAAwfi8V0dlgE7XOO5w:1780920488983&udm=7&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVtSi6kM5ZjADb03gRVWnenfhJMtO4x41VfNir3SjdVdiEKNoNmFrbJhj2T4y2iUaDZX9JQlFHJeWbDYOQG7s7o0auNa7JSQKeBwZnXCkSuOyttXt7jTzcnOZfs0s2zGyFL1cSBaHawquMwHMgkKovKsza-5qnYSR1Ef47wFaP_QE0CDx5qFdPMVDi_ydz9B3kmsvFzw&q=%E6%AF%94%E4%BA%9A%E8%BF%AA+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%B5%9E%E5%8A%A9&sa=X&ved=2ahUKEwjm1fnozfeUAxUOmO4BHUBJBIcQtKgLegQIFBAB
+              - generic [ref=e92]: 视频
+          - listitem [ref=e93]:
+            - link "新闻" [ref=e94] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n6cXKCm_Q5RAAwfi8V0dlgE7XOO5w:1780920488983&q=%E6%AF%94%E4%BA%9A%E8%BF%AA+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%B5%9E%E5%8A%A9&tbm=nws&source=lnms&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVtSi6kM5ZjADb03gRVWnenfhJMtO4x41VfNir3SjdVdiEKNoNmFrbJhj2T4y2iUaDZX9JQlFHJeWbDYOQG7s7o0auNa7JSQKeBwZnXCkSuOyttXt7jTzcnOZfs0s2zGyFL1cSBaHawquMwHMgkKovKsza-5qnYSR1Ef47wFaP_QE0CDx5qFdPMVDi_ydz9B3kmsvFzw&sa=X&ved=2ahUKEwjm1fnozfeUAxUOmO4BHUBJBIcQ0pQJegQIFRAB
+              - generic [ref=e96]: 新闻
+          - listitem [ref=e97]:
+            - link "短视频" [ref=e98] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n6cXKCm_Q5RAAwfi8V0dlgE7XOO5w:1780920488983&udm=39&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVtSi6kM5ZjADb03gRVWnenfhJMtO4x41VfNir3SjdVdiEKNoNmFrbJhj2T4y2iUaDZX9JQlFHJeWbDYOQG7s7o0auNa7JSQKeBwZnXCkSuOyttXt7jTzcnOZfs0s2zGyFL1cSBaHawquMwHMgkKovKsza-5qnYSR1Ef47wFaP_QE0CDx5qFdPMVDi_ydz9B3kmsvFzw&q=%E6%AF%94%E4%BA%9A%E8%BF%AA+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%B5%9E%E5%8A%A9&sa=X&ved=2ahUKEwjm1fnozfeUAxUOmO4BHUBJBIcQs6gLegQIExAB
+              - generic [ref=e100]: 短视频
+          - listitem [ref=e101]:
+            - button "更多过滤条件" [ref=e102] [cursor=pointer]:
+              - generic "更多过滤条件" [ref=e103]:
+                - generic [ref=e104]:
+                  - generic [ref=e105]: 更多
+                  - img [ref=e107]
+        - button "工具" [ref=e110] [cursor=pointer]:
+          - generic [ref=e112]:
+            - generic [ref=e113]: 工具
+            - img [ref=e115]
+    - heading "搜索结果" [level=1] [ref=e117]
+    - main [ref=e123]:
+      - generic [ref=e127]:
+        - generic [ref=e130]:
+          - heading "网页搜索结果" [level=2] [ref=e131]
+          - generic [ref=e132]:
+            - generic [ref=e135]:
+              - link "一锤定音：体育赞助坚持长期主义比亚迪的做法值得称道 新浪网 https://sports.sina.cn › 文章页 › 一锤定音" [ref=e137] [cursor=pointer]:
+                - /url: https://sports.sina.cn/2026-06-08/detail-iniasfpw7240592.d.html?vt=4
+                - heading "一锤定音：体育赞助坚持长期主义比亚迪的做法值得称道" [level=3] [ref=e138]
+                - generic [ref=e143]:
+                  - generic [ref=e145]: 新浪网
+                  - generic [ref=e147]: https://sports.sina.cn › 文章页 › 一锤定音
+              - button "关于这条结果的详细信息" [ref=e148] [cursor=pointer]:
+                - img [ref=e151]
+            - generic [ref=e154]:
+              - generic [ref=e155]:
+                - generic [ref=e156]: 8小时前
+                - text: —
+              - generic [ref=e157]:
+                - text: 6月2日，
+                - emphasis [ref=e158]: 比亚迪赞助
+                - text: 的中国足球小将U12队，在意大利SIGISMONDI国际青少年杯斩获冠军。 这一赛事汇聚了全球48 支知名足球俱乐部青训梯队，对标
+                - emphasis [ref=e159]: 世界杯
+                - text: 赛制。
+        - generic [ref=e163]:
+          - generic [ref=e166]:
+            - link "意大利“小世界杯”7战狂轰21球!比亚迪护航中国足球小将U12 ... MSN https://www.msn.com › zh-cn › news › other › 点球力克..." [ref=e168] [cursor=pointer]:
+              - /url: https://www.msn.com/zh-cn/news/other/%E7%82%B9%E7%90%83%E5%8A%9B%E5%85%8B%E5%9F%83%E5%BC%97%E9%A1%BF-%E6%84%8F%E5%A4%A7%E5%88%A9-%E5%B0%8F%E4%B8%96%E7%95%8C%E6%9D%AF-7%E6%88%98%E7%8B%82%E8%BD%B021%E7%90%83%E6%AF%94%E4%BA%9A%E8%BF%AA%E6%8A%A4%E8%88%AA%E4%B8%AD%E5%9B%BD%E8%B6%B3%E7%90%83%E5%B0%8F%E5%B0%86u12%E5%85%A8%E8%83%9C%E5%A4%BA%E9%AD%81/ar-AA24O4zF
+              - heading "意大利“小世界杯”7战狂轰21球!比亚迪护航中国足球小将U12 ..." [level=3] [ref=e169]
+              - generic [ref=e174]:
+                - generic [ref=e176]: MSN
+                - generic [ref=e178]: https://www.msn.com › zh-cn › news › other › 点球力克...
+            - button "关于这条结果的详细信息" [ref=e179] [cursor=pointer]:
+              - img [ref=e182]
+          - generic [ref=e185]:
+            - generic [ref=e186]: 10小时前 —
+            - generic [ref=e187]:
+              - emphasis [ref=e188]: 比亚迪
+              - text: 自2025年
+              - emphasis [ref=e189]: 赞助
+              - text: 中国足球小将以来，持续提供海外出行保障，并链接意甲等优质资源助力孩子们走出去。合作期间，球队已斩获“2034杯”、亚洲青年冠军杯等多个冠军，不断 ...
+        - generic [ref=e193]:
+          - generic [ref=e196]:
+            - link "董路率足球小将夺冠带火了比亚迪：赞助中国足球不等于 ... 手机网易网 https://www.163.com › article" [ref=e198] [cursor=pointer]:
+              - /url: https://www.163.com/dy/article/KUT1SCBU0529BQJ7.html
+              - heading "董路率足球小将夺冠带火了比亚迪：赞助中国足球不等于 ..." [level=3] [ref=e199]
+              - generic [ref=e204]:
+                - generic [ref=e206]: 手机网易网
+                - generic [ref=e208]: https://www.163.com › article
+            - button "关于这条结果的详细信息" [ref=e209] [cursor=pointer]:
+              - img [ref=e212]
+          - generic [ref=e215]:
+            - generic [ref=e216]: 11小时前 —
+            - generic [ref=e217]:
+              - emphasis [ref=e218]: 比亚迪
+              - text: 多精明，立刻调转枪口：不投成年队，投孩子！2025 年7 月悄悄官宣
+              - emphasis [ref=e219]: 赞助
+              - text: 董路的中国足球小将，没有盛大发布会，就一条微博表态支持海外参赛。但 ...
+        - generic [ref=e223]:
+          - generic [ref=e226]:
+            - link "夺冠！中国足球小将U12 队伍创佳绩，比亚迪绿色出行为 ... 什么值得买 https://post.smzdm.com › ..." [ref=e228] [cursor=pointer]:
+              - /url: https://post.smzdm.com/p/a4q95xq8/
+              - heading "夺冠！中国足球小将U12 队伍创佳绩，比亚迪绿色出行为 ..." [level=3] [ref=e229]
+              - generic [ref=e234]:
+                - generic [ref=e236]: 什么值得买
+                - generic [ref=e238]: https://post.smzdm.com › ...
+            - button "关于这条结果的详细信息" [ref=e239] [cursor=pointer]:
+              - img [ref=e242]
+          - generic [ref=e245]:
+            - generic [ref=e246]: 13小时前 —
+            - generic [ref=e247]:
+              - text: 中国足球小将夺冠了！6月2日，由
+              - emphasis [ref=e248]: 比亚迪赞助
+              - text: 的中国足球小将U12 队伍，在意大利SIGISMONDI国际青少年杯斩获冠军。相关话题也冲上各平台热榜。 这项比赛的含金量很高，面对48 ...
+        - generic [ref=e252]:
+          - generic [ref=e255]:
+            - link "比亚迪你还有多少事瞒着我们？董路连发动态感谢比亚迪6-7 财富号 https://caifuhao.eastmoney.com › news" [ref=e257] [cursor=pointer]:
+              - /url: https://caifuhao.eastmoney.com/news/20260607210137741466420
+              - heading "比亚迪你还有多少事瞒着我们？董路连发动态感谢比亚迪6-7" [level=3] [ref=e258]
+              - generic [ref=e263]:
+                - generic [ref=e265]: 财富号
+                - generic [ref=e267]: https://caifuhao.eastmoney.com › news
+            - button "关于这条结果的详细信息" [ref=e268] [cursor=pointer]:
+              - img [ref=e271]
+          - generic [ref=e274]:
+            - generic [ref=e275]: 23小时前 —
+            - generic [ref=e276]:
+              - text: 2025年7月，
+              - emphasis [ref=e277]: 比亚迪
+              - text: 正式官宣战略合作，没有盛大发布会，没有铺天宣传，只低调承诺：全额
+              - emphasis [ref=e278]: 赞助
+              - text: 海外赛事所有开销，设立专项基金，为优秀球员提供每年50万留洋补贴。 更难得的是，
+              - emphasis [ref=e279]: 比亚迪
+              - text: ...
+        - generic [ref=e283]:
+          - generic [ref=e286]:
+            - 'link "曾被孙继海嘲讽马戏团！董路念旧情: 为了比亚迪我婉拒了 ... ZAKER新闻 https://www.myzaker.com › article" [ref=e288] [cursor=pointer]':
+              - /url: https://www.myzaker.com/article/6a2635b3b15ec01782654209
+              - 'heading "曾被孙继海嘲讽马戏团！董路念旧情: 为了比亚迪我婉拒了 ..." [level=3] [ref=e289]'
+              - generic [ref=e294]:
+                - generic [ref=e296]: ZAKER新闻
+                - generic [ref=e298]: https://www.myzaker.com › article
+            - button "关于这条结果的详细信息" [ref=e299] [cursor=pointer]:
+              - img [ref=e302]
+          - generic [ref=e305]:
+            - generic [ref=e306]:
+              - generic [ref=e307]: 9小时前
+              - text: —
+            - generic [ref=e308]:
+              - text: 董路透露，他为了
+              - emphasis [ref=e309]: 比亚迪
+              - text: ，婉拒了很多品牌的合作邀请。 众所周知，国产车企
+              - emphasis [ref=e310]: 比亚迪
+              - text: 是足球小将的
+              - emphasis [ref=e311]: 赞助
+              - text: 商。平时，董路带队出国踢比赛，
+              - emphasis [ref=e312]: 比亚迪
+              - text: 都会
+              - emphasis [ref=e313]: 赞助
+              - text: 。此外，
+              - emphasis [ref=e314]: 比亚迪
+              - text: 每年还 ...
+        - generic [ref=e318]:
+          - generic [ref=e321]:
+            - link "同獲比亞迪贊助，孫繼海與董路的青訓模式為何天差地別？ YouTube 8540+ 次观看" [ref=e323] [cursor=pointer]:
+              - /url: https://www.youtube.com/watch?v=cZ82HFyLpi4
+              - heading "同獲比亞迪贊助，孫繼海與董路的青訓模式為何天差地別？" [level=3] [ref=e324]
+              - generic [ref=e329]:
+                - generic [ref=e331]: YouTube
+                - generic [ref=e333]: 8540+ 次观看
+            - button "关于这条结果的详细信息" [ref=e334] [cursor=pointer]:
+              - img [ref=e337]
+          - generic [ref=e341]:
+            - text: This content isn't available. 同獲
+            - emphasis [ref=e342]: 比亞迪贊助
+            - text: ，孫繼海與董路的青訓模式為何 ...
+            - emphasis [ref=e343]: 世界杯
+            - text: 还没开始，加拿大却已经输了？｜同一份FIFA合同，为什么只有加拿大在流血 ...
+        - generic [ref=e347]:
+          - generic [ref=e350]:
+            - link "中国足球小将获荷兰精英杯第四名，转战巴西继续锻炼队伍 手机网易网 https://m.163.com › article" [ref=e352] [cursor=pointer]:
+              - /url: https://m.163.com/dy/article/KUT47H810514R9KQ.html?clickfrom=subscribe
+              - heading "中国足球小将获荷兰精英杯第四名，转战巴西继续锻炼队伍" [level=3] [ref=e353]
+              - generic [ref=e358]:
+                - generic [ref=e360]: 手机网易网
+                - generic [ref=e362]: https://m.163.com › article
+            - button "关于这条结果的详细信息" [ref=e363] [cursor=pointer]:
+              - img [ref=e366]
+          - generic [ref=e369]:
+            - generic [ref=e370]: 10小时前 —
+            - generic [ref=e371]:
+              - text: 该项赛事有“U12小
+              - emphasis [ref=e372]: 世界杯
+              - text: ”之称，是欧洲同年龄段标杆级国际邀请赛，48支参赛 ... 董路率足球小将夺冠带火了
+              - emphasis [ref=e373]: 比亚迪
+              - text: ：
+              - emphasis [ref=e374]: 赞助
+              - text: 中国足球不等于
+              - emphasis [ref=e375]: 赞助
+              - text: 国足. 姜大叔侃球. 董路率 ...
+        - generic [ref=e379]:
+          - generic [ref=e382]:
+            - link "足球小将热度是毒药 新浪网 https://www.sina.cn › 文章页 › 禾几日月" [ref=e384] [cursor=pointer]:
+              - /url: https://www.sina.cn/news/detail/5307554739519732.html
+              - heading "足球小将热度是毒药" [level=3] [ref=e385]
+              - generic [ref=e390]:
+                - generic [ref=e392]: 新浪网
+                - generic [ref=e394]: https://www.sina.cn › 文章页 › 禾几日月
+            - button "关于这条结果的详细信息" [ref=e395] [cursor=pointer]:
+              - img [ref=e398]
+          - generic [ref=e401]:
+            - generic [ref=e402]:
+              - generic [ref=e403]: 5小时前
+              - text: —
+            - generic [ref=e404]:
+              - text: ...
+              - emphasis [ref=e405]: 世界杯
+              - text: 冠军，小将们的对手是欧洲足球俱乐部的青训队并不是业余队，反而是小将们被国内的前国足队员评价为马戏团队。
+              - emphasis [ref=e406]: 比亚迪赞助
+              - text: 的民间爱好足球队再一次证明自己，国家花了大把.
+        - generic [ref=e410]:
+          - generic [ref=e413]:
+            - link "比亚迪护航中国足球小将欧洲夺冠：每一次启程，都是为梦想 ... 什么值得买 https://post.smzdm.com › ..." [ref=e415] [cursor=pointer]:
+              - /url: https://post.smzdm.com/p/a95xx7lo
+              - heading "比亚迪护航中国足球小将欧洲夺冠：每一次启程，都是为梦想 ..." [level=3] [ref=e416]
+              - generic [ref=e421]:
+                - generic [ref=e423]: 什么值得买
+                - generic [ref=e425]: https://post.smzdm.com › ...
+            - button "关于这条结果的详细信息" [ref=e426] [cursor=pointer]:
+              - img [ref=e429]
+          - generic [ref=e432]:
+            - generic [ref=e433]: 24小时前 —
+            - generic [ref=e434]:
+              - text: 这不是一次简单的商业
+              - emphasis [ref=e435]: 赞助
+              - text: ，而是一次价值观的深度共鸣。
+              - emphasis [ref=e436]: 比亚迪
+              - text: 始终相信：每一个勇敢出发的少年，都值得被认真护送；每一个看似遥远的梦想，都值得被全力以赴地“充电”。
+      - navigation [ref=e439]:
+        - heading "网页导航" [level=1] [ref=e440]
+        - text: "1"
+        - link "Page 2" [ref=e443] [cursor=pointer]:
+          - /url: /search?q=%E6%AF%94%E4%BA%9A%E8%BF%AA+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%B5%9E%E5%8A%A9&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n6cXKCm_Q5RAAwfi8V0dlgE7XOO5w:1780920488983&ei=qLAmaubhO46wur8PwJKRuAg&start=10&sa=N&sstk=AU9db-DtUz38b4l1_6YwKLG584Su1ErtR6i1vqQCqt20SUkfAmtiHYC8T7HwnAgcuqew4Q8MFNRp9tZJ_iHmCrhMYtIhYHJAAfnvkA&ved=2ahUKEwjm1fnozfeUAxUOmO4BHUBJBIcQ8tMDegQIJBAE
+          - text: "2"
+        - link "Page 3" [ref=e445] [cursor=pointer]:
+          - /url: /search?q=%E6%AF%94%E4%BA%9A%E8%BF%AA+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%B5%9E%E5%8A%A9&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n6cXKCm_Q5RAAwfi8V0dlgE7XOO5w:1780920488983&ei=qLAmaubhO46wur8PwJKRuAg&start=20&sa=N&sstk=AU9db-DtUz38b4l1_6YwKLG584Su1ErtR6i1vqQCqt20SUkfAmtiHYC8T7HwnAgcuqew4Q8MFNRp9tZJ_iHmCrhMYtIhYHJAAfnvkA&ved=2ahUKEwjm1fnozfeUAxUOmO4BHUBJBIcQ8tMDegQIJBAG
+          - text: "3"
+        - link "Page 4" [ref=e447] [cursor=pointer]:
+          - /url: /search?q=%E6%AF%94%E4%BA%9A%E8%BF%AA+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%B5%9E%E5%8A%A9&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n6cXKCm_Q5RAAwfi8V0dlgE7XOO5w:1780920488983&ei=qLAmaubhO46wur8PwJKRuAg&start=30&sa=N&sstk=AU9db-DtUz38b4l1_6YwKLG584Su1ErtR6i1vqQCqt20SUkfAmtiHYC8T7HwnAgcuqew4Q8MFNRp9tZJ_iHmCrhMYtIhYHJAAfnvkA&ved=2ahUKEwjm1fnozfeUAxUOmO4BHUBJBIcQ8tMDegQIJBAI
+          - text: "4"
+        - link "Page 5" [ref=e449] [cursor=pointer]:
+          - /url: /search?q=%E6%AF%94%E4%BA%9A%E8%BF%AA+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%B5%9E%E5%8A%A9&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n6cXKCm_Q5RAAwfi8V0dlgE7XOO5w:1780920488983&ei=qLAmaubhO46wur8PwJKRuAg&start=40&sa=N&sstk=AU9db-DtUz38b4l1_6YwKLG584Su1ErtR6i1vqQCqt20SUkfAmtiHYC8T7HwnAgcuqew4Q8MFNRp9tZJ_iHmCrhMYtIhYHJAAfnvkA&ved=2ahUKEwjm1fnozfeUAxUOmO4BHUBJBIcQ8tMDegQIJBAK
+          - text: "5"
+        - link "Page 6" [ref=e451] [cursor=pointer]:
+          - /url: /search?q=%E6%AF%94%E4%BA%9A%E8%BF%AA+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%B5%9E%E5%8A%A9&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n6cXKCm_Q5RAAwfi8V0dlgE7XOO5w:1780920488983&ei=qLAmaubhO46wur8PwJKRuAg&start=50&sa=N&sstk=AU9db-DtUz38b4l1_6YwKLG584Su1ErtR6i1vqQCqt20SUkfAmtiHYC8T7HwnAgcuqew4Q8MFNRp9tZJ_iHmCrhMYtIhYHJAAfnvkA&ved=2ahUKEwjm1fnozfeUAxUOmO4BHUBJBIcQ8tMDegQIJBAM
+          - text: "6"
+        - link "Page 7" [ref=e453] [cursor=pointer]:
+          - /url: /search?q=%E6%AF%94%E4%BA%9A%E8%BF%AA+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%B5%9E%E5%8A%A9&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n6cXKCm_Q5RAAwfi8V0dlgE7XOO5w:1780920488983&ei=qLAmaubhO46wur8PwJKRuAg&start=60&sa=N&sstk=AU9db-DtUz38b4l1_6YwKLG584Su1ErtR6i1vqQCqt20SUkfAmtiHYC8T7HwnAgcuqew4Q8MFNRp9tZJ_iHmCrhMYtIhYHJAAfnvkA&ved=2ahUKEwjm1fnozfeUAxUOmO4BHUBJBIcQ8tMDegQIJBAO
+          - text: "7"
+        - link "Page 8" [ref=e455] [cursor=pointer]:
+          - /url: /search?q=%E6%AF%94%E4%BA%9A%E8%BF%AA+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%B5%9E%E5%8A%A9&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n6cXKCm_Q5RAAwfi8V0dlgE7XOO5w:1780920488983&ei=qLAmaubhO46wur8PwJKRuAg&start=70&sa=N&sstk=AU9db-DtUz38b4l1_6YwKLG584Su1ErtR6i1vqQCqt20SUkfAmtiHYC8T7HwnAgcuqew4Q8MFNRp9tZJ_iHmCrhMYtIhYHJAAfnvkA&ved=2ahUKEwjm1fnozfeUAxUOmO4BHUBJBIcQ8tMDegQIJBAQ
+          - text: "8"
+        - link "Page 9" [ref=e457] [cursor=pointer]:
+          - /url: /search?q=%E6%AF%94%E4%BA%9A%E8%BF%AA+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%B5%9E%E5%8A%A9&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n6cXKCm_Q5RAAwfi8V0dlgE7XOO5w:1780920488983&ei=qLAmaubhO46wur8PwJKRuAg&start=80&sa=N&sstk=AU9db-DtUz38b4l1_6YwKLG584Su1ErtR6i1vqQCqt20SUkfAmtiHYC8T7HwnAgcuqew4Q8MFNRp9tZJ_iHmCrhMYtIhYHJAAfnvkA&ved=2ahUKEwjm1fnozfeUAxUOmO4BHUBJBIcQ8tMDegQIJBAS
+          - text: "9"
+        - link "Page 10" [ref=e459] [cursor=pointer]:
+          - /url: /search?q=%E6%AF%94%E4%BA%9A%E8%BF%AA+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%B5%9E%E5%8A%A9&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n6cXKCm_Q5RAAwfi8V0dlgE7XOO5w:1780920488983&ei=qLAmaubhO46wur8PwJKRuAg&start=90&sa=N&sstk=AU9db-DtUz38b4l1_6YwKLG584Su1ErtR6i1vqQCqt20SUkfAmtiHYC8T7HwnAgcuqew4Q8MFNRp9tZJ_iHmCrhMYtIhYHJAAfnvkA&ved=2ahUKEwjm1fnozfeUAxUOmO4BHUBJBIcQ8tMDegQIJBAU
+          - text: "10"
+        - heading "下一页" [level=2] [ref=e461]:
+          - link "下一页" [ref=e462] [cursor=pointer]:
+            - /url: /search?q=%E6%AF%94%E4%BA%9A%E8%BF%AA+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%B5%9E%E5%8A%A9&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n6cXKCm_Q5RAAwfi8V0dlgE7XOO5w:1780920488983&ei=qLAmaubhO46wur8PwJKRuAg&start=10&sa=N&sstk=AU9db-DtUz38b4l1_6YwKLG584Su1ErtR6i1vqQCqt20SUkfAmtiHYC8T7HwnAgcuqew4Q8MFNRp9tZJ_iHmCrhMYtIhYHJAAfnvkA&ved=2ahUKEwjm1fnozfeUAxUOmO4BHUBJBIcQ8NMDegQIJBAW
+            - generic [ref=e464]: 下一页
+      - navigation
+    - contentinfo [ref=e465]:
+      - heading "页脚链接" [level=1] [ref=e466]
+      - generic [ref=e470]:
+        - generic [ref=e473]:
+          - generic [ref=e474]: 是个性化搜索结果
+          - generic [ref=e475]: "-"
+          - link "尝试不使用个性化功能" [ref=e477] [cursor=pointer]:
+            - /url: https://www.google.com/search?q=%E6%AF%94%E4%BA%9A%E8%BF%AA+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%B5%9E%E5%8A%A9&tbs=qdr:d&hl=zh-CN&peek_pws=0&sxsrf=ANbL-n6cXKCm_Q5RAAwfi8V0dlgE7XOO5w:1780920488983
+            - generic [ref=e478]: 尝试不使用个性化功能
+        - generic [ref=e482]:
+          - button "加利福尼亚 - 根据您的活动记录" [ref=e484] [cursor=pointer]:
+            - generic [ref=e485]: 加利福尼亚
+            - generic [ref=e487]:
+              - text: "-"
+              - generic [ref=e488]: 根据您的活动记录
+          - text: "-"
+          - button "更新位置信息" [ref=e490] [cursor=pointer]: 更新位置信息
+        - generic [ref=e493]:
+          - link "帮助" [ref=e494] [cursor=pointer]:
+            - /url: https://support.google.com/websearch/?p=ws_results_help&hl=zh-CN&fg=1
+          - link "发送反馈" [ref=e495] [cursor=pointer]:
+            - /url: "#"
+          - link "隐私权" [ref=e496] [cursor=pointer]:
+            - /url: https://policies.google.com/privacy?hl=zh-CN&fg=1
+          - link "条款" [ref=e497] [cursor=pointer]:
+            - /url: https://policies.google.com/terms?hl=zh-CN&fg=1

@@ -105,7 +105,7 @@ function SudoDialog() {
             Administrator password
           </DialogTitle>
           <DialogDescription>
-            Hermes needs your sudo password to run a privileged command. It is sent only to your local agent.
+            Seven needs your sudo password to run a privileged command. It is sent only to your local agent.
           </DialogDescription>
         </DialogHeader>
 
@@ -201,7 +201,7 @@ function SecretDialog() {
             <KeyRound className="size-4 text-primary" />
             {request.envVar || 'Secret required'}
           </DialogTitle>
-          <DialogDescription>{request.prompt || 'Hermes needs a credential to continue.'}</DialogDescription>
+          <DialogDescription>{request.prompt || 'Seven needs a credential to continue.'}</DialogDescription>
         </DialogHeader>
 
         <form className="grid gap-3" onSubmit={onSubmit}>

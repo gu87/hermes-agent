@@ -1,0 +1,277 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - generic:
+      - link "跳到主要内容" [ref=e2] [cursor=pointer]
+      - link "无障碍功能帮助" [ref=e3] [cursor=pointer]:
+        - /url: https://support.google.com/websearch/answer/181196?hl=zh-CN
+  - generic [ref=e8]:
+    - search [ref=e9]:
+      - generic [ref=e11]:
+        - link "Google 首页" [ref=e13] [cursor=pointer]:
+          - /url: https://www.google.com/webhp?hl=zh-CN&sa=X&ved=0ahUKEwiy9IzmzfeUAxVvLEQIHW8AByYQPAgI
+          - img [ref=e14]
+        - generic [ref=e21]:
+          - generic [ref=e22]:
+            - combobox "搜索" [ref=e25]: 剑南春 世界杯 营销 剑南春 世界杯 营销
+            - generic [ref=e26]:
+              - button "清除" [ref=e28] [cursor=pointer]:
+                - img [ref=e30]
+              - generic [ref=e33]:
+                - button "按语音搜索" [ref=e34] [cursor=pointer]:
+                  - img [ref=e35]
+                - button "按图搜索" [ref=e37] [cursor=pointer]:
+                  - img [ref=e38]
+          - button "搜索" [ref=e40] [cursor=pointer]:
+            - img [ref=e43]
+    - generic [ref=e46]:
+      - button "Google 应用" [ref=e48] [cursor=pointer]:
+        - img [ref=e49]
+      - button "Google 账号： 谷如洋 (guruyang77@gmail.com)" [ref=e53] [cursor=pointer]:
+        - img [ref=e54]
+  - generic [ref=e56]:
+    - navigation [ref=e62]:
+      - generic [ref=e68]:
+        - list [ref=e69]:
+          - listitem [ref=e70]:
+            - link "AI 模式" [ref=e73] [cursor=pointer]:
+              - /url: /search?q=%E5%89%91%E5%8D%97%E6%98%A5+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80&sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n45WfzvmKkErc9f1PhX4sDB6ysuDg:1780920483007&udm=50&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVNvV7jKtLqzLZ63dd2zPtrsojpaijeJRLrp4clUvcwVLi54dOkHWv8dWQ1lqb_5yWnnFHysznsWJN-Hkwoo5xEl0tvVkPImz6dqiyxXUrOi2QVzuXcmiLSu0GzjUWoyHjv7i1dOoas9sJQfn2AcZSvZpbcoNoWpOQBsC1WAZoTbu-K_sgHk8u6mfAtv0ALTDHLoAGJA&aep=1&ntc=1&sa=X&ved=2ahUKEwiy9IzmzfeUAxVvLEQIHW8AByYQ2J8OegQIERAD
+              - generic [ref=e76]: AI 模式
+          - listitem [ref=e77]:
+            - link "全部" [disabled] [ref=e78]:
+              - generic [ref=e80]: 全部
+          - listitem [ref=e81]:
+            - link "图片" [ref=e82] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n45WfzvmKkErc9f1PhX4sDB6ysuDg:1780920483007&udm=2&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVNvV7jKtLqzLZ63dd2zPtrsojpaijeJRLrp4clUvcwVLi54dOkHWv8dWQ1lqb_5yWnnFHysznsWJN-Hkwoo5xEl0tvVkPImz6dqiyxXUrOi2QVzuXcmiLSu0GzjUWoyHjv7i1dOoas9sJQfn2AcZSvZpbcoNoWpOQBsC1WAZoTbu-K_sgHk8u6mfAtv0ALTDHLoAGJA&q=%E5%89%91%E5%8D%97%E6%98%A5+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80&sa=X&ved=2ahUKEwiy9IzmzfeUAxVvLEQIHW8AByYQtKgLegQIFxAB
+              - generic [ref=e84]: 图片
+          - listitem [ref=e85]:
+            - link "视频" [ref=e86] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n45WfzvmKkErc9f1PhX4sDB6ysuDg:1780920483007&udm=7&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVNvV7jKtLqzLZ63dd2zPtrsojpaijeJRLrp4clUvcwVLi54dOkHWv8dWQ1lqb_5yWnnFHysznsWJN-Hkwoo5xEl0tvVkPImz6dqiyxXUrOi2QVzuXcmiLSu0GzjUWoyHjv7i1dOoas9sJQfn2AcZSvZpbcoNoWpOQBsC1WAZoTbu-K_sgHk8u6mfAtv0ALTDHLoAGJA&q=%E5%89%91%E5%8D%97%E6%98%A5+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80&sa=X&ved=2ahUKEwiy9IzmzfeUAxVvLEQIHW8AByYQtKgLegQIFhAB
+              - generic [ref=e88]: 视频
+          - listitem [ref=e89]:
+            - link "新闻" [ref=e90] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n45WfzvmKkErc9f1PhX4sDB6ysuDg:1780920483007&q=%E5%89%91%E5%8D%97%E6%98%A5+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80&tbm=nws&source=lnms&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVNvV7jKtLqzLZ63dd2zPtrsojpaijeJRLrp4clUvcwVLi54dOkHWv8dWQ1lqb_5yWnnFHysznsWJN-Hkwoo5xEl0tvVkPImz6dqiyxXUrOi2QVzuXcmiLSu0GzjUWoyHjv7i1dOoas9sJQfn2AcZSvZpbcoNoWpOQBsC1WAZoTbu-K_sgHk8u6mfAtv0ALTDHLoAGJA&sa=X&ved=2ahUKEwiy9IzmzfeUAxVvLEQIHW8AByYQ0pQJegQIFRAB
+              - generic [ref=e92]: 新闻
+          - listitem [ref=e93]:
+            - link "购物" [ref=e94] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n45WfzvmKkErc9f1PhX4sDB6ysuDg:1780920483007&udm=28&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVNvV7jKtLqzLZ63dd2zPtrsojpaijeJRLrp4clUvcwVLi54dOkHWv8dWQ1lqb_5yWnnFHysznsWJN-Hkwoo5xEl0tvVkPImz6dqiyxXUrOi2QVzuXcmiLSu0GzjUWoyHjv7i1dOoas9sJQfn2AcZSvZpbcoNoWpOQBsC1WAZoTbu-K_sgHk8u6mfAtv0ALTDHLoAGJA&q=%E5%89%91%E5%8D%97%E6%98%A5+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80&ved=1t:220175&ictx=111
+              - generic [ref=e96]: 购物
+          - listitem [ref=e97]:
+            - link "短视频" [ref=e98] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n45WfzvmKkErc9f1PhX4sDB6ysuDg:1780920483007&udm=39&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVNvV7jKtLqzLZ63dd2zPtrsojpaijeJRLrp4clUvcwVLi54dOkHWv8dWQ1lqb_5yWnnFHysznsWJN-Hkwoo5xEl0tvVkPImz6dqiyxXUrOi2QVzuXcmiLSu0GzjUWoyHjv7i1dOoas9sJQfn2AcZSvZpbcoNoWpOQBsC1WAZoTbu-K_sgHk8u6mfAtv0ALTDHLoAGJA&q=%E5%89%91%E5%8D%97%E6%98%A5+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80&sa=X&ved=2ahUKEwiy9IzmzfeUAxVvLEQIHW8AByYQs6gLegQIFBAB
+              - generic [ref=e100]: 短视频
+          - listitem [ref=e101]:
+            - button "更多过滤条件" [ref=e102] [cursor=pointer]:
+              - generic "更多过滤条件" [ref=e103]:
+                - generic [ref=e104]:
+                  - generic [ref=e105]: 更多
+                  - img [ref=e107]
+        - button "工具" [ref=e110] [cursor=pointer]:
+          - generic [ref=e112]:
+            - generic [ref=e113]: 工具
+            - img [ref=e115]
+    - heading "搜索结果" [level=1] [ref=e117]
+    - main [ref=e123]:
+      - generic [ref=e127]:
+        - generic [ref=e130]:
+          - heading "网页搜索结果" [level=2] [ref=e131]
+          - generic [ref=e132]:
+            - generic [ref=e135]:
+              - link "酒价内参6月8日价格发布：五粮液普五八代小幅上涨1元 新浪财经 https://finance.sina.com.cn › doc-iniarzfw5704576" [ref=e137] [cursor=pointer]:
+                - /url: https://finance.sina.com.cn/chanjing/wddc/2026-06-08/doc-iniarzfw5704576.shtml
+                - heading "酒价内参6月8日价格发布：五粮液普五八代小幅上涨1元" [level=3] [ref=e138]
+                - generic [ref=e143]:
+                  - generic [ref=e145]: 新浪财经
+                  - generic [ref=e147]: https://finance.sina.com.cn › doc-iniarzfw5704576
+              - button "关于这条结果的详细信息" [ref=e148] [cursor=pointer]:
+                - img [ref=e151]
+            - generic [ref=e154]:
+              - generic [ref=e155]: 11小时前 —
+              - generic [ref=e156]:
+                - text: ...
+                - emphasis [ref=e157]: 剑南春
+                - text: 上涨5元/瓶，创下近一周最大涨幅，价格亦平近一月最高纪录；洋河梦之蓝 ... 拿下央视
+                - emphasis [ref=e158]: 世界杯
+                - text: 转播黄金合作伙伴，五粮液提前锁定
+                - emphasis [ref=e159]: 世界杯营销
+                - text: 高地. 市场资讯06-05 ...
+        - generic [ref=e163]:
+          - generic [ref=e166]:
+            - link "Results for \"世界杯哪里能买﹝复制网址：𝐲𝐛𝟗𝟎𝟗𝟎.𝐜𝐜﹞.bdd\" X https://x.com › Search" [ref=e168] [cursor=pointer]:
+              - /url: https://x.com/search?src=user&q=%E4%B8%96+%E7%95%8C+%E6%9D%AF+%E5%93%AA+%E9%87%8C+%E8%83%BD+%E4%B9%B0%EF%B9%9D%E5%A4%8D%E5%88%B6%E7%BD%91%E5%9D%80%EF%BC%9A%F0%9D%90%B2%F0%9D%90%9B%F0%9D%9F%97%F0%9D%9F%8E%F0%9D%9F%97%F0%9D%9F%8E.%F0%9D%90%9C%F0%9D%90%9C%EF%B9%9E.bdd
+              - heading "Results for \"世界杯哪里能买﹝复制网址：𝐲𝐛𝟗𝟎𝟗𝟎.𝐜𝐜﹞.bdd\"" [level=3] [ref=e169]
+              - generic [ref=e174]:
+                - generic [ref=e176]: X
+                - generic [ref=e178]: https://x.com › Search
+            - button "关于这条结果的详细信息" [ref=e179] [cursor=pointer]:
+              - img [ref=e182]
+          - generic [ref=e185]:
+            - generic [ref=e186]: 17小时前 —
+            - generic [ref=e187]:
+              - text: HyperLiquid已经可以为2026
+              - emphasis [ref=e188]: 世界杯
+              - text: 下注了，操作如图，在交易页面，选择交易项目，点击预测大类，找到2026 world cup ， 然后在图二红圈的地方可以选择国家。购买就可以了。
+        - generic [ref=e192]:
+          - generic [ref=e195]:
+            - link "2026高口碑白酒品牌盘点：6款纯粮好酒，覆盖口粮宴请送礼 ... 什么值得买 https://post.smzdm.com › ..." [ref=e197] [cursor=pointer]:
+              - /url: https://post.smzdm.com/p/aqr5wrp7
+              - heading "2026高口碑白酒品牌盘点：6款纯粮好酒，覆盖口粮宴请送礼 ..." [level=3] [ref=e198]
+              - generic [ref=e203]:
+                - generic [ref=e205]: 什么值得买
+                - generic [ref=e207]: https://post.smzdm.com › ...
+            - button "关于这条结果的详细信息" [ref=e208] [cursor=pointer]:
+              - img [ref=e211]
+          - generic [ref=e214]:
+            - generic [ref=e215]: 21小时前 —
+            - generic [ref=e216]:
+              - text: 以石荣霄真粮品鉴（35-40元）、今良造、潭酒这类中端务实酒水为例，省去多余
+              - emphasis [ref=e217]: 营销
+              - text: 溢价，把成本投入酒体酿造，口感对标中端名酒，价格更加亲民，日常饮用划算很多。 3、新手喝酱香 ...
+        - generic [ref=e221]:
+          - generic [ref=e224]:
+            - link "01彩票下载手机版V4.8.9官方版 5tu.cn https://pic.5tu.cn › photo › huihua-95215" [ref=e226] [cursor=pointer]:
+              - /url: https://pic.5tu.cn/photo/201308/huihua-95215.html
+              - heading "01彩票下载手机版V4.8.9官方版" [level=3] [ref=e227]
+              - generic [ref=e232]:
+                - generic [ref=e234]: 5tu.cn
+                - generic [ref=e236]: https://pic.5tu.cn › photo › huihua-95215
+            - button "关于这条结果的详细信息" [ref=e237] [cursor=pointer]:
+              - img [ref=e240]
+          - generic [ref=e243]:
+            - generic [ref=e244]: 21小时前 —
+            - text: 软件授权：免费软件 · 软件大小：12MB · 软件评分： · 软件类型：国产软件 · 更新时间：2026/06/07 · 应用平台：WinAll · 软件语言：简体中文 · 版 本：V2.1.9官方版.
+        - generic [ref=e248]:
+          - generic [ref=e251]:
+            - link "2026高性价比百元口粮酒选购指南_白酒 什么值得买 https://post.smzdm.com › ..." [ref=e253] [cursor=pointer]:
+              - /url: https://post.smzdm.com/p/anvpz2lp
+              - heading "2026高性价比百元口粮酒选购指南_白酒" [level=3] [ref=e254]
+              - generic [ref=e259]:
+                - generic [ref=e261]: 什么值得买
+                - generic [ref=e263]: https://post.smzdm.com › ...
+            - button "关于这条结果的详细信息" [ref=e264] [cursor=pointer]:
+              - img [ref=e267]
+          - generic [ref=e270]:
+            - generic [ref=e271]:
+              - generic [ref=e272]: 8小时前
+              - text: —
+            - generic [ref=e273]:
+              - text: 对于普通消费者而言，无需被
+              - emphasis [ref=e274]: 营销
+              - text: 噱头、包装溢价、虚假宣传迷惑，只需坚守纯粮固态底线，按场景匹配需求，选择大厂嫡系与正规渠道，就能在百元预算内，找到好喝、舒适、放心、高 ...
+        - generic [ref=e278]:
+          - generic [ref=e281]:
+            - 'link "Results for \"一比一赛琳高仿包{微信10086082}.du\" X https://x.com › Search" [ref=e283] [cursor=pointer]':
+              - /url: https://x.com/search?q=%E4%B8%80%E6%AF%94%E4%B8%80%E8%B5%9B%E7%90%B3%E9%AB%98%E4%BB%BF%E5%8C%85%7B%E5%BE%AE%E4%BF%A1%EF%BC%91%EF%BC%90%EF%BC%90%EF%BC%98%EF%BC%96%EF%BC%90%EF%BC%98%EF%BC%92%7D.du
+              - 'heading "Results for \"一比一赛琳高仿包{微信10086082}.du\"" [level=3] [ref=e284]'
+              - generic [ref=e289]:
+                - generic [ref=e291]: X
+                - generic [ref=e293]: https://x.com › Search
+            - button "关于这条结果的详细信息" [ref=e294] [cursor=pointer]:
+              - img [ref=e297]
+          - generic [ref=e300]:
+            - generic [ref=e301]: 14小时前 —
+            - generic [ref=e302]:
+              - text: 打开Telegram 就甩了三句话过去：帮我找100 到1000 粉的Web3 女生，要真人头像，DM 邀请参加
+              - emphasis [ref=e303]: 世界杯
+              - text: 活动，记得说有钱拿。 它回了俩字：开搞。 ... 一上来就撞墙。 @X 搜索对小号是 ...
+        - generic [ref=e307]:
+          - generic [ref=e310]:
+            - link "437com官网V3.0.6官方版 xiaoyusss.com https://xiaoyusss.com › ..." [ref=e312] [cursor=pointer]:
+              - /url: https://xiaoyusss.com/b/20260608/9r0lbw.html
+              - heading "437com官网V3.0.6官方版" [level=3] [ref=e313]
+              - generic [ref=e315]:
+                - img [ref=e319]
+                - generic [ref=e321]:
+                  - generic [ref=e323]: xiaoyusss.com
+                  - generic [ref=e325]: https://xiaoyusss.com › ...
+            - button "关于这条结果的详细信息" [ref=e326] [cursor=pointer]:
+              - img [ref=e329]
+          - generic [ref=e332]:
+            - generic [ref=e333]: 13小时前 —
+            - text: 437com官网是一款非常精彩的怕苦闯关游戏，在游戏中我们将进行冒险体验，摆脱游戏中的束缚，利用各种华丽的操作还有灵活的身姿去进行刺激的逃亡之旅，炫酷的跑酷动作， ...
+        - generic [ref=e337]:
+          - generic [ref=e340]:
+            - link "全网片源2025最新V.43.52.82.5-安卓版 zojvnoi.com http://zojvnoi.com › world › android" [ref=e342] [cursor=pointer]:
+              - /url: http://zojvnoi.com/world/android/ZS6aX2y34rYauSmiYOAMTsxQbD.html
+              - heading "全网片源2025最新V.43.52.82.5-安卓版" [level=3] [ref=e343]
+              - generic [ref=e345]:
+                - img [ref=e349]
+                - generic [ref=e351]:
+                  - generic [ref=e353]: zojvnoi.com
+                  - generic [ref=e355]: http://zojvnoi.com › world › android
+            - button "关于这条结果的详细信息" [ref=e356] [cursor=pointer]:
+              - img [ref=e359]
+          - generic [ref=e362]:
+            - generic [ref=e363]:
+              - generic [ref=e364]: 5小时前
+              - text: —
+            - text: 接入全网片源非常简单，只需在游戏APP内点击客服入口，或通过官网在线聊天窗口，即可连接专业客服人员。支持文字、语音多种沟通形式，玩家可以根据喜好选择。无论是新手咨询 ...
+        - generic [ref=e368]:
+          - generic [ref=e371]:
+            - link "开元596棋app·(中国)官方网站 xiaoyusss.com https://xiaoyusss.com › ..." [ref=e373] [cursor=pointer]:
+              - /url: https://xiaoyusss.com/n/20260608/v598yt.html
+              - heading "开元596棋app·(中国)官方网站" [level=3] [ref=e374]
+              - generic [ref=e376]:
+                - img [ref=e380]
+                - generic [ref=e382]:
+                  - generic [ref=e384]: xiaoyusss.com
+                  - generic [ref=e386]: https://xiaoyusss.com › ...
+            - button "关于这条结果的详细信息" [ref=e387] [cursor=pointer]:
+              - img [ref=e390]
+          - generic [ref=e393]:
+            - generic [ref=e394]: 9小时前 —
+            - text: 开元596棋app是一款大师级的经典街机游戏！操作简单易掌握，玩法简单但乐趣无限，完美地保留了街机的乐趣和怀旧。 地球的希望就在你的手中。独自驾驶雷霆战机， ...
+        - generic [ref=e398]:
+          - generic [ref=e401]:
+            - link "Results for \"网上买世界杯﹝复制网址：𝐲𝐛𝟗𝟎𝟗𝟎.𝐜𝐜﹞.lhs\" X https://x.com › Search" [ref=e403] [cursor=pointer]:
+              - /url: https://x.com/search?q=%E7%BD%91+%E4%B8%8A+%E4%B9%B0+%E4%B8%96+%E7%95%8C+%E6%9D%AF%EF%B9%9D%E5%A4%8D%E5%88%B6%E7%BD%91%E5%9D%80%EF%BC%9A%F0%9D%90%B2%F0%9D%90%9B%F0%9D%9F%97%F0%9D%9F%8E%F0%9D%9F%97%F0%9D%9F%8E.%F0%9D%90%9C%F0%9D%90%9C%EF%B9%9E.lhs&lang=bg
+              - heading "Results for \"网上买世界杯﹝复制网址：𝐲𝐛𝟗𝟎𝟗𝟎.𝐜𝐜﹞.lhs\"" [level=3] [ref=e404]
+              - generic [ref=e409]:
+                - generic [ref=e411]: X
+                - generic [ref=e413]: https://x.com › Search
+            - button "关于这条结果的详细信息" [ref=e414] [cursor=pointer]:
+              - img [ref=e417]
+          - generic [ref=e420]:
+            - generic [ref=e421]: 24小时前 —
+            - generic [ref=e422]:
+              - text: 在赛场之外，各类
+              - emphasis [ref=e423]: 世界杯
+              - text: 周边产品正迎来销售旺季，其中富有创意的设计款式备受买家 ... 微信小程序中免国际
+              - emphasis [ref=e424]: 剑南春
+              - text: 499一瓶750ml 送礼宴请性价比非常高了 高端大气上 ...
+      - navigation [ref=e427]:
+        - heading "网页导航" [level=1] [ref=e428]
+        - text: "1"
+        - link "Page 2" [ref=e431] [cursor=pointer]:
+          - /url: /search?q=%E5%89%91%E5%8D%97%E6%98%A5+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n45WfzvmKkErc9f1PhX4sDB6ysuDg:1780920483007&ei=o7AmavIW79iQ8g_vgJywAg&start=10&sa=N&sstk=AU9db-CJiGY9SkHdNYwEMV-OD055ncsdu8OY_f8zmhDwIrRC7Ous8q0ftawnLJOwJpMrOLaiNjFMMwZCuMxq8iGufqreQCUwGoMAKg&ved=2ahUKEwiy9IzmzfeUAxVvLEQIHW8AByYQ8tMDegQIJBAE
+          - text: "2"
+        - heading "下一页" [level=2] [ref=e433]:
+          - link "下一页" [ref=e434] [cursor=pointer]:
+            - /url: /search?q=%E5%89%91%E5%8D%97%E6%98%A5+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n45WfzvmKkErc9f1PhX4sDB6ysuDg:1780920483007&ei=o7AmavIW79iQ8g_vgJywAg&start=10&sa=N&sstk=AU9db-CJiGY9SkHdNYwEMV-OD055ncsdu8OY_f8zmhDwIrRC7Ous8q0ftawnLJOwJpMrOLaiNjFMMwZCuMxq8iGufqreQCUwGoMAKg&ved=2ahUKEwiy9IzmzfeUAxVvLEQIHW8AByYQ8NMDegQIJBAG
+            - generic [ref=e436]: 下一页
+      - navigation
+    - contentinfo [ref=e437]:
+      - heading "页脚链接" [level=1] [ref=e438]
+      - generic [ref=e442]:
+        - generic [ref=e445]:
+          - generic [ref=e446]: 是个性化搜索结果
+          - generic [ref=e447]: "-"
+          - link "尝试不使用个性化功能" [ref=e449] [cursor=pointer]:
+            - /url: https://www.google.com/search?q=%E5%89%91%E5%8D%97%E6%98%A5+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80&tbs=qdr:d&hl=zh-CN&peek_pws=0&sxsrf=ANbL-n45WfzvmKkErc9f1PhX4sDB6ysuDg:1780920483007
+            - generic [ref=e450]: 尝试不使用个性化功能
+        - generic [ref=e454]:
+          - button "加利福尼亚 - 根据您的活动记录" [ref=e456] [cursor=pointer]:
+            - generic [ref=e457]: 加利福尼亚
+            - generic [ref=e459]:
+              - text: "-"
+              - generic [ref=e460]: 根据您的活动记录
+          - text: "-"
+          - button "更新位置信息" [ref=e462] [cursor=pointer]: 更新位置信息
+        - generic [ref=e465]:
+          - link "帮助" [ref=e466] [cursor=pointer]:
+            - /url: https://support.google.com/websearch/?p=ws_results_help&hl=zh-CN&fg=1
+          - link "发送反馈" [ref=e467] [cursor=pointer]:
+            - /url: "#"
+          - link "隐私权" [ref=e468] [cursor=pointer]:
+            - /url: https://policies.google.com/privacy?hl=zh-CN&fg=1
+          - link "条款" [ref=e469] [cursor=pointer]:
+            - /url: https://policies.google.com/terms?hl=zh-CN&fg=1

@@ -1,0 +1,347 @@
+- generic [active] [ref=e1]:
+  - generic:
+    - generic:
+      - link "跳到主要内容" [ref=e2] [cursor=pointer]
+      - link "无障碍功能帮助" [ref=e3] [cursor=pointer]:
+        - /url: https://support.google.com/websearch/answer/181196?hl=zh-CN
+  - generic [ref=e8]:
+    - search [ref=e9]:
+      - generic [ref=e11]:
+        - link "Google 首页" [ref=e13] [cursor=pointer]:
+          - /url: https://www.google.com/webhp?hl=zh-CN&sa=X&ved=0ahUKEwir7rvdzfeUAxVmJkQIHW67JLwQPAgI
+          - img [ref=e14]
+        - generic [ref=e21]:
+          - generic [ref=e22]:
+            - combobox "搜索" [ref=e25]: 蒙牛 世界杯 营销 2026 蒙牛 世界杯 营销 2026
+            - generic [ref=e26]:
+              - button "清除" [ref=e28] [cursor=pointer]:
+                - img [ref=e30]
+              - generic [ref=e33]:
+                - button "按语音搜索" [ref=e34] [cursor=pointer]:
+                  - img [ref=e35]
+                - button "按图搜索" [ref=e37] [cursor=pointer]:
+                  - img [ref=e38]
+          - button "搜索" [ref=e40] [cursor=pointer]:
+            - img [ref=e43]
+    - generic [ref=e46]:
+      - button "Google 应用" [ref=e48] [cursor=pointer]:
+        - img [ref=e49]
+      - button "Google 账号： 谷如洋 (guruyang77@gmail.com)" [ref=e53] [cursor=pointer]:
+        - img [ref=e54]
+  - generic [ref=e56]:
+    - navigation [ref=e62]:
+      - generic [ref=e68]:
+        - list [ref=e69]:
+          - listitem [ref=e70]:
+            - link "AI 模式" [ref=e73] [cursor=pointer]:
+              - /url: /search?q=%E8%92%99%E7%89%9B+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4NcKNTbkXVEfJUxgygQ537h2LFTQ:1780920464902&udm=50&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVNvV7jKtLqzLZ63dd2zPtrmgI7Q-S_UNmpLgK_HfmL3GuaXDG2rjNRLSVhAS-_RRmXibRvr6c7UM2oUTr6WIkC9puZRL4wC3n4Dqxn1bJ-MFHmIkt5c-P6qzuoIn5n1S-nVWrgRyyN2cQ7VCs0brEEpo_5aEhJ_ZE-DXjIvnEaLNSFxD1ptY20QiVF4Yt2--Ofoa94g&aep=1&ntc=1&sa=X&ved=2ahUKEwir7rvdzfeUAxVmJkQIHW67JLwQ2J8OegQIDxAD
+              - generic [ref=e76]: AI 模式
+          - listitem [ref=e77]:
+            - link "全部" [disabled] [ref=e78]:
+              - generic [ref=e80]: 全部
+          - listitem [ref=e81]:
+            - link "图片" [ref=e82] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4NcKNTbkXVEfJUxgygQ537h2LFTQ:1780920464902&udm=2&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVNvV7jKtLqzLZ63dd2zPtrmgI7Q-S_UNmpLgK_HfmL3GuaXDG2rjNRLSVhAS-_RRmXibRvr6c7UM2oUTr6WIkC9puZRL4wC3n4Dqxn1bJ-MFHmIkt5c-P6qzuoIn5n1S-nVWrgRyyN2cQ7VCs0brEEpo_5aEhJ_ZE-DXjIvnEaLNSFxD1ptY20QiVF4Yt2--Ofoa94g&q=%E8%92%99%E7%89%9B+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sa=X&ved=2ahUKEwir7rvdzfeUAxVmJkQIHW67JLwQtKgLegQIFRAB
+              - generic [ref=e84]: 图片
+          - listitem [ref=e85]:
+            - link "新闻" [ref=e86] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n4NcKNTbkXVEfJUxgygQ537h2LFTQ:1780920464902&q=%E8%92%99%E7%89%9B+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&tbm=nws&source=lnms&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVNvV7jKtLqzLZ63dd2zPtrmgI7Q-S_UNmpLgK_HfmL3GuaXDG2rjNRLSVhAS-_RRmXibRvr6c7UM2oUTr6WIkC9puZRL4wC3n4Dqxn1bJ-MFHmIkt5c-P6qzuoIn5n1S-nVWrgRyyN2cQ7VCs0brEEpo_5aEhJ_ZE-DXjIvnEaLNSFxD1ptY20QiVF4Yt2--Ofoa94g&sa=X&ved=2ahUKEwir7rvdzfeUAxVmJkQIHW67JLwQ0pQJegQIExAB
+              - generic [ref=e88]: 新闻
+          - listitem [ref=e89]:
+            - link "视频" [ref=e90] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4NcKNTbkXVEfJUxgygQ537h2LFTQ:1780920464902&udm=7&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVNvV7jKtLqzLZ63dd2zPtrmgI7Q-S_UNmpLgK_HfmL3GuaXDG2rjNRLSVhAS-_RRmXibRvr6c7UM2oUTr6WIkC9puZRL4wC3n4Dqxn1bJ-MFHmIkt5c-P6qzuoIn5n1S-nVWrgRyyN2cQ7VCs0brEEpo_5aEhJ_ZE-DXjIvnEaLNSFxD1ptY20QiVF4Yt2--Ofoa94g&q=%E8%92%99%E7%89%9B+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sa=X&ved=2ahUKEwir7rvdzfeUAxVmJkQIHW67JLwQtKgLegQIFBAB
+              - generic [ref=e92]: 视频
+          - listitem [ref=e93]:
+            - link "购物" [ref=e94] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4NcKNTbkXVEfJUxgygQ537h2LFTQ:1780920464902&udm=28&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVNvV7jKtLqzLZ63dd2zPtrmgI7Q-S_UNmpLgK_HfmL3GuaXDG2rjNRLSVhAS-_RRmXibRvr6c7UM2oUTr6WIkC9puZRL4wC3n4Dqxn1bJ-MFHmIkt5c-P6qzuoIn5n1S-nVWrgRyyN2cQ7VCs0brEEpo_5aEhJ_ZE-DXjIvnEaLNSFxD1ptY20QiVF4Yt2--Ofoa94g&q=%E8%92%99%E7%89%9B+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&ved=1t:220175&ictx=111
+              - generic [ref=e96]: 购物
+          - listitem [ref=e97]:
+            - link "短视频" [ref=e98] [cursor=pointer]:
+              - /url: /search?sca_esv=2715e2732bdd0b5b&hl=zh-CN&sxsrf=ANbL-n4NcKNTbkXVEfJUxgygQ537h2LFTQ:1780920464902&udm=39&fbs=ADc_l-Z6XGGbkKmpylZqg2J7ZOuVNvV7jKtLqzLZ63dd2zPtrmgI7Q-S_UNmpLgK_HfmL3GuaXDG2rjNRLSVhAS-_RRmXibRvr6c7UM2oUTr6WIkC9puZRL4wC3n4Dqxn1bJ-MFHmIkt5c-P6qzuoIn5n1S-nVWrgRyyN2cQ7VCs0brEEpo_5aEhJ_ZE-DXjIvnEaLNSFxD1ptY20QiVF4Yt2--Ofoa94g&q=%E8%92%99%E7%89%9B+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sa=X&ved=2ahUKEwir7rvdzfeUAxVmJkQIHW67JLwQs6gLegQIEhAB
+              - generic [ref=e100]: 短视频
+          - listitem [ref=e101]:
+            - button "更多过滤条件" [ref=e102] [cursor=pointer]:
+              - generic "更多过滤条件" [ref=e103]:
+                - generic [ref=e104]:
+                  - generic [ref=e105]: 更多
+                  - img [ref=e107]
+        - button "工具" [ref=e110] [cursor=pointer]:
+          - generic [ref=e112]:
+            - generic [ref=e113]: 工具
+            - img [ref=e115]
+    - heading "搜索结果" [level=1] [ref=e117]
+    - main [ref=e123]:
+      - generic [ref=e127]:
+        - generic [ref=e130]:
+          - heading "网页搜索结果" [level=2] [ref=e131]
+          - generic [ref=e132]:
+            - generic [ref=e135]:
+              - link "深耕十二载布局世界杯蒙牛开启体育营销转化新模式 China Daily https://ex.chinadaily.com.cn › rss › columns › stories" [ref=e137] [cursor=pointer]:
+                - /url: https://ex.chinadaily.com.cn/exchange/partners/82/rss/channel/cn/columns/sz8srm/stories/WS6a267d01a310942cc49b0902.html
+                - heading "深耕十二载布局世界杯蒙牛开启体育营销转化新模式" [level=3] [ref=e138]
+                - generic [ref=e143]:
+                  - generic [ref=e145]: China Daily
+                  - generic [ref=e147]: https://ex.chinadaily.com.cn › rss › columns › stories
+              - button "关于这条结果的详细信息" [ref=e148] [cursor=pointer]:
+                - img [ref=e151]
+            - generic [ref=e154]:
+              - generic [ref=e155]:
+                - generic [ref=e156]: 5小时前
+                - text: —
+              - generic [ref=e157]:
+                - text: 作为FIFA
+                - emphasis [ref=e158]: 世界杯
+                - text: 全球官方赞助商的
+                - emphasis [ref=e159]: 蒙牛
+                - text: ，于6月2日，以首部
+                - emphasis [ref=e160]: 世界杯
+                - text: 剧情推理短片正式拉开了
+                - emphasis [ref=e161]: 蒙牛2026
+                - text: 年FIFA
+                - emphasis [ref=e162]: 世界杯营销
+                - text: 攻势。 本届
+                - emphasis [ref=e163]: 世界杯
+                - text: ，
+                - emphasis [ref=e164]: 蒙牛
+                - text: 以“无论谁赢球，都来找
+                - emphasis [ref=e165]: 蒙牛
+                - text: ”为主题，开启 ...
+        - generic [ref=e169]:
+          - generic [ref=e172]:
+            - link "FIFA 长期合作伙伴蒙牛：构建全周期球迷互动阵地 - 360娱乐 360娱乐 https://m.yule.360.com › content" [ref=e174] [cursor=pointer]:
+              - /url: https://m.yule.360.com/content/5069667
+              - heading "FIFA 长期合作伙伴蒙牛：构建全周期球迷互动阵地 - 360娱乐" [level=3] [ref=e175]
+              - generic [ref=e180]:
+                - generic [ref=e182]: 360娱乐
+                - generic [ref=e184]: https://m.yule.360.com › content
+            - button "关于这条结果的详细信息" [ref=e185] [cursor=pointer]:
+              - img [ref=e188]
+          - generic [ref=e191]:
+            - generic [ref=e192]:
+              - generic [ref=e193]: 7小时前
+              - text: —
+            - generic [ref=e194]:
+              - text: 进入6月，
+              - emphasis [ref=e195]: 营销
+              - text: 界迎来
+              - emphasis [ref=e196]: 世界杯
+              - text: 时刻。作为FIFA
+              - emphasis [ref=e197]: 世界杯
+              - text: 全球官方赞助商的
+              - emphasis [ref=e198]: 蒙牛
+              - text: ，于6月2日，以首部
+              - emphasis [ref=e199]: 世界杯
+              - text: 剧情推理短片正式拉开了
+              - emphasis [ref=e200]: 蒙牛2026
+              - text: 年FIFA
+              - emphasis [ref=e201]: 世界杯营销
+              - text: 攻势。 本届
+              - emphasis [ref=e202]: 世界杯
+              - text: ，
+              - emphasis [ref=e203]: 蒙牛
+              - text: ...
+        - generic [ref=e207]:
+          - generic [ref=e210]:
+            - link "真果粒借势世界杯的营销逻辑与落地策略- 饮料 什么值得买 https://post.smzdm.com › ..." [ref=e212] [cursor=pointer]:
+              - /url: https://post.smzdm.com/p/agg6qwkd
+              - heading "真果粒借势世界杯的营销逻辑与落地策略- 饮料" [level=3] [ref=e213]
+              - generic [ref=e218]:
+                - generic [ref=e220]: 什么值得买
+                - generic [ref=e222]: https://post.smzdm.com › ...
+            - button "关于这条结果的详细信息" [ref=e223] [cursor=pointer]:
+              - img [ref=e226]
+          - generic [ref=e229]:
+            - generic [ref=e230]: 23小时前 —
+            - generic [ref=e231]:
+              - text: 四家赞助商打广告，目标本就不是只针对国人。像海信、联想、万达、
+              - emphasis [ref=e232]: 蒙牛
+              - text: ，早在去年就花超5亿美元成了
+              - emphasis [ref=e233]: "2026"
+              - text: 美加墨
+              - emphasis [ref=e234]: 世界杯
+              - text: 全球赞助商。它们原计划球赛开场后在转播画面、中场休息 ...
+        - generic [ref=e238]:
+          - generic [ref=e241]:
+            - link "世界杯官赞好物齐聚天猫，超级发布引爆球迷浪潮 新浪新闻_手机新浪网 https://news.sina.com.cn › 文章页 › 商讯" [ref=e243] [cursor=pointer]:
+              - /url: https://news.sina.com.cn/sx/2026-06-08/detail-iniaswmn5425151.shtml
+              - heading "世界杯官赞好物齐聚天猫，超级发布引爆球迷浪潮" [level=3] [ref=e244]
+              - generic [ref=e249]:
+                - generic [ref=e251]: 新浪新闻_手机新浪网
+                - generic [ref=e253]: https://news.sina.com.cn › 文章页 › 商讯
+            - button "关于这条结果的详细信息" [ref=e254] [cursor=pointer]:
+              - img [ref=e257]
+          - generic [ref=e260]:
+            - generic [ref=e261]:
+              - generic [ref=e262]: 2小时前
+              - text: —
+            - generic [ref=e263]:
+              - text: 今年618天猫超级发布以“世界路人杯”为主题，率先开启球迷生态
+              - emphasis [ref=e264]: 营销
+              - text: ，将
+              - emphasis [ref=e265]: 世界杯
+              - text: 变成球迷的社交主场，号召更多泛球迷参与。线上通过发布“FBTI球场人格测试”生成球星卡互动玩法，让 ...
+        - generic [ref=e269]:
+          - generic [ref=e272]:
+            - link "39天狂卷130亿美元！6大栏目解码美加墨『世界杯大生意』 搜狐网 https://m.sohu.com › 搜狐文章页 › 体育大生意" [ref=e274] [cursor=pointer]:
+              - /url: https://m.sohu.com/a/1033882628_138481?scm=10001.325_13-325_13.0.0-0-0-0-0.5_1334
+              - heading "39天狂卷130亿美元！6大栏目解码美加墨『世界杯大生意』" [level=3] [ref=e275]
+              - generic [ref=e280]:
+                - generic [ref=e282]: 搜狐网
+                - generic [ref=e284]: https://m.sohu.com › 搜狐文章页 › 体育大生意
+            - button "关于这条结果的详细信息" [ref=e285] [cursor=pointer]:
+              - img [ref=e288]
+          - generic [ref=e291]:
+            - generic [ref=e292]:
+              - generic [ref=e293]: 1小时前
+              - text: —
+            - generic [ref=e294]:
+              - text: ...
+              - emphasis [ref=e295]: "2026"
+              - text: 年
+              - emphasis [ref=e296]: 世界杯
+              - text: 运动品牌价值榜”. 在本届
+              - emphasis [ref=e297]: 世界杯
+              - text: 期间，体育大生意将推出“运动品牌价值榜”、“
+              - emphasis [ref=e298]: 营销
+              - text: 红绿灯”、“中国力量”、“
+              - emphasis [ref=e299]: 世界杯
+              - text: ，世界墟”以及“大生意在现场”、“
+              - emphasis [ref=e300]: 世界杯
+              - text: 早餐”六 ...
+        - generic [ref=e304]:
+          - generic [ref=e307]:
+            - link "听说2026世界杯不让带硬水瓶，是因为怕球迷砸到球员。 ... Instagram https://www.instagram.com › DZUMEArGNu_" [ref=e309] [cursor=pointer]:
+              - /url: https://www.instagram.com/p/DZUMEArGNu_/
+              - heading "听说2026世界杯不让带硬水瓶，是因为怕球迷砸到球员。 ..." [level=3] [ref=e310]
+              - generic [ref=e315]:
+                - generic [ref=e317]: Instagram
+                - generic [ref=e319]: https://www.instagram.com › DZUMEArGNu_
+            - button "关于这条结果的详细信息" [ref=e320] [cursor=pointer]:
+              - img [ref=e323]
+          - generic [ref=e327]:
+            - text: 与此同时，
+            - emphasis [ref=e328]: 蒙牛
+            - text: 、海信等
+            - emphasis [ref=e329]: 2026世界杯
+            - text: 全球官方赞助商表现得非常“稳”：不慌不忙、按计划推进，并且在五一假期已经率先开启了
+            - emphasis [ref=e330]: 2026世界杯营销
+            - text: ，从线上到线下，掀起全民参与的 ...
+        - generic [ref=e334]:
+          - generic [ref=e337]:
+            - link "世界杯还没开打，谁先赚翻了？答案是咖啡 手机网易网 https://www.163.com › article" [ref=e339] [cursor=pointer]:
+              - /url: https://www.163.com/dy/article/KUT6UEEE055671ME.html
+              - heading "世界杯还没开打，谁先赚翻了？答案是咖啡" [level=3] [ref=e340]
+              - generic [ref=e345]:
+                - generic [ref=e347]: 手机网易网
+                - generic [ref=e349]: https://www.163.com › article
+            - button "关于这条结果的详细信息" [ref=e350] [cursor=pointer]:
+              - img [ref=e353]
+          - generic [ref=e356]:
+            - generic [ref=e357]: 9小时前 —
+            - generic [ref=e358]:
+              - text: 不同于普通品牌
+              - emphasis [ref=e359]: 营销
+              - text: ，瑞幸、库迪分别绑定C罗、梅西的操作，直接撬动了两大阵营球迷的圈层情绪。 这种情绪带动是双向的，球迷是为情怀买单，为品牌带来实打实的销量增量；而品牌 ...
+        - generic [ref=e363]:
+          - generic [ref=e366]:
+            - link "全球最赚钱的世界杯，为什么没人举办了？ 手机网易网 https://m.163.com › sports › article" [ref=e368] [cursor=pointer]:
+              - /url: https://m.163.com/sports/article/KUSRLCEK0556BP66.html
+              - heading "全球最赚钱的世界杯，为什么没人举办了？" [level=3] [ref=e369]
+              - generic [ref=e374]:
+                - generic [ref=e376]: 手机网易网
+                - generic [ref=e378]: https://m.163.com › sports › article
+            - button "关于这条结果的详细信息" [ref=e379] [cursor=pointer]:
+              - img [ref=e382]
+          - generic [ref=e385]:
+            - generic [ref=e386]: 12小时前 —
+            - generic [ref=e387]:
+              - text: 除了卢塞尔球场，
+              - emphasis [ref=e388]: 世界杯
+              - text: 期间约九成的"球迷用品"产自浙江义乌一座小城，万达、海信、
+              - emphasis [ref=e389]: 蒙牛
+              - text: 、vivo四家中国企业砸进13.95亿美元成为顶级赞助商，金额是美国企业的两倍。 中国男足 ...
+        - generic [ref=e393]:
+          - generic [ref=e396]:
+            - link "啤酒行业解不了世界杯的渴 搜狐网 https://m.sohu.com › 搜狐文章页 › 蓝鲸新闻" [ref=e398] [cursor=pointer]:
+              - /url: https://m.sohu.com/a/1033658014_250147?scm=10001.325_13-325_13.0.0-0-0-0-0.5_1334
+              - heading "啤酒行业解不了世界杯的渴" [level=3] [ref=e399]
+              - generic [ref=e404]:
+                - generic [ref=e406]: 搜狐网
+                - generic [ref=e408]: https://m.sohu.com › 搜狐文章页 › 蓝鲸新闻
+            - button "关于这条结果的详细信息" [ref=e409] [cursor=pointer]:
+              - img [ref=e412]
+          - generic [ref=e415]:
+            - generic [ref=e416]:
+              - generic [ref=e417]: 9小时前
+              - text: —
+            - generic [ref=e418]:
+              - emphasis [ref=e419]: "2026"
+              - text: 年美加墨
+              - emphasis [ref=e420]: 世界杯
+              - text: 开赛在即，全球啤酒品牌的赛事
+              - emphasis [ref=e421]: 营销
+              - text: 已全面启动。 作为连续四十年赞助
+              - emphasis [ref=e422]: 世界杯
+              - text: 的老牌玩家，百威再度重拳布局，集结梅西、哈兰德两大球星担任 ...
+        - generic [ref=e426]:
+          - generic [ref=e429]:
+            - link "【時事熱話】四年一度的體壇盛事世界盃足球賽，將於本月 ... Instagram · capital.ceo.entrepreneur 2 次赞" [ref=e431] [cursor=pointer]:
+              - /url: https://www.instagram.com/p/DZT_iqODt52/
+              - heading "【時事熱話】四年一度的體壇盛事世界盃足球賽，將於本月 ..." [level=3] [ref=e432]
+              - generic [ref=e437]:
+                - generic [ref=e439]: Instagram · capital.ceo.entrepreneur
+                - generic [ref=e441]: 2 次赞
+            - button "关于这条结果的详细信息" [ref=e442] [cursor=pointer]:
+              - img [ref=e445]
+          - generic [ref=e449]:
+            - emphasis [ref=e450]: "2026"
+            - text: 年美加墨世界盃揭幕戰將於6月11日開場，據中共官媒報導，國際足聯向央視開出的初始報價2.5億至3億美元，而央視的預算可能僅在6000萬至8000萬美元左右。即便經過多輪拉鋸 ...
+          - link "来自www.instagram.com的“蒙牛 世界杯 营销 2026”" [ref=e453] [cursor=pointer]:
+            - /url: https://www.instagram.com/p/DZT_iqODt52/
+            - img "来自www.instagram.com的“蒙牛 世界杯 营销 2026”" [ref=e455]
+      - navigation [ref=e458]:
+        - heading "网页导航" [level=1] [ref=e459]
+        - text: "1"
+        - link "Page 2" [ref=e462] [cursor=pointer]:
+          - /url: /search?q=%E8%92%99%E7%89%9B+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n4NcKNTbkXVEfJUxgygQ537h2LFTQ:1780920464902&ei=kLAmaqvmNubMkPIP7vaS4Qs&start=10&sa=N&sstk=AU9db-CVfbV1nLL8hmbVYaOoE1hSksoUWqHshUgHvT_JVaG4O8vgeXbczGWqquHMfB2W3V7KSkM5p2NbZOU2sJuLDEox8C9h7Mcnyg&ved=2ahUKEwir7rvdzfeUAxVmJkQIHW67JLwQ8tMDegQIIhAE
+          - text: "2"
+        - link "Page 3" [ref=e464] [cursor=pointer]:
+          - /url: /search?q=%E8%92%99%E7%89%9B+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n4NcKNTbkXVEfJUxgygQ537h2LFTQ:1780920464902&ei=kLAmaqvmNubMkPIP7vaS4Qs&start=20&sa=N&sstk=AU9db-CVfbV1nLL8hmbVYaOoE1hSksoUWqHshUgHvT_JVaG4O8vgeXbczGWqquHMfB2W3V7KSkM5p2NbZOU2sJuLDEox8C9h7Mcnyg&ved=2ahUKEwir7rvdzfeUAxVmJkQIHW67JLwQ8tMDegQIIhAG
+          - text: "3"
+        - link "Page 4" [ref=e466] [cursor=pointer]:
+          - /url: /search?q=%E8%92%99%E7%89%9B+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n4NcKNTbkXVEfJUxgygQ537h2LFTQ:1780920464902&ei=kLAmaqvmNubMkPIP7vaS4Qs&start=30&sa=N&sstk=AU9db-CVfbV1nLL8hmbVYaOoE1hSksoUWqHshUgHvT_JVaG4O8vgeXbczGWqquHMfB2W3V7KSkM5p2NbZOU2sJuLDEox8C9h7Mcnyg&ved=2ahUKEwir7rvdzfeUAxVmJkQIHW67JLwQ8tMDegQIIhAI
+          - text: "4"
+        - link "Page 5" [ref=e468] [cursor=pointer]:
+          - /url: /search?q=%E8%92%99%E7%89%9B+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n4NcKNTbkXVEfJUxgygQ537h2LFTQ:1780920464902&ei=kLAmaqvmNubMkPIP7vaS4Qs&start=40&sa=N&sstk=AU9db-CVfbV1nLL8hmbVYaOoE1hSksoUWqHshUgHvT_JVaG4O8vgeXbczGWqquHMfB2W3V7KSkM5p2NbZOU2sJuLDEox8C9h7Mcnyg&ved=2ahUKEwir7rvdzfeUAxVmJkQIHW67JLwQ8tMDegQIIhAK
+          - text: "5"
+        - heading "下一页" [level=2] [ref=e470]:
+          - link "下一页" [ref=e471] [cursor=pointer]:
+            - /url: /search?q=%E8%92%99%E7%89%9B+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&sca_esv=2715e2732bdd0b5b&hl=zh-CN&tbs=qdr:d&sxsrf=ANbL-n4NcKNTbkXVEfJUxgygQ537h2LFTQ:1780920464902&ei=kLAmaqvmNubMkPIP7vaS4Qs&start=10&sa=N&sstk=AU9db-CVfbV1nLL8hmbVYaOoE1hSksoUWqHshUgHvT_JVaG4O8vgeXbczGWqquHMfB2W3V7KSkM5p2NbZOU2sJuLDEox8C9h7Mcnyg&ved=2ahUKEwir7rvdzfeUAxVmJkQIHW67JLwQ8NMDegQIIhAM
+            - generic [ref=e473]: 下一页
+      - navigation
+    - contentinfo [ref=e474]:
+      - heading "页脚链接" [level=1] [ref=e475]
+      - generic [ref=e479]:
+        - generic [ref=e482]:
+          - generic [ref=e483]: 是个性化搜索结果
+          - generic [ref=e484]: "-"
+          - link "尝试不使用个性化功能" [ref=e486] [cursor=pointer]:
+            - /url: https://www.google.com/search?q=%E8%92%99%E7%89%9B+%E4%B8%96%E7%95%8C%E6%9D%AF+%E8%90%A5%E9%94%80+2026&tbs=qdr:d&hl=zh-CN&peek_pws=0&sxsrf=ANbL-n4NcKNTbkXVEfJUxgygQ537h2LFTQ:1780920464902
+            - generic [ref=e487]: 尝试不使用个性化功能
+        - generic [ref=e491]:
+          - button "加利福尼亚 - 根据您的活动记录" [ref=e493] [cursor=pointer]:
+            - generic [ref=e494]: 加利福尼亚
+            - generic [ref=e496]:
+              - text: "-"
+              - generic [ref=e497]: 根据您的活动记录
+          - text: "-"
+          - button "更新位置信息" [ref=e499] [cursor=pointer]: 更新位置信息
+        - generic [ref=e502]:
+          - link "帮助" [ref=e503] [cursor=pointer]:
+            - /url: https://support.google.com/websearch/?p=ws_results_help&hl=zh-CN&fg=1
+          - link "发送反馈" [ref=e504] [cursor=pointer]:
+            - /url: "#"
+          - link "隐私权" [ref=e505] [cursor=pointer]:
+            - /url: https://policies.google.com/privacy?hl=zh-CN&fg=1
+          - link "条款" [ref=e506] [cursor=pointer]:
+            - /url: https://policies.google.com/terms?hl=zh-CN&fg=1
