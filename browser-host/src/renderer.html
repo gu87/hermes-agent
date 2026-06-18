@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Browser Host (Phase 2C)</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; overflow: hidden; }
+    .toolbar {
+      display: flex; align-items: center; gap: 6px; height: 48px;
+      padding: 0 12px; background: #1a1a2e; border-bottom: 1px solid #333;
+    }
+    .toolbar input {
+      flex: 1; height: 30px; padding: 0 10px;
+      background: #16213e; border: 1px solid #0f3460; border-radius: 6px;
+      color: #e0e0e0; font-size: 13px; outline: none;
+    }
+    .toolbar input:focus { border-color: #e94560; }
+    .toolbar button {
+      height: 30px; padding: 0 12px;
+      background: #0f3460; border: 1px solid #1a5276; border-radius: 6px;
+      color: #e0e0e0; font-size: 12px; cursor: pointer;
+    }
+    .toolbar button:hover { background: #1a5276; }
+    .toolbar .phase { font-size: 10px; color: #e94560; margin-left: 8px; white-space: nowrap; }
+    .status-bar {
+      display: flex; align-items: center; gap: 12px;
+      height: 24px; padding: 0 12px;
+      background: #0f3460; font-size: 11px; color: #888;
+    }
+    .status-bar .url { flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .browser-host-area {
+      /* WebContentsView is positioned here by the main process (y:48, h: calc(100% - 48)) */
+      background: #1a1a2e;
+    }
+  </style>
+</head>
+<body>
+  <div class="toolbar">
+    <button onclick="doBack()" title="Go back">←</button>
+    <button onclick="doForward()" title="Go forward">→</button>
+    <input id="urlInput" type="text" placeholder="Enter URL..." value="https://example.com" />
+    <button onclick="doGo()">Go</button>
+    <span class="phase">Phase 2C</span>
+  </div>
+  <div class="status-bar">
+    <span class="url" id="statusUrl">—</span>
+    <span id="statusLoading">—</span>
+  </div>
+  <script>
+    var api = window.toolbarAPI;
+    if (!api) { document.body.innerText = "Preload not available. Run with Electron."; }
+
+    var input = document.getElementById("urlInput");
+
+    function doGo() {
+      var url = input.value.trim();
+      if (url) {
+        if (!/^https?:\/\//i.test(url)) url = "https://" + url;
+        api.go(url);
+      }
+    }
+
+    function doBack() { api.back(); }
+    function doForward() { api.forward(); }
+
+    input.addEventListener("keydown", function(e) {
+      if (e.key === "Enter") doGo();
+    });
+
+    api.onUrlChanged(function(url) {
+      input.value = url;
+      document.getElementById("statusUrl").textContent = url || "—";
+    });
+
+    api.onLoading(function(loading) {
+      document.getElementById("statusLoading").textContent = loading ? "Loading..." : "Ready";
+    });
+
+    api.getInfo().then(function(info) {
+      if (info.url) {
+        input.value = info.url;
+        document.getElementById("statusUrl").textContent = info.url;
+      }
+    });
+  </script>
+</body>
+</html>

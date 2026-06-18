@@ -1,0 +1,21 @@
+{
+  "name": "hermes-browser-host",
+  "version": "0.2.0",
+  "private": true,
+  "description": "Hermes Browser Workspace — Electron host (Phase 2A skeleton)",
+  "main": "dist/main.js",
+  "scripts": {
+    "typecheck": "tsc --noEmit",
+    "build": "tsc && cp src/renderer.html dist/renderer.html",
+    "dev": "npm run build && electron dist/main.js",
+    "start": "electron dist/main.js",
+    "validate:contract": "node scripts/validate-contract.mjs"
+  },
+  "dependencies": {
+    "electron": "^35.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "~5.8.0"
+  }
+}

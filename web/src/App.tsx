@@ -94,7 +94,12 @@ import { api } from "@/lib/api";
 import type { StatusResponse } from "@/lib/api";
 
 function RootRedirect() {
-  return <Navigate to="/sessions" replace />;
+  return (
+    <Navigate
+      to={isDashboardEmbeddedChatEnabled() ? "/chat" : "/operations"}
+      replace
+    />
+  );
 }
 
 function UnknownRouteFallback({ pluginsLoading }: { pluginsLoading: boolean }) {
@@ -102,7 +107,12 @@ function UnknownRouteFallback({ pluginsLoading }: { pluginsLoading: boolean }) {
     // Render nothing during the plugin-load window — a spinner here would just flash.
     return null;
   }
-  return <Navigate to="/sessions" replace />;
+  return (
+    <Navigate
+      to={isDashboardEmbeddedChatEnabled() ? "/chat" : "/sessions"}
+      replace
+    />
+  );
 }
 
 const CHAT_NAV_ITEM: NavItem = {
@@ -111,6 +121,19 @@ const CHAT_NAV_ITEM: NavItem = {
   label: "Chat",
   icon: Terminal,
 };
+
+/** Backend-dashboard entries hidden from sidebar when embedded chat is on.
+ *  Routes remain reachable by URL — only the nav links are removed so the
+ *  sidebar reads like a Codex.app chat shell. */
+const HIDDEN_IN_CHAT_MODE_PATHS: ReadonlySet<string> = new Set([
+  "/operations",
+  "/sessions",
+  "/analytics",
+  "/models",
+  "/delegations",
+  "/runs",
+  "/logs",
+]);
 
 /**
  * Built-in routes except /chat.  Chat is rendered persistently (outside
@@ -414,12 +437,17 @@ export default function App() {
   );
 
   const builtinNav = useMemo(() => {
+    // When embedded chat is on, filter out backend-dashboard entries
+    // so the sidebar nav reads like a Codex.app chat shell:
+    // Chat · Skills · Agents · Cron · Config · Keys · Docs.
     const base = embeddedChat
       ? [CHAT_NAV_ITEM, ...BUILTIN_NAV_REST]
       : BUILTIN_NAV_REST;
-    return showTokenAnalytics
-      ? base
-      : base.filter((n) => n.path !== "/analytics");
+    const nav = showTokenAnalytics ? base : base.filter((n) => n.path !== "/analytics");
+    if (embeddedChat) {
+      return nav.filter((n) => !HIDDEN_IN_CHAT_MODE_PATHS.has(n.path));
+    }
+    return nav;
   }, [embeddedChat, showTokenAnalytics]);
 
   const sidebarNav = useMemo(
@@ -882,7 +910,7 @@ function SidebarSystemActions({
   const handleClick = (action: SystemAction) => {
     if (isBusy) return;
     void runAction(action);
-    navigate("/sessions");
+    navigate(isDashboardEmbeddedChatEnabled() ? "/chat" : "/sessions");
     onNavigate();
   };
 

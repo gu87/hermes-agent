@@ -109,6 +109,16 @@ function terminalLineHeightForWidth(layoutWidthPx: number): number {
   return layoutWidthPx < 1024 ? 1.02 : 1.15;
 }
 
+/** Phase 4B: lightweight metadata only — no full DOM/selection/clipboard stored. */
+export interface BrowserContextRef {
+  id: string;
+  capturedAt: string;
+  url: string;
+  title: string;
+  pageType: string;
+  source: string;
+}
+
 export default function ChatPage({ isActive = true }: { isActive?: boolean }) {
   const hostRef = useRef<HTMLDivElement | null>(null);
   const termRef = useRef<Terminal | null>(null);
@@ -133,6 +143,8 @@ export default function ChatPage({ isActive = true }: { isActive?: boolean }) {
   );
   const [copyState, setCopyState] = useState<"idle" | "copied">("idle");
   const copyResetRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  // Phase 4B: lightweight browser context ref set by browser-workspace plugin
+  const lastBrowserContextRef = useRef<BrowserContextRef | null>(null);
   // Raw state for the mobile side-sheet + a derived value that force-
   // closes whenever the chat tab isn't active.  The *derived* value is
   // what side-effects (body-scroll lock, keydown listener, portal render)
@@ -682,10 +694,26 @@ export default function ChatPage({ isActive = true }: { isActive?: boolean }) {
       });
     })();
 
+    // Expose insertion API for browser workspace plugin (Phase 4A).
+    // Uses term.paste() so text flows through the same bracketed-paste
+    // path as user clipboard paste, landing in the TUI composer.
+    window.__HERMES_INSERT_CHAT_TEXT__ = (text: string) => {
+      const t = termRef.current;
+      if (t) t.paste(text);
+    };
+
+    // Phase 4B: accept lightweight browser context ref from plugin.
+    // Only metadata (id, url, title, capturedAt) is stored — no DOM/selection/clipboard.
+    window.__HERMES_SET_BROWSER_CONTEXT_REF__ = (ref: BrowserContextRef) => {
+      lastBrowserContextRef.current = ref;
+    };
+
     term.focus();
 
     return () => {
       unmounting = true;
+      delete window.__HERMES_INSERT_CHAT_TEXT__;
+      delete window.__HERMES_SET_BROWSER_CONTEXT_REF__;
       syncMetricsRef.current = null;
       onDataDisposable?.dispose();
       onResizeDisposable?.dispose();
@@ -933,5 +961,9 @@ declare global {
   interface Window {
     __HERMES_SESSION_TOKEN__?: string;
     __HERMES_AUTH_REQUIRED__?: boolean;
+    /** Phase 4A: Insert text into the chat PTY composer via xterm.paste(). */
+    __HERMES_INSERT_CHAT_TEXT__?: (text: string) => void;
+    /** Phase 4B: Accept lightweight browser context ref (metadata only). */
+    __HERMES_SET_BROWSER_CONTEXT_REF__?: (ref: BrowserContextRef) => void;
   }
 }

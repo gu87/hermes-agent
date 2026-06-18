@@ -355,6 +355,41 @@ def test_kanban_autocomplete_includes_live_subcommands():
     assert "reassign" in texts
 
 
+def test_dispatch_records_diff_event_for_spawned_task(kanban_home, monkeypatch):
+    from hermes_cli import profiles
+
+    monkeypatch.setattr(profiles, "profile_exists", lambda _profile: True)
+    monkeypatch.setattr(kb, "_default_spawn", lambda _task, _workspace, **_kw: 12345)
+
+    with kb.connect() as conn:
+        tid = kb.create_task(conn, title="diff me", assignee="worker")
+
+    out = kc.run_slash("dispatch")
+    assert "Spawned" in out
+
+    with kb.connect() as conn:
+        events = kb.list_events(conn, tid)
+    diff_events = [e for e in events if e.kind == "diff"]
+    assert diff_events
+    payload = diff_events[-1].payload or {}
+    assert "unified_diff" in payload
+    assert isinstance(payload.get("files"), list)
+
+
+def test_review_and_qa_commands_record_result_events(kanban_home, monkeypatch):
+    monkeypatch.setenv("PATH", "")
+    with kb.connect() as conn:
+        tid = kb.create_task(conn, title="review me")
+
+    assert "Review complete" in kc.run_slash(f"review {tid}")
+    assert "QA complete" in kc.run_slash(f"qa {tid}")
+
+    with kb.connect() as conn:
+        kinds = [e.kind for e in kb.list_events(conn, tid)]
+    assert "review_result" in kinds
+    assert "qa_result" in kinds
+
+
 def test_kanban_not_gateway_only():
     # kanban is available in BOTH CLI and gateway surfaces.
     from hermes_cli.commands import COMMAND_REGISTRY
